@@ -1,0 +1,751 @@
+import { useState, useMemo, useEffect } from 'react';
+import ReactECharts from 'echarts-for-react';
+import ColorText from '../components/ColorText';
+import { loadReportData } from '../data/loader';
+import {
+  COLOR_UP, COLOR_DOWN, COLOR_FLAT, COLOR_TEXT,
+} from '../utils/format';
+import type { ReportData } from '../data/loader';
+import type { HistoryPoint } from '../types';
+import { useLive } from '../App';
+
+// 前 2 个曲线图:7/15/30 日(去掉 60/90)
+// 涨跌停家数:7/15 日(原限制)
+const RANGE_OPTIONS_3 = [
+  { label: '7日', value: 7 },
+  { label: '15日', value: 15 },
+  { label: '30日', value: 30 },
+];
+const RANGE_OPTIONS_LIMIT = [
+  { label: '7日', value: 7 },
+  { label: '15日', value: 15 },
+];
+
+// 28 个申万一级行业(用户 #1 反馈:方案 C 热力图)
+// ths 90 个细分类 → sw 28 一级分类映射(基于 ths name 关键词)
+function classifySW28(thsName: string): string | null {
+  if (thsName.includes('煤炭')) return '煤炭';
+  if (thsName.includes('石油') || thsName.includes('石化')) return '石油石化';
+  if (thsName.includes('钢铁')) return '钢铁';
+  if (thsName.includes('贵金属') || thsName.includes('小金属') || thsName.includes('工业金属') || thsName.includes('能源金属')) return '有色金属';
+  if (thsName.includes('元件') || thsName.includes('半导体') || thsName.includes('光学') || thsName.includes('消费电子') || thsName.includes('其他电子')) return '电子';
+  if (thsName.includes('通信设备') || thsName.includes('通信服务')) return '通信';
+  if (thsName.includes('计算机') || thsName.includes('IT服务') || thsName.includes('软件')) return '计算机';
+  if (thsName.includes('银行')) return '银行';
+  if (thsName.includes('保险') || thsName.includes('证券') || thsName.includes('多元金融')) return '非银金融';
+  if (thsName.includes('房地产')) return '房地产';
+  if (thsName.includes('汽车')) return '汽车';
+  if (thsName.includes('医药') || thsName.includes('中药') || thsName.includes('化学制药') || thsName.includes('生物') || thsName.includes('医疗器械') || thsName.includes('医疗服务')) return '医药生物';
+  if (thsName.includes('白酒') || thsName.includes('酒') || thsName.includes('饮料') || thsName.includes('食品') || thsName.includes('乳品')) return '食品饮料';
+  if (thsName.includes('家电') || thsName.includes('家居') || thsName.includes('厨卫')) return '家用电器';
+  if (thsName.includes('建材') || thsName.includes('水泥')) return '建筑材料';
+  if (thsName.includes('建筑') || thsName.includes('装饰') || thsName.includes('工程')) return '建筑装饰';
+  if (thsName.includes('化工') || thsName.includes('化学') || thsName.includes('农化')) return '基础化工';
+  if (thsName.includes('农林') || thsName.includes('种植') || thsName.includes('林业') || thsName.includes('渔业') || thsName.includes('养殖') || thsName.includes('农产品')) return '农林牧渔';
+  if (thsName.includes('服装') || thsName.includes('纺织')) return '纺织服饰';
+  if (thsName.includes('造纸') || thsName.includes('包装') || thsName.includes('印刷')) return '轻工制造';
+  if (thsName.includes('环保') || thsName.includes('水务') || thsName.includes('环境')) return '环保';
+  if (thsName.includes('电力') || thsName.includes('燃气') || thsName.includes('电网') || thsName.includes('电池') || thsName.includes('光伏') || thsName.includes('风电')) return '公用事业';
+  if (thsName.includes('航空') || thsName.includes('机场') || thsName.includes('港口') || thsName.includes('航运') || thsName.includes('物流') || thsName.includes('铁路') || thsName.includes('公路') || thsName.includes('交通运输')) return '交通运输';
+  if (thsName.includes('零售') || thsName.includes('贸易') || thsName.includes('商业')) return '商贸零售';
+  if (thsName.includes('旅游') || thsName.includes('酒店') || thsName.includes('餐饮') || thsName.includes('教育') || thsName.includes('传媒') || thsName.includes('体育') || thsName.includes('游戏') || thsName.includes('影视') || thsName.includes('互联网')) return '社会服务';
+  if (thsName.includes('机械') || thsName.includes('设备') || thsName.includes('电机') || thsName.includes('自动化') || thsName.includes('专用') || thsName.includes('通用')) return '机械设备';
+  if (thsName.includes('军工') || thsName.includes('国防')) return '国防军工';
+  if (thsName.includes('美容') || thsName.includes('护理')) return '美容护理';
+  if (thsName.includes('综合')) return '综合';
+  if (thsName.includes('橡胶') || thsName.includes('塑料')) return '基础化工';
+  if (thsName.includes('油气')) return '石油石化';
+  if (thsName.includes('厨卫')) return '家用电器';
+  if (thsName.includes('其他社会服务')) return '社会服务';
+  return null;
+}
+
+// 用户 #6 反馈:box-shadow 改 0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)
+// 用户 #18 反馈:白色卡片圆角 14px
+const CARD_SHADOW = '0 1px 3px rgba(0, 0, 0, 0.04), 0 0 30px 5px rgba(0, 0, 0, 0.02)';
+
+// 响应式:前 2 个图表卡 width 100% 自适应,不溢出
+const overviewStyle = `
+  /* 间距 16px(原 12px + 4px) */
+  .overview-stats-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; }
+  .overview-indices-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
+  /* 用户 #1 反馈:前 2 个图表卡 width 100% 自适应,不能溢出 — 关键:容器用 minmax(0, 1fr) 防溢出 */
+  .overview-charts-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-bottom: 16px; width: 100%; }
+  .overview-chart-card { min-width: 0; overflow: hidden; }
+  .stat-card, .index-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: ${CARD_SHADOW};
+    border: 1px solid #E5E7EB;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+  @media (max-width: 1400px) {
+    .overview-indices-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  }
+  @media (max-width: 1100px) {
+    .overview-stats-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    .overview-charts-row { grid-template-columns: minmax(0, 1fr) !important; }
+  }
+  @media (max-width: 700px) {
+    .overview-stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  }
+`;
+export function OverviewStyles() { return <style>{overviewStyle}</style>; }
+
+function RangeTabs({ value, onChange, options }: { value: number; onChange: (v: number) => void; options: { label: string; value: number }[] }) {
+  return (
+    <div style={{ display: 'inline-flex', background: '#F5F6F8', borderRadius: 6, padding: 2, gap: 2 }}>
+      {options.map((r) => (
+        <button
+          key={r.value}
+          onClick={() => onChange(r.value)}
+          style={{
+            border: 'none',
+            background: value === r.value ? '#fff' : 'transparent',
+            color: value === r.value ? '#111827' : '#86909C',
+            fontWeight: value === r.value ? 600 : 400,
+            fontSize: 12,
+            padding: '4px 10px',
+            borderRadius: 4,
+            cursor: 'pointer',
+            boxShadow: value === r.value ? '0 1px 2px rgba(0,0,0,0.06)' : 'none',
+            transition: 'all .15s',
+          }}
+        >
+          {r.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export default function Overview({ data }: { data: ReportData }) {
+  // data 已经是 App.tsx 合并 live 后的 mergedData,直接用
+  const { marketOverview: idx, history } = data;
+
+  // v1.9.9:每 30s 重新拉 data.json,让大盘总览 真正 "实时" 更新(数据静态 + 自动 30s 刷新)
+  useEffect(() => {
+    const tick = () => loadReportData(true).catch(() => null);
+    const t = setInterval(tick, 30_000);
+    return () => clearInterval(t);
+  }, []);
+  const [volRange, setVolRange] = useState(7);
+  const [udRange, setUdRange] = useState(7);
+  const [ldRange, setLdRange] = useState(7);
+
+  // 公共动画:从左到右渐入展开(用户 #3)
+  // 用户 #13 反馈:曲线图动画速度 ×1.5(原 1500ms → 1000ms)
+  const animCfg = {
+    animation: true,
+    animationDuration: 1000,
+    animationDurationUpdate: 333,
+    animationEasing: 'cubicOut' as const,
+    animationEasingUpdate: 'cubicOut' as const,
+    animationDelay: (idx: number) => idx * 20,
+    animationDelayUpdate: 0,
+  };
+
+  // 1. 成交量折线图
+  const volChart = useMemo(() => {
+    const hist = sliceHistory(volRange);
+    const dates = hist.map((h: HistoryPoint) => {
+      const d = new Date(h.date);
+      return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    });
+    const values = hist.map((h: HistoryPoint) => Math.round((h.volume / 10000) * 100) / 100);
+    return {
+      ...animCfg,
+      grid: { top: 30, right: 20, left: 50, bottom: 30, containLabel: false },
+      tooltip: { trigger: 'axis', formatter: (params: any) => {
+        const p = params[0];
+        return `<div style="color:#111827;font-weight:700;font-size:13px;margin-bottom:4px;">${p.name}</div><div style="color:${COLOR_UP};font-weight:700;font-size:13px;">成交: ${p.value}万亿</div>`;
+      } },
+      xAxis: {
+        type: 'category', data: dates,
+        axisLine: { show: false }, axisTick: { show: false },
+        axisLabel: { color: '#86909C', fontSize: 11 },
+        boundaryGap: ['5%', '5%'],
+      },
+      yAxis: {
+        type: 'value', axisLine: { show: false },
+        splitLine: { lineStyle: { color: '#F0F0F0', type: 'dashed' } },
+        axisLabel: { color: '#86909C', fontSize: 11, formatter: '{value}万亿' },
+      },
+      series: [{
+        name: '成交量', type: 'line', data: values,
+        symbol: 'circle', symbolSize: 9,
+        smooth: true,
+        lineStyle: { color: COLOR_UP, width: 3 },
+        itemStyle: { color: COLOR_UP, borderColor: '#fff', borderWidth: 2 },
+        areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(255, 77, 79, 0.18)' }, { offset: 1, color: 'rgba(255, 77, 79, 0.02)' }] } },
+      }],
+    };
+  }, [volRange, history]);
+
+  // 2. 涨跌家数折线图
+  const udChart = useMemo(() => {
+    const hist = sliceHistory(udRange);
+    const dates = hist.map((h: HistoryPoint) => {
+      const d = new Date(h.date);
+      return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    });
+    const upData = hist.map((h: HistoryPoint) => h.up);
+    const downData = hist.map((h: HistoryPoint) => h.down);
+    return {
+      ...animCfg,
+      grid: { top: 40, right: 20, left: 50, bottom: 30 },
+      legend: { show: true, top: 5, right: 10, textStyle: { color: '#4E5969', fontSize: 12 }, itemWidth: 12, itemHeight: 8, itemGap: 16 },
+      tooltip: { trigger: 'axis', formatter: (params: any) => {
+        let html = `<div style="color:#111827;font-weight:700;font-size:13px;margin-bottom:4px;">${params[0].name}</div>`;
+        params.forEach((p: any) => {
+          const c = p.seriesName === '上涨家数' ? COLOR_UP : COLOR_DOWN;
+          html += `<div style="color:${c};font-weight:700;font-size:13px;margin:2px 0;">${p.marker} ${p.seriesName}: ${p.value}</div>`;
+        });
+        return html;
+      } },
+      xAxis: {
+        type: 'category', data: dates,
+        axisLine: { show: false }, axisTick: { show: false },
+        axisLabel: { color: '#86909C', fontSize: 11 },
+        boundaryGap: ['5%', '5%'],
+      },
+      yAxis: { type: 'value', axisLine: { show: false }, splitLine: { lineStyle: { color: '#F0F0F0', type: 'dashed' } }, axisLabel: { color: '#86909C', fontSize: 11 } },
+      series: [
+        { name: '上涨家数', type: 'line', data: upData, symbol: 'circle', symbolSize: 9, smooth: true, lineStyle: { color: COLOR_UP, width: 3 }, itemStyle: { color: COLOR_UP, borderColor: '#fff', borderWidth: 2 } },
+        { name: '下跌家数', type: 'line', data: downData, symbol: 'circle', symbolSize: 9, smooth: true, lineStyle: { color: COLOR_DOWN, width: 3 }, itemStyle: { color: COLOR_DOWN, borderColor: '#fff', borderWidth: 2 } },
+      ],
+    };
+  }, [udRange, history]);
+
+  // 4. 申万一级行业涨跌幅(v2.0.4:照抄用户附件 — treemap 不同面积 + 7 档色)
+  // ths 90 个 → sw 28 一级映射
+  const swList = useMemo(() => {
+    const swGroups: Record<string, { sumPct: number; weight: number; names: string[] }> = {};
+    for (const s of data.sectors) {
+      const sw = classifySW28(s.name);
+      if (!sw) continue;
+      if (!swGroups[sw]) swGroups[sw] = { sumPct: 0, weight: 0, names: [] };
+      const w = s.totalTurnover || 1;
+      swGroups[sw].sumPct += s.changePercent * w;
+      swGroups[sw].weight += w;
+      swGroups[sw].names.push(s.name);
+    }
+    // v2.0.4:全部 28 个 sw 行业,按 weight 排(treemap 自动排面积)
+    return Object.entries(swGroups)
+      .filter(([, v]) => v.weight > 0)
+      .map(([sw, v]) => ({ sw, avgPct: Math.round((v.sumPct / v.weight) * 100) / 100, weight: v.weight, names: v.names }))
+      .sort((a, b) => b.weight - a.weight);
+  }, [data.sectors]);
+
+  // v2.0.6:7 档色(用户指定阈值 + 色值)—— 严格按 sw 行业平均涨跌幅
+  // +5%(含)以上 / +2%~+5% / 0%~+2% / 0%(含) / 0%~-2% / -2%~-5% / -5%(含)以上
+  const colorBy = (pct: number) => {
+    if (pct >= 5) return '#F63638';         // +5%(含)以上 深红
+    if (pct >= 2) return '#BF4044';         // +2% ~ +5% 中红
+    if (pct > 0) return '#8C444F';          // 0% ~ +2% 暗红棕
+    if (pct === 0) return '#424455';        // = 0%(含) 深灰
+    if (pct > -2) return '#36764D';         // 0% ~ -2% 暗绿
+    if (pct > -5) return '#2E9D50';         // -2% ~ -5% 中绿
+    return '#31CC5B';                        // < -5% 亮绿
+  };
+  // 7 档图例数据(从大到小 = 从最正到最负)
+  const heatLegend = [
+    { color: '#F63638', label: '≥ +5%' },
+    { color: '#BF4044', label: '+2% ~ +5%' },
+    { color: '#8C444F', label: '0% ~ +2%' },
+    { color: '#424455', label: '= 0%' },
+    { color: '#36764D', label: '0% ~ -2%' },
+    { color: '#2E9D50', label: '-2% ~ -5%' },
+    { color: '#31CC5B', label: '≤ -5%' },
+  ];
+  const treemapChart = useMemo(() => {
+    return {
+      animation: true,
+      animationDuration: 600,
+      // v2.0.5 修复:不加灰底,白底透 Card 背景
+      tooltip: {
+        backgroundColor: '#fff', borderColor: '#E5E6EB', borderWidth: 1,
+        textStyle: { color: '#111827', fontSize: 12 },
+        formatter: (p: any) => {
+          // 通过 name 找回对应 sw 行业
+          const s = swList.find(x => x.sw === p.name);
+          if (!s) return '';
+          const isUp = s.avgPct > 0, isDown = s.avgPct < 0;
+          const c = isUp ? COLOR_UP : isDown ? COLOR_DOWN : '#999';
+          const sign = isUp ? '+' : '';
+          return `<div style="font-weight:600;color:#111827;font-size:13px;margin-bottom:4px;">${s.sw}</div><div style="font-weight:700;color:${c};font-size:14px;">${sign}${s.avgPct.toFixed(2)}%</div><div style="color:#86909C;font-size:11px;margin-top:2px;">含 ${s.names.join(' / ')}</div>`;
+        },
+      },
+      series: [{
+        type: 'treemap',
+        roam: false,
+        nodeClick: false,
+        breadcrumb: { show: false },
+        width: '100%', height: 360,
+        top: 0, left: 0, right: 0, bottom: 0,
+        // v2.0.5:treemap squarify 自动布局(用户附件:大 cell 左上,小 cell 填右下)
+        squareRatio: 1,
+        leafDepth: 1,
+        // v2.0.5 修复:cell 缝 = 纯白 1-2px(用户附件风格),白底透出
+        levels: [{
+          itemStyle: { borderColor: '#fff', borderWidth: 1, gapWidth: 1 },
+        }],
+        // v2.0.5:label 名 + 涨跌幅两行(用户附件风格),白字 + 阴影
+        label: {
+          show: true,
+          color: '#fff',
+          textShadowColor: 'rgba(0,0,0,0.55)',
+          textShadowBlur: 2,
+          textShadowOffsetY: 1,
+          formatter: (p: any) => {
+            const v = p.data?.avgPct ?? 0;
+            const sign = v > 0 ? '+' : '';
+            return `${p.name}\n${sign}${v.toFixed(2)}%`;
+          },
+        },
+        // v2.0.5:labelLayout 按 cell 面积算字号(用户附件:大 cell 大字,小 cell 小字)
+        labelLayout: (params: any) => {
+          const rect = params.rect;
+          const min = Math.min(rect.width, rect.height);
+          let fontSize = 12;
+          if (min < 45) fontSize = 9;
+          else if (min < 70) fontSize = 10;
+          else if (min < 110) fontSize = 11;
+          else if (min < 170) fontSize = 12;
+          else if (min < 240) fontSize = 13;
+          else fontSize = 15;
+          // 极小 cell(< 30px) 文字可能被截,改用单行居中
+          if (min < 32) {
+            return {
+              x: rect.x + rect.width / 2,
+              y: rect.y + rect.height / 2,
+              fontSize,
+              verticalAlign: 'middle',
+              align: 'center',
+              lineHeight: fontSize + 1,
+            };
+          }
+          return {
+            x: rect.x + 5,
+            y: rect.y + 5,
+            fontSize,
+            verticalAlign: 'top',
+            align: 'left',
+            lineHeight: fontSize + 2,
+          };
+        },
+        upperLabel: { show: false },
+        // v2.0.5 修复:cell 缝 = 纯白 1px,7 档色按 sw 行业平均涨跌幅
+        itemStyle: { borderColor: '#fff', borderWidth: 1, gapWidth: 1 },
+        data: swList.map((s) => ({
+          name: s.sw,
+          // value = weight 排面积(大行业面积大)
+          value: s.weight,
+          avgPct: s.avgPct,
+          names: s.names,
+          itemStyle: { color: colorBy(s.avgPct) },
+        })),
+      }],
+    };
+  }, [swList]);
+
+  // 3. 涨跌停家数折线图
+  const ldChart = useMemo(() => {
+    const hist = sliceHistory(ldRange);
+    const dates = hist.map((h: HistoryPoint) => {
+      const d = new Date(h.date);
+      return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    });
+    const upData = hist.map((h: HistoryPoint) => h.limitUp);
+    const downData = hist.map((h: HistoryPoint) => h.limitDown);
+    return {
+      ...animCfg,
+      grid: { top: 40, right: 20, left: 50, bottom: 30 },
+      legend: { show: true, top: 5, right: 10, textStyle: { color: '#4E5969', fontSize: 12 }, itemWidth: 12, itemHeight: 8, itemGap: 16 },
+      tooltip: { trigger: 'axis', formatter: (params: any) => {
+        let html = `<div style="color:#111827;font-weight:700;font-size:13px;margin-bottom:4px;">${params[0].name}</div>`;
+        params.forEach((p: any) => {
+          const c = p.seriesName === '涨停家数' ? COLOR_UP : COLOR_DOWN;
+          html += `<div style="color:${c};font-weight:700;font-size:13px;margin:2px 0;">${p.marker} ${p.seriesName}: ${p.value}</div>`;
+        });
+        return html;
+      } },
+      xAxis: {
+        type: 'category', data: dates,
+        axisLine: { show: false }, axisTick: { show: false },
+        axisLabel: { color: '#86909C', fontSize: 11 },
+        boundaryGap: ['5%', '5%'],
+      },
+      yAxis: { type: 'value', axisLine: { show: false }, splitLine: { lineStyle: { color: '#F0F0F0', type: 'dashed' } }, axisLabel: { color: '#86909C', fontSize: 11 } },
+      series: [
+        { name: '涨停家数', type: 'line', data: upData, symbol: 'circle', symbolSize: 9, smooth: true, lineStyle: { color: COLOR_UP, width: 3 }, itemStyle: { color: COLOR_UP, borderColor: '#fff', borderWidth: 2 } },
+        { name: '跌停家数', type: 'line', data: downData, symbol: 'circle', symbolSize: 9, smooth: true, lineStyle: { color: COLOR_DOWN, width: 3 }, itemStyle: { color: COLOR_DOWN, borderColor: '#fff', borderWidth: 2 } },
+      ],
+    };
+  }, [ldRange, history]);
+
+  return (
+    <div>
+      <OverviewStyles />
+      <PageHeader
+        title="大盘总览"
+        tradeDateSlash={idx.tradeDateSlash}
+        generatedAt={idx.generatedAt}
+        subtitle="盘后深度复盘 · 大盘快照 + 多日趋势"
+        lastUpdatedAt={useLive().fetchedAt}
+      />
+
+      {/* 第一行:6 张卡 — 成交量 / 上涨家数 / 下跌家数 / 涨跌停比 / 可转债 / ETF */}
+      <div className="overview-stats-row">
+        <StatCard label="成交量" value={idx.marketTurnover} suffix="亿"
+          subLeft="较上一日增量" subValue={idx.turnoverDiff} suffix2="亿" subValueColor="updown" />
+        <StatCard label="上涨家数" value={idx.upCount}
+          subLeft="占比" subValue={idx.upPercent} suffix2="%" subValueColor="uponly" valueColor={COLOR_UP} />
+        <StatCard label="下跌家数" value={idx.downCount}
+          subLeft="平盘" subText={idx.flatCount} valueColor={COLOR_DOWN} />
+        <StatCard
+          label="涨跌停比"
+          value={null}
+          customValue={
+            <span style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
+              <span style={{ color: COLOR_UP, fontSize: 26, fontWeight: 700 }}>{idx.limitUpCount}</span>
+              <span style={{ color: '#C9CDD4', fontSize: 22, fontWeight: 400 }}>/</span>
+              <span style={{ color: COLOR_DOWN, fontSize: 26, fontWeight: 700 }}>{idx.limitDownCount}</span>
+            </span>
+          }
+        />
+        {/* 可转债涨跌分布:主体=可转债涨/跌,左下=可转债对应正股涨/跌(用户 #3 反馈修正) */}
+        <BondsCard
+          bondUp={idx.bondUp || 0}
+          bondDown={idx.bondDown || 0}
+          stockUp={idx.bondStockUp || 0}
+          stockDown={idx.bondStockDown || 0}
+        />
+        {/* ETF 涨跌分布 */}
+        <ETFCard
+          etfUp={idx.etfUp || 0}
+          etfDown={idx.etfDown || 0}
+          etfFlat={idx.etfFlat || 0}
+        />
+      </div>
+
+      {/* 第二行:6 个指数 */}
+      <div className="overview-indices-row">
+        {idx.indices.map((it) => (
+          <div key={it.name} className="index-card">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+              <span style={{ fontSize: 13, color: '#6b7280', fontWeight: 500 }}>{it.name}</span>
+              <span className="index-pct-badge" style={{
+                fontSize: 13,
+                // v1.9.4:文字色 = 涨跌幅对应色,背景 = 对应色 + opacity 0.08
+                color: it.changePercent > 0 ? COLOR_UP : it.changePercent < 0 ? COLOR_DOWN : COLOR_FLAT,
+                background: it.changePercent > 0 ? 'rgba(255, 77, 79, 0.08)'
+                  : it.changePercent < 0 ? 'rgba(14, 205, 112, 0.08)'
+                  : 'rgba(156, 163, 175, 0.08)',
+                padding: '4px 10px',
+                borderRadius: 6,
+                fontWeight: 700,
+                minWidth: 56,
+                textAlign: 'center',
+              }}>
+                {it.changePercent > 0 ? '+' : ''}{it.changePercent.toFixed(2)}%
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 8 }}>
+              <span style={{ fontSize: 24, fontWeight: 700, color: COLOR_TEXT, lineHeight: 1.2 }}>{it.point.toFixed(2)}</span>
+              <span style={{
+                fontSize: 16, fontWeight: 700,
+                color: it.changePercent > 0 ? COLOR_UP : it.changePercent < 0 ? COLOR_DOWN : COLOR_FLAT,
+              }}>
+                {it.changePercent > 0 ? '↑' : it.changePercent < 0 ? '↓' : '–'}
+              </span>
+            </div>
+            <div style={{ fontSize: 12, color: '#86909C', display: 'flex', justifyContent: 'space-between' }}>
+              <span><ColorText value={it.changeAmount} style={{ fontWeight: 500 }}>{it.changeAmount >= 0 ? '+' : ''}{it.changeAmount.toFixed(2)}</ColorText></span>
+              <span>成交额 {Math.round(it.turnover)}亿</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 第三行:成交量 + 涨跌家数(7/15/30 日) — v2.0.2:与热力图同高 360px,4 个图卡片一致 */}
+      <div className="overview-charts-row">
+        <div className="overview-chart-card">
+          <Card title="成交量(亿)" right={<RangeTabs value={volRange} onChange={setVolRange} options={RANGE_OPTIONS_3} />}>
+            <ReactECharts key={volRange} option={volChart} style={{ height: 280, width: '100%' }} notMerge={true} lazyUpdate={true} />
+          </Card>
+        </div>
+        <div className="overview-chart-card">
+          <Card title="涨/跌家数" right={<RangeTabs value={udRange} onChange={setUdRange} options={RANGE_OPTIONS_3} />}>
+            <ReactECharts key={udRange} option={udChart} style={{ height: 280, width: '100%' }} notMerge={true} lazyUpdate={true} />
+          </Card>
+        </div>
+      </div>
+
+      {/* 第四行:涨/跌停家数 + 市场涨跌幅热力图(用户 #1 + #2 + #4 反馈) */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
+        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+          <Card title="涨/跌停家数" right={<RangeTabs value={ldRange} onChange={setLdRange} options={RANGE_OPTIONS_LIMIT} />}>
+            <ReactECharts key={ldRange} option={ldChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
+          </Card>
+        </div>
+        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+          <Card
+            title="市场行情热力图(按行业成交量排序)"
+            right={
+              // v2.0.6:右上角 7 档色图例 — 每个色块作为百分比范围的背景,白字写在色块上
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap', maxWidth: 520, justifyContent: 'flex-end' }}>
+                {heatLegend.map((l) => (
+                  <span
+                    key={l.label}
+                    style={{
+                      display: 'inline-block',
+                      padding: '2px 8px',
+                      background: l.color,
+                      color: '#fff',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      borderRadius: 3,
+                      lineHeight: '16px',
+                      letterSpacing: 0.2,
+                    }}
+                  >
+                    {l.label}
+                  </span>
+                ))}
+              </div>
+            }
+          >
+            {/* v2.0.6:7 档色严格按用户给的色值,28 cell 按 sw 行业平均涨跌幅映射 */}
+            <ReactECharts option={treemapChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+
+  function sliceHistory(range: number) { return history.slice(-range); }
+}
+
+// ====== 时间判断(盘中/收盘)— v1.9.1:只保留 2 个状态 ======
+export function getMarketSession(now = new Date()): { label: string; color: string; bg: string } {
+  const day = now.getDay();
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const mins = h * 60 + m;
+  // 周末 → 收盘复盘
+  if (day === 0 || day === 6) {
+    return { label: '收盘复盘数据', color: '#4b5563', bg: '#F0F1F2' };
+  }
+  // 交易时段 9:30 ~ 15:00 → 盘中实时
+  if (mins >= 9 * 60 + 30 && mins < 15 * 60) {
+    return { label: '盘中实时数据', color: '#ff4d4f', bg: 'rgba(255, 77, 79, 0.1)' };
+  }
+  // 其他时间(9:30 前 / 15:00 后 / 中午) → 收盘复盘
+  return { label: '收盘复盘数据', color: '#4b5563', bg: '#F0F1F2' };
+}
+
+// ====== 共享组件 ======
+export function PageHeader({ title, tradeDateSlash, generatedAt, subtitle, liveTag, liveColor, liveBg, lastUpdatedAt }: {
+  title: string; tradeDateSlash: string; generatedAt: string; subtitle?: string; liveTag?: string; liveColor?: string; liveBg?: string; lastUpdatedAt?: number;
+}) {
+  // 用户 #3 反馈:6 个表格"收盘复盘数据"标签文字色 #4b5563(原 #86909C)
+  // 用户 #17 反馈:6 个表格复用大盘总览盘后灰色样式
+  // 用户 #19 反馈:PreScan "隔夜数据" 背景用同色系浅蓝色
+  // v1.9.1:6 个页面(连板天梯/跌停梯队/放量突破/突破前高/低位放量/龙虎榜)统一灰色 #4b5563 + #F0F1F2
+  const session = liveTag ? null : getMarketSession();
+  const finalTag = liveTag || session?.label;
+  // 收盘复盘数据 / 隔夜数据 默认灰色
+  const isGrayTag = liveTag === '收盘复盘数据' || liveTag === '隔夜数据';
+  const finalColor = liveTag
+    ? (liveColor ?? (isGrayTag ? '#4b5563' : COLOR_UP))
+    : session?.color;
+  const finalBg = liveTag
+    ? (liveBg ?? (isGrayTag ? '#F0F1F2' : 'rgba(255, 77, 79, 0.1)'))
+    : session?.bg;
+  // 用户 #6 反馈:报告日期 + 生成时间 用东八区(Asia/Shanghai)时间显示
+  // lastUpdatedAt 是 UTC 时间戳,需要 +8h 转换
+  const toShanghaiHM = (utcTs: number) => {
+    const d = new Date(utcTs + 8 * 3600 * 1000);
+    return `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
+  };
+  // 显示"最后一次实时刷新时间"(用东八区)
+  const displayTime = lastUpdatedAt
+    ? toShanghaiHM(lastUpdatedAt)
+    : (() => {
+        // generatedAt 格式 'YYYY-MM-DD HH:MM:SS' 视为 UTC,转东八区
+        const m = generatedAt?.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})(?::(\d{2}))?/);
+        if (!m) return '';
+        const utc = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +(m[6] || 0));
+        const d = new Date(utc + 8 * 3600 * 1000);
+        return `${String(d.getUTCDate()).padStart(2, '0')}/${String(d.getUTCMonth() + 1).padStart(2, '0')} ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
+      })();
+  // 报告日期:数据是 8.6 → 解析为东八区日期(数据元数据即交易日)
+  const parseDate = (s: string) => {
+    // tradeDateSlash 格式 'YY/MM/DD' 直接用
+    if (s && /^\d{2}\/\d{2}\/\d{2}$/.test(s)) return s;
+    return s;
+  };
+  const displayDate = parseDate(tradeDateSlash);
+  // v1.9.8:实时状态指示(蓝点闪烁显示"实时刷新"中)
+  const isLive = lastUpdatedAt && lastUpdatedAt > 0;
+  const liveAgoSec = lastUpdatedAt ? Math.floor((Date.now() - lastUpdatedAt) / 1000) : -1;
+  return (
+    // v1.9.4 反馈 #5:标题+副标题作为整体固定悬浮在主区顶部,#F7F9FC 底
+    // v1.9.8:paddingTop 20 替代原 marginTop -20,避免 sticky 区域出现"上方 20px 镂空"
+    <div style={{
+      position: 'sticky', top: 0, zIndex: 100,
+      background: '#F7F9FC',
+      paddingTop: 20,
+      paddingBottom: 12,
+      marginBottom: 16,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, color: '#111827', margin: 0 }}>{title}</h2>
+          {finalTag && (
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 4,
+              fontSize: 11, color: finalColor, background: finalBg,
+              padding: '3px 8px', borderRadius: 10,
+            }}>
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: finalColor }} />
+              {finalTag}
+            </span>
+          )}
+        </div>
+        <div style={{ fontSize: 12, color: '#86909C', display: 'flex', alignItems: 'center', gap: 12 }}>
+          {/* v1.9.8:实时状态指示 — 蓝点 + "X 秒前更新" 让用户感知数据在刷新 */}
+          {isLive ? (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, color: '#0ecd70' }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%', background: '#0ecd70',
+                animation: 'fupan-live-pulse 1.5s infinite',
+              }} />
+              <span>实时</span>
+              <span style={{ color: '#86909C' }}>· {liveAgoSec < 60 ? `${liveAgoSec}秒前更新` : `${Math.floor(liveAgoSec / 60)}分钟前更新`}</span>
+            </span>
+          ) : (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, color: '#86909C' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#bfbfbf' }} />
+              <span>数据快照</span>
+            </span>
+          )}
+          <span>·</span>
+          <span>
+            报告日期 <span style={{ color: '#111827', fontWeight: 500 }}>{displayDate}</span>
+            <span style={{ margin: '0 8px' }}>·</span>
+            生成时间 <span style={{ color: '#111827', fontWeight: 500 }}>{displayTime}</span>
+          </span>
+        </div>
+      </div>
+      {subtitle && <div style={{ fontSize: 12, color: '#86909C' }}>{subtitle}</div>}
+    </div>
+  );
+}
+
+// 白色卡片:加浅灰外投影(用户 #18 反馈:全站圆角 14px + #6 反馈:box-shadow 改)
+// 用户 #16 反馈:全站白色卡片加 1px solid #E5E7EB border
+export function Card({ title, right, children }: { title: string; right?: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div style={{
+      background: '#fff',
+      borderRadius: 14,
+      boxShadow: CARD_SHADOW,
+      border: '1px solid #E5E7EB',
+      padding: '16px 20px 20px',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8, minHeight: 32 }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{title}</span>
+        {right}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// 通用 StatCard
+function StatCard({ label, value, subLeft, subValue, subText, suffix, suffix2, subValueColor = 'updown', valueColor, customValue }: {
+  label: string;
+  value?: number | string | null;
+  customValue?: React.ReactNode;
+  subLeft?: string;
+  subValue?: number;
+  subText?: number | string;
+  suffix?: string;
+  suffix2?: string;
+  subValueColor?: 'updown' | 'uponly';
+  valueColor?: string;
+}) {
+  let subColor = '#9ca3af';
+  let subValueDisplay: React.ReactNode = null;
+  if (subValue !== undefined && subValue !== null) {
+    if (subValueColor === 'updown') {
+      subColor = subValue > 0 ? COLOR_UP : subValue < 0 ? COLOR_DOWN : '#9ca3af';
+      const sign = subValue > 0 ? '+' : '';
+      subValueDisplay = <span style={{ color: subColor, fontWeight: 700 }}>{sign}{subValue}{suffix2 || ''}</span>;
+    } else if (subValueColor === 'uponly') {
+      subColor = COLOR_UP;
+      subValueDisplay = <span style={{ color: subColor, fontWeight: 700 }}>+{subValue}{suffix2 || ''}</span>;
+    }
+  }
+  return (
+    <div className="stat-card">
+      <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 26, fontWeight: 700, color: valueColor || '#111827', lineHeight: 1.2 }}>
+        {customValue !== undefined ? customValue : (value !== null && value !== undefined ? `${value}${suffix || ''}` : '-')}
+      </div>
+      {(subLeft || subValueDisplay || subText !== undefined) && (
+        <div style={{ fontSize: 12, marginTop: 6, color: '#6b7280' }}>
+          {subLeft && <span style={{ color: '#6b7280' }}>{subLeft} </span>}
+          {subValueDisplay}
+          {subText !== undefined && <span style={{ color: '#111827', fontWeight: 700 }}>{subText}</span>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// 可转债涨跌分布卡(用户 #5 + 反馈 #3 修正:正股=可转债对应正股的涨跌)
+// 主体: 可转债 涨家数:跌家数
+// 左下: 正股 涨家数:跌家数(320 只可转债对应的 320 个正股)
+function BondsCard({ bondUp, bondDown, stockUp, stockDown }: { bondUp: number; bondDown: number; stockUp: number; stockDown: number }) {
+  return (
+    <div className="stat-card">
+      <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 8 }}>可转债涨跌分布</div>
+      <div style={{ fontSize: 26, fontWeight: 700, lineHeight: 1.2, display: 'flex', alignItems: 'baseline', gap: 6 }}>
+        <span style={{ color: COLOR_UP }}>{bondUp}</span>
+        <span style={{ color: '#C9CDD4', fontSize: 20, fontWeight: 400 }}>:</span>
+        <span style={{ color: COLOR_DOWN }}>{bondDown}</span>
+      </div>
+      <div style={{ fontSize: 12, marginTop: 6, display: 'flex', alignItems: 'baseline', gap: 4 }}>
+        <span style={{ color: '#6b7280' }}>正股</span>
+        <span style={{ color: COLOR_UP, fontWeight: 700 }}>{stockUp}</span>
+        <span style={{ color: '#C9CDD4' }}>:</span>
+        <span style={{ color: COLOR_DOWN, fontWeight: 700 }}>{stockDown}</span>
+      </div>
+    </div>
+  );
+}
+
+// ETF 涨跌分布卡(用户 #6)
+// 主体: 涨家数:跌家数
+// 左下: 平盘 平盘家数
+function ETFCard({ etfUp, etfDown, etfFlat }: { etfUp: number; etfDown: number; etfFlat: number }) {
+  return (
+    <div className="stat-card">
+      <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 8 }}>场内ETF涨跌分布</div>
+      <div style={{ fontSize: 26, fontWeight: 700, lineHeight: 1.2, display: 'flex', alignItems: 'baseline', gap: 6 }}>
+        <span style={{ color: COLOR_UP }}>{etfUp}</span>
+        <span style={{ color: '#C9CDD4', fontSize: 20, fontWeight: 400 }}>:</span>
+        <span style={{ color: COLOR_DOWN }}>{etfDown}</span>
+      </div>
+      <div style={{ fontSize: 12, marginTop: 6, display: 'flex', alignItems: 'baseline', gap: 4 }}>
+        <span style={{ color: '#6b7280' }}>平盘</span>
+        <span style={{ color: '#111827', fontWeight: 700 }}>{etfFlat}</span>
+      </div>
+    </div>
+  );
+}

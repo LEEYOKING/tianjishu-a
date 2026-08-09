@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>天机枢 v2.0.7 部署包下载</title>
+  <style>
+    body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 720px; margin: 40px auto; padding: 20px; color: #1F2329; line-height: 1.7; }
+    h1 { color: #111827; }
+    a.btn { display: inline-block; padding: 12px 28px; background: #9A81FC; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; }
+    a.btn:hover { background: #7B5EE8; }
+    .meta { background: #F7F9FC; border: 1px solid #E5E7EB; border-radius: 8px; padding: 16px; margin: 20px 0; }
+    .meta b { color: #1890ff; }
+    ol { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+    code { background: #F0F1F2; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>📦 天机枢 v2.0.7 部署包</h1>
+  <p>完整源码 + Netlify 配置 + 教程,解压 976KB,61 个文件</p>
+
+  <p><a class="btn" href="./tianjishu-netlify-pack.zip" download>⬇️ 下载部署包 (196 KB)</a></p>
+
+  <div class="meta">
+    <b>包内容</b>:<br>
+    • 全部前端源码 (src/)<br>
+    • 后端 fetch 脚本 (scripts/)<br>
+    • 最新数据快照 (public/data.json 等)<br>
+    • Netlify 配置 (netlify.toml + _redirects)<br>
+    • GitHub Actions 定时抓数配置<br>
+    • 3 份教程 (GITHUB_NETLIFY_GUIDE.md / NETLIFY_DEPLOY.md / README.md)
+  </div>
+
+  <h2>🚀 部署流程(30-40 分钟)</h2>
+  <ol>
+    <li>解压 zip:<code>unzip tianjishu-netlify-pack.zip</code></li>
+    <li>注册/登录 GitHub → 创建 <code>tianjishu-a</code> 仓库 → 生成 Personal Access Token(勾 <code>repo</code> + <code>workflow</code>)</li>
+    <li>在解压目录里跑:
+      <pre><code>git init
+git add . && git commit -m "首发"
+git branch -M main
+git remote add origin https://用户名:TOKEN@github.com/用户名/tianjishu-a.git
+git push -u origin main</code></pre>
+    </li>
+    <li>登录 <a href="https://app.netlify.com">app.netlify.com</a> → Add new site → Import GitHub 仓库 → Deploy</li>
+    <li>启用 GitHub Actions:<br>
+      仓库 → Settings → Actions → General → Workflow permissions 改成 <b>Read and write</b></li>
+    <li>Actions 标签 → 选 "每日抓 A 股 + 盘前数据" → 手动 Run workflow 测试一次</li>
+    <li>绑阿里云域名(可选,详见 GITHUB_NETLIFY_GUIDE.md §4)</li>
+  </ol>
+
+  <h2>📞 卡了找我</h2>
+  <p>任何一步报错,把错误日志/截图发给 Mavis,我帮你看。</p>
+</body>
+</html>

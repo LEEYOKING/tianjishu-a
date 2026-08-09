@@ -1,0 +1,45 @@
+name: 每日抓 A 股 + 盘前数据
+
+on:
+  # 每个交易日北京时间 09:00 跑(对应 UTC 01:00)
+  schedule:
+    - cron: '0 1 * * 1-5'
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install akshare
+        run: pip install akshare --break-system-packages
+
+      - name: 跑 fetch_real_data.py(A 股)
+        run: python scripts/fetch_real_data.py
+        continue-on-error: true
+
+      - name: 跑 fetch_surgery_data.py(盘前 + 手术)
+        run: python scripts/fetch_surgery_data.py
+        continue-on-error: true
+
+      - name: 提交新数据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add public/data.json public/prescan.json public/surgery.json
+          if git diff --cached --quiet; then
+            echo "无新数据,跳过提交"
+          else
+            git commit -m "data: 每日抓数 $(date -u +%F)"
+            git push
+          fi

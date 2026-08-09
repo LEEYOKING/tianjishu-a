@@ -1,0 +1,55 @@
+# ========== 天机枢 .gitignore ==========
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vite build 输出
+dist/
+dist-ssr/
+*.local
+
+# 编辑器
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# 日志
+*.log
+logs/
+
+# 环境变量
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python(后端 fetch 脚本)
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# 数据快照(可选,生产应该走 GitHub Actions 自动提交)
+# public/data.json
+# public/prescan.json
+# public/surgery.json
+
+# 截图(临时调试用)
+_shots*/
+*.png
+!public/favicon.svg
+!public/icons.svg
+
+# 系统文件
+Thumbs.db
+.DS_Store
