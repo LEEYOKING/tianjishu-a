@@ -200,32 +200,37 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     }
   }
   // 2. 全市场汇总(EM push2:含涨跌停 — 10s 实时)
-  if (live.market && (live.market.upCount > 0 || live.market.downCount > 0 || live.market.limitUpCount > 0)) {
+  // v2.0.7e:兜底 — fs 编码错时返回空/总数 < 1000,fallback 到 data.json 静态值(避免 0:0 污染显示)
+  const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
+  const mktValid = live.market && mktTotal >= 1000;
+  if (mktValid) {
     // v2.0.7d:成交量也实时刷新 + 自动算 turnoverDiff(用 history 末 1 日作为对照)
     const prevDayVol = next.history && next.history.length >= 1
       ? next.history[next.history.length - 1].volume
       : 0;
-    next.marketOverview.marketTurnover = live.market.totalTurnover;
+    next.marketOverview.marketTurnover = live.market!.totalTurnover;
     next.marketOverview.turnoverDiff = prevDayVol > 0
-      ? Math.round((live.market.totalTurnover - prevDayVol) * 100) / 100
+      ? Math.round((live.market!.totalTurnover - prevDayVol) * 100) / 100
       : next.marketOverview.turnoverDiff;
-    next.marketOverview.upCount = live.market.upCount;
-    next.marketOverview.downCount = live.market.downCount;
-    next.marketOverview.flatCount = live.market.flatCount;
-    next.marketOverview.limitUpCount = live.market.limitUpCount;
-    next.marketOverview.limitDownCount = live.market.limitDownCount;
-    next.marketOverview.upPercent = (live.market.upCount + live.market.downCount + live.market.flatCount) > 0
-      ? Math.round(live.market.upCount * 10000 / (live.market.upCount + live.market.downCount + live.market.flatCount)) / 100
+    next.marketOverview.upCount = live.market!.upCount;
+    next.marketOverview.downCount = live.market!.downCount;
+    next.marketOverview.flatCount = live.market!.flatCount;
+    next.marketOverview.limitUpCount = live.market!.limitUpCount;
+    next.marketOverview.limitDownCount = live.market!.limitDownCount;
+    next.marketOverview.upPercent = mktTotal > 0
+      ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
       : 0;
   }
-  // 3. ETF 涨跌分布(EM push2 — 10s 实时)
-  if (live.etfStats) {
+  // 3. ETF 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
+  const etfTotal = live.etfStats ? (live.etfStats.up + live.etfStats.down + live.etfStats.flat) : 0;
+  if (live.etfStats && etfTotal >= 100) {
     next.marketOverview.etfUp = live.etfStats.up;
     next.marketOverview.etfDown = live.etfStats.down;
     next.marketOverview.etfFlat = live.etfStats.flat;
   }
-  // 4. 可转债 涨跌分布(EM push2 — 10s 实时)
-  if (live.bondStats) {
+  // 4. 可转债 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
+  const bondTotal = live.bondStats ? (live.bondStats.up + live.bondStats.down + live.bondStats.flat) : 0;
+  if (live.bondStats && bondTotal >= 50) {
     next.marketOverview.bondUp = live.bondStats.up;
     next.marketOverview.bondDown = live.bondStats.down;
     next.marketOverview.bondFlat = live.bondStats.flat;

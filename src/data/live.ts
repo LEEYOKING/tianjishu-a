@@ -298,10 +298,27 @@ async function emFetch(fs: string, pz = 5000): Promise<EMStock[]> {
   return j.data?.diff || [];
 }
 
-/** 沪深 A 股全市场(5000 一次,漏 400 只≈7% 误差,可忽略) */
+// v2.0.7e:多 fs 备选
+const MARKET_FS_CANDIDATES = [
+  'm:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23',  // 沪深京 A 股(主用)
+  'm:0+t:6,m:0+t:80,m:1+t:2',           // 不含科创板
+  'b:MK0001,b:MK0002,b:MK0003',         // 沪深京 A 股板块代码
+];
+
+/** 沪深 A 股全市场(fs 自动探测,5000 一次) */
 export async function fetchEMMarketStats(): Promise<EMMarketStats> {
-  const fs = 'm:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23';
-  const list = await emFetch(fs, 5000);
+  for (const fs of MARKET_FS_CANDIDATES) {
+    try {
+      const list = await emFetch(fs, 5000);
+      if (list.length >= 1000) {
+        return calcMarket(list);
+      }
+    } catch { /* 跳过 */ }
+  }
+  return { upCount: 0, downCount: 0, flatCount: 0, totalTurnover: 0, limitUpCount: 0, limitDownCount: 0 };
+}
+
+function calcMarket(list: EMStock[]): EMMarketStats {
   let up = 0, down = 0, flat = 0, total = 0;
   let lu = 0, ld = 0;
   for (const s of list) {
@@ -328,9 +345,19 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats> {
   };
 }
 
-/** 沪深 ETF 涨跌统计 */
-export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
-  const list = await emFetch('m:0+t:19,m:1+t:19', 1000);
+// v2.0.7e:多 fs 备选,自动找能拉到的(fs 编码随东方财富 web 变化会失效)
+const ETF_FS_CANDIDATES = [
+  'b:MK0021,b:MK0022,b:MK0023,b:MK0024',  // 沪深京 ETF 板块
+  'm:1+t:22,m:0+t:22',                    // ETF 类(深沪)
+  'm:0+t:19,m:1+t:19',                    // 旧 ETF 编码(可能失效)
+];
+const BOND_FS_CANDIDATES = [
+  'b:MK1004,b:MK1005',                    // 沪深可转债板块
+  'm:0+t:11,m:1+t:11',                    // 可转债类
+  'm:0+t:13,m:1+t:13',                    // 备用
+];
+
+function countUpDownFlat(list: EMStock[]): { up: number; down: number; flat: number } {
   let up = 0, down = 0, flat = 0;
   for (const s of list) {
     const pct = s.f3 || 0;
@@ -341,15 +368,24 @@ export async function fetchEMEtfStats(): Promise<{ up: number; down: number; fla
   return { up, down, flat };
 }
 
-/** 沪深可转债涨跌统计 */
-export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
-  const list = await emFetch('m:0+t:11,m:1+t:11', 1000);
-  let up = 0, down = 0, flat = 0;
-  for (const s of list) {
-    const pct = s.f3 || 0;
-    if (pct > 0) up++;
-    else if (pct < 0) down++;
-    else flat++;
+/** 沪深 ETF 涨跌统计(fs 自动探测,返空时遍历备选) */
+export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
+  for (const fs of ETF_FS_CANDIDATES) {
+    try {
+      const list = await emFetch(fs, 1000);
+      if (list.length >= 50) return countUpDownFlat(list);
+    } catch { /* 跳过 */ }
   }
-  return { up, down, flat };
+  return { up: 0, down: 0, flat: 0 };
+}
+
+/** 沪深可转债涨跌统计(fs 自动探测) */
+export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
+  for (const fs of BOND_FS_CANDIDATES) {
+    try {
+      const list = await emFetch(fs, 1000);
+      if (list.length >= 20) return countUpDownFlat(list);
+    } catch { /* 跳过 */ }
+  }
+  return { up: 0, down: 0, flat: 0 };
 }
