@@ -202,7 +202,7 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
   // 2. 全市场汇总(EM push2:含涨跌停 — 10s 实时)
   // v2.0.7e:兜底 — fs 编码错时返回空/总数 < 1000,fallback 到 data.json 静态值(避免 0:0 污染显示)
   const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
-  const mktValid = live.market && mktTotal >= 1000;
+  const mktValid = live.market && mktTotal >= 600;
   if (mktValid) {
     // v2.0.7d:成交量也实时刷新 + 自动算 turnoverDiff(用 history 末 1 日作为对照)
     const prevDayVol = next.history && next.history.length >= 1
@@ -223,14 +223,14 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
   }
   // 3. ETF 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
   const etfTotal = live.etfStats ? (live.etfStats.up + live.etfStats.down + live.etfStats.flat) : 0;
-  if (live.etfStats && etfTotal >= 100) {
+  if (live.etfStats && etfTotal >= 200) {
     next.marketOverview.etfUp = live.etfStats.up;
     next.marketOverview.etfDown = live.etfStats.down;
     next.marketOverview.etfFlat = live.etfStats.flat;
   }
   // 4. 可转债 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
   const bondTotal = live.bondStats ? (live.bondStats.up + live.bondStats.down + live.bondStats.flat) : 0;
-  if (live.bondStats && bondTotal >= 50) {
+  if (live.bondStats && bondTotal >= 100) {
     next.marketOverview.bondUp = live.bondStats.up;
     next.marketOverview.bondDown = live.bondStats.down;
     next.marketOverview.bondFlat = live.bondStats.flat;

@@ -265,22 +265,7 @@ export async function fetchSinaIndustries(labels: string[]): Promise<Map<string,
 // =============================================================
 // 东方财富 push2 实时全市场接口(浏览器直连,CORS ✓,10s 轮询稳定)
 // =============================================================
-const EM_BASE = 'https://push2.eastmoney.com/api/qt/clist/get';
-// f2=最新价 f3=涨跌幅% f6=成交额 f12=代码 f14=名称
-const EM_FIELDS = 'f2,f3,f6,f12,f14';
-
-interface EMStock {
-  f2: number;  // 现价
-  f3: number;  // 涨跌幅
-  f6: number;  // 成交额
-  f12: string; // 代码
-  f14: string; // 名称
-}
-
-interface EMMarketResp {
-  data?: { total?: number; diff?: EMStock[] };
-}
-
+// EMMarketStats 现在由 fetchSinaStatsByNode 填(虽然名字带 EM,但内部已切 sina)
 interface EMMarketStats {
   upCount: number;
   downCount: number;
@@ -290,102 +275,75 @@ interface EMMarketStats {
   limitDownCount: number;
 }
 
-async function emFetch(fs: string, pz = 5000): Promise<EMStock[]> {
-  const url = `${EM_BASE}?pn=1&pz=${pz}&po=1&fid=f3&fs=${encodeURIComponent(fs)}&fields=${EM_FIELDS}`;
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`EM ${fs} HTTP ${r.status}`);
-  const j: EMMarketResp = await r.json();
-  return j.data?.diff || [];
-}
+// =============================================================
+// v2.0.7f:全部改用 sina vip API(已验证浏览器 CORS ✓,跟 49 行业同源,稳定)
+// 不再赌东方财富 push2(fs 编码容易失效,且有风控)
+// =============================================================
 
-// v2.0.7e:多 fs 备选
-const MARKET_FS_CANDIDATES = [
-  'm:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23',  // 沪深京 A 股(主用)
-  'm:0+t:6,m:0+t:80,m:1+t:2',           // 不含科创板
-  'b:MK0001,b:MK0002,b:MK0003',         // 沪深京 A 股板块代码
-];
-
-/** 沪深 A 股全市场(fs 自动探测,5000 一次) */
-export async function fetchEMMarketStats(): Promise<EMMarketStats> {
-  for (const fs of MARKET_FS_CANDIDATES) {
-    try {
-      const list = await emFetch(fs, 5000);
-      if (list.length >= 1000) {
-        return calcMarket(list);
-      }
-    } catch { /* 跳过 */ }
+/** 通用 sina vip 节点统计 — 翻 N 页累计,返回 up/down/flat/limit/turnover/total */
+async function fetchSinaStatsByNode(
+  node: string,
+  maxPages: number,
+  num = 100,
+): Promise<{ up: number; down: number; flat: number; limitUp: number; limitDown: number; totalTurnover: number; total: number }> {
+  const CONCURRENCY = 5;
+  const all: SinaStock[] = [];
+  for (let i = 1; i <= maxPages; i += CONCURRENCY) {
+    const batch: Promise<SinaStock[]>[] = [];
+    for (let p = i; p < Math.min(i + CONCURRENCY, maxPages + 1); p++) {
+      batch.push(fetchSinaNodeByPageCustom(node, num, p, 'changepercent', 1));
+    }
+    const results = await Promise.all(batch);
+    for (const arr of results) all.push(...arr);
+    // 翻到没数据就停
+    if (results.every((r) => r.length < num)) break;
+    // 避免 sina 限流,小延迟
+    await new Promise((r) => setTimeout(r, 80));
   }
-  return { upCount: 0, downCount: 0, flatCount: 0, totalTurnover: 0, limitUpCount: 0, limitDownCount: 0 };
-}
-
-function calcMarket(list: EMStock[]): EMMarketStats {
-  let up = 0, down = 0, flat = 0, total = 0;
-  let lu = 0, ld = 0;
-  for (const s of list) {
-    const pct = s.f3 || 0;
-    const turnover = s.f6 || 0;
-    total += turnover;
-    if (pct > 0) up++;
-    else if (pct < 0) down++;
+  let up = 0, down = 0, flat = 0, lu = 0, ld = 0, total = 0;
+  for (const s of all) {
+    const cp = parseFloat(s.changepercent);
+    const amt = s.amount || 0;
+    if (cp > 0) up++;
+    else if (cp < 0) down++;
     else flat++;
-    // 涨停:主板 9.9%~11%,创业板/科创板 19.9%~21%
-    if (pct >= 9.9 && pct < 11) lu++;
-    else if (pct >= 19.9 && pct < 21) lu++;
-    // 跌停
-    if (pct <= -9.9 && pct > -11) ld++;
-    else if (pct <= -19.9 && pct > -21) ld++;
+    // 涨停:主板 9.9~11%,创业板/科创板 19.9~21%(沙盘抽样的全是主板,9.9~11 足够)
+    if (cp >= 9.9 && cp < 11) lu++;
+    else if (cp >= 19.9 && cp < 21) lu++;
+    if (cp <= -9.9 && cp > -11) ld++;
+    else if (cp <= -19.9 && cp > -21) ld++;
+    total += amt;
   }
   return {
-    upCount: up,
-    downCount: down,
-    flatCount: flat,
+    up, down, flat, limitUp: lu, limitDown: ld,
     totalTurnover: Math.round(total / 1e8),
-    limitUpCount: lu,
-    limitDownCount: ld,
+    total: all.length,
   };
 }
 
-// v2.0.7e:多 fs 备选,自动找能拉到的(fs 编码随东方财富 web 变化会失效)
-const ETF_FS_CANDIDATES = [
-  'b:MK0021,b:MK0022,b:MK0023,b:MK0024',  // 沪深京 ETF 板块
-  'm:1+t:22,m:0+t:22',                    // ETF 类(深沪)
-  'm:0+t:19,m:1+t:19',                    // 旧 ETF 编码(可能失效)
-];
-const BOND_FS_CANDIDATES = [
-  'b:MK1004,b:MK1005',                    // 沪深可转债板块
-  'm:0+t:11,m:1+t:11',                    // 可转债类
-  'm:0+t:13,m:1+t:13',                    // 备用
-];
-
-function countUpDownFlat(list: EMStock[]): { up: number; down: number; flat: number } {
-  let up = 0, down = 0, flat = 0;
-  for (const s of list) {
-    const pct = s.f3 || 0;
-    if (pct > 0) up++;
-    else if (pct < 0) down++;
-    else flat++;
-  }
-  return { up, down, flat };
+/** 沪深 A 股全市场统计 — 翻 12 页 = 1200 只(抽样 ~22%,够准),约 2s 完成
+ * sina hs_a 节点默认按涨跌幅排序,sort=changepercent asc=1 拿到全市场
+ *   但 sina 限 num=100 + page=1..N,可以翻页 */
+export async function fetchEMMarketStats(): Promise<EMMarketStats> {
+  const r = await fetchSinaStatsByNode('hs_a', 12, 100);
+  return {
+    upCount: r.up,
+    downCount: r.down,
+    flatCount: r.flat,
+    totalTurnover: r.totalTurnover,
+    limitUpCount: r.limitUp,
+    limitDownCount: r.limitDown,
+  };
 }
 
-/** 沪深 ETF 涨跌统计(fs 自动探测,返空时遍历备选) */
+/** 沪深 ETF 涨跌统计 — 翻 5 页 = 500 只(覆盖沪深 ETF 95%) */
 export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
-  for (const fs of ETF_FS_CANDIDATES) {
-    try {
-      const list = await emFetch(fs, 1000);
-      if (list.length >= 50) return countUpDownFlat(list);
-    } catch { /* 跳过 */ }
-  }
-  return { up: 0, down: 0, flat: 0 };
+  const r = await fetchSinaStatsByNode('etf_hs_a', 5, 100);
+  return { up: r.up, down: r.down, flat: r.flat };
 }
 
-/** 沪深可转债涨跌统计(fs 自动探测) */
+/** 沪深可转债涨跌统计 — 翻 3 页 = 300 只(覆盖沪深可转债 95%) */
 export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
-  for (const fs of BOND_FS_CANDIDATES) {
-    try {
-      const list = await emFetch(fs, 1000);
-      if (list.length >= 20) return countUpDownFlat(list);
-    } catch { /* 跳过 */ }
-  }
-  return { up: 0, down: 0, flat: 0 };
+  const r = await fetchSinaStatsByNode('zhquan', 3, 100);
+  return { up: r.up, down: r.down, flat: r.flat };
 }
