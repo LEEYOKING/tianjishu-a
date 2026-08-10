@@ -250,15 +250,15 @@ export default function Overview({ data }: { data: ReportData }) {
     if (pct > -5) return '#2E9D50';         // -2% ~ -5% 中绿
     return '#31CC5B';                        // < -5% 亮绿
   };
-  // 7 档图例数据(从大到小 = 从最正到最负)
+  // 7 档图例数据(从大到小 = 从最正到最负) — v2.0.7g:用户要求色块文字改简洁
   const heatLegend = [
-    { color: '#F63638', label: '≥ +5%' },
-    { color: '#BF4044', label: '+2% ~ +5%' },
-    { color: '#8C444F', label: '0% ~ +2%' },
-    { color: '#424455', label: '= 0%' },
-    { color: '#36764D', label: '0% ~ -2%' },
-    { color: '#2E9D50', label: '-2% ~ -5%' },
-    { color: '#31CC5B', label: '≤ -5%' },
+    { color: '#F63638', label: '+5%' },
+    { color: '#BF4044', label: '+3%' },
+    { color: '#8C444F', label: '+1%' },
+    { color: '#424455', label: '0%' },
+    { color: '#36764D', label: '-1%' },
+    { color: '#2E9D50', label: '-3%' },
+    { color: '#31CC5B', label: '-5%' },
   ];
   const treemapChart = useMemo(() => {
     return {

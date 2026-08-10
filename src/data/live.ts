@@ -325,7 +325,7 @@ async function fetchSinaStatsByNode(
  * sina hs_a 节点默认按涨跌幅排序,sort=changepercent asc=1 拿到全市场
  *   但 sina 限 num=100 + page=1..N,可以翻页 */
 export async function fetchEMMarketStats(): Promise<EMMarketStats> {
-  const r = await fetchSinaStatsByNode('hs_a', 12, 100);
+  const r = await fetchSinaStatsByNode('hs_a', 18, 100);
   return {
     upCount: r.up,
     downCount: r.down,

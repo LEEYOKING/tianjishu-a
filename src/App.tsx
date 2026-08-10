@@ -52,7 +52,7 @@ export default function App() {
   }
 
   // v1.9.1 启动页文案 + loading 动画 + v2.0 粒子背景
-  if (!merged) {
+  if (!merged || live.isFirstLoad) {
     return (
       <div style={{
         position: 'relative',

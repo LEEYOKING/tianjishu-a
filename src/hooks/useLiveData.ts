@@ -66,7 +66,7 @@ export function useLiveData(enabled = true): LiveSnapshot {
 
   useEffect(() => {
     if (!enabled) return;
-    // 10s 拉快:全市场 + ETF + 可转债 + 指数(v2.0.7d:各自 try/catch,失败不阻塞)
+    // 10s 拉快:全市场 + ETF + 可转债 + 指数 + today(v2.0.7g:加 today 同步,避免曲线图落后)
     const safe = async <T,>(p: Promise<T>, fallback: T): Promise<T> => {
       try { return await p; } catch (e) { console.warn('[useLiveData] sub-fetch fail:', e); return fallback; }
     };
@@ -74,21 +74,23 @@ export function useLiveData(enabled = true): LiveSnapshot {
       if (inflightRef.current) return;
       inflightRef.current = true;
       try {
-        const [mkt, etf, bond, idxResult] = await Promise.all([
+        const [mkt, etf, bond, idxResult, todayResult] = await Promise.all([
           safe(fetchEMMarketStats(), null),
           safe(fetchEMEtfStats(), null),
           safe(fetchEMBondStats(), null),
           safe(fetchLiveIndices(), []),
+          safe(fetchTodaySnapshot(), null),
         ]);
         setSnap((prev) => {
           // 任何一个有数据都算成功
-          const hasAny = mkt || etf || bond || (idxResult && idxResult.length > 0);
+          const hasAny = mkt || etf || bond || (idxResult && idxResult.length > 0) || todayResult;
           return {
             ...prev,
             market: mkt ?? prev.market,
             etfStats: etf ?? prev.etfStats,
             bondStats: bond ?? prev.bondStats,
             indices: (idxResult && idxResult.length > 0) ? idxResult : prev.indices,
+            today: todayResult ?? prev.today,  // v2.0.7g:today 进 fast tick
             fastFetchedAt: hasAny ? Date.now() : prev.fastFetchedAt,
             fetchedAt: hasAny ? Date.now() : prev.fetchedAt,
             isFirstLoad: hasAny ? false : prev.isFirstLoad,
@@ -100,17 +102,13 @@ export function useLiveData(enabled = true): LiveSnapshot {
         inflightRef.current = false;
       }
     };
-    // 60s 拉慢:行业 + 今日 snapshot
+    // 60s 拉慢:行业(v2.0.7g:today 已进 fast tick 同步,不再在慢 tick 拉)
     const slowTick = async () => {
       try {
-        const [sinaResult, todayResult] = await Promise.all([
-          safe(fetchSinaIndustries(SINA_INDUSTRY_LABELS), new Map()),
-          safe(fetchTodaySnapshot(), null),
-        ]);
+        const sinaResult = await safe(fetchSinaIndustries(SINA_INDUSTRY_LABELS), new Map());
         setSnap((prev) => ({
           ...prev,
           sinaIndustries: sinaResult,
-          today: todayResult,
         }));
       } catch (e) {
         console.warn('[useLiveData] slow tick error:', e);
@@ -273,11 +271,17 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
         limitDown: next.marketOverview.limitDownCount,
       });
     } else {
+      // v2.0.7g:date 相同时也更新 limitUp/limitDown(1.3 涨跌停曲线图 bug 修复)
+      const liveLimits = (live.market && (live.market.upCount + live.market.downCount + live.market.flatCount) >= 600)
+        ? { limitUp: live.market.limitUpCount, limitDown: live.market.limitDownCount }
+        : { limitUp: next.marketOverview.limitUpCount, limitDown: next.marketOverview.limitDownCount };
       next.history[next.history.length - 1] = {
         ...next.history[next.history.length - 1],
         volume: todayData.volume,
         up: todayData.up,
         down: todayData.down,
+        limitUp: liveLimits.limitUp,
+        limitDown: liveLimits.limitDown,
       };
     }
   }
