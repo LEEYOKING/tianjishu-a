@@ -3,7 +3,8 @@ name: 每日抓 A 股 + 盘前数据
 on:
   # v2.0.7:每天北京时间 09:00 跑(对应 UTC 01:00) — 周末也跑(akshare 会返回上一次数据,但 timestamp 永远 ≤ 24h)
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '35 1 * * 1-5'   # UTC 01:35 = 北京 09:35
+    - cron: '35 7 * * 1-5'   # UTC 07:35 = 北京 15:35
   # 允许手动触发
   workflow_dispatch:
 
