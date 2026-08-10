@@ -66,27 +66,34 @@ export function useLiveData(enabled = true): LiveSnapshot {
 
   useEffect(() => {
     if (!enabled) return;
-    // 10s 拉快:全市场 + ETF + 可转债 + 指数
+    // 10s 拉快:全市场 + ETF + 可转债 + 指数(v2.0.7d:各自 try/catch,失败不阻塞)
+    const safe = async <T,>(p: Promise<T>, fallback: T): Promise<T> => {
+      try { return await p; } catch (e) { console.warn('[useLiveData] sub-fetch fail:', e); return fallback; }
+    };
     const fastTick = async () => {
       if (inflightRef.current) return;
       inflightRef.current = true;
       try {
         const [mkt, etf, bond, idxResult] = await Promise.all([
-          fetchEMMarketStats(),
-          fetchEMEtfStats(),
-          fetchEMBondStats(),
-          fetchLiveIndices(),
+          safe(fetchEMMarketStats(), null),
+          safe(fetchEMEtfStats(), null),
+          safe(fetchEMBondStats(), null),
+          safe(fetchLiveIndices(), []),
         ]);
-        setSnap((prev) => ({
-          ...prev,
-          market: mkt,
-          etfStats: etf,
-          bondStats: bond,
-          indices: idxResult,
-          fastFetchedAt: Date.now(),
-          fetchedAt: Date.now(),
-          isFirstLoad: false,
-        }));
+        setSnap((prev) => {
+          // 任何一个有数据都算成功
+          const hasAny = mkt || etf || bond || (idxResult && idxResult.length > 0);
+          return {
+            ...prev,
+            market: mkt ?? prev.market,
+            etfStats: etf ?? prev.etfStats,
+            bondStats: bond ?? prev.bondStats,
+            indices: (idxResult && idxResult.length > 0) ? idxResult : prev.indices,
+            fastFetchedAt: hasAny ? Date.now() : prev.fastFetchedAt,
+            fetchedAt: hasAny ? Date.now() : prev.fetchedAt,
+            isFirstLoad: hasAny ? false : prev.isFirstLoad,
+          };
+        });
       } catch (e) {
         console.warn('[useLiveData] fast tick error:', e);
       } finally {
@@ -97,8 +104,8 @@ export function useLiveData(enabled = true): LiveSnapshot {
     const slowTick = async () => {
       try {
         const [sinaResult, todayResult] = await Promise.all([
-          fetchSinaIndustries(SINA_INDUSTRY_LABELS),
-          fetchTodaySnapshot(),
+          safe(fetchSinaIndustries(SINA_INDUSTRY_LABELS), new Map()),
+          safe(fetchTodaySnapshot(), null),
         ]);
         setSnap((prev) => ({
           ...prev,
@@ -194,7 +201,14 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
   }
   // 2. 全市场汇总(EM push2:含涨跌停 — 10s 实时)
   if (live.market && (live.market.upCount > 0 || live.market.downCount > 0 || live.market.limitUpCount > 0)) {
+    // v2.0.7d:成交量也实时刷新 + 自动算 turnoverDiff(用 history 末 1 日作为对照)
+    const prevDayVol = next.history && next.history.length >= 1
+      ? next.history[next.history.length - 1].volume
+      : 0;
     next.marketOverview.marketTurnover = live.market.totalTurnover;
+    next.marketOverview.turnoverDiff = prevDayVol > 0
+      ? Math.round((live.market.totalTurnover - prevDayVol) * 100) / 100
+      : next.marketOverview.turnoverDiff;
     next.marketOverview.upCount = live.market.upCount;
     next.marketOverview.downCount = live.market.downCount;
     next.marketOverview.flatCount = live.market.flatCount;
