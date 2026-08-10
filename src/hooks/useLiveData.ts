@@ -1,10 +1,12 @@
-// React hook: 每 30s 拉一次实时数据,合并到 ReportData
+// React hook:盘中每 10s 拉全市场 + ETF + 可转债 + 涨跌停;60s 拉指数 + 49 行业
 import { useEffect, useState, useRef } from 'react';
 import {
   fetchLiveIndices,
-  fetchMarketSummary,
   fetchSinaIndustries,
   fetchTodaySnapshot,
+  fetchEMMarketStats,
+  fetchEMEtfStats,
+  fetchEMBondStats,
   SINA_INDUSTRY_LABELS,
 } from '../data/live';
 import type { ReportData } from '../data/loader';
@@ -21,68 +23,104 @@ export function isLiveMarket(): boolean {
 export interface LiveSnapshot {
   /** 6 个指数实时数据(顺序对应 data.indices) */
   indices: { point: number; changeAmount: number; changePercent: number; turnover: number }[];
-  /** 全市场汇总(不含涨跌停数,涨跌停用静态 zt_pool) */
-  market: { upCount: number; downCount: number; flatCount: number; totalTurnover: number } | null;
-  /** 49 个 sina 行业实时数据 */
+  /** 全市场汇总(EM push2:含涨跌停) */
+  market: {
+    upCount: number;
+    downCount: number;
+    flatCount: number;
+    totalTurnover: number;
+    limitUpCount: number;
+    limitDownCount: number;
+  } | null;
+  /** ETF 涨跌分布(EM push2) */
+  etfStats: { up: number; down: number; flat: number } | null;
+  /** 可转债 涨跌分布(EM push2) */
+  bondStats: { up: number; down: number; flat: number } | null;
+  /** 49 个 sina 行业实时数据(60s 拉) */
   sinaIndustries: Map<string, { changePercent: number; totalTurnover: number; leaderName: string; leaderChangePercent: number; stockCount: number } | null>;
-  /** 今日实时快照(用于把 8.6 当日数据 push 到 history 末尾) */
+  /** 今日实时快照(用于把今天数据 push 到 history 末尾) */
   today: { date: string; volume: number; up: number; down: number } | null;
   /** 数据源时间戳 */
   fetchedAt: number;
   /** 是否还在首次拉取(初始 false) */
   isFirstLoad: boolean;
+  /** 上次"快速拉"(10s)时间戳 */
+  fastFetchedAt: number;
 }
 
-/** 实时数据 hook — 盘中(9:30-15:00)每 30s 拉一次,非盘中 5min 拉一次
+/** 实时数据 hook — 盘中(9:30-15:00)10s 拉全市场/ETF/可转债,60s 拉指数+行业;非盘中 5min
  * 默认 enabled=true */
 export function useLiveData(enabled = true): LiveSnapshot {
   const [snap, setSnap] = useState<LiveSnapshot>({
     indices: [],
     market: null,
+    etfStats: null,
+    bondStats: null,
     sinaIndustries: new Map(),
     today: null,
     fetchedAt: 0,
     isFirstLoad: true,
+    fastFetchedAt: 0,
   });
   const inflightRef = useRef(false);
 
   useEffect(() => {
     if (!enabled) return;
-    const tick = async () => {
+    // 10s 拉快:全市场 + ETF + 可转债 + 指数
+    const fastTick = async () => {
       if (inflightRef.current) return;
       inflightRef.current = true;
       try {
-        const [idxResult, mktResult, sinaResult, todayResult] = await Promise.all([
+        const [mkt, etf, bond, idxResult] = await Promise.all([
+          fetchEMMarketStats(),
+          fetchEMEtfStats(),
+          fetchEMBondStats(),
           fetchLiveIndices(),
-          fetchMarketSummary(),
-          fetchSinaIndustries(SINA_INDUSTRY_LABELS),
-          fetchTodaySnapshot(),
         ]);
-        setSnap({
+        setSnap((prev) => ({
+          ...prev,
+          market: mkt,
+          etfStats: etf,
+          bondStats: bond,
           indices: idxResult,
-          market: mktResult,
-          sinaIndustries: sinaResult,
-          today: todayResult,
+          fastFetchedAt: Date.now(),
           fetchedAt: Date.now(),
           isFirstLoad: false,
-        });
+        }));
       } catch (e) {
-        console.warn('[useLiveData] tick error:', e);
+        console.warn('[useLiveData] fast tick error:', e);
       } finally {
         inflightRef.current = false;
       }
     };
-    tick();
-    // 盘中 30s,非盘中 5min
-    const isLive = (() => {
-      const now = new Date();
-      const day = now.getDay();
-      if (day === 0 || day === 6) return false;
-      const mins = now.getHours() * 60 + now.getMinutes();
-      return mins >= 9 * 60 + 30 && mins < 15 * 60;
-    })();
-    const interval = setInterval(tick, isLive ? 30_000 : 300_000);
-    return () => clearInterval(interval);
+    // 60s 拉慢:行业 + 今日 snapshot
+    const slowTick = async () => {
+      try {
+        const [sinaResult, todayResult] = await Promise.all([
+          fetchSinaIndustries(SINA_INDUSTRY_LABELS),
+          fetchTodaySnapshot(),
+        ]);
+        setSnap((prev) => ({
+          ...prev,
+          sinaIndustries: sinaResult,
+          today: todayResult,
+        }));
+      } catch (e) {
+        console.warn('[useLiveData] slow tick error:', e);
+      }
+    };
+
+    fastTick();
+    slowTick();
+
+    // 盘中 10s 拉快 + 60s 拉慢,非盘中 5min 拉慢
+    const isLive = isLiveMarket();
+    const fastIntv = setInterval(fastTick, isLive ? 10_000 : 60_000);
+    const slowIntv = setInterval(slowTick, isLive ? 60_000 : 300_000);
+    return () => {
+      clearInterval(fastIntv);
+      clearInterval(slowIntv);
+    };
   }, [enabled]);
 
   return snap;
@@ -93,10 +131,13 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
   const [snap, setSnap] = useState<LiveSnapshot>({
     indices: [],
     market: null,
+    etfStats: null,
+    bondStats: null,
     sinaIndustries: new Map(),
     today: null,
     fetchedAt: 0,
     isFirstLoad: true,
+    fastFetchedAt: 0,
   });
 
   useEffect(() => {
@@ -104,20 +145,25 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
     let cancelled = false;
     (async () => {
       try {
-        const [idxResult, mktResult, sinaResult, todayResult] = await Promise.all([
+        const [idxResult, mkt, etf, bond, sinaResult, todayResult] = await Promise.all([
           fetchLiveIndices(),
-          fetchMarketSummary(),
+          fetchEMMarketStats(),
+          fetchEMEtfStats(),
+          fetchEMBondStats(),
           fetchSinaIndustries(SINA_INDUSTRY_LABELS),
           fetchTodaySnapshot(),
         ]);
         if (cancelled) return;
         setSnap({
           indices: idxResult,
-          market: mktResult,
+          market: mkt,
+          etfStats: etf,
+          bondStats: bond,
           sinaIndustries: sinaResult,
           today: todayResult,
           fetchedAt: Date.now(),
           isFirstLoad: false,
+          fastFetchedAt: Date.now(),
         });
       } catch (e) {
         console.warn('[useLiveDataOnce] error:', e);
@@ -130,16 +176,14 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
 }
 
 /** 把 live snapshot 合并到 ReportData(覆盖涨跌幅/家数等实时字段)
- * 注意:涨跌停数(limitUpCount/limitDownCount)用静态 zt_pool 的精确值,不覆盖
- * 可转债/ETF 家数:用静态 fetch_real_data.py 算的(不覆盖) */
+ * v2.0.7:全市场/ETF/可转债 涨跌停数也用 live 覆盖(10s 实时) */
 export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData {
   if (live.fetchedAt === 0) return data;
   const next: ReportData = JSON.parse(JSON.stringify(data));
-  // 1. 指数(v1.9.6:live.indices 全 0 时不覆盖)
+  // 1. 指数
   if (live.indices.length > 0 && live.indices.some((li) => li.point > 0)) {
     for (let i = 0; i < next.marketOverview.indices.length && i < live.indices.length; i++) {
       const li = live.indices[i];
-      // 单条指数也校验有效性(point > 0)
       if (li.point > 0) {
         next.marketOverview.indices[i].point = li.point;
         next.marketOverview.indices[i].changeAmount = li.changeAmount;
@@ -148,19 +192,31 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       }
     }
   }
-  // 2. 全市场汇总(只覆盖 上涨/下跌/平/成交,涨跌停数不覆盖)
-  // v1.9.9:live.market 失效(全 0)时不覆盖 fetch 数据,避免 sandbox CORS 失败时把 history todayData push 为 0
-  if (live.market && (live.market.upCount > 0 || live.market.downCount > 0) && live.market.totalTurnover > 0) {
+  // 2. 全市场汇总(EM push2:含涨跌停 — 10s 实时)
+  if (live.market && (live.market.upCount > 0 || live.market.downCount > 0 || live.market.limitUpCount > 0)) {
     next.marketOverview.marketTurnover = live.market.totalTurnover;
     next.marketOverview.upCount = live.market.upCount;
     next.marketOverview.downCount = live.market.downCount;
     next.marketOverview.flatCount = live.market.flatCount;
-    // 注意:limitUpCount/limitDownCount 不覆盖 - 用 zt_pool 静态精确值
-    next.marketOverview.upPercent = live.market.upCount > 0
+    next.marketOverview.limitUpCount = live.market.limitUpCount;
+    next.marketOverview.limitDownCount = live.market.limitDownCount;
+    next.marketOverview.upPercent = (live.market.upCount + live.market.downCount + live.market.flatCount) > 0
       ? Math.round(live.market.upCount * 10000 / (live.market.upCount + live.market.downCount + live.market.flatCount)) / 100
       : 0;
   }
-  // 3. 行业板块(按 sinaLabel 覆盖)
+  // 3. ETF 涨跌分布(EM push2 — 10s 实时)
+  if (live.etfStats) {
+    next.marketOverview.etfUp = live.etfStats.up;
+    next.marketOverview.etfDown = live.etfStats.down;
+    next.marketOverview.etfFlat = live.etfStats.flat;
+  }
+  // 4. 可转债 涨跌分布(EM push2 — 10s 实时)
+  if (live.bondStats) {
+    next.marketOverview.bondUp = live.bondStats.up;
+    next.marketOverview.bondDown = live.bondStats.down;
+    next.marketOverview.bondFlat = live.bondStats.flat;
+  }
+  // 5. 行业板块(按 sinaLabel 覆盖,60s 刷新)
   if (live.sinaIndustries.size > 0) {
     for (const s of next.sectors) {
       const sl = (s as any).sinaLabel;
@@ -173,9 +229,7 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       }
     }
   }
-  // 4. 把今日实时数据 push 到 history 末尾(让曲线图含当日点)
-  // v1.9.9:live.today 拉不到时(sandbox CORS 失败,fetchTodaySnapshot 返回 {volume:0,up:0,down:0} 不为 null)
-  //   fallback 到 fetch 静态值(否则 history 末 8.7 会是 0,曲线图最后一点掉到 0)
+  // 6. 把今日实时数据 push 到 history 末尾(让曲线图含当日点)
   const todayFallback = {
     date: (() => {
       const now = new Date();
@@ -193,7 +247,7 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     if (todayData.date !== lastDate) {
       next.history.push({
         date: todayData.date,
-        volume: todayData.volume,  // 亿
+        volume: todayData.volume,
         up: todayData.up,
         down: todayData.down,
         limitUp: next.marketOverview.limitUpCount,
@@ -202,7 +256,7 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     } else {
       next.history[next.history.length - 1] = {
         ...next.history[next.history.length - 1],
-        volume: todayData.volume,  // 亿
+        volume: todayData.volume,
         up: todayData.up,
         down: todayData.down,
       };

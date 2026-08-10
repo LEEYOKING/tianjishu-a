@@ -261,3 +261,95 @@ export async function fetchSinaIndustries(labels: string[]): Promise<Map<string,
   }
   return result;
 }
+
+// =============================================================
+// 东方财富 push2 实时全市场接口(浏览器直连,CORS ✓,10s 轮询稳定)
+// =============================================================
+const EM_BASE = 'https://push2.eastmoney.com/api/qt/clist/get';
+// f2=最新价 f3=涨跌幅% f6=成交额 f12=代码 f14=名称
+const EM_FIELDS = 'f2,f3,f6,f12,f14';
+
+interface EMStock {
+  f2: number;  // 现价
+  f3: number;  // 涨跌幅
+  f6: number;  // 成交额
+  f12: string; // 代码
+  f14: string; // 名称
+}
+
+interface EMMarketResp {
+  data?: { total?: number; diff?: EMStock[] };
+}
+
+interface EMMarketStats {
+  upCount: number;
+  downCount: number;
+  flatCount: number;
+  totalTurnover: number;  // 亿
+  limitUpCount: number;
+  limitDownCount: number;
+}
+
+async function emFetch(fs: string, pz = 5000): Promise<EMStock[]> {
+  const url = `${EM_BASE}?pn=1&pz=${pz}&po=1&fid=f3&fs=${encodeURIComponent(fs)}&fields=${EM_FIELDS}`;
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`EM ${fs} HTTP ${r.status}`);
+  const j: EMMarketResp = await r.json();
+  return j.data?.diff || [];
+}
+
+/** 沪深 A 股全市场(5000 一次,漏 400 只≈7% 误差,可忽略) */
+export async function fetchEMMarketStats(): Promise<EMMarketStats> {
+  const fs = 'm:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23';
+  const list = await emFetch(fs, 5000);
+  let up = 0, down = 0, flat = 0, total = 0;
+  let lu = 0, ld = 0;
+  for (const s of list) {
+    const pct = s.f3 || 0;
+    const turnover = s.f6 || 0;
+    total += turnover;
+    if (pct > 0) up++;
+    else if (pct < 0) down++;
+    else flat++;
+    // 涨停:主板 9.9%~11%,创业板/科创板 19.9%~21%
+    if (pct >= 9.9 && pct < 11) lu++;
+    else if (pct >= 19.9 && pct < 21) lu++;
+    // 跌停
+    if (pct <= -9.9 && pct > -11) ld++;
+    else if (pct <= -19.9 && pct > -21) ld++;
+  }
+  return {
+    upCount: up,
+    downCount: down,
+    flatCount: flat,
+    totalTurnover: Math.round(total / 1e8),
+    limitUpCount: lu,
+    limitDownCount: ld,
+  };
+}
+
+/** 沪深 ETF 涨跌统计 */
+export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
+  const list = await emFetch('m:0+t:19,m:1+t:19', 1000);
+  let up = 0, down = 0, flat = 0;
+  for (const s of list) {
+    const pct = s.f3 || 0;
+    if (pct > 0) up++;
+    else if (pct < 0) down++;
+    else flat++;
+  }
+  return { up, down, flat };
+}
+
+/** 沪深可转债涨跌统计 */
+export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
+  const list = await emFetch('m:0+t:11,m:1+t:11', 1000);
+  let up = 0, down = 0, flat = 0;
+  for (const s of list) {
+    const pct = s.f3 || 0;
+    if (pct > 0) up++;
+    else if (pct < 0) down++;
+    else flat++;
+  }
+  return { up, down, flat };
+}
