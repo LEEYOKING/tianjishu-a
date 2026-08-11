@@ -1,10 +1,11 @@
 name: 每日抓 A 股 + 盘前数据
 
 on:
-  # v2.0.7:每天北京时间 09:00 跑(对应 UTC 01:00) — 周末也跑(akshare 会返回上一次数据,但 timestamp 永远 ≤ 24h)
+  # v2.0.7k:加 10:30 cron(早盘 1 小时稳定),9:35 可能集合竞价数据不稳
   schedule:
-    - cron: '35 1 * * 1-5'   # UTC 01:35 = 北京 09:35
-    - cron: '35 7 * * 1-5'   # UTC 07:35 = 北京 15:35
+    - cron: '35 1 * * 1-5'   # UTC 01:35 = 北京 09:35(集合竞价刚开,数据可能不稳)
+    - cron: '30 2 * * 1-5'   # UTC 02:30 = 北京 10:30(早盘稳定,主用)
+    - cron: '35 7 * * 1-5'   # UTC 07:35 = 北京 15:35(收盘后)
   # 允许手动触发
   workflow_dispatch:
 
@@ -26,7 +27,33 @@ jobs:
         run: pip install akshare --break-system-packages
 
       - name: 跑 fetch_real_data.py(A 股)
-        run: python scripts/fetch_real_data.py
+        id: fetch
+        run: |
+          if python scripts/fetch_real_data.py; then
+            echo "fetch_real_data.py OK"
+            echo "fetch_status=ok" >> $GITHUB_OUTPUT
+          else
+            echo "fetch_real_data.py 失败 — 降级写 data.json(从 git HEAD 复制 + _fetchError 标记)"
+            python << 'PYEOF'
+import json, subprocess, os, sys
+from datetime import datetime, timedelta
+out = 'public/data.json'
+prev = subprocess.run(['git', 'show', f'HEAD:{out}'], capture_output=True, timeout=10)
+if prev.returncode != 0 or not prev.stdout:
+    print("降级失败:git show 拿不到 HEAD data.json")
+    sys.exit(1)
+data = json.loads(prev.stdout.decode('utf-8'))
+now = (datetime.utcnow() + timedelta(hours=8))
+trade_date = now.strftime('%Y%m%d')
+data['_fetchError'] = f"{trade_date} fetch 失败,已降级用上一交易日 + 标记"
+data['_fetchTimeIso'] = now.strftime('%Y-%m-%d %H:%M:%S')
+os.makedirs(os.path.dirname(out), exist_ok=True)
+with open(out, 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+print(f"降级 data.json 已写入(带 _fetchError 标记,actions 一定能 commit → 跨日不卡死)")
+PYEOF
+            echo "fetch_status=degraded" >> $GITHUB_OUTPUT
+          fi
         continue-on-error: true
 
       - name: 跑 fetch_surgery_data.py(盘前 + 手术)
@@ -34,6 +61,7 @@ jobs:
         continue-on-error: true
 
       - name: 提交新数据
+        if: steps.fetch.outputs.fetch_status != ''
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
@@ -41,6 +69,10 @@ jobs:
           if git diff --cached --quiet; then
             echo "无新数据,跳过提交"
           else
-            git commit -m "data: 每日抓数 $(date -u +%F)"
+            STATUS=$(cat <<EOF
+          ${{ steps.fetch.outputs.fetch_status }}
+EOF
+            )
+            git commit -m "data: 每日抓数 $(date -u +%F) [$STATUS]"
             git push
           fi
