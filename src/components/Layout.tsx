@@ -48,7 +48,6 @@ export default function Layout({ data, children }: Props) {
 
   const MENU = [
     { key: '/overview', label: '大盘总览', icon: Icons.Chart, count: 0 },
-    { key: '/pre-scan', label: '盘前扫描', icon: Icons.Scan, count: 0 },
     { key: '/sector', label: '板块涨跌', icon: Icons.Grid, count: 0 },
     { key: '/limit-up', label: '连板天梯', icon: Icons.Ladder, count: counts.limitUp },
     { key: '/limit-down', label: '跌停梯队', icon: Icons.Down, count: counts.limitDown },

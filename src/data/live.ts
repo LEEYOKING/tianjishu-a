@@ -151,9 +151,12 @@ async function fetchSinaNodeByPageCustom(node: string, num: number, page: number
  * sina 限制 num=100 但支持 page=1..50, sort=code 时按代码顺序翻页
  * 并发 10 个 page, 总耗时 ~5s
  *
- * 注:limitUpCount/limitDownCount **不返回**(用 zt_pool 静态更准)
- *    上/跌/平/成交 用 sina 实时累加 */
-export async function fetchMarketSummary(): Promise<{ upCount: number; downCount: number; flatCount: number; totalTurnover: number }> {
+ * v2.0.7h:同时返回 limitUpCount/limitDownCount(让 fetchEMMarketStats / fetchTodaySnapshot 共享同源)
+ * 上/跌/平/成交/涨跌停 一致用 sina 实时累加,卡片和曲线图必然一致 */
+export async function fetchMarketSummary(): Promise<{
+  upCount: number; downCount: number; flatCount: number; totalTurnover: number;
+  limitUpCount: number; limitDownCount: number;
+}> {
   const TOTAL_PAGES = 55;
   const CONCURRENCY = 10;
   const allStocks: SinaStock[] = [];
@@ -167,16 +170,28 @@ export async function fetchMarketSummary(): Promise<{ upCount: number; downCount
       allStocks.push(...arr);
     }
     if (results.every((r) => r.length < 100)) break;
+    // 10 并发,sina 容易限流,加 50ms 间隔
+    if (i + CONCURRENCY < TOTAL_PAGES + 1) await new Promise((r) => setTimeout(r, 50));
   }
-  let up = 0, down = 0, flat = 0, total = 0;
+  let up = 0, down = 0, flat = 0, total = 0, lu = 0, ld = 0;
   for (const s of allStocks) {
     const cp = parseFloat(s.changepercent);
+    const amt = s.amount || 0;
     if (cp > 0) up++;
     else if (cp < 0) down++;
     else flat++;
-    total += s.amount || 0;
+    // 涨停:主板 9.9~11%,创业板/科创板 19.9~21%
+    if (cp >= 9.9 && cp < 11) lu++;
+    else if (cp >= 19.9 && cp < 21) lu++;
+    if (cp <= -9.9 && cp > -11) ld++;
+    else if (cp <= -19.9 && cp > -21) ld++;
+    total += amt;
   }
-  return { upCount: up, downCount: down, flatCount: flat, totalTurnover: Math.round(total / 1e8) };
+  return {
+    upCount: up, downCount: down, flatCount: flat,
+    totalTurnover: Math.round(total / 1e8),
+    limitUpCount: lu, limitDownCount: ld,
+  };
 }
 
 /** 拉取今日实时数据(用于把 8.6 当日数据 push 到 history 末尾)
@@ -199,15 +214,15 @@ export async function fetchTodaySnapshot(): Promise<{
     const m = String(now.getMonth() + 1).padStart(2, '0');
     const d = String(now.getDate()).padStart(2, '0');
     const date = `${y}-${m}-${d}`;
-    // 拉全市场
+    // 拉全市场(同源 fetchEMMarketStats,55 页 hs_a,卡片和曲线图必然一致)
     const summary = await fetchMarketSummary();
     return {
       date,
       volume: summary.totalTurnover,
       up: summary.upCount,
       down: summary.downCount,
-      limitUp: 0,  // 静态用 zt_pool 算更准
-      limitDown: 0,
+      limitUp: summary.limitUpCount,
+      limitDown: summary.limitDownCount,
     };
   } catch (e) {
     console.warn('[live] fetchTodaySnapshot 失败:', e);
@@ -321,18 +336,17 @@ async function fetchSinaStatsByNode(
   };
 }
 
-/** 沪深 A 股全市场统计 — 翻 12 页 = 1200 只(抽样 ~22%,够准),约 2s 完成
- * sina hs_a 节点默认按涨跌幅排序,sort=changepercent asc=1 拿到全市场
- *   但 sina 限 num=100 + page=1..N,可以翻页 */
+/** 沪深 A 股全市场统计 — v2.0.7h:改用 fetchMarketSummary(55 页 hs_a 全量累加)
+ * 跟 fetchTodaySnapshot 同源,卡片和曲线图数据必然一致 */
 export async function fetchEMMarketStats(): Promise<EMMarketStats> {
-  const r = await fetchSinaStatsByNode('hs_a', 18, 100);
+  const r = await fetchMarketSummary();
   return {
-    upCount: r.up,
-    downCount: r.down,
-    flatCount: r.flat,
+    upCount: r.upCount,
+    downCount: r.downCount,
+    flatCount: r.flatCount,
     totalTurnover: r.totalTurnover,
-    limitUpCount: r.limitUp,
-    limitDownCount: r.limitDown,
+    limitUpCount: r.limitUpCount,
+    limitDownCount: r.limitDownCount,
   };
 }
 

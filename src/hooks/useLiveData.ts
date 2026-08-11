@@ -120,7 +120,7 @@ export function useLiveData(enabled = true): LiveSnapshot {
 
     // 盘中 10s 拉快 + 60s 拉慢,非盘中 5min 拉慢
     const isLive = isLiveMarket();
-    const fastIntv = setInterval(fastTick, isLive ? 10_000 : 60_000);
+    const fastIntv = setInterval(fastTick, isLive ? 20_000 : 60_000);
     const slowIntv = setInterval(slowTick, isLive ? 60_000 : 300_000);
     return () => {
       clearInterval(fastIntv);

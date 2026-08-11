@@ -108,7 +108,7 @@ function SurgeryInner({ data }: { data?: ReportData }) {
     return <div style={{ padding: 24, color: '#86909C' }}>加载中...</div>;
   }
 
-  const { sealCards, loserChain, systemWarning, north, prevLimitUpCount, meta } = surgery as SurgeryData;
+  const { sealCards, loserChain, systemWarning, prevLimitUpCount, meta } = surgery as SurgeryData;
   const { tradeDateSlash } = meta;
   // 实时刷新时间 — 从 live.fetchedAt 拿(转东八区)
   const live = useLive();
@@ -244,49 +244,6 @@ function SurgeryInner({ data }: { data?: ReportData }) {
             <LoserChainTable chain={loserChain} />
           </div>
         )}
-      </Card>
-
-      {/* 北向资金汇总 */}
-      <Card
-        bodyStyle={{ padding: 20 }}
-        style={{ borderRadius: 14 }}
-        title={
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 15, fontWeight: 600, color: COLOR_TEXT }}>北向资金汇总</span>
-            <span style={{ fontSize: 12, color: (surgery as SurgeryData).northTotal >= 0 ? COLOR_UP : COLOR_DOWN }}>
-              净买入 {(surgery as SurgeryData).northTotal >= 0 ? '+' : ''}{(surgery as SurgeryData).northTotal.toFixed(2)} 亿
-            </span>
-          </div>
-        }
-      >
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: 'left', padding: '8px 12px', fontSize: 13, color: '#86909C', fontWeight: 500, background: '#F7F8FA' }}>类型</th>
-              <th style={{ textAlign: 'right', padding: '8px 12px', fontSize: 13, color: '#86909C', fontWeight: 500, background: '#F7F8FA' }}>净买入</th>
-              <th style={{ textAlign: 'right', padding: '8px 12px', fontSize: 13, color: '#86909C', fontWeight: 500, background: '#F7F8FA' }}>净流入</th>
-              <th style={{ textAlign: 'left', padding: '8px 12px', fontSize: 13, color: '#86909C', fontWeight: 500, background: '#F7F8FA' }}>指数</th>
-              <th style={{ textAlign: 'right', padding: '8px 12px', fontSize: 13, color: '#86909C', fontWeight: 500, background: '#F7F8FA' }}>涨跌幅</th>
-            </tr>
-          </thead>
-          <tbody>
-            {north.map((n, i) => (
-              <tr key={i} style={{ borderTop: '1px solid #F0F0F0' }}>
-                <td style={{ padding: '12px', fontSize: 13, color: COLOR_TEXT, fontWeight: 500 }}>{n.type}</td>
-                <td style={{ padding: '12px', textAlign: 'right', fontSize: 13, color: n.netBuy >= 0 ? COLOR_UP : COLOR_DOWN, fontWeight: 600 }}>
-                  {n.netBuy >= 0 ? '+' : ''}{n.netBuy.toFixed(2)} 亿
-                </td>
-                <td style={{ padding: '12px', textAlign: 'right', fontSize: 13, color: n.netInflow >= 0 ? COLOR_UP : COLOR_DOWN, fontWeight: 600 }}>
-                  {n.netInflow >= 0 ? '+' : ''}{n.netInflow.toFixed(2)} 亿
-                </td>
-                <td style={{ padding: '12px', fontSize: 13, color: COLOR_TEXT }}>{n.index}</td>
-                <td style={{ padding: '12px', textAlign: 'right', fontSize: 13, color: n.indexChange >= 0 ? COLOR_UP : COLOR_DOWN, fontWeight: 600 }}>
-                  {n.indexChange >= 0 ? '+' : ''}{n.indexChange.toFixed(2)}%
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </Card>
 
       {/* 封板心电图弹窗 */}

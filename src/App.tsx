@@ -7,7 +7,6 @@ import LimitDown from './pages/LimitDown';
 import Sector from './pages/Sector';
 import AnomalyStock from './pages/AnomalyStock';
 import DragonTiger from './pages/DragonTiger';
-import PreScan from './pages/PreScan';
 import Surgery from './pages/Surgery';
 import { loadReportData, type ReportData } from './data/loader';
 import { useLiveData, mergeLiveData, type LiveSnapshot } from './hooks/useLiveData';
@@ -98,7 +97,6 @@ export default function App() {
         <Layout data={merged}>
           <Routes>
             <Route path="/" element={<Navigate to="/overview" replace />} />
-            <Route path="/pre-scan" element={<PreScan />} />
             <Route path="/overview" element={<Overview data={merged} />} />
             <Route path="/sector" element={<Sector data={merged} />} />
             <Route path="/limit-up" element={<LimitUp data={merged} />} />
