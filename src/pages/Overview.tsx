@@ -386,6 +386,7 @@ export default function Overview({ data }: { data: ReportData }) {
     };
   }, [ldRange, history]);
 
+
   return (
     <div>
       <OverviewStyles />
