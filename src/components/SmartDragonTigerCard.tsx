@@ -112,6 +112,8 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
         padding: '20px 24px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)',
         marginBottom: 0,  // v2.0.7ae:卡片间无间距(grid gap 控制)
+        // v2.0.7af:固定高度 521px(5 席位满高,所有卡片等高)
+        minHeight: 521,
       }}
     >
       {/* L1: 股票名 + Tags + Summary */}

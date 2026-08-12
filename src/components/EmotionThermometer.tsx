@@ -100,8 +100,8 @@ export function EmotionThermometer({
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {/* 半圆弧 SVG — v2.0.7ae:0°/100° 改在弧外(cx-r / cx+r 同 y 位置)+ viewBox 100 加大到 116 */}
-        <svg width="100%" height="80" viewBox="0 0 200 116" style={{ display: 'block' }}>
+        {/* 半圆弧 SVG — v2.0.7af:viewBox 200x124 给 0°/100° 留更多位置 */}
+        <svg width="100%" height="80" viewBox="0 0 200 124" style={{ display: 'block' }}>
           <path
             d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
             fill="none"
@@ -130,12 +130,12 @@ export function EmotionThermometer({
             style={{ transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
           />
           <circle cx={cx} cy={cy} r="4" fill="#111827" />
-          {/* v2.0.7ae:0°/100° 在弧外 y=112(viewBox 0-116) */}
-          <text x={cx - r} y={112} textAnchor="middle" fontSize="10" fill="#6b7280" fontWeight={600}>0°</text>
-          <text x={cx + r} y={112} textAnchor="middle" fontSize="10" fill="#6b7280" fontWeight={600}>100°</text>
+          {/* v2.0.7af:0°/100° 字号 10→12 + 距弧起点 12px(弧起止点 = (cx-r, cy) / (cx+r, cy)) */}
+          <text x={cx - r} y={cy + 14} textAnchor="middle" fontSize="12" fill="#6b7280" fontWeight={600}>0°</text>
+          <text x={cx + r} y={cy + 14} textAnchor="middle" fontSize="12" fill="#6b7280" fontWeight={600}>100°</text>
         </svg>
 
-        {/* v2.0.7ae:半圆弧与温度数值间距 6px */}
+        {/* v2.0.7af:半圆弧与温度数值间距 6px(保持) */}
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 2, marginTop: 6 }}>
           <span style={{ fontSize: 26, fontWeight: 800, color, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
             {safeT}
@@ -148,7 +148,7 @@ export function EmotionThermometer({
           市场情绪温度计
         </div>
 
-        {/* v2.0.7ae:估值 / 情绪 标签 — 字号 14→12 */}
+        {/* v2.0.7ae:估值 / 情绪 标签 — 字号 12 */}
         <div style={{ display: 'flex', gap: 10, marginTop: 6, fontSize: 12, alignItems: 'center' }}>
           <span>
             <span style={{ color: '#6b7280' }}>估值</span>{' '}

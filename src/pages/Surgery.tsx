@@ -56,11 +56,12 @@ interface SurgeryData {
 
 // 评级配色(S紫、A蓝、B橙、C浅绿),背景色统一变浅
 const COLOR_C_LIGHT = '#52c41a';
+// v2.0.7af:背景色 + 0.4 透明度(alpha 0.4)— 改成 rgba 形式
 const GRADE_STYLE: Record<string, { bg: string; border: string; letter: string; badge: string }> = {
-  S: { bg: '#F4ECFF', border: COLOR_PURPLE, letter: COLOR_PURPLE, badge: COLOR_PURPLE },
-  A: { bg: '#E8F0FF', border: COLOR_BLUE, letter: COLOR_BLUE, badge: COLOR_BLUE },
-  B: { bg: '#FFF1DC', border: COLOR_ORANGE, letter: COLOR_ORANGE, badge: COLOR_ORANGE },
-  C: { bg: '#EAFAE0', border: COLOR_C_LIGHT, letter: COLOR_C_LIGHT, badge: COLOR_C_LIGHT },
+  S: { bg: 'rgba(154, 129, 252, 0.4)', border: COLOR_PURPLE, letter: COLOR_PURPLE, badge: COLOR_PURPLE },
+  A: { bg: 'rgba(80, 162, 254, 0.4)', border: COLOR_BLUE, letter: COLOR_BLUE, badge: COLOR_BLUE },
+  B: { bg: 'rgba(245, 154, 35, 0.4)', border: COLOR_ORANGE, letter: COLOR_ORANGE, badge: COLOR_ORANGE },
+  C: { bg: 'rgba(82, 196, 26, 0.4)', border: COLOR_C_LIGHT, letter: COLOR_C_LIGHT, badge: COLOR_C_LIGHT },
 };
 
 // 气泡提示(用户 #13 反馈:hover 即弹出)
@@ -261,8 +262,7 @@ function SealCardItem({ card, onClick }: { card: SealCard; onClick: () => void }
       <div
         onClick={onClick}
         style={{
-          background: s.bg,
-          opacity: 0.4,  // v2.0.7ad:卡片加不透明度
+          background: s.bg,  // v2.0.7af:bg 自身带 alpha 0.4(不再用 opacity)
           border: `1.5px solid ${s.border}`,
           borderRadius: 8,
           padding: '12px 14px',

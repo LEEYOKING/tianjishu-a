@@ -489,6 +489,30 @@ for _, row in dt_df.iterrows():
         'consecutiveDownDays': safe_int(row.get('连续跌停', 1)),
     })
 limit_down_stocks.sort(key=lambda s: (-s['consecutiveDownDays'], -s['turnover']))
+# v2.0.7af:从 sina 全市场 5500 只按涨跌幅兜底取跌停(ak.stock_zt_pool_dtgc_em 经常返空)
+# 主板跌停: -9.9%~-11%, 创业板/科创板: -19.9%~-21%
+if len(limit_down_stocks) == 0 and '涨跌幅' in spot_df.columns:
+    _cp = spot_df['涨跌幅'].astype(float)
+    _code = spot_df['代码'].astype(str)
+    _name = spot_df['名称'].astype(str) if '名称' in spot_df.columns else _code
+    # 主板跌停 + 双创跌停
+    _dt = spot_df[(_cp <= -9.9) & (_cp > -11) | (_cp <= -19.9) & (_cp > -21)].copy()
+    for _, row in _dt.iterrows():
+        _cp_v = float(row['涨跌幅'])
+        # 连续跌停数(sina 拿不到,默认 1)
+        _consec = 1
+        limit_down_stocks.append({
+            'code': str(row['代码']),
+            'name': str(row.get('名称', row['代码'])),
+            'industry': '-',
+            'closePrice': safe_float(row.get('最新价', 0)),
+            'changePercent': round(_cp_v, 2),
+            'turnover': round(safe_float(row.get('成交额', 0)) / 1e8, 2),
+            'turnoverRate': 0,
+            'consecutiveDownDays': _consec,
+        })
+    limit_down_stocks.sort(key=lambda s: -s['turnover'])
+    print(f"  跌停兜底(从 sina 5500 只取 ≤ -9.9%): {len(limit_down_stocks)} 只")
 print(f"  情绪温度原始数据: 涨停 {len(limit_up_stocks)} 跌停 {len(limit_down_stocks)} 最高连板 {_max_boards} 炸板 {_broken_count} 二板 {_today_n2}")
 dt_ladders = {}
 for s in limit_down_stocks:

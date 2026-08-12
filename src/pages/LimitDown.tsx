@@ -89,6 +89,14 @@ export default function LimitDown({ data }: { data: ReportData }) {
               </tr>
             </thead>
             <tbody>
+              {/* v2.0.7af:data 为空时友好提示(避免 user 看到空表格) */}
+              {data.limitDownStocks.length === 0 && (
+                <tr>
+                  <td colSpan={8} style={{ ...CELL_STYLE, textAlign: 'center', padding: '40px 0', color: '#86909C' }}>
+                    今日暂无跌停股票(全天 <strong style={{ color: '#0ecd70' }}>0</strong> 只)
+                  </td>
+                </tr>
+              )}
               {paged.map((s) => (
                 <tr key={s.code}>
                   <td style={CELL_STYLE}>{s.code}</td>
