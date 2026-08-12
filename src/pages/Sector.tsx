@@ -14,8 +14,22 @@ export default function Sector({ data }: { data: ReportData }) {
   const idx = data.marketOverview;
 
   // 涨幅前 10 / 跌幅前 10
-  const topGain = useMemo(() => [...sectors].sort((a, b) => b.changePercent - a.changePercent).slice(0, 10), [sectors]);
-  const topLose = useMemo(() => [...sectors].sort((a, b) => a.changePercent - b.changePercent).slice(0, 10), [sectors]);
+  // v2.0.7v:涨幅前 10 — 过滤负数 + 次级键(成交额 / 涨停数)
+  const topGain = useMemo(
+    () => [...sectors]
+      .filter((s) => s.changePercent > 0)
+      .sort((a, b) => b.changePercent - a.changePercent || (b.totalTurnover || 0) - (a.totalTurnover || 0) || (b.limitUpCount || 0) - (a.limitUpCount || 0))
+      .slice(0, 10),
+    [sectors]
+  );
+  // v2.0.7v:跌幅前 10 — 过滤非负数 + 次级键(成交额 / 跌停数)
+  const topLose = useMemo(
+    () => [...sectors]
+      .filter((s) => s.changePercent < 0)
+      .sort((a, b) => a.changePercent - b.changePercent || (b.totalTurnover || 0) - (a.totalTurnover || 0) || (b.limitUpCount || 0) - (a.limitUpCount || 0))
+      .slice(0, 10),
+    [sectors]
+  );
 
   // 用户 #7-#10 反馈:行业/概念/地域 TOP15 = 全市场该日期内涨幅最高 15 个(过滤负数)
   // 全市场涨幅 TOP15(行业):涨幅 > 0 中排前 15
@@ -211,7 +225,13 @@ function BarChartCard({ title, items, maxAbs, type: _type }: {
             position: 'right',
             formatter: (p: any) => {
               const v = p.data.rawValue;
-              return (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+              const sign = v >= 0 ? '+' : '';
+              // v2.0.7v:label 用 2 位,如有更精细的 pctRaw 显示 4 位
+              const raw = p.data.rawPct;
+              if (raw != null && Math.abs(raw) >= 0.0001 && Math.round(raw * 100) / 100 !== Math.round(v * 100) / 100) {
+                return `${sign}${v.toFixed(2)}% (${sign}${raw.toFixed(4)}%)`;
+              }
+              return sign + v.toFixed(2) + '%';
             },
             color: COLOR_TEXT,
             fontSize: 11,

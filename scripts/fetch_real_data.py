@@ -765,7 +765,7 @@ for _, row in ths_ind_df.iterrows():
     sectors.append({
         'name': name,
         'sinaLabel': map_ths_to_sina(name),  # 用于前端实时查询
-        'changePercent': round(pct, 2),
+        'changePercent': round(pct, 4),  # v2.0.7v:4 位精度避免并列
         'stockCount': safe_int(row.get('成分股数量', 0)) or up_n + down_n,
         'upCount': up_n,
         'downCount': down_n,
@@ -869,7 +869,7 @@ try:
             net_inflow = (up_est - down_est) * 1.0 + pct * base_size * 0.3 + turnover_amt / 50
             concept_sectors.append({
                 'name': cname,
-                'changePercent': round(pct, 2),
+                'changePercent': round(pct, 4),  # v2.0.7v:4 位精度避免并列
                 'stockCount': base_size,
                 'upCount': up_est,
                 'downCount': down_est,
@@ -972,7 +972,7 @@ try:
                 top2 = (top2 + ['-', '-'])[:2]
             region_sectors.append({
                 'name': cname,
-                'changePercent': round(pct, 2),
+                'changePercent': round(pct, 4),  # v2.0.7v:4 位精度避免并列
                 'stockCount': base_size,
                 'upCount': up_est,
                 'downCount': down_est,
