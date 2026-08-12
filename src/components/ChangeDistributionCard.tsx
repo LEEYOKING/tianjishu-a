@@ -114,6 +114,9 @@ export function ChangeDistributionCard({ data }: Props) {
         />
       </div>
 
+      {/* v2.0.7ak:柱状图和底部内容之间 30px 间距 */}
+      <div style={{ height: 30 }} />
+
       {/* v2.0.7aj:底部块 — 固定位置 */}
       <div style={{ paddingBottom: 25 }}>
         <div style={{ display: 'flex', gap: 16, padding: '0 45px 4px', fontSize: 13, color: '#4b5563' }}>
