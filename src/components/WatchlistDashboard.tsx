@@ -66,7 +66,7 @@ const STATUS_COLOR_MAP: Record<string, string> = {
 };
 
 // ============================================================
-// localStorage 兜底(后端没部署时)
+// localStorage 兜底(后端没部署时)— A 方案
 // ============================================================
 const LS_KEY = 'tianjishu_watchlist_v1';
 interface LSData {
@@ -83,6 +83,13 @@ function loadLS(): LSData {
 }
 function saveLS(d: LSData) {
   localStorage.setItem(LS_KEY, JSON.stringify(d));
+}
+
+// 跨标签页同步 — storage 事件
+function watchLS(cb: () => void): () => void {
+  const h = (e: StorageEvent) => { if (e.key === LS_KEY) cb(); };
+  window.addEventListener('storage', h);
+  return () => window.removeEventListener('storage', h);
 }
 
 // ============================================================
@@ -128,6 +135,17 @@ export default function WatchlistDashboard() {
   };
 
   useEffect(() => { loadAll(); /* eslint-disable-next-line */ }, []);
+
+  // v2.0.7ap:跨标签页同步(同浏览器开多个 tab,自选数据自动同步)
+  useEffect(() => {
+    return watchLS(() => {
+      const ls = loadLS();
+      setGroups(ls.groups);
+      setStocks(ls.stocks);
+      setNotes(ls.notes);
+      message.info('数据已从其他标签页同步', 1);
+    });
+  }, []);
 
   // ---- 加载某分组股票 ----
   const loadStocks = async (gid: number) => {
@@ -277,10 +295,51 @@ export default function WatchlistDashboard() {
         if (activeGroupId) loadStocks(activeGroupId);
       } else throw new Error();
     } catch {
-      message.warning('后端未启动,无法跑批');
+      message.warning('A 方案(纯 localStorage)无后端,无法跑批量异动检查。请查看手动状态灯。');
     } finally {
       setLoading(false);
     }
+  };
+
+  // v2.0.7ap:导出/导入(防止浏览器清理丢数据)
+  const handleExport = () => {
+    const ls = loadLS();
+    const blob = new Blob([JSON.stringify(ls, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tianjishu_watchlist_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    message.success(`已导出 ${ls.groups.length} 分组 / ${ls.stocks.length} 股票 / ${ls.notes.length} 笔记`);
+  };
+
+  const handleImport = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = (e: any) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result as string);
+          if (!data.groups || !data.stocks || !data.notes) throw new Error('格式不对');
+          if (!confirm(`将覆盖当前数据:导入 ${data.groups.length} 分组 / ${data.stocks.length} 股票 / ${data.notes.length} 笔记?`)) return;
+          saveLS(data);
+          setGroups(data.groups);
+          setStocks(data.stocks);
+          setNotes(data.notes);
+          if (data.groups.length) setActiveGroupId(data.groups[0].id);
+          message.success('导入成功');
+        } catch (e: any) {
+          message.error('文件格式错误:' + e.message);
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
   };
 
   // ---- 渲染 ----
@@ -295,6 +354,8 @@ export default function WatchlistDashboard() {
               {usingLS && <Tag color="orange" style={{ marginLeft: 6, fontSize: 10 }}>本地</Tag>}
             </div>
             <Button size="small" icon={<PlusOutlined />} onClick={handleAddGroup}>分组</Button>
+          <Button size="small" onClick={handleExport} style={{ marginLeft: 4 }} title="导出 JSON">导出</Button>
+          <Button size="small" onClick={handleImport} style={{ marginLeft: 4 }} title="导入 JSON">导入</Button>
           </div>
 
           {groups.length === 0 ? (
