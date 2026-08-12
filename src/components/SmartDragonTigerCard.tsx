@@ -57,7 +57,7 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 
-// 标签 chip 样式:背景 = bg 色的 10% 透明度,文字优先用 text(深色),否则用 bg
+// 标签 chip 样式:背景 = bg 色的 10% 透明度,文字默认用 bg(深色字)
 function makeChipStyle(bg: string, text?: string) {
   const r = parseInt(bg.slice(1, 3), 16);
   const g = parseInt(bg.slice(3, 5), 16);
@@ -68,8 +68,8 @@ function makeChipStyle(bg: string, text?: string) {
     fontSize: 12,
     fontWeight: 600,
     background: `rgba(${r},${g},${b},0.10)`,
-    // 传 text 就用 text(解决"普通"这种浅底标签,字色跟底色一样的 bug)
-    color: text || bg,
+    // 默认 color = bg(深色字);只有显式传 text 才覆盖(用于"普通"这种浅底)
+    color: text ?? bg,
   };
 }
 
@@ -112,10 +112,11 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {data.tags.map(t => {
               const c = TAG_COLORS[t] || TAG_COLORS['普通'];
+              // v2.0.7x:只对"普通"这种浅底标签传 text(深灰),其他用默认 bg
               return (
                 <span
                   key={t}
-                  style={makeChipStyle(c.bg, c.text)}
+                  style={makeChipStyle(c.bg, t === '普通' ? c.text : undefined)}
                 >
                   {t}
                 </span>
