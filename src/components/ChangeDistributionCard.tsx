@@ -40,9 +40,11 @@ function barColor(type: 'down' | 'flat' | 'up'): string {
 
 export function ChangeDistributionCard({ data }: Props) {
   const dist = data.marketOverview.changeDistribution;
-  const upCount = data.marketOverview.upCount ?? 0;
-  const downCount = data.marketOverview.downCount ?? 0;
-  const flatCount = data.marketOverview.flatCount ?? 0;
+  // v2.0.7am:涨跌家数从 dist 累加(跟柱状图同源),不读 marketOverview(22:58 em 不稳会丢)
+  const upCount = dist ? (dist.up_0_to_3 + dist.up_3_to_5 + dist.up_5_to_7 + dist.up_7_to_10 + dist.up_ge_10) : (data.marketOverview.upCount ?? 0);
+  const downCount = dist ? (dist.down_ge_10 + dist.down_10_to_7 + dist.down_7_to_5 + dist.down_5_to_3 + dist.down_3_to_0) : (data.marketOverview.downCount ?? 0);
+  const flatCount = dist ? dist.flat : (data.marketOverview.flatCount ?? 0);
+  // 跌停/涨停 — 仍从 marketOverview 读(em 实时算,准确)
   const limitUp = data.marketOverview.limitUpCount ?? 0;
   const limitDown = data.marketOverview.limitDownCount ?? 0;
   const total = upCount + downCount + flatCount;
