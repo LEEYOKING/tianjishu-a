@@ -57,8 +57,8 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 
-// 标签 chip 样式:背景 = bg 色的 10% 透明度,文字 = bg 满色
-function makeChipStyle(bg: string) {
+// 标签 chip 样式:背景 = bg 色的 10% 透明度,文字优先用 text(深色),否则用 bg
+function makeChipStyle(bg: string, text?: string) {
   const r = parseInt(bg.slice(1, 3), 16);
   const g = parseInt(bg.slice(3, 5), 16);
   const b = parseInt(bg.slice(5, 7), 16);
@@ -68,7 +68,8 @@ function makeChipStyle(bg: string) {
     fontSize: 12,
     fontWeight: 600,
     background: `rgba(${r},${g},${b},0.10)`,
-    color: bg,
+    // 传 text 就用 text(解决"普通"这种浅底标签,字色跟底色一样的 bug)
+    color: text || bg,
   };
 }
 
@@ -114,7 +115,7 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
               return (
                 <span
                   key={t}
-                  style={makeChipStyle(c.bg)}
+                  style={makeChipStyle(c.bg, c.text)}
                 >
                   {t}
                 </span>
@@ -246,8 +247,8 @@ function SeatColumn({ seats, side, maxAmt }: { seats: SeatInfo[]; side: 'buy' | 
                     width: `${widthPct}%`,
                     // v2.0.7w:横向渐变(从浅到深)
                     background: isBuy
-                      ? 'linear-gradient(90deg, rgba(255, 77, 79, 0.15) 0%, #ff4d4f 100%)'
-                      : 'linear-gradient(90deg, rgba(14, 205, 112, 0.15) 0%, #0ecd70 100%)',
+                      ? 'linear-gradient(90deg, #FFE7E7 0%, #ff4d4f 100%)'
+                      : 'linear-gradient(90deg, #DFF7EA 0%, #0ecd70 100%)',
                     transition: 'width 0.3s',
                   }}
                 />
