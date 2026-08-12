@@ -56,6 +56,22 @@ const TYPE_COLORS: Record<string, string> = {
   '普通营业部': '#9ca3af',
 };
 
+
+// 标签 chip 样式:背景 = bg 色的 10% 透明度,文字 = bg 满色
+function makeChipStyle(bg: string) {
+  const r = parseInt(bg.slice(1, 3), 16);
+  const g = parseInt(bg.slice(3, 5), 16);
+  const b = parseInt(bg.slice(5, 7), 16);
+  return {
+    padding: '3px 10px',
+    borderRadius: 4,
+    fontSize: 12,
+    fontWeight: 600,
+    background: `rgba(${r},${g},${b},0.10)`,
+    color: bg,
+  };
+}
+
 // ============================================================
 // 组件
 // ============================================================
@@ -98,14 +114,7 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
               return (
                 <span
                   key={t}
-                  style={{
-                    padding: '3px 10px',
-                    borderRadius: 4,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    background: c.bg,
-                    color: c.text,
-                  }}
+                  style={makeChipStyle(c.bg)}
                 >
                   {t}
                 </span>
@@ -121,10 +130,10 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
             padding: '10px 14px',
             background: '#F7F8FA',
             borderRadius: 6,
-            borderLeft: '3px solid #1890ff',
+            // v2.0.7t:删 borderLeft 蓝条(同色背景)
           }}
         >
-          💡 {data.summary_text}
+          {data.summary_text}
         </div>
       </div>
 
@@ -138,7 +147,7 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
       {Object.keys(data.force_distribution).length > 0 && (
         <div>
           <div style={{ fontSize: 12, color: '#86909C', marginBottom: 8, fontWeight: 500 }}>
-            📊 买入资金性质分布
+            买入资金性质分布
           </div>
           <div style={{ display: 'flex', height: 28, borderRadius: 4, overflow: 'hidden', background: '#F3F4F6' }}>
             {Object.entries(data.force_distribution).map(([type, pct]) => (
@@ -190,7 +199,7 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
 function SeatColumn({ seats, side, maxAmt }: { seats: SeatInfo[]; side: 'buy' | 'sell'; maxAmt: number }) {
   const isBuy = side === 'buy';
   const color = isBuy ? '#ff4d4f' : '#0ecd70';
-  const title = isBuy ? '🟥 买方阵营' : '🟩 卖方阵营';
+  const title = isBuy ? '买方阵营' : '卖方阵营';
 
   if (seats.length === 0) {
     return (
@@ -215,15 +224,12 @@ function SeatColumn({ seats, side, maxAmt }: { seats: SeatInfo[]; side: 'buy' | 
             <div key={i}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                 <span style={{ color: '#111827', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 14 }}>{s.icon}</span>
                   <span>{s.name}</span>
                   <span
                     style={{
+                      ...makeChipStyle(TYPE_COLORS[s.type] || '#9ca3af'),
                       fontSize: 10,
-                      color: '#fff',
-                      background: TYPE_COLORS[s.type] || '#9ca3af',
                       padding: '1px 6px',
-                      borderRadius: 3,
                       fontWeight: 500,
                     }}
                   >

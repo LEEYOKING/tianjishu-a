@@ -61,7 +61,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
         subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}`}
         lastUpdatedAt={useLive().fetchedAt}
       />
-      <div>
+      <div className="dt-grid">
         {sorted.length === 0 && (
           <div style={{ ...TABLE_STYLE, padding: 40, textAlign: 'center', color: '#86909C', fontSize: 13 }}>
             今日无龙虎榜数据(非交易日 / 数据未发布)
@@ -76,6 +76,19 @@ export default function DragonTiger({ data }: { data: ReportData }) {
           );
         })}
       </div>
+      {/* v2.0.7t:3 列网格 + 窄屏 1 列 */}
+      <style>{`
+        .dt-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+        @media (max-width: 900px) {
+          .dt-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
       {sorted.length > pageSize && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
           <Pagination
