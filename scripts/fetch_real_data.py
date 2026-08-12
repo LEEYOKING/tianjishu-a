@@ -168,6 +168,25 @@ flat_count = int((spot_df['涨跌幅'] == 0).sum())
 stock_total = len(spot_df)
 print(f"  sina 累加 {stock_total} 只(全市场 A股) ↑{up_count} ↓{down_count} 平{flat_count} 成交 {total_turnover}亿")
 
+# v2.0.7aa:涨跌分布分桶(11 档,跟 user 截图一致)
+# 跌:>10% / 10~7 / 7~5 / 5~3 / 3~0   平:0   涨:0~3 / 3~5 / 5~7 / 7~10 / >10%
+# 颜色:红涨绿跌 — 涨是红,跌是绿
+_change = spot_df['涨跌幅'].astype(float)
+_change_dist = {
+    'down_ge_10':    int((_change < -10).sum()),
+    'down_10_to_7':  int(((_change >= -10) & (_change < -7)).sum()),
+    'down_7_to_5':   int(((_change >= -7)  & (_change < -5)).sum()),
+    'down_5_to_3':   int(((_change >= -5)  & (_change < -3)).sum()),
+    'down_3_to_0':   int(((_change >= -3)  & (_change < 0)).sum()),
+    'flat':          int((_change == 0).sum()),
+    'up_0_to_3':     int(((_change > 0)    & (_change < 3)).sum()),
+    'up_3_to_5':     int(((_change >= 3)   & (_change < 5)).sum()),
+    'up_5_to_7':     int(((_change >= 5)   & (_change < 7)).sum()),
+    'up_7_to_10':    int(((_change >= 7)   & (_change < 10)).sum()),
+    'up_ge_10':      int((_change >= 10).sum()),
+}
+print(f"  涨跌分布: 跌 {_change_dist['down_3_to_0']} 涨 {_change_dist['up_0_to_3']} 涨停 {_change_dist['up_ge_10']} 跌停 {_change_dist['down_ge_10']}")
+
 # v2.0.7z:情绪温度维度 4 准备 — 昨日涨停今日表现 + 昨日首板数
 # 用 sina 实时数据(code 已 strip 前缀)建索引
 _sina_dict = dict(zip(spot_df['代码'].astype(str), spot_df['涨跌幅']))
@@ -368,6 +387,105 @@ for s in limit_up_stocks:
 ladders_arr = [{'level': k, 'count': v} for k, v in sorted(ladders.items(), key=lambda x: -int(x[0].rstrip('板')))]
 limit_up_count = len(limit_up_stocks)
 print(f"  涨停 {limit_up_count} 只,梯队 {len(ladders_arr)} 档")
+
+# v2.0.7aa:主力资金流(20 日) + 融资融券历史(沪+深)
+print("\n[v2.0.7aa] 主力资金流 + 融资融券...")
+
+# 1) 主力资金流(20 日) — 沪深 A 股合计
+# 优先用 akshare(stock_market_fund_flow),失败再 try em push2
+def _fetch_main_capital_flow_20d():
+    """返回 list[dict{date, main_net_inflow, huge_net_inflow, big_net_inflow}],失败返 None"""
+    # 1.1 akshare 兜底(在某些环境下能拉)
+    for fn_name in ['stock_market_fund_flow']:
+        try:
+            fn = getattr(ak, fn_name, None)
+            if fn is None:
+                continue
+            df = fn()
+            if df is None or len(df) == 0:
+                continue
+            # 找"主力净流入"列(可能叫不同名)
+            print(f"    {fn_name} 返回 {df.shape}, cols={list(df.columns)[:8]}")
+            return df  # 直接返回原 DataFrame,前端自行处理列名
+        except Exception as e:
+            print(f"    {fn_name} 失败: {type(e).__name__}: {str(e)[:50]}")
+            continue
+
+    # 1.2 em push2(可能被 sandbox 限流)
+    try:
+        url = 'https://push2.eastmoney.com/api/qt/stock/fflow/kline/get?secid=1.000001&fields1=f1,f2,f3&fields2=f51,f52,f53,f54,f55,f56,f57,f58&klt=1&lmt=20'
+        req = urllib.request.Request(url, headers={
+            'User-Agent': 'Mozilla/5.0',
+            'Referer': 'https://quote.eastmoney.com/',
+        })
+        raw = urllib.request.urlopen(req, timeout=8).read()
+        j = _json.loads(raw)
+        kl = j.get('data', {}).get('klines', [])
+        if kl:
+            return kl  # 每行 "date,主力净流入,小单,中单,大单,超大单"
+    except Exception as e:
+        print(f"    em push2 失败: {type(e).__name__}")
+
+    return None
+
+# 2) 融资融券历史(沪+深合并,60 个交易日)
+def _fetch_margin_history():
+    """返回 list[dict{date, margin_balance, margin_balance_diff}],失败返 None"""
+    sh_df = None
+    sz_df = None
+    try:
+        sh_df = ak.macro_china_market_margin_sh()
+    except Exception as e:
+        print(f"    沪市融资融券 失败: {e}")
+    try:
+        sz_df = ak.macro_china_market_margin_sz()
+    except Exception as e:
+        print(f"    深市融资融券 失败: {e}")
+    if sh_df is None or sz_df is None:
+        return None
+    # 取最近 60 个交易日
+    sh_df = sh_df.tail(60).copy()
+    sz_df = sz_df.tail(60).copy()
+    # 拉同期沪市收盘指数(用于双 Y 轴)
+    sh_idx_map = {}
+    try:
+        sh_idx_df = ak.stock_zh_index_daily(symbol='sh000001')
+        if sh_idx_df is not None and len(sh_idx_df) > 0:
+            sh_idx_df['date'] = sh_idx_df['date'].astype(str)
+            sh_idx_map = dict(zip(sh_idx_df['date'], sh_idx_df['close']))
+    except Exception:
+        pass
+    # 合并 — 按日期对齐
+    sh_df['日期'] = sh_df['日期'].astype(str)
+    sz_df['日期'] = sz_df['日期'].astype(str)
+    sh_df = sh_df.set_index('日期')
+    sz_df = sz_df.set_index('日期')
+    common = sh_df.index.intersection(sz_df.index)
+    out = []
+    for d in sorted(common):
+        sh_row = sh_df.loc[d]
+        sz_row = sz_df.loc[d]
+        margin_balance = float(sh_row['融资余额']) + float(sz_row['融资余额'])
+        sh_close = sh_idx_map.get(d)
+        out.append({
+            'date': d,
+            'margin_balance': round(margin_balance / 1e8, 2),  # 转为亿
+            'margin_balance_diff': 0,  # 后面算
+            'sh_close': round(float(sh_close), 2) if sh_close is not None else None,
+        })
+    # 计算每日净流入
+    for i in range(1, len(out)):
+        out[i]['margin_balance_diff'] = round(out[i]['margin_balance'] - out[i-1]['margin_balance'], 2)
+    return out
+
+_main_capital_flow = _fetch_main_capital_flow_20d()
+_margin_history = _fetch_margin_history()
+print(f"  主力资金流(20 日): {'OK' if _main_capital_flow is not None else '降级(无数据)'}")
+print(f"  融资融券历史(60 日): {'OK, ' + str(len(_margin_history)) + ' 天' if _margin_history is not None else '降级(无数据)'}")
+
+# 把 _main_capital_flow 转成 JSON 可序列化(如果还是 DataFrame)
+if _main_capital_flow is not None and hasattr(_main_capital_flow, 'to_dict'):
+    _main_capital_flow = _main_capital_flow.to_dict(orient='records')
 
 # ========== 5. 跌停板 ==========
 print("\n[5/7] 跌停板...")
@@ -1272,6 +1390,8 @@ data = {
             'yesterday_n1_count': _yest_n1,
             'yesterday_limit_avg_change_provided': True,  # 区分"真无数据"和"刚好为 0"
         }),
+        # v2.0.7aa:涨跌分布
+        'changeDistribution': _change_dist,
         'shTurnover': round(sh_amt, 2),
         'szTurnover': sz_amt,
         'bjTurnover': bj_amt,
@@ -1293,6 +1413,10 @@ data = {
         'bondStockUp': bond_stock_up,
         'bondStockDown': bond_stock_down,
         'bondStockFlat': bond_stock_flat,
+        # v2.0.7aa:主力资金流(20 日) — 失败返 None
+        'mainCapitalFlow20d': _main_capital_flow,
+        # v2.0.7aa:融资融券历史(沪+深合并) — 失败返 None
+        'marginHistory': _margin_history,
     },
     'history': combined_history,
     'limitUpLadders': ladders_arr,

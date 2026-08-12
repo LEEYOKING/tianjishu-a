@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-12 12:04:25",
+    "generatedAt": "2026-08-12 12:14:08",
     "tradeDate": "20260812",
     "tradeDateSlash": "26/08/12",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
@@ -8,7 +8,7 @@
   "marketOverview": {
     "tradeDate": "20260812",
     "tradeDateSlash": "26/08/12",
-    "generatedAt": "2026-08-12 12:04",
+    "generatedAt": "2026-08-12 12:14",
     "marketTurnover": 13751.74,
     "turnoverDiff": -11417.03,
     "marketTemperature": {
@@ -34,6 +34,19 @@
         "昨日涨停今日": 10,
         "晋级率": -5
       }
+    },
+    "changeDistribution": {
+      "down_ge_10": 0,
+      "down_10_to_7": 0,
+      "down_7_to_5": 0,
+      "down_5_to_3": 10,
+      "down_3_to_0": 1557,
+      "flat": 238,
+      "up_0_to_3": 3095,
+      "up_3_to_5": 372,
+      "up_5_to_7": 95,
+      "up_7_to_10": 72,
+      "up_ge_10": 61
     },
     "shTurnover": 6306.17,
     "szTurnover": 7445.57,
@@ -92,12 +105,375 @@
     "etfUp": 969,
     "etfDown": 532,
     "etfFlat": 72,
-    "bondUp": 151,
-    "bondDown": 148,
+    "bondUp": 152,
+    "bondDown": 147,
     "bondFlat": 0,
-    "bondStockUp": 186,
-    "bondStockDown": 93,
-    "bondStockFlat": 14
+    "bondStockUp": 188,
+    "bondStockDown": 90,
+    "bondStockFlat": 14,
+    "mainCapitalFlow20d": null,
+    "marginHistory": [
+      {
+        "date": "2026-05-19",
+        "margin_balance": 28680.56,
+        "margin_balance_diff": 0,
+        "sh_close": 4169.54
+      },
+      {
+        "date": "2026-05-20",
+        "margin_balance": 28746.33,
+        "margin_balance_diff": 65.77,
+        "sh_close": 4162.19
+      },
+      {
+        "date": "2026-05-21",
+        "margin_balance": 28662.81,
+        "margin_balance_diff": -83.52,
+        "sh_close": 4077.28
+      },
+      {
+        "date": "2026-05-22",
+        "margin_balance": 28692.73,
+        "margin_balance_diff": 29.92,
+        "sh_close": 4112.9
+      },
+      {
+        "date": "2026-05-25",
+        "margin_balance": 28945.4,
+        "margin_balance_diff": 252.67,
+        "sh_close": 4152.57
+      },
+      {
+        "date": "2026-05-26",
+        "margin_balance": 29018.81,
+        "margin_balance_diff": 73.41,
+        "sh_close": 4145.37
+      },
+      {
+        "date": "2026-05-27",
+        "margin_balance": 29059.53,
+        "margin_balance_diff": 40.72,
+        "sh_close": 4093.73
+      },
+      {
+        "date": "2026-05-28",
+        "margin_balance": 29115.71,
+        "margin_balance_diff": 56.18,
+        "sh_close": 4098.64
+      },
+      {
+        "date": "2026-05-29",
+        "margin_balance": 28821.54,
+        "margin_balance_diff": -294.17,
+        "sh_close": 4068.57
+      },
+      {
+        "date": "2026-06-01",
+        "margin_balance": 28744.92,
+        "margin_balance_diff": -76.62,
+        "sh_close": 4057.74
+      },
+      {
+        "date": "2026-06-02",
+        "margin_balance": 28758.31,
+        "margin_balance_diff": 13.39,
+        "sh_close": 4075.1
+      },
+      {
+        "date": "2026-06-03",
+        "margin_balance": 28843.26,
+        "margin_balance_diff": 84.95,
+        "sh_close": 4083.97
+      },
+      {
+        "date": "2026-06-04",
+        "margin_balance": 28908.92,
+        "margin_balance_diff": 65.66,
+        "sh_close": 4057.78
+      },
+      {
+        "date": "2026-06-05",
+        "margin_balance": 28768.5,
+        "margin_balance_diff": -140.42,
+        "sh_close": 4027.74
+      },
+      {
+        "date": "2026-06-08",
+        "margin_balance": 28534.93,
+        "margin_balance_diff": -233.57,
+        "sh_close": 3959.34
+      },
+      {
+        "date": "2026-06-09",
+        "margin_balance": 28571.3,
+        "margin_balance_diff": 36.37,
+        "sh_close": 4010.03
+      },
+      {
+        "date": "2026-06-10",
+        "margin_balance": 28490.4,
+        "margin_balance_diff": -80.9,
+        "sh_close": 3993.23
+      },
+      {
+        "date": "2026-06-11",
+        "margin_balance": 28438.16,
+        "margin_balance_diff": -52.24,
+        "sh_close": 3987.01
+      },
+      {
+        "date": "2026-06-12",
+        "margin_balance": 28434.14,
+        "margin_balance_diff": -4.02,
+        "sh_close": 4031.51
+      },
+      {
+        "date": "2026-06-15",
+        "margin_balance": 28674.74,
+        "margin_balance_diff": 240.6,
+        "sh_close": 4096.47
+      },
+      {
+        "date": "2026-06-16",
+        "margin_balance": 28938.39,
+        "margin_balance_diff": 263.65,
+        "sh_close": 4091.89
+      },
+      {
+        "date": "2026-06-17",
+        "margin_balance": 29218.51,
+        "margin_balance_diff": 280.12,
+        "sh_close": 4108.08
+      },
+      {
+        "date": "2026-06-18",
+        "margin_balance": 29346.59,
+        "margin_balance_diff": 128.08,
+        "sh_close": 4090.48
+      },
+      {
+        "date": "2026-06-22",
+        "margin_balance": 29636.77,
+        "margin_balance_diff": 290.18,
+        "sh_close": 4163.1
+      },
+      {
+        "date": "2026-06-23",
+        "margin_balance": 29698.09,
+        "margin_balance_diff": 61.32,
+        "sh_close": 4106.25
+      },
+      {
+        "date": "2026-06-24",
+        "margin_balance": 29834.59,
+        "margin_balance_diff": 136.5,
+        "sh_close": 4110.81
+      },
+      {
+        "date": "2026-06-25",
+        "margin_balance": 30009.43,
+        "margin_balance_diff": 174.84,
+        "sh_close": 4120.28
+      },
+      {
+        "date": "2026-06-26",
+        "margin_balance": 29803.46,
+        "margin_balance_diff": -205.97,
+        "sh_close": 4027.26
+      },
+      {
+        "date": "2026-06-29",
+        "margin_balance": 29716.72,
+        "margin_balance_diff": -86.74,
+        "sh_close": 4073.9
+      },
+      {
+        "date": "2026-06-30",
+        "margin_balance": 29877.88,
+        "margin_balance_diff": 161.16,
+        "sh_close": 4094.4
+      },
+      {
+        "date": "2026-07-01",
+        "margin_balance": 29975.83,
+        "margin_balance_diff": 97.95,
+        "sh_close": 4112.44
+      },
+      {
+        "date": "2026-07-02",
+        "margin_balance": 29911.38,
+        "margin_balance_diff": -64.45,
+        "sh_close": 4028.9
+      },
+      {
+        "date": "2026-07-03",
+        "margin_balance": 29714.71,
+        "margin_balance_diff": -196.67,
+        "sh_close": 4043.64
+      },
+      {
+        "date": "2026-07-06",
+        "margin_balance": 29609.76,
+        "margin_balance_diff": -104.95,
+        "sh_close": 4041.24
+      },
+      {
+        "date": "2026-07-07",
+        "margin_balance": 29479.38,
+        "margin_balance_diff": -130.38,
+        "sh_close": 3990.24
+      },
+      {
+        "date": "2026-07-08",
+        "margin_balance": 29290.26,
+        "margin_balance_diff": -189.12,
+        "sh_close": 3970.88
+      },
+      {
+        "date": "2026-07-09",
+        "margin_balance": 29251.08,
+        "margin_balance_diff": -39.18,
+        "sh_close": 4036.59
+      },
+      {
+        "date": "2026-07-10",
+        "margin_balance": 29137.69,
+        "margin_balance_diff": -113.39,
+        "sh_close": 3996.16
+      },
+      {
+        "date": "2026-07-13",
+        "margin_balance": 28802.36,
+        "margin_balance_diff": -335.33,
+        "sh_close": 3913.79
+      },
+      {
+        "date": "2026-07-14",
+        "margin_balance": 28692.79,
+        "margin_balance_diff": -109.57,
+        "sh_close": 3967.13
+      },
+      {
+        "date": "2026-07-15",
+        "margin_balance": 28576.13,
+        "margin_balance_diff": -116.66,
+        "sh_close": 3955.58
+      },
+      {
+        "date": "2026-07-16",
+        "margin_balance": 28290.26,
+        "margin_balance_diff": -285.87,
+        "sh_close": 3882.41
+      },
+      {
+        "date": "2026-07-17",
+        "margin_balance": 27491.45,
+        "margin_balance_diff": -798.81,
+        "sh_close": 3764.16
+      },
+      {
+        "date": "2026-07-20",
+        "margin_balance": 26894.6,
+        "margin_balance_diff": -596.85,
+        "sh_close": 3796.28
+      },
+      {
+        "date": "2026-07-21",
+        "margin_balance": 26895.22,
+        "margin_balance_diff": 0.62,
+        "sh_close": 3864.37
+      },
+      {
+        "date": "2026-07-22",
+        "margin_balance": 26902.68,
+        "margin_balance_diff": 7.46,
+        "sh_close": 3867.03
+      },
+      {
+        "date": "2026-07-23",
+        "margin_balance": 26804.47,
+        "margin_balance_diff": -98.21,
+        "sh_close": 3876.78
+      },
+      {
+        "date": "2026-07-24",
+        "margin_balance": 26582.51,
+        "margin_balance_diff": -221.96,
+        "sh_close": 3814.2
+      },
+      {
+        "date": "2026-07-27",
+        "margin_balance": 26682.78,
+        "margin_balance_diff": 100.27,
+        "sh_close": 3858.24
+      },
+      {
+        "date": "2026-07-28",
+        "margin_balance": 26385.18,
+        "margin_balance_diff": -297.6,
+        "sh_close": 3813.32
+      },
+      {
+        "date": "2026-07-29",
+        "margin_balance": 26129.7,
+        "margin_balance_diff": -255.48,
+        "sh_close": 3828.47
+      },
+      {
+        "date": "2026-07-30",
+        "margin_balance": 25763.11,
+        "margin_balance_diff": -366.59,
+        "sh_close": 3804.69
+      },
+      {
+        "date": "2026-07-31",
+        "margin_balance": 25809.69,
+        "margin_balance_diff": 46.58,
+        "sh_close": 3832.26
+      },
+      {
+        "date": "2026-08-03",
+        "margin_balance": 25721.74,
+        "margin_balance_diff": -87.95,
+        "sh_close": 3809.66
+      },
+      {
+        "date": "2026-08-04",
+        "margin_balance": 25841.46,
+        "margin_balance_diff": 119.72,
+        "sh_close": 3822.28
+      },
+      {
+        "date": "2026-08-05",
+        "margin_balance": 25962.61,
+        "margin_balance_diff": 121.15,
+        "sh_close": 3878.43
+      },
+      {
+        "date": "2026-08-06",
+        "margin_balance": 26072.7,
+        "margin_balance_diff": 110.09,
+        "sh_close": 3900.35
+      },
+      {
+        "date": "2026-08-07",
+        "margin_balance": 26142.62,
+        "margin_balance_diff": 69.92,
+        "sh_close": 3940.04
+      },
+      {
+        "date": "2026-08-10",
+        "margin_balance": 26282.93,
+        "margin_balance_diff": 140.31,
+        "sh_close": 3966.59
+      },
+      {
+        "date": "2026-08-11",
+        "margin_balance": 26295.92,
+        "margin_balance_diff": 12.99,
+        "sh_close": 3934.09
+      }
+    ]
   },
   "history": [
     {

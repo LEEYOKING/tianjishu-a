@@ -84,6 +84,37 @@ export interface MarketOverview {
   bondStockUp?: number;
   bondStockDown?: number;
   bondStockFlat?: number;
+  // v2.0.7aa:主力资金流(20 日) + 融资融券历史(60 日)
+  mainCapitalFlow20d?: MainCapitalFlowItem[] | null;
+  marginHistory?: MarginHistoryItem[] | null;
+  // v2.0.7aa:涨跌分布分桶(11 档)
+  changeDistribution?: {
+    down_ge_10: number;
+    down_10_to_7: number;
+    down_7_to_5: number;
+    down_5_to_3: number;
+    down_3_to_0: number;
+    flat: number;
+    up_0_to_3: number;
+    up_3_to_5: number;
+    up_5_to_7: number;
+    up_7_to_10: number;
+    up_ge_10: number;
+  };
+}
+
+export interface MainCapitalFlowItem {
+  date: string;
+  main_net_inflow: number;  // 主力净流入(亿元)
+  huge_net_inflow?: number;
+  big_net_inflow?: number;
+}
+
+export interface MarginHistoryItem {
+  date: string;
+  margin_balance: number;        // 融资余额(亿)
+  margin_balance_diff: number;   // 当日净流入(亿)
+  sh_close: number | null;       // 沪市收盘指数
 }
 
 export interface IndexQuote {

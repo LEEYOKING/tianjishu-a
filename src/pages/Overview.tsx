@@ -8,6 +8,9 @@ import {
 import type { ReportData } from '../data/loader';
 import type { HistoryPoint } from '../types';
 import { useLive } from '../App';
+import { ChangeDistributionCard } from '../components/ChangeDistributionCard';
+import { MainCapitalFlowCard } from '../components/MainCapitalFlowCard';
+import { MarginHistoryCard } from '../components/MarginHistoryCard';
 
 // 前 2 个曲线图:7/15/30 日(去掉 60/90)
 // 涨跌停家数:7/15 日(原限制)
@@ -521,6 +524,25 @@ export default function Overview({ data }: { data: ReportData }) {
           >
             {/* v2.0.6:7 档色严格按用户给的色值,28 cell 按 sw 行业平均涨跌幅映射 */}
             <ReactECharts option={treemapChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
+          </Card>
+        </div>
+      </div>
+
+      {/* 第五行(v2.0.7aa):涨跌分布 + 主力资金流 + 融资流向 — 3 列等宽 */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
+        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+          <Card title="涨跌分布">
+            <ChangeDistributionCard data={data} />
+          </Card>
+        </div>
+        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+          <Card title="近20日主力流向">
+            <MainCapitalFlowCard data={data} />
+          </Card>
+        </div>
+        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+          <Card title="融资流向">
+            <MarginHistoryCard data={data} />
           </Card>
         </div>
       </div>
