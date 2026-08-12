@@ -21,7 +21,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
     return (
       <div>
         <PageHeader
-          title="龙虎榜"
+          title={`龙虎榜 · ${idx.tradeDate.replace(/^(\d{4})(\d{2})(\d{2})$/, '$1$2$3').replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3')}`}
           tradeDateSlash={idx.tradeDateSlash}
           generatedAt={idx.generatedAt}
           liveTag="智能解读"
@@ -51,10 +51,17 @@ export default function DragonTiger({ data }: { data: ReportData }) {
   // 过滤有 interpreted 数据的股票
   const hasInterp = sorted.filter(s => s.interpreted).length;
 
+  // v2.0.7ac:title 加日期(tradeDate 转 YYYY/MM/DD)
+  const titleDate = (() => {
+    const d = idx.tradeDate;  // YYYYMMDD
+    if (d.length === 8) return `${d.slice(0, 4)}/${d.slice(4, 6)}/${d.slice(6, 8)}`;
+    return d;
+  })();
+
   return (
     <div>
       <PageHeader
-        title="龙虎榜"
+        title={`龙虎榜 · ${titleDate}`}
         tradeDateSlash={idx.tradeDateSlash}
         generatedAt={idx.generatedAt}
         liveTag="智能解读"
@@ -76,16 +83,21 @@ export default function DragonTiger({ data }: { data: ReportData }) {
           );
         })}
       </div>
-      {/* v2.0.7t:3 列网格 + 窄屏 1 列 */}
+      {/* v2.0.7ac:3 列 → 2 列 → 1 列 响应式(原 900px 跳 1 列,现在加 1400px 跳 2 列) */}
       <style>{`
         .dt-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 12px;
+        }
+        @media (max-width: 1400px) {
+          .dt-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          }
         }
         @media (max-width: 900px) {
           .dt-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

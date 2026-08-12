@@ -18,9 +18,6 @@ const ORANGE = '#f59e0b';
 
 export function MarginHistoryCard({ data }: Props) {
   const list = data.marketOverview.marginHistory;
-  const last = list && list.length > 0 ? list[list.length - 1] : null;
-  const todayDiff = last?.margin_balance_diff ?? 0;
-  const todayDate = last?.date ?? '';
 
   const sumN = (n: number) => {
     if (!list || list.length === 0) return 0;
@@ -37,30 +34,6 @@ export function MarginHistoryCard({ data }: Props) {
         <div style={{ color, fontSize: 14, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
           {sign}{v.toFixed(2)}亿元
         </div>
-      </div>
-    );
-  };
-
-  // 右上角徽章(参考 user 附件 1:红涨绿跌 + ↑↓ 箭头)
-  const renderBadge = () => {
-    if (!last) return null;
-    const isIn = todayDiff >= 0;
-    const bg = isIn ? 'rgba(255, 77, 79, 0.10)' : 'rgba(14, 205, 112, 0.10)';
-    const color = isIn ? RED : GREEN;
-    const arrow = isIn ? '↑' : '↓';
-    const sign = todayDiff > 0 ? '+' : '';
-    // MM-DD 格式
-    const md = todayDate.slice(5);
-    return (
-      <div style={{
-        display: 'inline-flex', alignItems: 'center', gap: 4,
-        padding: '2px 10px', background: bg, color, borderRadius: 4,
-        fontSize: 12, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
-      }}>
-        <span style={{ fontWeight: 600, color: '#9ca3af' }}>{md}</span>
-        <span>{isIn ? '净流入' : '净流出'}</span>
-        <span>{sign}{Math.abs(todayDiff).toFixed(2)}亿元</span>
-        <span style={{ fontSize: 14, lineHeight: 1 }}>{arrow}</span>
       </div>
     );
   };
@@ -184,15 +157,12 @@ export function MarginHistoryCard({ data }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* 顶部 4 数字 + 右上角徽章 */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '8px 4px', marginBottom: 4 }}>
-        <div style={{ display: 'flex', gap: 16, flex: 1, fontSize: 12 }}>
-          {renderTopStat('60日净流入', 60)}
-          {renderTopStat('20日净流入', 20)}
-          {renderTopStat('5日净流入', 5)}
-          {renderTopStat('3日净流入', 3)}
-        </div>
-        {renderBadge()}
+      {/* 顶部 4 数字 — v2.0.7ac:徽章移到 Card right */}
+      <div style={{ display: 'flex', gap: 16, padding: '8px 4px', marginBottom: 4, fontSize: 12 }}>
+        {renderTopStat('60日净流入', 60)}
+        {renderTopStat('20日净流入', 20)}
+        {renderTopStat('5日净流入', 5)}
+        {renderTopStat('3日净流入', 3)}
       </div>
       <div style={{ flex: 1, minHeight: 0 }}>
         <ReactECharts

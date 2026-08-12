@@ -88,6 +88,21 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
     1
   );
 
+  // v2.0.7ac:卖方资金性质分布(前端根据 structured_sell_list 累加)
+  const sellForce: Record<string, number> = {};
+  for (const s of sells) {
+    if (!s.type) continue;
+    const amt = Math.abs(s.net_amount || 0);
+    sellForce[s.type] = (sellForce[s.type] || 0) + amt;
+  }
+  const sellTotalAmt = Object.values(sellForce).reduce((a, b) => a + b, 0);
+  const sellForcePct: Record<string, number> = {};
+  if (sellTotalAmt > 0) {
+    for (const [k, v] of Object.entries(sellForce)) {
+      sellForcePct[k] = Math.round((v / sellTotalAmt) * 100);
+    }
+  }
+
   return (
     <div
       style={{
@@ -145,52 +160,69 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
         <SeatColumn seats={sells} side="sell" maxAmt={maxAmt} />
       </div>
 
-      {/* L3: 资金性质分布(横条) */}
-      {Object.keys(data.force_distribution).length > 0 && (
-        <div>
-          <div style={{ fontSize: 12, color: '#86909C', marginBottom: 8, fontWeight: 500 }}>
-            买入资金性质分布
-          </div>
-          <div style={{ display: 'flex', height: 28, borderRadius: 4, overflow: 'hidden', background: '#F3F4F6' }}>
-            {Object.entries(data.force_distribution).map(([type, pct]) => (
-              <div
-                key={type}
-                style={{
-                  width: `${pct}%`,
-                  background: TYPE_COLORS[type] || '#9ca3af',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 11,
-                  color: '#fff',
-                  fontWeight: 600,
-                  transition: 'width 0.3s',
-                }}
-                title={`${type} ${pct}%`}
-              >
-                {pct >= 8 ? `${type} ${pct}%` : ''}
-              </div>
-            ))}
-          </div>
-          {/* 图例 */}
-          <div style={{ display: 'flex', gap: 14, marginTop: 8, flexWrap: 'wrap' }}>
-            {Object.entries(data.force_distribution).map(([type, pct]) => (
-              <span key={type} style={{ fontSize: 11, color: '#6b7280', display: 'flex', alignItems: 'center', gap: 4 }}>
-                <span
+      {/* L3: 资金性质分布(横条) — v2.0.7ac:买/卖并列,色块高 15px,删色块内文字 */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        {/* 买入 */}
+        {Object.keys(data.force_distribution).length > 0 && (
+          <div>
+            <div style={{ fontSize: 12, color: '#86909C', marginBottom: 6, fontWeight: 500 }}>
+              买入资金性质分布
+            </div>
+            <div style={{ display: 'flex', height: 15, borderRadius: 4, overflow: 'hidden', background: '#F3F4F6' }}>
+              {Object.entries(data.force_distribution).map(([type, pct]) => (
+                <div
+                  key={type}
                   style={{
-                    display: 'inline-block',
-                    width: 8,
-                    height: 8,
-                    borderRadius: 2,
+                    width: `${pct}%`,
                     background: TYPE_COLORS[type] || '#9ca3af',
+                    transition: 'width 0.3s',
                   }}
+                  title={`${type} ${pct}%`}
                 />
-                {type} <strong style={{ color: '#111827', marginLeft: 2 }}>{pct}%</strong>
-              </span>
-            ))}
+              ))}
+            </div>
+            {/* 图例 */}
+            <div style={{ display: 'flex', gap: 10, marginTop: 6, flexWrap: 'wrap' }}>
+              {Object.entries(data.force_distribution).map(([type, pct]) => (
+                <span key={type} style={{ fontSize: 11, color: '#6b7280', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 2, background: TYPE_COLORS[type] || '#9ca3af' }} />
+                  {type} <strong style={{ color: '#111827', marginLeft: 2 }}>{pct}%</strong>
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+        {/* 卖出 — v2.0.7ac:新增,从 structured_sell_list 算 */}
+        {Object.keys(sellForcePct).length > 0 && (
+          <div>
+            <div style={{ fontSize: 12, color: '#86909C', marginBottom: 6, fontWeight: 500 }}>
+              卖出资金性质分布
+            </div>
+            <div style={{ display: 'flex', height: 15, borderRadius: 4, overflow: 'hidden', background: '#F3F4F6' }}>
+              {Object.entries(sellForcePct).map(([type, pct]) => (
+                <div
+                  key={type}
+                  style={{
+                    width: `${pct}%`,
+                    background: TYPE_COLORS[type] || '#9ca3af',
+                    transition: 'width 0.3s',
+                  }}
+                  title={`${type} ${pct}%`}
+                />
+              ))}
+            </div>
+            {/* 图例 */}
+            <div style={{ display: 'flex', gap: 10, marginTop: 6, flexWrap: 'wrap' }}>
+              {Object.entries(sellForcePct).map(([type, pct]) => (
+                <span key={type} style={{ fontSize: 11, color: '#6b7280', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 2, background: TYPE_COLORS[type] || '#9ca3af' }} />
+                  {type} <strong style={{ color: '#111827', marginLeft: 2 }}>{pct}%</strong>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -242,7 +274,7 @@ function SeatColumn({ seats, side, maxAmt }: { seats: SeatInfo[]; side: 'buy' | 
                   {sign}{amtYi} 亿
                 </span>
               </div>
-              <div style={{ display: 'flex', height: 6, background: '#F3F4F6', borderRadius: 3, overflow: 'hidden' }}>
+              <div style={{ display: 'flex', height: 6, background: '#FAFBFC', borderRadius: 3, overflow: 'hidden' }}>
                 <div
                   style={{
                     width: `${widthPct}%`,
@@ -251,6 +283,9 @@ function SeatColumn({ seats, side, maxAmt }: { seats: SeatInfo[]; side: 'buy' | 
                       ? 'linear-gradient(90deg, #FFE7E7 0%, #ff4d4f 100%)'
                       : 'linear-gradient(90deg, #DFF7EA 0%, #0ecd70 100%)',
                     transition: 'width 0.3s',
+                    // v2.0.7ac:右上右下圆角最大(因 isBuy 从左往右,反之亦然)
+                    borderTopRightRadius: 999,
+                    borderBottomRightRadius: 999,
                   }}
                 />
               </div>

@@ -1,4 +1,4 @@
-// 涨跌分布柱状图 — v2.0.7ab
+// 涨跌分布柱状图 — v2.0.7ac
 // 11 档分桶:跌 5 / 平 1 / 涨 5,色:跌绿 / 平灰 / 涨红
 // 实时刷新(从 data.live 通过 useLive merge 进来 — 10s 节奏)
 
@@ -60,21 +60,15 @@ export function ChangeDistributionCard({ data }: Props) {
 
     return {
       animation: false,
-      grid: { top: 22, right: 6, left: 6, bottom: 22 },
-      tooltip: {
-        trigger: 'axis' as const,
-        axisPointer: { type: 'shadow' as const },
-        formatter: (params: any) => {
-          const i = params[0].dataIndex;
-          return `${BUCKETS[i].label}<br/>家数: <b>${values[i]}</b>`;
-        },
-      },
+      // v2.0.7ac:左右间距 1.5x(原 6 → 9),底部加大
+      grid: { top: 22, right: 9, left: 9, bottom: 20 },
+      tooltip: { show: false },  // v2.0.7ac:取消 hover(tooltip + axisPointer)
       xAxis: {
         type: 'category' as const,
         data: labels,
-        axisLine: { show: true, lineStyle: { color: '#E5E7EB', width: 1 } },  // 底部灰色实线
+        axisLine: { show: true, lineStyle: { color: '#E5E7EB', width: 1 } },
         axisTick: { show: false },
-        axisLabel: { color: '#6b7280', fontSize: 12, fontWeight: 600 },  // v2.0.7ab:加大 1 号 + 加粗
+        axisLabel: { color: '#6b7280', fontSize: 12, fontWeight: 600 },
       },
       yAxis: { type: 'value' as const, show: false },
       series: [
@@ -83,24 +77,25 @@ export function ChangeDistributionCard({ data }: Props) {
           data: values.map((v, i) => ({
             value: v,
             itemStyle: {
+              // v2.0.7ac:整柱+数字统一色(跌绿/平灰/涨红)
               color: colors[i],
               borderRadius: [2, 2, 0, 0],
-              // v2.0.7ab:0 数值仍显示(不透明)
               opacity: v === 0 ? 0.6 : 1,
             },
           })),
-          barWidth: 22,
+          // v2.0.7ac:柱子宽 1.2x(原 22 → 26)
+          barWidth: 26,
           label: {
             show: true,
             position: 'top' as const,
-            // v2.0.7ab:数字用对应颜色(红涨/平灰/跌绿)
+            // v2.0.7ac:数字用对应颜色(跟柱子同色)
             color: (params: any) => {
               const i = params.dataIndex;
               return colors[i];
             },
             fontSize: 11,
-            fontWeight: 600,
-            // v2.0.7ab:0 也显示
+            fontWeight: 700,
+            // v2.0.7ac:0 也显示
             formatter: (p: any) => p.value >= 0 ? p.value : '',
           },
         },
@@ -114,13 +109,18 @@ export function ChangeDistributionCard({ data }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* 柱状图 — 撑满高度(响应卡片高度) */}
-      <div style={{ flex: 1, minHeight: 0 }}>
-        <ReactECharts option={option} style={{ height: '100%', minHeight: 120, width: '100%' }} notMerge={true} lazyUpdate={true} />
+      {/* 柱状图 — 撑满高度(高度 2x) */}
+      <div style={{ flex: 1, minHeight: 0, height: 240 }}>
+        <ReactECharts
+          option={option}
+          style={{ height: '100%', width: '100%' }}
+          notMerge={true}
+          lazyUpdate={true}
+        />
       </div>
 
-      {/* 底部 1:涨跌家数 + 涨停跌停 */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 2px 4px', fontSize: 13, color: '#4b5563' }}>
+      {/* 底部 1:涨跌家数 + 涨停跌停 — 宽度与柱状图统一(左右各 9px) */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 9px 4px', fontSize: 13, color: '#4b5563' }}>
         <span>
           <span style={{ color: '#111827', fontWeight: 600 }}>涨跌</span>{' '}
           <span style={{ color: GREEN }}>跌{downCount}家</span>
@@ -134,8 +134,8 @@ export function ChangeDistributionCard({ data }: Props) {
         </span>
       </div>
 
-      {/* 底部 2:涨跌家数比例横条(参考 user 附件 2 红框) */}
-      <div style={{ display: 'flex', height: 6, borderRadius: 3, overflow: 'hidden', background: '#F3F4F6' }}>
+      {/* 底部 2:涨跌家数比例横条 — 同样左右 9px */}
+      <div style={{ display: 'flex', height: 6, margin: '4px 9px 0', borderRadius: 3, overflow: 'hidden', background: '#F3F4F6' }}>
         {downPct > 0 && (
           <div style={{ width: `${downPct * 100}%`, background: GREEN }} title={`跌 ${(downPct * 100).toFixed(1)}%`} />
         )}

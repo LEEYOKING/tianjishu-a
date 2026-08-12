@@ -545,7 +545,10 @@ export default function Overview({ data }: { data: ReportData }) {
           </Card>
         </div>
         <div style={{ minWidth: 0, overflow: 'hidden' }}>
-          <Card title="融资流向">
+          <Card
+            title="融资流向"
+            right={<MarginBadge data={data} />}
+          >
             <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
               <MarginHistoryCard data={data} />
             </div>
@@ -775,6 +778,32 @@ function ETFCard({ etfUp, etfDown, etfFlat }: { etfUp: number; etfDown: number; 
         <span style={{ color: '#6b7280' }}>平盘</span>
         <span style={{ color: '#111827', fontWeight: 700 }}>{etfFlat}</span>
       </div>
+    </div>
+  );
+}
+
+// v2.0.7ac:融资卡片右上角徽章(跟 user 附件 1 一样 — 全红字,圆角小标签)
+function MarginBadge({ data }: { data: ReportData }) {
+  const list = data.marketOverview.marginHistory;
+  if (!list || list.length === 0) return null;
+  const last = list[list.length - 1];
+  const diff = last.margin_balance_diff;
+  const md = last.date.slice(5);
+  // 参考上证指数卡片的徽章样式 — 全红字(theme)
+  return (
+    <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: 4,
+      padding: '3px 10px',
+      background: 'rgba(255, 77, 79, 0.08)',
+      color: '#ff4d4f',
+      borderRadius: 4,
+      fontSize: 12, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
+      lineHeight: 1.4,
+    }}>
+      <span style={{ color: '#ff4d4f' }}>{md}</span>
+      <span style={{ color: '#ff4d4f' }}>净流入</span>
+      <span style={{ color: '#ff4d4f' }}>{diff > 0 ? '+' : ''}{diff.toFixed(2)}亿元</span>
+      <span style={{ fontSize: 14, lineHeight: 1, color: '#ff4d4f' }}>↑</span>
     </div>
   );
 }
