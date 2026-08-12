@@ -99,16 +99,10 @@ export function EmotionThermometer({
         background: 'transparent',
       }}
     >
-      {/* v2.0.7ac:固定标题"市场情绪温度计" */}
-      <div style={{ textAlign: 'center', fontSize: 12, color: '#6b7280', marginBottom: 2 }}>
-        市场情绪温度计
-      </div>
-
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {/* 半圆弧 SVG — 缩到 80%,0°/100° 位置修正 */}
+        {/* 半圆弧 SVG — v2.0.7ad:0°/100° 文字在弧外,位置对齐弧的起止点 */}
         <svg width="100%" height="80" viewBox="0 0 200 100" style={{ display: 'block' }}>
           <path
-            // v2.0.7ac:从 (cx-r) 到 (cx+r) 半圆弧 — 0°/100° 位置正确
             d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
             fill="none"
             stroke="#F3F4F6"
@@ -136,17 +130,22 @@ export function EmotionThermometer({
             style={{ transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
           />
           <circle cx={cx} cy={cy} r="4" fill="#111827" />
-          {/* v2.0.7ac:0° 在弧左端(cx-r),100° 在弧右端(cx+r) — 视觉对齐弧的起止点 */}
-          <text x={cx - r} y={cy + 14} textAnchor="middle" fontSize="10" fill="#6b7280" fontWeight={600}>0°</text>
-          <text x={cx + r} y={cy + 14} textAnchor="middle" fontSize="10" fill="#6b7280" fontWeight={600}>100°</text>
+          {/* v2.0.7ad:0° 在弧起点左外侧,100° 在弧终点右外侧 */}
+          <text x={cx - r - 4} y={cy + 14} textAnchor="end" fontSize="10" fill="#6b7280" fontWeight={600}>0°</text>
+          <text x={cx + r + 4} y={cy + 14} textAnchor="start" fontSize="10" fill="#6b7280" fontWeight={600}>100°</text>
         </svg>
 
-        {/* 温度数字(大) — v2.0.7ac:删"极度沸点"等状态名,只显示数字 */}
+        {/* 温度数字(大) */}
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 2, marginTop: 4 }}>
           <span style={{ fontSize: 26, fontWeight: 800, color, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
             {safeT}
           </span>
           <span style={{ fontSize: 13, color, fontWeight: 600 }}>°</span>
+        </div>
+
+        {/* v2.0.7ad:固定标题"市场情绪温度计"放在温度数字下方 */}
+        <div style={{ textAlign: 'center', fontSize: 12, color: '#6b7280', marginTop: 2 }}>
+          市场情绪温度计
         </div>
 
         {/* 估值 / 情绪 标签 */}

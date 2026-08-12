@@ -9,7 +9,6 @@ import type { ReportData } from '../data/loader';
 import type { HistoryPoint } from '../types';
 import { useLive } from '../App';
 import { ChangeDistributionCard } from '../components/ChangeDistributionCard';
-import { MainCapitalFlowCard } from '../components/MainCapitalFlowCard';
 import { MarginHistoryCard } from '../components/MarginHistoryCard';
 
 // 前 2 个曲线图:7/15/30 日(去掉 60/90)
@@ -528,19 +527,12 @@ export default function Overview({ data }: { data: ReportData }) {
         </div>
       </div>
 
-      {/* 第五行(v2.0.7ab):涨跌分布 + 主力资金流 + 融资流向 — 3 列等宽,卡片高度统一(融资卡片 380px 含图) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
+      {/* v2.0.7ad:删主力资金流卡片 — 只剩涨跌分布 + 融资流向(2 列) */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
         <div style={{ minWidth: 0, overflow: 'hidden' }}>
           <Card title="涨跌分布">
             <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
               <ChangeDistributionCard data={data} />
-            </div>
-          </Card>
-        </div>
-        <div style={{ minWidth: 0, overflow: 'hidden' }}>
-          <Card title="今日主力流向(90 行业)">
-            <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
-              <MainCapitalFlowCard data={data} />
             </div>
           </Card>
         </div>
@@ -782,14 +774,13 @@ function ETFCard({ etfUp, etfDown, etfFlat }: { etfUp: number; etfDown: number; 
   );
 }
 
-// v2.0.7ac:融资卡片右上角徽章(跟 user 附件 1 一样 — 全红字,圆角小标签)
+// v2.0.7ad:融资卡片右上角徽章 — font-weight 500
 function MarginBadge({ data }: { data: ReportData }) {
   const list = data.marketOverview.marginHistory;
   if (!list || list.length === 0) return null;
   const last = list[list.length - 1];
   const diff = last.margin_balance_diff;
   const md = last.date.slice(5);
-  // 参考上证指数卡片的徽章样式 — 全红字(theme)
   return (
     <div style={{
       display: 'inline-flex', alignItems: 'center', gap: 4,
@@ -797,13 +788,13 @@ function MarginBadge({ data }: { data: ReportData }) {
       background: 'rgba(255, 77, 79, 0.08)',
       color: '#ff4d4f',
       borderRadius: 4,
-      fontSize: 12, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
+      fontSize: 12, fontWeight: 500, fontVariantNumeric: 'tabular-nums',
       lineHeight: 1.4,
     }}>
-      <span style={{ color: '#ff4d4f' }}>{md}</span>
-      <span style={{ color: '#ff4d4f' }}>净流入</span>
-      <span style={{ color: '#ff4d4f' }}>{diff > 0 ? '+' : ''}{diff.toFixed(2)}亿元</span>
-      <span style={{ fontSize: 14, lineHeight: 1, color: '#ff4d4f' }}>↑</span>
+      <span>{md}</span>
+      <span>净流入</span>
+      <span>{diff > 0 ? '+' : ''}{diff.toFixed(2)}亿元</span>
+      <span style={{ fontSize: 14, lineHeight: 1 }}>↑</span>
     </div>
   );
 }

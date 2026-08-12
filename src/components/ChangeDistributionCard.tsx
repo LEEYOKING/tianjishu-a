@@ -1,6 +1,6 @@
-// 涨跌分布柱状图 — v2.0.7ac
+// 涨跌分布柱状图 — v2.0.7ad
 // 11 档分桶:跌 5 / 平 1 / 涨 5,色:跌绿 / 平灰 / 涨红
-// 实时刷新(从 data.live 通过 useLive merge 进来 — 10s 节奏)
+// 数字色 = 柱子色(直接在 series.data 里给每柱带 label.color — 比 callback 稳)
 
 import ReactECharts from 'echarts-for-react';
 import { useMemo } from 'react';
@@ -47,7 +47,6 @@ export function ChangeDistributionCard({ data }: Props) {
   const limitDown = data.marketOverview.limitDownCount ?? 0;
   const total = upCount + downCount + flatCount;
 
-  // 涨跌家数比例
   const downPct = total > 0 ? downCount / total : 0;
   const flatPct = total > 0 ? flatCount / total : 0;
   const upPct = total > 0 ? upCount / total : 0;
@@ -60,9 +59,9 @@ export function ChangeDistributionCard({ data }: Props) {
 
     return {
       animation: false,
-      // v2.0.7ac:左右间距 1.5x(原 6 → 9),底部加大
+      // v2.0.7ad:左右间距保持 9
       grid: { top: 22, right: 9, left: 9, bottom: 20 },
-      tooltip: { show: false },  // v2.0.7ac:取消 hover(tooltip + axisPointer)
+      tooltip: { show: false },  // 取消 hover
       xAxis: {
         type: 'category' as const,
         data: labels,
@@ -74,28 +73,24 @@ export function ChangeDistributionCard({ data }: Props) {
       series: [
         {
           type: 'bar' as const,
+          // v2.0.7ad:在 series.data 里每柱带 label.color(更稳)
           data: values.map((v, i) => ({
             value: v,
             itemStyle: {
-              // v2.0.7ac:整柱+数字统一色(跌绿/平灰/涨红)
               color: colors[i],
               borderRadius: [2, 2, 0, 0],
               opacity: v === 0 ? 0.6 : 1,
             },
+            label: {
+              color: colors[i],  // ← 直接给每柱文字色
+            },
           })),
-          // v2.0.7ac:柱子宽 1.2x(原 22 → 26)
           barWidth: 26,
           label: {
             show: true,
             position: 'top' as const,
-            // v2.0.7ac:数字用对应颜色(跟柱子同色)
-            color: (params: any) => {
-              const i = params.dataIndex;
-              return colors[i];
-            },
             fontSize: 11,
             fontWeight: 700,
-            // v2.0.7ac:0 也显示
             formatter: (p: any) => p.value >= 0 ? p.value : '',
           },
         },
@@ -109,8 +104,8 @@ export function ChangeDistributionCard({ data }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* 柱状图 — 撑满高度(高度 2x) */}
-      <div style={{ flex: 1, minHeight: 0, height: 240 }}>
+      {/* 柱状图 — v2.0.7ad:固定高度 260px */}
+      <div style={{ height: 260 }}>
         <ReactECharts
           option={option}
           style={{ height: '100%', width: '100%' }}
@@ -119,7 +114,7 @@ export function ChangeDistributionCard({ data }: Props) {
         />
       </div>
 
-      {/* 底部 1:涨跌家数 + 涨停跌停 — 宽度与柱状图统一(左右各 9px) */}
+      {/* 底部 1:涨跌家数 + 涨停跌停 */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 9px 4px', fontSize: 13, color: '#4b5563' }}>
         <span>
           <span style={{ color: '#111827', fontWeight: 600 }}>涨跌</span>{' '}
@@ -134,17 +129,11 @@ export function ChangeDistributionCard({ data }: Props) {
         </span>
       </div>
 
-      {/* 底部 2:涨跌家数比例横条 — 同样左右 9px */}
+      {/* 底部 2:涨跌家数比例横条 */}
       <div style={{ display: 'flex', height: 6, margin: '4px 9px 0', borderRadius: 3, overflow: 'hidden', background: '#F3F4F6' }}>
-        {downPct > 0 && (
-          <div style={{ width: `${downPct * 100}%`, background: GREEN }} title={`跌 ${(downPct * 100).toFixed(1)}%`} />
-        )}
-        {flatPct > 0 && (
-          <div style={{ width: `${flatPct * 100}%`, background: GRAY }} title={`平 ${(flatPct * 100).toFixed(1)}%`} />
-        )}
-        {upPct > 0 && (
-          <div style={{ width: `${upPct * 100}%`, background: RED }} title={`涨 ${(upPct * 100).toFixed(1)}%`} />
-        )}
+        {downPct > 0 && <div style={{ width: `${downPct * 100}%`, background: GREEN }} title={`跌 ${(downPct * 100).toFixed(1)}%`} />}
+        {flatPct > 0 && <div style={{ width: `${flatPct * 100}%`, background: GRAY }} title={`平 ${(flatPct * 100).toFixed(1)}%`} />}
+        {upPct > 0 && <div style={{ width: `${upPct * 100}%`, background: RED }} title={`涨 ${(upPct * 100).toFixed(1)}%`} />}
       </div>
     </div>
   );

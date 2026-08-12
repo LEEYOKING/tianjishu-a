@@ -1143,59 +1143,53 @@ except Exception as e:
     print(f"  地域板块 失败: {e}")
     region_sectors = []
 
-# 龙虎榜 + 情绪温度 — v2.0.7q/r
+# 龙虎榜 + 情绪温度 — v2.0.7ad 真接数据(不 mock)
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dragon_tiger_interpreter import DragonTigerInterpreter
 from market_temperature import calculate_market_temperature
 _LHB_INTERP = DragonTigerInterpreter()
 lhb_df = ak.stock_lhb_stock_statistic_em("近一月")
-# v2.0.7q:用真席位名(让 interpreter 能识别成游资/机构)
-BUY_SEATS = [
-    '机构专用',
-    '深股通专用',
-    '国泰君安证券股份有限公司上海江苏路证券营业部',  # 章盟主
-    '中国银河证券股份有限公司绍兴证券营业部',  # 赵老哥
-    '华鑫证券有限责任公司上海分公司',  # 炒股养家
-    '开源证券股份有限公司西安太华路证券营业部',  # 方新侠
-    '华泰证券股份有限公司深圳益田路荣超商务中心证券营业部',  # 深圳荣超
-    '国盛证券有限责任公司宁波桑田路证券营业部',  # 宁波桑田路
-    '财通证券股份有限公司杭州上塘路证券营业部',  # 杭州上塘路
-    '东方财富证券股份有限公司拉萨团结路第二证券营业部',  # 拉萨天团
-]
-SELL_SEATS = [
-    '机构专用',
-    '深股通专用',
-    '中航证券有限公司四川分公司',  # 中航四川
-    '中国国际金融股份有限公司上海分公司',  # 中金上海
-    '华泰证券股份有限公司上海分公司',  # 华泰上海
-    '中信证券股份有限公司浙江分公司',  # 中信浙江
-    '东方财富证券股份有限公司长春人民大街证券营业部',  # 东财长春
-    '国泰海通证券股份有限公司湛江万豪世家证券营业部',  # 国泰湛江
-    '东方财富证券股份有限公司拉萨团结路第一证券营业部',  # 拉萨天团
-]
-import random
-random.seed(42)
 
-def gen_seats(total_yi, kind):
-    pool = BUY_SEATS if kind == 'buy' else SELL_SEATS
-    weights = [0.35, 0.25, 0.18, 0.13, 0.09][:5]
-    chosen = random.sample(pool, 5)
-    rows = []
-    for w, seat in zip(weights, chosen):
-        amt = total_yi * w
-        if kind == 'buy':
-            buy_amt, sell_amt, net_amt = amt, amt * 0.03, amt * 0.97
-        else:
-            buy_amt, sell_amt, net_amt = amt * 0.03, amt, -amt * 0.97
-        rows.append({'direction': kind, 'seat': seat, 'buyAmount': round(buy_amt, 2),
+# v2.0.7ad:真接席位明细 — ak.stock_lhb_stock_detail_em(symbol, date, flag)
+def fetch_real_seats(code: str, date_str: str):
+    """返回 ({buys: [...], sells: [...]}),失败返 None"""
+    try:
+        df_buy = ak.stock_lhb_stock_detail_em(symbol=code, date=date_str, flag='买入')
+        df_sell = ak.stock_lhb_stock_detail_em(symbol=code, date=date_str, flag='卖出')
+    except Exception as e:
+        print(f"    拉 {code} {date_str} 席位失败: {e}")
+        return None
+    if df_buy is None or df_sell is None or len(df_buy) == 0 or len(df_sell) == 0:
+        return None
+    buys, sells = [], []
+    for _, r in df_buy.iterrows():
+        seat = safe_str(r['交易营业部名称'])
+        if not seat:
+            continue
+        buy_amt = safe_float(r['买入金额']) / 1e8  # → 亿
+        sell_amt = safe_float(r['卖出金额']) / 1e8
+        net_amt = safe_float(r['净额']) / 1e8
+        buys.append({'direction': 'buy', 'seat': seat, 'buyAmount': round(buy_amt, 2),
                      'sellAmount': round(sell_amt, 2), 'netAmount': round(net_amt, 2)})
-    return rows
+    for _, r in df_sell.iterrows():
+        seat = safe_str(r['交易营业部名称'])
+        if not seat:
+            continue
+        buy_amt = safe_float(r['买入金额']) / 1e8
+        sell_amt = safe_float(r['卖出金额']) / 1e8
+        net_amt = safe_float(r['净额']) / 1e8
+        sells.append({'direction': 'sell', 'seat': seat, 'buyAmount': round(buy_amt, 2),
+                      'sellAmount': round(sell_amt, 2), 'netAmount': round(net_amt, 2)})
+    return {'buys': buys, 'sells': sells}
 
-# v2.0.7q:用最近有上榜的日期(9:30 之前 sandbox 跑也能拿到 8/11 数据,避免空列表)
+# v2.0.7ad:用最近有上榜的日期
 _lhb_dates = lhb_df['最近上榜日'].dropna().astype(str).unique() if '最近上榜日' in lhb_df.columns else []
 _lhb_recent = max(_lhb_dates) if len(_lhb_dates) > 0 else TRADE_DATE_DASH
 print(f"  龙虎榜最近上榜日: {_lhb_recent} (今日: {TRADE_DATE_DASH})")
+# date 转 YYYYMMDD(stock_lhb_stock_detail_em 要求)
+_lhb_recent_ymd = _lhb_recent.replace('-', '')
+
 dragon_tiger = []
 for _, row in lhb_df.iterrows():
     if safe_str(row.get('最近上榜日', '')) != _lhb_recent:
@@ -1213,10 +1207,28 @@ for _, row in lhb_df.iterrows():
         reason = f"{si}家机构卖出, 成功率"
     else:
         reason = "游资接力, 成功率"
-    buys = gen_seats(buy_amt, 'buy')
-    sells = gen_seats(sell_amt, 'sell')
+    code = safe_str(row['代码'])
+    # v2.0.7ad:真接席位明细(失败时降级 — 用 em 已知总买/卖额 + 5 个"机构专用"占位,明确标记 _isMock)
+    seats = fetch_real_seats(code, _lhb_recent_ymd)
+    is_mock = False
+    if seats is None:
+        # 降级:用 em 已知总买/卖额,5 个"机构专用"占位
+        import random
+        random.seed(hash(code) & 0xFFFFFFFF)
+        weights = [0.35, 0.25, 0.18, 0.13, 0.09]
+        rows_buy, rows_sell = [], []
+        for w in weights:
+            amt = buy_amt * w
+            rows_buy.append({'direction': 'buy', 'seat': '机构专用', 'buyAmount': round(amt, 2),
+                             'sellAmount': round(amt * 0.03, 2), 'netAmount': round(amt * 0.97, 2)})
+            amt2 = sell_amt * w
+            rows_sell.append({'direction': 'sell', 'seat': '机构专用', 'buyAmount': round(amt2 * 0.03, 2),
+                              'sellAmount': round(amt2, 2), 'netAmount': round(-amt2 * 0.97, 2)})
+        seats = {'buys': rows_buy, 'sells': rows_sell}
+        is_mock = True
+    buys, sells = seats['buys'], seats['sells']
     stock_obj = {
-        'code': safe_str(row['代码']),
+        'code': code,
         'name': safe_str(row['名称']),
         'closePrice': safe_float(row.get('收盘价', 0)),
         'changePercent': round(safe_float(row.get('涨跌幅', 0)), 2),
@@ -1225,9 +1237,10 @@ for _, row in lhb_df.iterrows():
         'buyAmount': round(buy_amt, 2),
         'sellAmount': round(sell_amt, 2),
         'reason': reason,
+        'isMockSeats': is_mock,  # v2.0.7ad:标记席位是否真接
         'details': {'buys': buys, 'sells': sells},
     }
-    # v2.0.7q:interpreter 解析
+    # interpreter 解析
     interp_input = {
         'stock_code': stock_obj['code'],
         'stock_name': stock_obj['name'],
