@@ -138,7 +138,7 @@ export default function Layout({ data, children }: Props) {
           })}
         </nav>
 
-        {/* v2.0.7u:情绪温度计(无背景 + width 100% + 上下布局)— 撑满 200px 侧栏 */}
+        {/* v2.0.7an:情绪温度计 — 估值/情绪 用 details 固定值(盘后定格,不随 isPreMarket 清零) */}
         <div style={{ padding: '0 8px 12px' }}>
           {data.marketOverview?.marketTemperature && (
             <EmotionThermometer
@@ -147,9 +147,10 @@ export default function Layout({ data, children }: Props) {
               statusDesc={data.marketOverview.marketTemperature.statusDesc}
               details={data.marketOverview.marketTemperature.details}
               dimension_scores={data.marketOverview.marketTemperature.dimension_scores}
-              limitUpCount={data.marketOverview.limitUpCount}
-              upCount={data.marketOverview.upCount}
-              downCount={data.marketOverview.downCount}
+              // v2.0.7an:用 details 里的固定值(盘后定格),不用 marketOverview 实时(em 22:58 会被 isPreMarket 清 0)
+              limitUpCount={data.marketOverview.marketTemperature.details.limit_up}
+              upCount={data.marketOverview.marketTemperature.details.limit_up}
+              downCount={data.marketOverview.marketTemperature.details.limit_down}
             />
           )}
         </div>
