@@ -1,11 +1,8 @@
 // 情绪温度计组件 — v2.0.7u(半圆弧 + 上下布局 + 删边框 + 颜色随温度变)
 // 修复 v2.0.7s 问题:宽度溢出 + 改上下布局
 
-import { useState } from 'react';
-
 export interface EmotionThermometerProps {
   temperature: number;  // 0-100
-  status: string;       // 状态描述
   details: {
     limit_up: number;
     limit_down: number;
@@ -58,11 +55,12 @@ function getSentimentTag(limitUp: number, limitDown: number): { text: string; co
   return { text: '低迷', color: '#3b82f6' };
 }
 
-export function EmotionThermometer({ temperature, status, details, limitUpCount, upCount, downCount }: EmotionThermometerProps) {
-  const [hover, setHover] = useState(false);
+export function EmotionThermometer({ temperature, details, limitUpCount, upCount, downCount }: EmotionThermometerProps) {
+  // v2.0.7w:删 hover(useState 不用了)
   const safeT = Math.max(0, Math.min(100, temperature));
   const color = getColor(safeT);
   const description = getDescription(safeT);
+  // status 现在未用(删 Tooltip 后),保留以备后用
 
   const lu = limitUpCount ?? details.limit_up;
   const ld = details.limit_down;
@@ -95,19 +93,14 @@ export function EmotionThermometer({ temperature, status, details, limitUpCount,
         background: 'transparent',   // v2.0.7u:无背景
         cursor: 'help',
       }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      
+      
     >
-      {/* 标题栏 */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4, padding: '0 4px' }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>市场温度</div>
-        <div style={{ fontSize: 14, color: '#9ca3af', lineHeight: 1 }}>›</div>
-      </div>
-
-      {/* 半圆弧 + 文字(上下布局,v2.0.7u) */}
+      {/* v2.0.7w:删标题栏 + 半圆弧 + 文字(上下布局) */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* 半圆弧 SVG */}
-        <svg width="100%" height="80" viewBox="0 0 200 110" style={{ display: 'block' }}>
+        {/* v2.0.7w:viewBox 高度加到 120,给 0° / 100° 留位置 */}
+        <svg width="100%" height="92" viewBox="0 0 200 120" style={{ display: 'block' }}>
           {/* 灰色背景弧 */}
           <path
             d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
@@ -140,9 +133,9 @@ export function EmotionThermometer({ temperature, status, details, limitUpCount,
           />
           {/* 中心点 */}
           <circle cx={cx} cy={cy} r="5" fill="#111827" />
-          {/* 0° / 100° 标记 */}
-          <text x={cx - r - 4} y={cy + 14} textAnchor="end" fontSize="10" fill="#9ca3af" fontWeight={500}>0°</text>
-          <text x={cx + r + 4} y={cy + 14} textAnchor="start" fontSize="10" fill="#9ca3af" fontWeight={500}>100°</text>
+          {/* v2.0.7w:0° / 100° 标记 — 移到弧外(y = 116) */}
+          <text x={cx - r - 4} y={116} textAnchor="end" fontSize="11" fill="#6b7280" fontWeight={600}>0°</text>
+          <text x={cx + r + 4} y={116} textAnchor="start" fontSize="11" fill="#6b7280" fontWeight={600}>100°</text>
         </svg>
 
         {/* 文字:大数字 + 描述 + 估值/情绪 */}
@@ -158,53 +151,20 @@ export function EmotionThermometer({ temperature, status, details, limitUpCount,
           </div>
         </div>
 
-        {/* 估值 / 情绪 标签 */}
-        <div style={{ display: 'flex', gap: 10, marginTop: 6, fontSize: 11, alignItems: 'center' }}>
+        {/* v2.0.7w:估值 / 情绪 标签 — 字号 +3 (11→14) + 加粗 */}
+        <div style={{ display: 'flex', gap: 10, marginTop: 8, fontSize: 14, alignItems: 'center' }}>
           <span>
             <span style={{ color: '#6b7280' }}>估值</span>{' '}
-            <span style={{ color: valuation.color, fontWeight: 700 }}>{valuation.text}</span>
+            <strong style={{ color: valuation.color, fontWeight: 700 }}>{valuation.text}</strong>
           </span>
           <span style={{ color: '#d1d5db' }}>|</span>
           <span>
             <span style={{ color: '#6b7280' }}>情绪</span>{' '}
-            <span style={{ color: sentiment.color, fontWeight: 700 }}>{sentiment.text}</span>
+            <strong style={{ color: sentiment.color, fontWeight: 700 }}>{sentiment.text}</strong>
           </span>
         </div>
       </div>
 
-      {/* Hover Tooltip */}
-      {hover && (
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '100%',
-            transform: 'translateX(-50%)',
-            marginTop: 8,
-            background: 'rgba(17, 24, 39, 0.96)',
-            color: '#fff',
-            padding: '10px 14px',
-            borderRadius: 8,
-            fontSize: 11,
-            lineHeight: 1.7,
-            whiteSpace: 'nowrap',
-            zIndex: 1000,
-            boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-            pointerEvents: 'none',
-          }}
-        >
-          <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6, color }}>
-            情绪温度 {safeT}° · {status}
-          </div>
-          <div>📈 涨停: <strong style={{ color: '#ff4d4f' }}>{lu}</strong> 只</div>
-          <div>📉 跌停: <strong style={{ color: '#0ecd70' }}>{ld}</strong> 只</div>
-          <div>🏆 最高连板: <strong>{details.max_boards}</strong> 板</div>
-          <div>💥 炸板率: <strong>{details.broken_rate}</strong></div>
-          {upCount !== undefined && (
-            <div>📊 涨/跌家数: <strong>{upCount} / {downCount}</strong></div>
-          )}
-        </div>
-      )}
     </div>
   );
 }

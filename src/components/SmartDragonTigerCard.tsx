@@ -39,19 +39,19 @@ const TAG_COLORS: Record<string, { bg: string; text: string }> = {
   '溢价预期': { bg: '#BF4044', text: '#fff' },
   '游资接力': { bg: '#F63638', text: '#fff' },
   '次新博弈': { bg: '#BF4044', text: '#fff' },
-  '机构博弈': { bg: '#1890ff', text: '#fff' },
+  '机构博弈': { bg: '#50a2fe', text: '#fff' },
   '游资出货': { bg: '#8C444F', text: '#fff' },
   '警惕低开': { bg: '#8C444F', text: '#fff' },
-  '北向买入': { bg: '#722ED1', text: '#fff' },
+  '北向买入': { bg: '#9a81fc', text: '#fff' },
   '冷门': { bg: '#9ca3af', text: '#fff' },
-  '普通': { bg: '#E5E7EB', text: '#6b7280' },
+  '普通': { bg: '#E5E7EB', text: '#4b5563' },
 };
 
 const TYPE_COLORS: Record<string, string> = {
   '一线游资': '#F63638',
-  '机构': '#1890ff',
-  '外资': '#722ED1',
-  '散户集中营': '#52c41a',
+  '机构': '#50a2fe',
+  '外资': '#9a81fc',
+  '散户集中营': '#0ecd70',
   '量化基金': '#13c2c2',
   '普通营业部': '#9ca3af',
 };
@@ -244,7 +244,10 @@ function SeatColumn({ seats, side, maxAmt }: { seats: SeatInfo[]; side: 'buy' | 
                 <div
                   style={{
                     width: `${widthPct}%`,
-                    background: color,
+                    // v2.0.7w:横向渐变(从浅到深)
+                    background: isBuy
+                      ? 'linear-gradient(90deg, rgba(255, 77, 79, 0.15) 0%, #ff4d4f 100%)'
+                      : 'linear-gradient(90deg, rgba(14, 205, 112, 0.15) 0%, #0ecd70 100%)',
                     transition: 'width 0.3s',
                   }}
                 />
