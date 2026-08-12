@@ -77,9 +77,9 @@ function makeChipStyle(bg: string, text?: string) {
 // 组件
 // ============================================================
 export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
-  // 按金额排序(买方降序,卖方按绝对值降序)
-  const buys = [...data.structured_buy_list].sort((a, b) => b.net_amount - a.net_amount);
-  const sells = [...data.structured_sell_list].sort((a, b) => Math.abs(b.net_amount) - Math.abs(a.net_amount));
+  // 按金额排序(买方降序,卖方按绝对值降序)— v2.0.7ai:只取前 5 条
+  const buys = [...data.structured_buy_list].sort((a, b) => b.net_amount - a.net_amount).slice(0, 5);
+  const sells = [...data.structured_sell_list].sort((a, b) => Math.abs(b.net_amount) - Math.abs(a.net_amount)).slice(0, 5);
 
   // 找最大金额(用于柱状图)
   const maxAmt = Math.max(
