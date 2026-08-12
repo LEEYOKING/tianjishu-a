@@ -1153,7 +1153,9 @@ lhb_df = ak.stock_lhb_stock_statistic_em("近一月")
 
 # v2.0.7ad:真接席位明细 — ak.stock_lhb_stock_detail_em(symbol, date, flag)
 def fetch_real_seats(code: str, date_str: str):
-    """返回 ({buys: [...], sells: [...]}),失败返 None"""
+    """返回 ({buys: [...], sells: [...]}),失败返 None
+    v2.0.7ae:同一只股票的 buys 列表按 seat_name 去重 + 合并(避免"机构专用"出现 2 次)
+    """
     try:
         df_buy = ak.stock_lhb_stock_detail_em(symbol=code, date=date_str, flag='买入')
         df_sell = ak.stock_lhb_stock_detail_em(symbol=code, date=date_str, flag='卖出')
@@ -1162,16 +1164,20 @@ def fetch_real_seats(code: str, date_str: str):
         return None
     if df_buy is None or df_sell is None or len(df_buy) == 0 or len(df_sell) == 0:
         return None
-    buys, sells = [], []
+    # v2.0.7ae:按席位名合并(同席位的 buy+sell 数据合并,避免列表里出现 2 次)
+    seat_map: dict = {}
     for _, r in df_buy.iterrows():
         seat = safe_str(r['交易营业部名称'])
         if not seat:
             continue
-        buy_amt = safe_float(r['买入金额']) / 1e8  # → 亿
+        buy_amt = safe_float(r['买入金额']) / 1e8
         sell_amt = safe_float(r['卖出金额']) / 1e8
         net_amt = safe_float(r['净额']) / 1e8
-        buys.append({'direction': 'buy', 'seat': seat, 'buyAmount': round(buy_amt, 2),
-                     'sellAmount': round(sell_amt, 2), 'netAmount': round(net_amt, 2)})
+        if seat not in seat_map:
+            seat_map[seat] = {'direction': 'buy', 'seat': seat, 'buyAmount': 0, 'sellAmount': 0, 'netAmount': 0}
+        seat_map[seat]['buyAmount'] += buy_amt
+        seat_map[seat]['sellAmount'] += sell_amt
+        seat_map[seat]['netAmount'] += net_amt
     for _, r in df_sell.iterrows():
         seat = safe_str(r['交易营业部名称'])
         if not seat:
@@ -1179,8 +1185,22 @@ def fetch_real_seats(code: str, date_str: str):
         buy_amt = safe_float(r['买入金额']) / 1e8
         sell_amt = safe_float(r['卖出金额']) / 1e8
         net_amt = safe_float(r['净额']) / 1e8
-        sells.append({'direction': 'sell', 'seat': seat, 'buyAmount': round(buy_amt, 2),
-                      'sellAmount': round(sell_amt, 2), 'netAmount': round(net_amt, 2)})
+        if seat not in seat_map:
+            seat_map[seat] = {'direction': 'sell', 'seat': seat, 'buyAmount': 0, 'sellAmount': 0, 'netAmount': 0}
+        else:
+            seat_map[seat]['direction'] = 'sell'  # 卖出方主导
+        seat_map[seat]['buyAmount'] += buy_amt
+        seat_map[seat]['sellAmount'] += sell_amt
+        seat_map[seat]['netAmount'] += net_amt
+    # 转 list,按净额排序(买正/卖负)
+    rows = list(seat_map.values())
+    for r in rows:
+        r['buyAmount'] = round(r['buyAmount'], 2)
+        r['sellAmount'] = round(r['sellAmount'], 2)
+        r['netAmount'] = round(r['netAmount'], 2)
+    # 拆分 buys + sells(用 direction 字段)
+    buys = sorted([r for r in rows if r.get('direction') == 'buy'], key=lambda x: -x['netAmount'])
+    sells = sorted([r for r in rows if r.get('direction') == 'sell'], key=lambda x: x['netAmount'])
     return {'buys': buys, 'sells': sells}
 
 # v2.0.7ad:用最近有上榜的日期

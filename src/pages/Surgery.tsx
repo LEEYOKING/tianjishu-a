@@ -3,7 +3,6 @@ import { Card, Tooltip, Modal, Popover } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { COLOR_UP, COLOR_DOWN, COLOR_TEXT, COLOR_PURPLE, COLOR_BLUE, COLOR_ORANGE } from '../utils/format';
 import type { ReportData } from '../data/loader';
-import { useLive } from '../App';
 
 interface SealCard {
   code: string;
@@ -110,15 +109,10 @@ function SurgeryInner({ data }: { data?: ReportData }) {
 
   const { sealCards, loserChain, systemWarning, prevLimitUpCount, meta } = surgery as SurgeryData;
   const { tradeDateSlash } = meta;
-  // 实时刷新时间 — 从 live.fetchedAt 拿(转东八区)
-  const live = useLive();
-  const toShanghaiHM = (utcTs: number) => {
-    const d = new Date(utcTs + 8 * 3600 * 1000);
-    return `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}:${String(d.getUTCSeconds()).padStart(2, '0')}`;
-  };
-  const generatedTime = live.fetchedAt
-    ? toShanghaiHM(live.fetchedAt)
-    : (meta.generatedAt.split(' ')[1] || '');
+  // v2.0.7ad:用 meta.generatedAt(数据本身生成时间) + tradeDate(数据交易日)
+  // 不再用 live.fetchedAt(那是页面 fetch 时间,会跟着每次 live tick 变)
+  // generatedTime 格式: HH:MM
+  const generatedTime = (meta.generatedAt || '').split(' ')[1] || '';
 
   return (
     <div>
@@ -268,6 +262,7 @@ function SealCardItem({ card, onClick }: { card: SealCard; onClick: () => void }
         onClick={onClick}
         style={{
           background: s.bg,
+          opacity: 0.4,  // v2.0.7ad:卡片加不透明度
           border: `1.5px solid ${s.border}`,
           borderRadius: 8,
           padding: '12px 14px',

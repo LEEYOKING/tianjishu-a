@@ -111,7 +111,7 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
         borderRadius: 14,
         padding: '20px 24px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)',
-        marginBottom: 16,
+        marginBottom: 0,  // v2.0.7ae:卡片间无间距(grid gap 控制)
       }}
     >
       {/* L1: 股票名 + Tags + Summary */}
