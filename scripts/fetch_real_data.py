@@ -391,61 +391,55 @@ print(f"  涨停 {limit_up_count} 只,梯队 {len(ladders_arr)} 档")
 # v2.0.7aa:主力资金流(20 日) + 融资融券历史(沪+深)
 print("\n[v2.0.7aa] 主力资金流 + 融资融券...")
 
-# 1) 主力资金流(20 日) — 沪深 A 股合计
-# 优先用 akshare(stock_market_fund_flow),失败再 try em push2
+# 1) 主力资金流 — v2.0.7ab 改用 akshare stock_fund_flow_industry 90 行业累加
+# 之前 stock_market_fund_flow / em push2 / em datacenter-web / sina / ths 全部失败
+# stock_fund_flow_industry(symbol='即时')返回 90 行业当日净额(单位:亿)
+# 累加 = 当日全市场主力净流入 + 90 行业明细
 def _fetch_main_capital_flow_20d():
-    """返回 list[dict{date, main_net_inflow, huge_net_inflow, big_net_inflow}],失败返 None"""
-    # 1.1 akshare 兜底(在某些环境下能拉)
-    for fn_name in ['stock_market_fund_flow']:
-        try:
-            fn = getattr(ak, fn_name, None)
-            if fn is None:
-                continue
-            df = fn()
-            if df is None or len(df) == 0:
-                continue
-            # 找"主力净流入"列(可能叫不同名)
-            print(f"    {fn_name} 返回 {df.shape}, cols={list(df.columns)[:8]}")
-            return df  # 直接返回原 DataFrame,前端自行处理列名
-        except Exception as e:
-            print(f"    {fn_name} 失败: {type(e).__name__}: {str(e)[:50]}")
-            continue
-
-    # 1.2 em push2(可能被 sandbox 限流)
+    """返回 dict{date, total_net_inflow, industries: [{name, net_inflow}]}
+    失败返 None(因 em/ths 主力资金流历史在 sandbox + production 均拉不到)
+    """
     try:
-        url = 'https://push2.eastmoney.com/api/qt/stock/fflow/kline/get?secid=1.000001&fields1=f1,f2,f3&fields2=f51,f52,f53,f54,f55,f56,f57,f58&klt=1&lmt=20'
-        req = urllib.request.Request(url, headers={
-            'User-Agent': 'Mozilla/5.0',
-            'Referer': 'https://quote.eastmoney.com/',
-        })
-        raw = urllib.request.urlopen(req, timeout=8).read()
-        j = _json.loads(raw)
-        kl = j.get('data', {}).get('klines', [])
-        if kl:
-            return kl  # 每行 "date,主力净流入,小单,中单,大单,超大单"
+        df = ak.stock_fund_flow_industry(symbol='即时')
+        if df is None or len(df) == 0:
+            return None
+        # 字段:'行业', '行业指数', '行业-涨跌幅', '流入资金', '流出资金', '净额', ...
+        # 单位:亿
+        out = []
+        for _, r in df.iterrows():
+            out.append({
+                'name': str(r['行业']),
+                'net_inflow': round(float(r['净额']) if r['净额'] is not None else 0, 2),
+            })
+        total = round(sum(x['net_inflow'] for x in out), 2)
+        # 按净额从大到小排序
+        out.sort(key=lambda x: x['net_inflow'], reverse=True)
+        return {
+            'date': TODAY.strftime('%Y-%m-%d'),
+            'total_net_inflow': total,
+            'industries': out,
+        }
     except Exception as e:
-        print(f"    em push2 失败: {type(e).__name__}")
-
-    return None
+        print(f"    主力资金流(行业) 失败: {type(e).__name__}: {str(e)[:60]}")
+        return None
 
 # 2) 融资融券历史(沪+深合并,60 个交易日)
 def _fetch_margin_history():
-    """返回 list[dict{date, margin_balance, margin_balance_diff}],失败返 None"""
-    sh_df = None
-    sz_df = None
+    """返回 list[dict{date, margin_balance, margin_balance_diff}],失败返 None
+    v2.0.7ab:只用 sh 一份(akshare sh + sz 实际都返回"沪深两市合计",不能相加)
+    验证:5/22 sh=14688.01亿,同花顺=14688.01亿 ✓ 一致
+    """
+    df = None
     try:
-        sh_df = ak.macro_china_market_margin_sh()
+        df = ak.macro_china_market_margin_sh()
     except Exception as e:
-        print(f"    沪市融资融券 失败: {e}")
-    try:
-        sz_df = ak.macro_china_market_margin_sz()
-    except Exception as e:
-        print(f"    深市融资融券 失败: {e}")
-    if sh_df is None or sz_df is None:
+        print(f"    沪深融资融券 失败: {e}")
+        return None
+    if df is None or len(df) == 0:
         return None
     # 取最近 60 个交易日
-    sh_df = sh_df.tail(60).copy()
-    sz_df = sz_df.tail(60).copy()
+    df = df.tail(60).copy()
+    df['日期'] = df['日期'].astype(str)
     # 拉同期沪市收盘指数(用于双 Y 轴)
     sh_idx_map = {}
     try:
@@ -455,21 +449,14 @@ def _fetch_margin_history():
             sh_idx_map = dict(zip(sh_idx_df['date'], sh_idx_df['close']))
     except Exception:
         pass
-    # 合并 — 按日期对齐
-    sh_df['日期'] = sh_df['日期'].astype(str)
-    sz_df['日期'] = sz_df['日期'].astype(str)
-    sh_df = sh_df.set_index('日期')
-    sz_df = sz_df.set_index('日期')
-    common = sh_df.index.intersection(sz_df.index)
     out = []
-    for d in sorted(common):
-        sh_row = sh_df.loc[d]
-        sz_row = sz_df.loc[d]
-        margin_balance = float(sh_row['融资余额']) + float(sz_row['融资余额'])
+    for _, r in df.iterrows():
+        d = r['日期']
+        margin_balance = float(r['融资余额']) / 1e8  # 元 → 亿
         sh_close = sh_idx_map.get(d)
         out.append({
             'date': d,
-            'margin_balance': round(margin_balance / 1e8, 2),  # 转为亿
+            'margin_balance': round(margin_balance, 2),
             'margin_balance_diff': 0,  # 后面算
             'sh_close': round(float(sh_close), 2) if sh_close is not None else None,
         })
@@ -483,9 +470,7 @@ _margin_history = _fetch_margin_history()
 print(f"  主力资金流(20 日): {'OK' if _main_capital_flow is not None else '降级(无数据)'}")
 print(f"  融资融券历史(60 日): {'OK, ' + str(len(_margin_history)) + ' 天' if _margin_history is not None else '降级(无数据)'}")
 
-# 把 _main_capital_flow 转成 JSON 可序列化(如果还是 DataFrame)
-if _main_capital_flow is not None and hasattr(_main_capital_flow, 'to_dict'):
-    _main_capital_flow = _main_capital_flow.to_dict(orient='records')
+# _main_capital_flow 已经是 dict/dict-array(JSON 可序列化)
 
 # ========== 5. 跌停板 ==========
 print("\n[5/7] 跌停板...")

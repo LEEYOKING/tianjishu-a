@@ -42,6 +42,13 @@ export interface LiveSnapshot {
     totalTurnover: number;
     limitUpCount: number;
     limitDownCount: number;
+    // v2.0.7ab:涨跌分布分桶(11 档)
+    changeDistribution?: {
+      down_ge_10: number; down_10_to_7: number; down_7_to_5: number;
+      down_5_to_3: number; down_3_to_0: number; flat: number;
+      up_0_to_3: number; up_3_to_5: number; up_5_to_7: number;
+      up_7_to_10: number; up_ge_10: number;
+    };
   } | null;
   /** ETF 涨跌分布(EM push2) */
   etfStats: { up: number; down: number; flat: number } | null;
@@ -240,6 +247,10 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       next.marketOverview.upPercent = mktTotal > 0
         ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
         : 0;
+      // v2.0.7ab:涨跌分布分桶也实时刷新
+      if (live.market!.changeDistribution) {
+        next.marketOverview.changeDistribution = live.market!.changeDistribution;
+      }
     }
   }
   // 3. ETF 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)

@@ -156,6 +156,13 @@ async function fetchSinaNodeByPageCustom(node: string, num: number, page: number
 export async function fetchMarketSummary(): Promise<{
   upCount: number; downCount: number; flatCount: number; totalTurnover: number;
   limitUpCount: number; limitDownCount: number;
+  // v2.0.7ab:涨跌分布 11 档分桶
+  changeDistribution?: {
+    down_ge_10: number; down_10_to_7: number; down_7_to_5: number;
+    down_5_to_3: number; down_3_to_0: number; flat: number;
+    up_0_to_3: number; up_3_to_5: number; up_5_to_7: number;
+    up_7_to_10: number; up_ge_10: number;
+  };
 }> {
   const TOTAL_PAGES = 55;
   const CONCURRENCY = 10;
@@ -174,12 +181,30 @@ export async function fetchMarketSummary(): Promise<{
     if (i + CONCURRENCY < TOTAL_PAGES + 1) await new Promise((r) => setTimeout(r, 50));
   }
   let up = 0, down = 0, flat = 0, total = 0, lu = 0, ld = 0;
+  // v2.0.7ab:涨跌分布 11 档分桶
+  const dist = {
+    down_ge_10: 0, down_10_to_7: 0, down_7_to_5: 0, down_5_to_3: 0, down_3_to_0: 0,
+    flat: 0,
+    up_0_to_3: 0, up_3_to_5: 0, up_5_to_7: 0, up_7_to_10: 0, up_ge_10: 0,
+  };
   for (const s of allStocks) {
     const cp = parseFloat(s.changepercent);
     const amt = s.amount || 0;
     if (cp > 0) up++;
     else if (cp < 0) down++;
     else flat++;
+    // v2.0.7ab:涨跌分布分桶
+    if (cp < -10) dist.down_ge_10++;
+    else if (cp < -7) dist.down_10_to_7++;
+    else if (cp < -5) dist.down_7_to_5++;
+    else if (cp < -3) dist.down_5_to_3++;
+    else if (cp < 0) dist.down_3_to_0++;
+    else if (cp === 0) dist.flat++;
+    else if (cp < 3) dist.up_0_to_3++;
+    else if (cp < 5) dist.up_3_to_5++;
+    else if (cp < 7) dist.up_5_to_7++;
+    else if (cp < 10) dist.up_7_to_10++;
+    else dist.up_ge_10++;
     // 涨停:主板 9.9~11%,创业板/科创板 19.9~21%
     if (cp >= 9.9 && cp < 11) lu++;
     else if (cp >= 19.9 && cp < 21) lu++;
@@ -191,6 +216,7 @@ export async function fetchMarketSummary(): Promise<{
     upCount: up, downCount: down, flatCount: flat,
     totalTurnover: Math.round(total / 1e8),
     limitUpCount: lu, limitDownCount: ld,
+    changeDistribution: dist,
   };
 }
 
@@ -288,6 +314,13 @@ interface EMMarketStats {
   totalTurnover: number;  // 亿
   limitUpCount: number;
   limitDownCount: number;
+  // v2.0.7ab:涨跌分布分桶(11 档)
+  changeDistribution?: {
+    down_ge_10: number; down_10_to_7: number; down_7_to_5: number;
+    down_5_to_3: number; down_3_to_0: number; flat: number;
+    up_0_to_3: number; up_3_to_5: number; up_5_to_7: number;
+    up_7_to_10: number; up_ge_10: number;
+  };
 }
 
 // =============================================================
@@ -347,6 +380,7 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats> {
     totalTurnover: r.totalTurnover,
     limitUpCount: r.limitUpCount,
     limitDownCount: r.limitDownCount,
+    changeDistribution: r.changeDistribution,
   };
 }
 

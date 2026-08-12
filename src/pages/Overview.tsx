@@ -528,21 +528,27 @@ export default function Overview({ data }: { data: ReportData }) {
         </div>
       </div>
 
-      {/* 第五行(v2.0.7aa):涨跌分布 + 主力资金流 + 融资流向 — 3 列等宽 */}
+      {/* 第五行(v2.0.7ab):涨跌分布 + 主力资金流 + 融资流向 — 3 列等宽,卡片高度统一(融资卡片 380px 含图) */}
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
         <div style={{ minWidth: 0, overflow: 'hidden' }}>
           <Card title="涨跌分布">
-            <ChangeDistributionCard data={data} />
+            <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
+              <ChangeDistributionCard data={data} />
+            </div>
           </Card>
         </div>
         <div style={{ minWidth: 0, overflow: 'hidden' }}>
-          <Card title="近20日主力流向">
-            <MainCapitalFlowCard data={data} />
+          <Card title="今日主力流向(90 行业)">
+            <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
+              <MainCapitalFlowCard data={data} />
+            </div>
           </Card>
         </div>
         <div style={{ minWidth: 0, overflow: 'hidden' }}>
           <Card title="融资流向">
-            <MarginHistoryCard data={data} />
+            <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
+              <MarginHistoryCard data={data} />
+            </div>
           </Card>
         </div>
       </div>

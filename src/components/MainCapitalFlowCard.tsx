@@ -1,5 +1,6 @@
-// 主力资金流卡片(20 日) — v2.0.7aa
-// 顶部 4 数字(20/10/5/3 日净流入) + 柱状图 + hover 高亮(用 markPoint + showCrossHair)
+// 主力资金流卡片 — v2.0.7ab
+// 数据源:akshare stock_fund_flow_industry 90 行业当日净额累加
+// 顶部 1 大数字(今日主力净流入) + 90 行业柱状图(从大到小) + hover 高亮
 
 import ReactECharts from 'echarts-for-react';
 import { useMemo, useState } from 'react';
@@ -13,39 +14,24 @@ const RED = '#ff4d4f';
 const GREEN = '#0ecd70';
 
 export function MainCapitalFlowCard({ data }: Props) {
-  const list = data.marketOverview.mainCapitalFlow20d;
-  const [hoverInfo, setHoverInfo] = useState<{
-    date: string; net: number; in_: number; out: number;
-  } | null>(null);
+  const mcf = data.marketOverview.mainCapitalFlow20d;
+  const industries = (mcf as any)?.industries as Array<{ name: string; net_inflow: number }> | undefined;
+  const total = (mcf as any)?.total_net_inflow ?? 0;
+  const date = (mcf as any)?.date ?? '';
+  const [hover, setHover] = useState<{ name: string; net: number } | null>(null);
 
-  const sumN = (n: number) => {
-    if (!list || list.length === 0) return 0;
-    return list.slice(-n).reduce((s: number, x: any) => s + (x.main_net_inflow || 0), 0);
-  };
-
-  const renderTopStat = (label: string, n: number) => {
-    const v = sumN(n);
-    const color = v > 0 ? RED : v < 0 ? GREEN : '#6b7280';
-    const sign = v > 0 ? '+' : '';
-    return (
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ color: '#9ca3af', fontSize: 11, marginBottom: 2 }}>{label}</div>
-        <div style={{ color, fontSize: 14, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
-          {sign}{v.toFixed(2)}亿元
-        </div>
-      </div>
-    );
-  };
+  const totalColor = total > 0 ? RED : total < 0 ? GREEN : '#6b7280';
+  const sign = total > 0 ? '+' : '';
 
   const option = useMemo(() => {
-    if (!list || list.length === 0) return {};
-    const dates = list.map((x) => x.date);
-    const values = list.map((x) => x.main_net_inflow);
+    if (!industries || industries.length === 0) return {};
+    const names = industries.map((x) => x.name);
+    const values = industries.map((x) => x.net_inflow);
     const maxAbs = Math.max(...values.map((v) => Math.abs(v)), 1);
 
     return {
       animation: false,
-      grid: { top: 8, right: 6, left: 32, bottom: 22 },
+      grid: { top: 8, right: 6, left: 8, bottom: 18 },
       tooltip: {
         trigger: 'axis' as const,
         axisPointer: { type: 'shadow' as const },
@@ -54,29 +40,24 @@ export function MainCapitalFlowCard({ data }: Props) {
         textStyle: { color: '#111827', fontSize: 12 },
         formatter: (params: any) => {
           const i = params[0].dataIndex;
-          return `<div style="font-weight:600;color:#111827">${dates[i]}</div>主力净流入: <b style="color:${values[i] > 0 ? RED : GREEN}">${values[i] > 0 ? '+' : ''}${values[i].toFixed(2)}亿元</b>`;
+          return `<div style="font-weight:600;color:#111827">${names[i]}</div>主力净流入: <b style="color:${values[i] > 0 ? RED : GREEN}">${values[i] > 0 ? '+' : ''}${values[i].toFixed(2)}亿元</b>`;
         },
       },
       xAxis: {
-        type: 'category' as const,
-        data: dates,
-        axisLine: { show: false },
-        axisTick: { show: false },
-        axisLabel: {
-          color: '#9ca3af', fontSize: 10,
-          formatter: (v: string) => v.slice(5), // MM-DD
-        },
-      },
-      yAxis: {
         type: 'value' as const,
         min: -maxAbs, max: maxAbs,
         axisLine: { show: false },
         axisTick: { show: false },
         splitLine: { lineStyle: { color: '#F3F4F6', type: 'dashed' as const } },
-        axisLabel: {
-          color: '#9ca3af', fontSize: 10,
-          formatter: (v: number) => v.toFixed(0),
-        },
+        axisLabel: { color: '#9ca3af', fontSize: 10, formatter: (v: number) => v.toFixed(0) },
+      },
+      yAxis: {
+        type: 'category' as const,
+        data: names,
+        inverse: true,  // 从大到小
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: { color: '#6b7280', fontSize: 10 },
       },
       series: [
         {
@@ -86,7 +67,7 @@ export function MainCapitalFlowCard({ data }: Props) {
             value: v,
             itemStyle: {
               color: v >= 0 ? RED : GREEN,
-              borderRadius: v >= 0 ? [2, 2, 0, 0] : [0, 0, 2, 2],
+              borderRadius: v >= 0 ? [0, 2, 2, 0] : [2, 0, 0, 2],
             },
           })),
           barWidth: '60%',
@@ -94,60 +75,56 @@ export function MainCapitalFlowCard({ data }: Props) {
         },
       ],
     };
-  }, [list]);
+  }, [industries]);
 
-  if (!list || list.length === 0) {
+  if (!industries || industries.length === 0) {
     return (
-      <div>
-        <div style={{ display: 'flex', gap: 16, padding: '14px 16px', background: '#F7F8FA', borderRadius: 8, marginBottom: 12, fontSize: 12 }}>
-          {renderTopStat('20日净流入', 20)}
-          {renderTopStat('10日净流入', 10)}
-          {renderTopStat('5日净流入', 5)}
-          {renderTopStat('3日净流入', 3)}
-        </div>
-        <div style={{ padding: '40px 16px', textAlign: 'center', color: '#9ca3af', fontSize: 12, lineHeight: 1.7 }}>
-          ⚠️ 主力资金流(20 日)暂未接入<br />
-          <span style={{ fontSize: 11, color: '#d1d5db' }}>数据源限制(sandbox 环境),生产 Actions 部署后会显示</span>
-        </div>
+      <div style={{ padding: '40px 16px', textAlign: 'center', color: '#9ca3af', fontSize: 12, lineHeight: 1.7 }}>
+        ⚠️ 主力资金流暂未接入
       </div>
     );
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', gap: 16, padding: '12px 14px', background: '#F7F8FA', borderRadius: 8, marginBottom: 8, fontSize: 12 }}>
-        {renderTopStat('20日净流入', 20)}
-        {renderTopStat('10日净流入', 10)}
-        {renderTopStat('5日净流入', 5)}
-        {renderTopStat('3日净流入', 3)}
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* 顶部:今日净流入 + 日期(像 ths 一样,左大字 + 右日期) */}
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '0 4px 10px', borderBottom: '1px solid #F3F4F6', marginBottom: 10 }}>
+        <div>
+          <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 2 }}>今日主力净流入</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: totalColor, fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>
+            {sign}{total.toFixed(2)}<span style={{ fontSize: 12, fontWeight: 600, marginLeft: 2 }}>亿元</span>
+          </div>
+        </div>
+        <div style={{ fontSize: 11, color: '#9ca3af', textAlign: 'right' }}>
+          {date}<br />
+          <span style={{ color: '#d1d5db' }}>90 行业累加</span>
+        </div>
       </div>
-      <ReactECharts
-        option={option}
-        style={{ height: 200, width: '100%' }}
-        notMerge={true}
-        lazyUpdate={true}
-        onEvents={{
-          mouseover: (e: any) => {
-            if (e?.dataIndex != null) {
-              const item = list[e.dataIndex];
-              if (item) {
-                setHoverInfo({
-                  date: item.date,
-                  net: item.main_net_inflow,
-                  in_: item.huge_net_inflow ?? 0,
-                  out: item.big_net_inflow ?? 0,
-                });
+
+      {/* 柱状图 */}
+      <div style={{ flex: 1, minHeight: 0 }}>
+        <ReactECharts
+          option={option}
+          style={{ height: '100%', minHeight: 200, width: '100%' }}
+          notMerge={true}
+          lazyUpdate={true}
+          onEvents={{
+            mouseover: (e: any) => {
+              if (e?.dataIndex != null) {
+                setHover({ name: industries[e.dataIndex].name, net: industries[e.dataIndex].net_inflow });
               }
-            }
-          },
-          mouseout: () => setHoverInfo(null),
-        }}
-      />
-      {hoverInfo && (
-        <div style={{ marginTop: 4, padding: '6px 10px', background: '#F7F8FA', borderRadius: 6, fontSize: 11, color: '#4b5563' }}>
-          <strong style={{ color: '#111827' }}>{hoverInfo.date}</strong> · 主力净流入{' '}
-          <strong style={{ color: hoverInfo.net > 0 ? RED : GREEN }}>
-            {hoverInfo.net > 0 ? '+' : ''}{hoverInfo.net.toFixed(2)}亿元
+            },
+            mouseout: () => setHover(null),
+          }}
+        />
+      </div>
+
+      {/* hover 提示(放卡片底部) */}
+      {hover && (
+        <div style={{ marginTop: 4, padding: '4px 8px', background: '#F7F8FA', borderRadius: 4, fontSize: 11, color: '#4b5563' }}>
+          <strong style={{ color: '#111827' }}>{hover.name}</strong> ·{' '}
+          <strong style={{ color: hover.net > 0 ? RED : GREEN }}>
+            {hover.net > 0 ? '+' : ''}{hover.net.toFixed(2)}亿元
           </strong>
         </div>
       )}

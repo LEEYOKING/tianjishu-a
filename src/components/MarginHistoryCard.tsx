@@ -1,5 +1,6 @@
-// 融资流向卡片(60 日) — v2.0.7aa
-// 顶部 4 数字(60/20/5/3 日净流入) + 双 Y 轴(融资余额+收盘价线图) + 下方融资净流入柱状图
+// 融资流向卡片 — v2.0.7ab
+// v2.0.7aa 初版:60 日 融资余额 + 沪指 + 净流入柱状
+// v2.0.7ab:加右上角"当天净流入"徽章(参考 ths,红涨绿跌)
 
 import ReactECharts from 'echarts-for-react';
 import { useMemo } from 'react';
@@ -17,7 +18,9 @@ const ORANGE = '#f59e0b';
 
 export function MarginHistoryCard({ data }: Props) {
   const list = data.marketOverview.marginHistory;
-  // const [hover, setHover] = useState<{ date: string; balance: number; diff: number; sh: number | null } | null>(null);
+  const last = list && list.length > 0 ? list[list.length - 1] : null;
+  const todayDiff = last?.margin_balance_diff ?? 0;
+  const todayDate = last?.date ?? '';
 
   const sumN = (n: number) => {
     if (!list || list.length === 0) return 0;
@@ -38,6 +41,30 @@ export function MarginHistoryCard({ data }: Props) {
     );
   };
 
+  // 右上角徽章(参考 user 附件 1:红涨绿跌 + ↑↓ 箭头)
+  const renderBadge = () => {
+    if (!last) return null;
+    const isIn = todayDiff >= 0;
+    const bg = isIn ? 'rgba(255, 77, 79, 0.10)' : 'rgba(14, 205, 112, 0.10)';
+    const color = isIn ? RED : GREEN;
+    const arrow = isIn ? '↑' : '↓';
+    const sign = todayDiff > 0 ? '+' : '';
+    // MM-DD 格式
+    const md = todayDate.slice(5);
+    return (
+      <div style={{
+        display: 'inline-flex', alignItems: 'center', gap: 4,
+        padding: '2px 10px', background: bg, color, borderRadius: 4,
+        fontSize: 12, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
+      }}>
+        <span style={{ fontWeight: 600, color: '#9ca3af' }}>{md}</span>
+        <span>{isIn ? '净流入' : '净流出'}</span>
+        <span>{sign}{Math.abs(todayDiff).toFixed(2)}亿元</span>
+        <span style={{ fontSize: 14, lineHeight: 1 }}>{arrow}</span>
+      </div>
+    );
+  };
+
   const option = useMemo(() => {
     if (!list || list.length === 0) return {};
     const dates = list.map((x: MarginHistoryItem) => x.date);
@@ -54,8 +81,8 @@ export function MarginHistoryCard({ data }: Props) {
     return {
       animation: false,
       grid: [
-        { top: 8, right: 50, left: 50, bottom: '52%' },     // 上图(线图)
-        { top: '52%', right: 50, left: 50, bottom: 22 },    // 下图(柱状)
+        { top: 8, right: 50, left: 50, bottom: '52%' },
+        { top: '52%', right: 50, left: 50, bottom: 22 },
       ],
       tooltip: {
         trigger: 'axis' as const,
@@ -91,7 +118,6 @@ export function MarginHistoryCard({ data }: Props) {
       ],
       yAxis: [
         {
-          // 左 Y — 融资余额
           type: 'value' as const, gridIndex: 0,
           min: Math.floor(balMin * 0.998), max: Math.ceil(balMax * 1.002),
           axisLine: { show: false }, axisTick: { show: false },
@@ -99,7 +125,6 @@ export function MarginHistoryCard({ data }: Props) {
           axisLabel: { color: '#9ca3af', fontSize: 10, formatter: (v: number) => v.toFixed(0) },
         },
         {
-          // 右 Y — 沪指
           type: 'value' as const, gridIndex: 0,
           min: Math.floor(closeMin * 0.99), max: Math.ceil(closeMax * 1.01),
           axisLine: { show: false }, axisTick: { show: false },
@@ -107,7 +132,6 @@ export function MarginHistoryCard({ data }: Props) {
           axisLabel: { color: '#9ca3af', fontSize: 10, formatter: (v: number) => v.toFixed(0) },
         },
         {
-          // 下图 Y — 净流入
           type: 'value' as const, gridIndex: 1,
           min: -maxAbs, max: maxAbs,
           axisLine: { show: false }, axisTick: { show: false },
@@ -159,19 +183,25 @@ export function MarginHistoryCard({ data }: Props) {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', gap: 16, padding: '12px 14px', background: '#F7F8FA', borderRadius: 8, marginBottom: 8, fontSize: 12 }}>
-        {renderTopStat('60日净流入', 60)}
-        {renderTopStat('20日净流入', 20)}
-        {renderTopStat('5日净流入', 5)}
-        {renderTopStat('3日净流入', 3)}
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* 顶部 4 数字 + 右上角徽章 */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '8px 4px', marginBottom: 4 }}>
+        <div style={{ display: 'flex', gap: 16, flex: 1, fontSize: 12 }}>
+          {renderTopStat('60日净流入', 60)}
+          {renderTopStat('20日净流入', 20)}
+          {renderTopStat('5日净流入', 5)}
+          {renderTopStat('3日净流入', 3)}
+        </div>
+        {renderBadge()}
       </div>
-      <ReactECharts
-        option={option}
-        style={{ height: 260, width: '100%' }}
-        notMerge={true}
-        lazyUpdate={true}
-      />
+      <div style={{ flex: 1, minHeight: 0 }}>
+        <ReactECharts
+          option={option}
+          style={{ height: '100%', minHeight: 260, width: '100%' }}
+          notMerge={true}
+          lazyUpdate={true}
+        />
+      </div>
     </div>
   );
 }
