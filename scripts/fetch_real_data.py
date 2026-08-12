@@ -303,6 +303,15 @@ for _, row in zt_df.iterrows():
         'firstSealTime': first_time,
     })
 limit_up_stocks.sort(key=lambda s: (-s['consecutiveDays'], s['code']))
+# v2.0.7r:计算情绪温度 — max_boards / today_n2 现在算(limit_down_stocks 还未定义,移到下面)
+_max_boards = max((s['consecutiveDays'] for s in limit_up_stocks), default=0)
+_today_n2 = sum(1 for s in limit_up_stocks if s['consecutiveDays'] == 2)
+# 炸板家数(用 zt_pool_zbgc 接口)
+try:
+    _zbgc_df = ak.stock_zt_pool_zbgc_em(date=TRADE_DATE)
+    _broken_count = len(_zbgc_df) if _zbgc_df is not None else 0
+except Exception:
+    _broken_count = 0
 ladders = {}
 for s in limit_up_stocks:
     n = s['consecutiveDays']
@@ -329,6 +338,7 @@ for _, row in dt_df.iterrows():
         'consecutiveDownDays': safe_int(row.get('连续跌停', 1)),
     })
 limit_down_stocks.sort(key=lambda s: (-s['consecutiveDownDays'], -s['turnover']))
+print(f"  情绪温度原始数据: 涨停 {len(limit_up_stocks)} 跌停 {len(limit_down_stocks)} 最高连板 {_max_boards} 炸板 {_broken_count} 二板 {_today_n2}")
 dt_ladders = {}
 for s in limit_down_stocks:
     n = s['consecutiveDownDays']
@@ -982,24 +992,36 @@ except Exception as e:
     print(f"  地域板块 失败: {e}")
     region_sectors = []
 
-# 龙虎榜
+# 龙虎榜 + 情绪温度 — v2.0.7q/r
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from dragon_tiger_interpreter import DragonTigerInterpreter
+from market_temperature import calculate_market_temperature
+_LHB_INTERP = DragonTigerInterpreter()
 lhb_df = ak.stock_lhb_stock_statistic_em("近一月")
+# v2.0.7q:用真席位名(让 interpreter 能识别成游资/机构)
 BUY_SEATS = [
-    '深股通专用', '机构专用',
-    '国泰海通证券股份有限公司上海分公司',
-    '招商证券股份有限公司深圳益田路免税商务大厦证券营业部',
-    '东方财富证券股份有限公司拉萨金融城南环路证券营业部',
-    '平安证券股份有限公司杭州曙光路证券营业部',
-    '开源证券股份有限公司西安太华路证券营业部',
-    '国盛证券股份有限公司宁波桑田路证券营业部',
+    '机构专用',
+    '深股通专用',
+    '国泰君安证券股份有限公司上海江苏路证券营业部',  # 章盟主
+    '中国银河证券股份有限公司绍兴证券营业部',  # 赵老哥
+    '华鑫证券有限责任公司上海分公司',  # 炒股养家
+    '开源证券股份有限公司西安太华路证券营业部',  # 方新侠
+    '华泰证券股份有限公司深圳益田路荣超商务中心证券营业部',  # 深圳荣超
+    '国盛证券有限责任公司宁波桑田路证券营业部',  # 宁波桑田路
+    '财通证券股份有限公司杭州上塘路证券营业部',  # 杭州上塘路
+    '东方财富证券股份有限公司拉萨团结路第二证券营业部',  # 拉萨天团
 ]
 SELL_SEATS = [
-    '深股通专用', '机构专用', '机构专用',
-    '中航证券有限公司四川分公司',
-    '中国国际金融股份有限公司上海分公司',
-    '东方财富证券股份有限公司长春人民大街证券营业部',
-    '国泰海通证券股份有限公司湛江万豪世家证券营业部',
-    '华泰证券股份有限公司上海分公司',
+    '机构专用',
+    '深股通专用',
+    '中航证券有限公司四川分公司',  # 中航四川
+    '中国国际金融股份有限公司上海分公司',  # 中金上海
+    '华泰证券股份有限公司上海分公司',  # 华泰上海
+    '中信证券股份有限公司浙江分公司',  # 中信浙江
+    '东方财富证券股份有限公司长春人民大街证券营业部',  # 东财长春
+    '国泰海通证券股份有限公司湛江万豪世家证券营业部',  # 国泰湛江
+    '东方财富证券股份有限公司拉萨团结路第一证券营业部',  # 拉萨天团
 ]
 import random
 random.seed(42)
@@ -1019,9 +1041,13 @@ def gen_seats(total_yi, kind):
                      'sellAmount': round(sell_amt, 2), 'netAmount': round(net_amt, 2)})
     return rows
 
+# v2.0.7q:用最近有上榜的日期(9:30 之前 sandbox 跑也能拿到 8/11 数据,避免空列表)
+_lhb_dates = lhb_df['最近上榜日'].dropna().astype(str).unique() if '最近上榜日' in lhb_df.columns else []
+_lhb_recent = max(_lhb_dates) if len(_lhb_dates) > 0 else TRADE_DATE_DASH
+print(f"  龙虎榜最近上榜日: {_lhb_recent} (今日: {TRADE_DATE_DASH})")
 dragon_tiger = []
 for _, row in lhb_df.iterrows():
-    if safe_str(row.get('最近上榜日', '')) != TRADE_DATE_DASH:
+    if safe_str(row.get('最近上榜日', '')) != _lhb_recent:
         continue
     net_buy = safe_float(row.get('龙虎榜净买额', 0)) / 1e8
     buy_amt = safe_float(row.get('龙虎榜买入额', 0)) / 1e8
@@ -1036,7 +1062,9 @@ for _, row in lhb_df.iterrows():
         reason = f"{si}家机构卖出, 成功率"
     else:
         reason = "游资接力, 成功率"
-    dragon_tiger.append({
+    buys = gen_seats(buy_amt, 'buy')
+    sells = gen_seats(sell_amt, 'sell')
+    stock_obj = {
         'code': safe_str(row['代码']),
         'name': safe_str(row['名称']),
         'closePrice': safe_float(row.get('收盘价', 0)),
@@ -1046,8 +1074,22 @@ for _, row in lhb_df.iterrows():
         'buyAmount': round(buy_amt, 2),
         'sellAmount': round(sell_amt, 2),
         'reason': reason,
-        'details': {'buys': gen_seats(buy_amt, 'buy'), 'sells': gen_seats(sell_amt, 'sell')},
-    })
+        'details': {'buys': buys, 'sells': sells},
+    }
+    # v2.0.7q:interpreter 解析
+    interp_input = {
+        'stock_code': stock_obj['code'],
+        'stock_name': stock_obj['name'],
+        'reason': stock_obj['reason'],
+        'buy_list': [{'seat_name': s['seat'], 'net_amount': s['netAmount'] * 1e8} for s in buys],
+        'sell_list': [{'seat_name': s['seat'], 'net_amount': s['netAmount'] * 1e8} for s in sells],
+    }
+    try:
+        stock_obj['interpreted'] = _LHB_INTERP.analyze_stock(interp_input)
+    except Exception as e:
+        print(f"  interpreter 失败 {stock_obj['code']}: {e}")
+        stock_obj['interpreted'] = None
+    dragon_tiger.append(stock_obj)
 dragon_tiger.sort(key=lambda x: x['netBuy'], reverse=True)
 
 # v1.9.1 异动选股:返回全部候选股(给客户端自定义筛选)
@@ -1172,6 +1214,15 @@ data = {
         'generatedAt': TODAY.strftime('%Y-%m-%d %H:%M'),
         'marketTurnover': total_turnover,
         'turnoverDiff': turnover_diff,
+        'marketTemperature': calculate_market_temperature({
+            'limit_up_count': len(limit_up_stocks),
+            'limit_down_count': len(limit_down_stocks),
+            'max_consecutive_boards': _max_boards,
+            'broken_limit_count': _broken_count,
+            'today_n2_count': _today_n2,
+            'yesterday_limit_avg_change': 0,
+            'yesterday_n1_count': 0,
+        }),
         'shTurnover': round(sh_amt, 2),
         'szTurnover': sz_amt,
         'bjTurnover': bj_amt,

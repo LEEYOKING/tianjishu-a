@@ -23,11 +23,20 @@ export default function App() {
   const live = useLiveData(true);
 
   useEffect(() => {
-    // v1.9.9:每 60s 调 loadReportData(force=true) 清缓存重新 fetch,真正拿到新 data.json
+    // v2.0.7o:fetch 失败时如果已有 baseData(后台标签页被节流),静默不显示错误页
     const fetchData = () =>
       loadReportData(true)
-        .then(setBaseData)
-        .catch((e) => setBaseErr(String(e?.message || e)));
+        .then((d) => {
+          setBaseData(d);
+          setBaseErr(null);
+        })
+        .catch((e) => {
+          // 只在首次加载失败(baseData 还没设)时报错;后续失败静默(后台节流/网络抖动)
+          setBaseData((prev) => {
+            if (prev === null) setBaseErr(String(e?.message || e));
+            return prev;
+          });
+        });
     fetchData();
     const reloadTimer = setInterval(fetchData, 60_000);
     return () => clearInterval(reloadTimer);
@@ -41,10 +50,20 @@ export default function App() {
   if (baseErr) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-        <div style={{ textAlign: 'center' }}>
-          <h2 style={{ color: '#E60012' }}>数据加载失败</h2>
-          <p style={{ color: '#999' }}>{baseErr}</p>
-          <p style={{ color: '#999' }}>请先运行 <code>python3 scripts/fetch_real_data.py</code> 生成 data.json</p>
+        <div style={{ textAlign: 'center', maxWidth: 480, padding: 24 }}>
+          <h2 style={{ color: '#E60012', marginBottom: 12 }}>数据加载失败</h2>
+          <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 6 }}>{baseErr}</p>
+          <p style={{ color: '#9ca3af', fontSize: 12, marginBottom: 20 }}>可能原因:网络不稳定 / GitHub Pages 部署中 / 服务器异常</p>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              padding: '8px 20px', fontSize: 14, fontWeight: 500,
+              color: '#fff', background: '#1890ff', border: 'none', borderRadius: 6,
+              cursor: 'pointer',
+            }}
+          >
+            🔄 重新加载
+          </button>
         </div>
       </div>
     );

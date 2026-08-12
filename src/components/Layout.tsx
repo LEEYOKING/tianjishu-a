@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { EmotionThermometer } from './EmotionThermometer';
 import type { ReportData } from '../data/loader';
 
 interface Props {
@@ -175,9 +176,17 @@ export default function Layout({ data, children }: Props) {
               {mood.label}
             </span>
           </div>
-          <div style={{ fontSize: 11, color: '#86909C', marginTop: 6, textAlign: 'center' }}>
+          <div style={{ fontSize: 11, color: '#86909C', marginTop: 6, marginBottom: 4, textAlign: 'center' }}>
             当前市场情绪
           </div>
+          {/* v2.0.7r:情绪温度计 — 5 维度加权 0-100 */}
+          {data.marketOverview?.marketTemperature && (
+            <EmotionThermometer
+              temperature={data.marketOverview.marketTemperature.temperature}
+              status={data.marketOverview.marketTemperature.status}
+              details={data.marketOverview.marketTemperature.details}
+            />
+          )}
         </div>
       </aside>
 

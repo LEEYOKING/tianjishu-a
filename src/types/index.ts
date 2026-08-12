@@ -48,6 +48,20 @@ export interface MarketOverview {
   limitUpCount: number;
   limitDownCount: number;
   indices: IndexQuote[];
+  // v2.0.7r:情绪温度(5 维度加权 0-100)
+  marketTemperature?: {
+    temperature: number;
+    status: string;
+    statusDesc: string;
+    details: {
+      limit_up: number;
+      limit_down: number;
+      max_boards: number;
+      broken_rate: string;
+      yest_perf?: string;
+      promote_rate?: string;
+    };
+  };
   // 可转债 / ETF 涨跌家数(akshare 静态)
   etfUp?: number;
   etfDown?: number;
@@ -119,6 +133,19 @@ export interface BreakoutStock extends QuoteData {
 }
 
 /** 龙虎榜 */
+export interface InterpretedStock {
+  stock_info: { code: string; name: string; reason: string };
+  tags: string[];
+  summary_text: string;
+  structured_buy_list: Array<{
+    seat: string; name: string; type: string; style: string; icon: string; net_amount: number;
+  }>;
+  structured_sell_list: Array<{
+    seat: string; name: string; type: string; style: string; icon: string; net_amount: number;
+  }>;
+  force_distribution: { [type: string]: number };
+}
+
 export interface DragonTigerStock extends QuoteData {
   netBuy: number; // 净买额(亿)
   buyAmount: number;
@@ -128,6 +155,7 @@ export interface DragonTigerStock extends QuoteData {
     buys: SeatRow[];
     sells: SeatRow[];
   };
+  interpreted?: InterpretedStock;  // v2.0.7q:Python interpreter 输出
 }
 
 export interface SeatRow {

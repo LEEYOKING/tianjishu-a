@@ -20,6 +20,17 @@ export function isLiveMarket(): boolean {
   return mins >= 9 * 60 + 30 && mins < 15 * 60;
 }
 
+// v2.0.7p:9:30 集合竞价前(交易日)— 9:15 集合竞价开始,但 sina 在 9:05 也能拉到少量"集合竞价预报价"
+// 看着像"半数据"(如 1 涨 / 5499 平盘)。这段时间清零 A 股统计(避免显示半数据),
+// 等 9:30 正式开盘后用 live 实时数据
+export function isPreMarket(): boolean {
+  const now = new Date();
+  const day = now.getDay();
+  if (day === 0 || day === 6) return false;
+  const mins = now.getHours() * 60 + now.getMinutes();
+  return mins < 9 * 60 + 30;  // 9:30 之前
+}
+
 export interface LiveSnapshot {
   /** 6 个指数实时数据(顺序对应 data.indices) */
   indices: { point: number; changeAmount: number; changePercent: number; turnover: number }[];
@@ -197,27 +208,39 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       }
     }
   }
-  // 2. 全市场汇总(EM push2:含涨跌停 — 10s 实时)
-  // v2.0.7e:兜底 — fs 编码错时返回空/总数 < 1000,fallback 到 data.json 静态值(避免 0:0 污染显示)
-  const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
-  const mktValid = live.market && mktTotal >= 600;
-  if (mktValid) {
-    // v2.0.7d:成交量也实时刷新 + 自动算 turnoverDiff(用 history 末 1 日作为对照)
-    const prevDayVol = next.history && next.history.length >= 1
-      ? next.history[next.history.length - 1].volume
-      : 0;
-    next.marketOverview.marketTurnover = live.market!.totalTurnover;
-    next.marketOverview.turnoverDiff = prevDayVol > 0
-      ? Math.round((live.market!.totalTurnover - prevDayVol) * 100) / 100
-      : next.marketOverview.turnoverDiff;
-    next.marketOverview.upCount = live.market!.upCount;
-    next.marketOverview.downCount = live.market!.downCount;
-    next.marketOverview.flatCount = live.market!.flatCount;
-    next.marketOverview.limitUpCount = live.market!.limitUpCount;
-    next.marketOverview.limitDownCount = live.market!.limitDownCount;
-    next.marketOverview.upPercent = mktTotal > 0
-      ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
-      : 0;
+  // 2. 全市场汇总 — v2.0.7p:9:30 集合竞价前清零(避免显示 sina "半数据" 如 1 涨 5499 平)
+  // 9:30 之后用 live 实时
+  if (isPreMarket()) {
+    next.marketOverview.marketTurnover = 0;
+    next.marketOverview.turnoverDiff = 0;
+    next.marketOverview.upCount = 0;
+    next.marketOverview.downCount = 0;
+    next.marketOverview.flatCount = 0;
+    next.marketOverview.limitUpCount = 0;
+    next.marketOverview.limitDownCount = 0;
+    next.marketOverview.upPercent = 0;
+  } else {
+    // v2.0.7e:兜底 — fs 编码错时返回空/总数 < 1000,fallback 到 data.json 静态值
+    const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
+    const mktValid = live.market && mktTotal >= 600;
+    if (mktValid) {
+      // v2.0.7d:成交量也实时刷新 + 自动算 turnoverDiff(用 history 末 1 日作为对照)
+      const prevDayVol = next.history && next.history.length >= 1
+        ? next.history[next.history.length - 1].volume
+        : 0;
+      next.marketOverview.marketTurnover = live.market!.totalTurnover;
+      next.marketOverview.turnoverDiff = prevDayVol > 0
+        ? Math.round((live.market!.totalTurnover - prevDayVol) * 100) / 100
+        : next.marketOverview.turnoverDiff;
+      next.marketOverview.upCount = live.market!.upCount;
+      next.marketOverview.downCount = live.market!.downCount;
+      next.marketOverview.flatCount = live.market!.flatCount;
+      next.marketOverview.limitUpCount = live.market!.limitUpCount;
+      next.marketOverview.limitDownCount = live.market!.limitDownCount;
+      next.marketOverview.upPercent = mktTotal > 0
+        ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
+        : 0;
+    }
   }
   // 3. ETF 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
   const etfTotal = live.etfStats ? (live.etfStats.up + live.etfStats.down + live.etfStats.flat) : 0;
