@@ -102,10 +102,10 @@ export function ChangeDistributionCard({ data }: Props) {
   }
 
   return (
-    // v2.0.7aj:整张卡片 flex column — 柱状图 flex: 1 占满 + 底部内容固定
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* 柱状图 — flex: 1 占满除底部外所有空间(被压缩以匹配融资卡片) */}
-      <div style={{ flex: 1, minHeight: 0 }}>
+    // v2.0.7ak:整张卡片 flex column — 柱状图固定 227px(从 260 改) + 底部内容固定
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {/* 柱状图 — 固定 227px */}
+      <div style={{ height: 227 }}>
         <ReactECharts
           option={option}
           style={{ height: '100%', width: '100%' }}
