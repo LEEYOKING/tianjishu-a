@@ -1,10 +1,10 @@
-// 情绪温度计组件 — v2.0.7s(重设计:半圆弧仪表盘 + 估值/情绪双标签)
-// 样式参考 user 提供的"市场温度"卡片:左半圆仪表盘 + 右侧大字 + 副标题 + 双标签
+// 情绪温度计组件 — v2.0.7u(半圆弧 + 上下布局 + 删边框 + 颜色随温度变)
+// 修复 v2.0.7s 问题:宽度溢出 + 改上下布局
 
 import { useState } from 'react';
 
 export interface EmotionThermometerProps {
-  temperature: number;  // 0-100 主体温度
+  temperature: number;  // 0-100
   status: string;       // 状态描述
   details: {
     limit_up: number;
@@ -12,13 +12,12 @@ export interface EmotionThermometerProps {
     max_boards: number;
     broken_rate: string;
   };
-  // 额外信息(可选)
   limitUpCount?: number;
   upCount?: number;
   downCount?: number;
 }
 
-// 颜色(0-100 渐变)
+// 颜色(0-100 渐变)— 5 档:蓝 → 青 → 暖黄 → 橙 → 红
 function getColor(t: number): string {
   if (t <= 20) return '#3b82f6';  // 冷蓝
   if (t <= 40) return '#06b6d4';  // 青
@@ -27,7 +26,6 @@ function getColor(t: number): string {
   return '#dc2626';               // 热红
 }
 
-// 描述文字(根据温度区间)
 function getDescription(t: number): string {
   if (t <= 20) return '市场冰点,谨慎参与';
   if (t <= 40) return '温度低迷,情绪修复中';
@@ -36,9 +34,7 @@ function getDescription(t: number): string {
   return '温度炽热,警惕退潮风险';
 }
 
-// 估值标签(根据涨停家数 + 涨跌比)
 function getValuationTag(limitUp: number, upCount: number, downCount: number): { text: string; color: string } {
-  // 估值 = 涨停 + 涨家数多 → 极高(过热)
   if (limitUp >= 80 || (upCount > downCount * 3 && upCount > 3000)) {
     return { text: '极高', color: '#dc2626' };
   }
@@ -51,7 +47,6 @@ function getValuationTag(limitUp: number, upCount: number, downCount: number): {
   return { text: '低位', color: '#06b6d4' };
 }
 
-// 情绪标签(根据涨跌停比)
 function getSentimentTag(limitUp: number, limitDown: number): { text: string; color: string } {
   const ratio = limitUp / Math.max(limitDown, 1);
   if (limitDown >= 30) return { text: '恐慌', color: '#06b6d4' };
@@ -74,70 +69,60 @@ export function EmotionThermometer({ temperature, status, details, limitUpCount,
   const valuation = getValuationTag(lu, upCount ?? 0, downCount ?? 0);
   const sentiment = getSentimentTag(lu, ld);
 
-  // 半圆弧参数
-  // SVG: viewBox 0 0 200 120
-  // 圆心 (100, 100), 半径 80
-  // 半圆从左下 (0°, 180°) 到右下 (180°, 0°),上方拱起
-  // 弧长 = π * 80 ≈ 251
+  // 半圆弧参数 — viewBox 固定 200x120,SVG 用 width="100%" 自适应
+  // 圆心 (100, 100), 半径 70
   const cx = 100;
   const cy = 100;
-  const r = 80;
-  // 角度:0° 指向 12 点钟方向(向上),顺时针增加
-  // 左下 = 180°(9 点钟方向),右下 = 0°(3 点钟方向,这里设为 360°/0° 实际是 0° 是 3 点)
-  // 实际:180° → 左下端点,0° → 右下端点,半圆从 180° 顺时针到 0°
-  // SVG path 中,半圆从 (cx-r, cy) 到 (cx+r, cy),上方拱起
-  // 0% = (cx-r, cy) = (20, 100),100% = (cx+r, cy) = (180, 100)
-
-  // 计算填充弧的端点
+  const r = 70;
   // 比例 0-1 映射到角度 180° → 0°(顺时针扫 180°)
-  const angle = 180 - (safeT / 100) * 180;  // 180° → 0°
+  const angle = 180 - (safeT / 100) * 180;
   const angleRad = (angle * Math.PI) / 180;
   const endX = cx + r * Math.cos(angleRad);
   const endY = cy - r * Math.sin(angleRad);
 
-  // 填充比例 large-arc-flag
-  // safeT = 0 → 角度 180° → endX = 20, endY = 100 → 在起点
-  // safeT = 100 → 角度 0° → endX = 180, endY = 100 → 在终点
-  // 中间所有点都在上方(y < 100),所以 large-arc-flag 始终为 0,sweep-flag = 1(顺时针)
-
-  // 指针角度(从中心向上偏右的角度)
-  const needleAngle = 180 - (safeT / 100) * 180;  // 角度 0-180(从左到右)
-  const needleRad = (needleAngle * Math.PI) / 180;
-  const needleLength = 65;
-  const needleX = cx + needleLength * Math.cos(needleRad);
-  const needleY = cy - needleLength * Math.sin(needleRad);
+  // 指针端点
+  const needleLength = 56;
+  const needleX = cx + needleLength * Math.cos(angleRad);
+  const needleY = cy - needleLength * Math.sin(angleRad);
 
   return (
     <div
-      style={{ padding: '16px 20px', borderRadius: 12, background: '#fff', border: '1px solid #E5E7EB', boxShadow: '0 1px 3px rgba(0,0,0,0.04)', marginTop: 8, cursor: 'help' }}
+      style={{
+        position: 'relative',
+        width: '100%',       // v2.0.7u:撑满父容器(避免溢出 200px 侧栏)
+        padding: '12px 8px 8px',
+        borderRadius: 10,
+        background: 'transparent',   // v2.0.7u:无背景
+        cursor: 'help',
+      }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* 顶部标题栏 */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#111827' }}>市场温度</div>
-        <div style={{ fontSize: 18, color: '#9ca3af', lineHeight: 1 }}>›</div>
+      {/* 标题栏 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4, padding: '0 4px' }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>市场温度</div>
+        <div style={{ fontSize: 14, color: '#9ca3af', lineHeight: 1 }}>›</div>
       </div>
 
-      {/* 主体:半圆弧 + 文字 */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      {/* 半圆弧 + 文字(上下布局,v2.0.7u) */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* 半圆弧 SVG */}
-        <svg width="180" height="110" viewBox="0 0 200 120" style={{ flexShrink: 0 }}>
-          {/* 灰色背景弧(0-100) */}
+        <svg width="100%" height="80" viewBox="0 0 200 110" style={{ display: 'block' }}>
+          {/* 灰色背景弧 */}
           <path
             d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
             fill="none"
             stroke="#F3F4F6"
-            strokeWidth="18"
+            strokeWidth="14"
             strokeLinecap="round"
           />
-          {/* 填充弧(根据温度) */}
+          {/* 填充弧 */}
           {safeT > 0 && (
             <path
               d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${endX} ${endY}`}
               fill="none"
               stroke={color}
-              strokeWidth="18"
+              strokeWidth="14"
               strokeLinecap="round"
               style={{ transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
             />
@@ -149,35 +134,41 @@ export function EmotionThermometer({ temperature, status, details, limitUpCount,
             x2={needleX}
             y2={needleY}
             stroke="#111827"
-            strokeWidth="3"
+            strokeWidth="2.5"
             strokeLinecap="round"
             style={{ transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
           />
           {/* 中心点 */}
-          <circle cx={cx} cy={cy} r="6" fill="#111827" />
+          <circle cx={cx} cy={cy} r="5" fill="#111827" />
           {/* 0° / 100° 标记 */}
-          <text x={cx - r - 5} y={cy + 18} textAnchor="end" fontSize="11" fill="#9ca3af" fontWeight={500}>0°</text>
-          <text x={cx + r + 5} y={cy + 18} textAnchor="start" fontSize="11" fill="#9ca3af" fontWeight={500}>100°</text>
+          <text x={cx - r - 4} y={cy + 14} textAnchor="end" fontSize="10" fill="#9ca3af" fontWeight={500}>0°</text>
+          <text x={cx + r + 4} y={cy + 14} textAnchor="start" fontSize="10" fill="#9ca3af" fontWeight={500}>100°</text>
         </svg>
 
-        {/* 右侧:大数字 + 描述 + 估值/情绪 */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
+        {/* 文字:大数字 + 描述 + 估值/情绪 */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, marginTop: 4 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
-            <span style={{ fontSize: 32, fontWeight: 800, color, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
+            <span style={{ fontSize: 26, fontWeight: 800, color, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
               {safeT}
             </span>
-            <span style={{ fontSize: 14, color, fontWeight: 600 }}>°</span>
+            <span style={{ fontSize: 13, color, fontWeight: 600 }}>°</span>
           </div>
-          <div style={{ fontSize: 11, color: '#6b7280', lineHeight: 1.4 }}>
+          <div style={{ fontSize: 11, color: '#6b7280', lineHeight: 1.3, textAlign: 'center' }}>
             {description}
           </div>
-          <div style={{ display: 'flex', gap: 6, marginTop: 4, fontSize: 12, alignItems: 'center' }}>
-            <span style={{ color: '#6b7280' }}>估值</span>
+        </div>
+
+        {/* 估值 / 情绪 标签 */}
+        <div style={{ display: 'flex', gap: 10, marginTop: 6, fontSize: 11, alignItems: 'center' }}>
+          <span>
+            <span style={{ color: '#6b7280' }}>估值</span>{' '}
             <span style={{ color: valuation.color, fontWeight: 700 }}>{valuation.text}</span>
-            <span style={{ color: '#d1d5db', margin: '0 4px' }}>|</span>
-            <span style={{ color: '#6b7280' }}>情绪</span>
+          </span>
+          <span style={{ color: '#d1d5db' }}>|</span>
+          <span>
+            <span style={{ color: '#6b7280' }}>情绪</span>{' '}
             <span style={{ color: sentiment.color, fontWeight: 700 }}>{sentiment.text}</span>
-          </div>
+          </span>
         </div>
       </div>
 

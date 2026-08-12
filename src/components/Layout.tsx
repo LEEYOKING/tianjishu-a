@@ -138,8 +138,8 @@ export default function Layout({ data, children }: Props) {
           })}
         </nav>
 
-        {/* v2.0.7s:情绪温度计(半圆弧仪表盘 + 估值/情绪双标签)— 完整卡片 */}
-        <div style={{ padding: '8px 12px 16px' }}>
+        {/* v2.0.7u:情绪温度计(无背景 + width 100% + 上下布局)— 撑满 200px 侧栏 */}
+        <div style={{ padding: '0 8px 12px' }}>
           {data.marketOverview?.marketTemperature && (
             <EmotionThermometer
               temperature={data.marketOverview.marketTemperature.temperature}
