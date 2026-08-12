@@ -1,13 +1,28 @@
-// 情绪温度计组件 — v2.0.7u(半圆弧 + 上下布局 + 删边框 + 颜色随温度变)
-// 修复 v2.0.7s 问题:宽度溢出 + 改上下布局
+// 情绪温度计组件 — v2.0.7z(5 维度直接相加,user 最新算法)
+// 修复 v2.0.7u 溢出 + v2.0.7w 删标题/hover + v2.0.7y 修 0°/100° + 加维度得分明细
+
+import { useState } from 'react';
 
 export interface EmotionThermometerProps {
   temperature: number;  // 0-100
+  status: string;       // "绝对冰点" / "低温分歧" / ...
+  statusDesc: string;   // "退潮末期,试错期"
   details: {
     limit_up: number;
     limit_down: number;
     max_boards: number;
     broken_rate: string;
+    broken_count: number;
+    yest_perf: string;
+    promote_rate: string;
+    limit_ratio: string;
+  };
+  dimension_scores?: {
+    '涨跌停对比': number;
+    '连板高度': number;
+    '炸板率': number;
+    '昨日涨停今日': number;
+    '晋级率': number;
   };
   limitUpCount?: number;
   upCount?: number;
@@ -21,14 +36,6 @@ function getColor(t: number): string {
   if (t <= 60) return '#f59e0b';  // 暖黄
   if (t <= 80) return '#f97316';  // 橙
   return '#dc2626';               // 热红
-}
-
-function getDescription(t: number): string {
-  if (t <= 20) return '市场冰点,谨慎参与';
-  if (t <= 40) return '温度低迷,情绪修复中';
-  if (t <= 60) return '温度温和,无明显主线';
-  if (t <= 80) return '温度温暖,赚钱效应扩散';
-  return '温度炽热,警惕退潮风险';
 }
 
 function getValuationTag(limitUp: number, upCount: number, downCount: number): { text: string; color: string } {
@@ -55,30 +62,33 @@ function getSentimentTag(limitUp: number, limitDown: number): { text: string; co
   return { text: '低迷', color: '#3b82f6' };
 }
 
-export function EmotionThermometer({ temperature, details, limitUpCount, upCount, downCount }: EmotionThermometerProps) {
-  // v2.0.7w:删 hover(useState 不用了)
+export function EmotionThermometer({
+  temperature,
+  status,
+  statusDesc,
+  details,
+  dimension_scores,
+  limitUpCount,
+  upCount,
+  downCount,
+}: EmotionThermometerProps) {
+  const [hover, setHover] = useState(false);
   const safeT = Math.max(0, Math.min(100, temperature));
   const color = getColor(safeT);
-  const description = getDescription(safeT);
-  // status 现在未用(删 Tooltip 后),保留以备后用
 
   const lu = limitUpCount ?? details.limit_up;
   const ld = details.limit_down;
   const valuation = getValuationTag(lu, upCount ?? 0, downCount ?? 0);
   const sentiment = getSentimentTag(lu, ld);
 
-  // 半圆弧参数 — viewBox 固定 200x120,SVG 用 width="100%" 自适应
-  // 圆心 (100, 100), 半径 70
+  // 半圆弧参数
   const cx = 100;
   const cy = 100;
   const r = 70;
-  // 比例 0-1 映射到角度 180° → 0°(顺时针扫 180°)
   const angle = 180 - (safeT / 100) * 180;
   const angleRad = (angle * Math.PI) / 180;
   const endX = cx + r * Math.cos(angleRad);
   const endY = cy - r * Math.sin(angleRad);
-
-  // 指针端点
   const needleLength = 56;
   const needleX = cx + needleLength * Math.cos(angleRad);
   const needleY = cy - needleLength * Math.sin(angleRad);
@@ -87,21 +97,18 @@ export function EmotionThermometer({ temperature, details, limitUpCount, upCount
     <div
       style={{
         position: 'relative',
-        width: '100%',       // v2.0.7u:撑满父容器(避免溢出 200px 侧栏)
+        width: '100%',
         padding: '12px 8px 8px',
         borderRadius: 10,
-        background: 'transparent',   // v2.0.7u:无背景
+        background: 'transparent',
         cursor: 'help',
       }}
-      
-      
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
-      {/* v2.0.7w:删标题栏 + 半圆弧 + 文字(上下布局) */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* 半圆弧 SVG */}
-        {/* v2.0.7w:viewBox 高度加到 120,给 0° / 100° 留位置 */}
         <svg width="100%" height="92" viewBox="0 0 200 120" style={{ display: 'block' }}>
-          {/* 灰色背景弧 */}
           <path
             d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
             fill="none"
@@ -109,7 +116,6 @@ export function EmotionThermometer({ temperature, details, limitUpCount, upCount
             strokeWidth="14"
             strokeLinecap="round"
           />
-          {/* 填充弧 */}
           {safeT > 0 && (
             <path
               d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${endX} ${endY}`}
@@ -120,7 +126,6 @@ export function EmotionThermometer({ temperature, details, limitUpCount, upCount
               style={{ transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
             />
           )}
-          {/* 指针 */}
           <line
             x1={cx}
             y1={cy}
@@ -131,14 +136,12 @@ export function EmotionThermometer({ temperature, details, limitUpCount, upCount
             strokeLinecap="round"
             style={{ transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
           />
-          {/* 中心点 */}
           <circle cx={cx} cy={cy} r="5" fill="#111827" />
-          {/* v2.0.7w:0° / 100° 标记 — 移到弧外(y = 116) */}
           <text x={cx - r - 4} y={116} textAnchor="end" fontSize="11" fill="#6b7280" fontWeight={600}>0°</text>
           <text x={cx + r + 4} y={116} textAnchor="start" fontSize="11" fill="#6b7280" fontWeight={600}>100°</text>
         </svg>
 
-        {/* 文字:大数字 + 描述 + 估值/情绪 */}
+        {/* 大数字 + 状态名 */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, marginTop: 4 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
             <span style={{ fontSize: 26, fontWeight: 800, color, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif', fontVariantNumeric: 'tabular-nums' }}>
@@ -146,12 +149,16 @@ export function EmotionThermometer({ temperature, details, limitUpCount, upCount
             </span>
             <span style={{ fontSize: 13, color, fontWeight: 600 }}>°</span>
           </div>
-          <div style={{ fontSize: 11, color: '#6b7280', lineHeight: 1.3, textAlign: 'center' }}>
-            {description}
+          {/* v2.0.7z:显示状态名 + 描述 */}
+          <div style={{ fontSize: 12, color, fontWeight: 700, lineHeight: 1.3, textAlign: 'center' }}>
+            {status}
+          </div>
+          <div style={{ fontSize: 10, color: '#9ca3af', lineHeight: 1.3, textAlign: 'center' }}>
+            {statusDesc}
           </div>
         </div>
 
-        {/* v2.0.7w:估值 / 情绪 标签 — 字号 +3 (11→14) + 加粗 */}
+        {/* 估值 / 情绪 标签 */}
         <div style={{ display: 'flex', gap: 10, marginTop: 8, fontSize: 14, alignItems: 'center' }}>
           <span>
             <span style={{ color: '#6b7280' }}>估值</span>{' '}
@@ -165,6 +172,60 @@ export function EmotionThermometer({ temperature, details, limitUpCount, upCount
         </div>
       </div>
 
+      {/* v2.0.7z:Hover 显示 5 维度得分明细 */}
+      {hover && dimension_scores && (
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: '100%',
+            transform: 'translateX(-50%)',
+            marginTop: 8,
+            background: 'rgba(17, 24, 39, 0.96)',
+            color: '#fff',
+            padding: '10px 14px',
+            borderRadius: 8,
+            fontSize: 11,
+            lineHeight: 1.7,
+            whiteSpace: 'nowrap',
+            zIndex: 1000,
+            boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+            pointerEvents: 'none',
+            minWidth: 200,
+          }}
+        >
+          <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6, color }}>
+            情绪温度 {safeT}° · 基础 50 + 维度得分
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '2px 12px' }}>
+            <span>📊 涨跌停对比</span>
+            <span style={{ color: dimension_scores['涨跌停对比'] > 0 ? '#86efac' : dimension_scores['涨跌停对比'] < 0 ? '#fca5a5' : '#9ca3af', fontWeight: 700, textAlign: 'right' }}>
+              {dimension_scores['涨跌停对比'] > 0 ? '+' : ''}{dimension_scores['涨跌停对比']}
+            </span>
+            <span>🏆 连板高度</span>
+            <span style={{ color: dimension_scores['连板高度'] > 0 ? '#86efac' : dimension_scores['连板高度'] < 0 ? '#fca5a5' : '#9ca3af', fontWeight: 700, textAlign: 'right' }}>
+              {dimension_scores['连板高度'] > 0 ? '+' : ''}{dimension_scores['连板高度']}
+            </span>
+            <span>💥 炸板率</span>
+            <span style={{ color: dimension_scores['炸板率'] > 0 ? '#86efac' : dimension_scores['炸板率'] < 0 ? '#fca5a5' : '#9ca3af', fontWeight: 700, textAlign: 'right' }}>
+              {dimension_scores['炸板率'] > 0 ? '+' : ''}{dimension_scores['炸板率']}
+            </span>
+            <span>📈 昨日涨停今日</span>
+            <span style={{ color: dimension_scores['昨日涨停今日'] > 0 ? '#86efac' : dimension_scores['昨日涨停今日'] < 0 ? '#fca5a5' : '#9ca3af', fontWeight: 700, textAlign: 'right' }}>
+              {dimension_scores['昨日涨停今日'] > 0 ? '+' : ''}{dimension_scores['昨日涨停今日']}
+            </span>
+            <span>🚀 晋级率</span>
+            <span style={{ color: dimension_scores['晋级率'] > 0 ? '#86efac' : dimension_scores['晋级率'] < 0 ? '#fca5a5' : '#9ca3af', fontWeight: 700, textAlign: 'right' }}>
+              {dimension_scores['晋级率'] > 0 ? '+' : ''}{dimension_scores['晋级率']}
+            </span>
+          </div>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', marginTop: 6, paddingTop: 6, fontSize: 10, color: '#d1d5db' }}>
+            涨跌停 {details.limit_up}/{details.limit_down} · 比例 {details.limit_ratio}<br />
+            最高连板 {details.max_boards}板 · 炸板率 {details.broken_rate}<br />
+            昨日涨停今日 {details.yest_perf} · 晋级率 {details.promote_rate}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

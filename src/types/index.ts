@@ -48,7 +48,7 @@ export interface MarketOverview {
   limitUpCount: number;
   limitDownCount: number;
   indices: IndexQuote[];
-  // v2.0.7r:情绪温度(5 维度加权 0-100)
+  // v2.0.7z:情绪温度(5 维度直接相加 0-100,user 最新算法)
   marketTemperature?: {
     temperature: number;
     status: string;
@@ -58,8 +58,19 @@ export interface MarketOverview {
       limit_down: number;
       max_boards: number;
       broken_rate: string;
-      yest_perf?: string;
-      promote_rate?: string;
+      broken_count: number;
+      yest_perf: string;        // "+1.5%" / "无数据"
+      yest_perf_value: number;  // 数值(0 = 无数据)
+      promote_rate: string;     // "27%" / "无数据"
+      promote_rate_value: number;
+      limit_ratio: string;      // "12.0" / "60/0"
+    };
+    dimension_scores: {
+      '涨跌停对比': number;
+      '连板高度': number;
+      '炸板率': number;
+      '昨日涨停今日': number;
+      '晋级率': number;
     };
   };
   // 可转债 / ETF 涨跌家数(akshare 静态)

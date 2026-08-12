@@ -168,6 +168,54 @@ flat_count = int((spot_df['涨跌幅'] == 0).sum())
 stock_total = len(spot_df)
 print(f"  sina 累加 {stock_total} 只(全市场 A股) ↑{up_count} ↓{down_count} 平{flat_count} 成交 {total_turnover}亿")
 
+# v2.0.7z:情绪温度维度 4 准备 — 昨日涨停今日表现 + 昨日首板数
+# 用 sina 实时数据(code 已 strip 前缀)建索引
+_sina_dict = dict(zip(spot_df['代码'].astype(str), spot_df['涨跌幅']))
+
+# 找最近 2 个有数据的交易日
+def _find_yesterday_zt():
+    """返回 (date_str, df) — 找今日之前最近一个交易日的涨停池"""
+    for d in range(1, 8):
+        date = (TODAY - timedelta(days=d)).strftime('%Y%m%d')
+        try:
+            df = ak.stock_zt_pool_em(date=date)
+            if df is not None and len(df) > 0:
+                return date, df
+        except Exception:
+            continue
+    return None, None
+
+try:
+    _yest_date, _yest_zt_df = _find_yesterday_zt()
+    if _yest_zt_df is not None and len(_yest_zt_df) > 0:
+        # 昨日涨停代码(sina 是 strip 过的 6 位)
+        _yest_codes = _yest_zt_df['代码'].astype(str).tolist()
+        # 昨日首板数(consecutiveDays == 1)
+        if '连板数' in _yest_zt_df.columns:
+            _yest_n1 = int((_yest_zt_df['连板数'] == 1).sum())
+        elif 'consecutiveDays' in _yest_zt_df.columns:
+            _yest_n1 = int((_yest_zt_df['consecutiveDays'] == 1).sum())
+        else:
+            _yest_n1 = 0
+        # 昨日涨停股今日平均涨幅(用 sina 实时)
+        _yest_pcts = []
+        for c in _yest_codes:
+            if c in _sina_dict:
+                _yest_pcts.append(_sina_dict[c])
+        if _yest_pcts:
+            _yest_avg = round(sum(_yest_pcts) / len(_yest_pcts), 2)
+        else:
+            _yest_avg = 0
+        print(f"  昨日({_yest_date})涨停 {len(_yest_codes)} 只,首板 {_yest_n1} 只,今日平均涨幅 {_yest_avg:+.2f}%")
+    else:
+        _yest_avg = 0
+        _yest_n1 = 0
+        print(f"  昨日涨停池:无数据,降级 0")
+except Exception as e:
+    print(f"  昨日涨停池:失败 {e},降级 0")
+    _yest_avg = 0
+    _yest_n1 = 0
+
 # 2.5 场内 ETF 涨/跌/平家数
 print("  场内 ETF 涨/跌/平...")
 etf_df = ak.fund_etf_spot_em()
@@ -1220,8 +1268,9 @@ data = {
             'max_consecutive_boards': _max_boards,
             'broken_limit_count': _broken_count,
             'today_n2_count': _today_n2,
-            'yesterday_limit_avg_change': 0,
-            'yesterday_n1_count': 0,
+            'yesterday_limit_avg_change': _yest_avg,
+            'yesterday_n1_count': _yest_n1,
+            'yesterday_limit_avg_change_provided': True,  # 区分"真无数据"和"刚好为 0"
         }),
         'shTurnover': round(sh_amt, 2),
         'szTurnover': sz_amt,

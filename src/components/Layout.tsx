@@ -143,7 +143,10 @@ export default function Layout({ data, children }: Props) {
           {data.marketOverview?.marketTemperature && (
             <EmotionThermometer
               temperature={data.marketOverview.marketTemperature.temperature}
+              status={data.marketOverview.marketTemperature.status}
+              statusDesc={data.marketOverview.marketTemperature.statusDesc}
               details={data.marketOverview.marketTemperature.details}
+              dimension_scores={data.marketOverview.marketTemperature.dimension_scores}
               limitUpCount={data.marketOverview.limitUpCount}
               upCount={data.marketOverview.upCount}
               downCount={data.marketOverview.downCount}
