@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-12 22:58:51",
+    "generatedAt": "2026-08-12 23:31:02",
     "tradeDate": "20260812",
     "tradeDateSlash": "26/08/12",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
@@ -8,7 +8,7 @@
   "marketOverview": {
     "tradeDate": "20260812",
     "tradeDateSlash": "26/08/12",
-    "generatedAt": "2026-08-12 22:58",
+    "generatedAt": "2026-08-12 23:31",
     "marketTurnover": 21429.15,
     "turnoverDiff": -3326.98,
     "marketTemperature": {
@@ -106,10 +106,10 @@
     "etfDown": 475,
     "etfFlat": 84,
     "bondUp": 76,
-    "bondDown": 225,
+    "bondDown": 224,
     "bondFlat": 0,
     "bondStockUp": 210,
-    "bondStockDown": 79,
+    "bondStockDown": 78,
     "bondStockFlat": 5,
     "mainCapitalFlow20d": {
       "date": "2026-08-12",

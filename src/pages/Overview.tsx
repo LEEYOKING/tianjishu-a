@@ -531,7 +531,8 @@ export default function Overview({ data }: { data: ReportData }) {
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
         <div style={{ minWidth: 0, overflow: 'hidden' }}>
           <Card title="涨跌分布">
-            <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
+            {/* v2.0.7ag:固定卡片高 400px,内部 flex column 让底部内容距卡片底 25px */}
+            <div style={{ minHeight: 400, height: 400, display: 'flex', flexDirection: 'column' }}>
               <ChangeDistributionCard data={data} />
             </div>
           </Card>
@@ -541,7 +542,7 @@ export default function Overview({ data }: { data: ReportData }) {
             title="融资流向"
             right={<MarginBadge data={data} />}
           >
-            <div style={{ minHeight: 340, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ minHeight: 400, height: 400, display: 'flex', flexDirection: 'column' }}>
               <MarginHistoryCard data={data} />
             </div>
           </Card>

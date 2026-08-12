@@ -489,9 +489,11 @@ for _, row in dt_df.iterrows():
         'consecutiveDownDays': safe_int(row.get('连续跌停', 1)),
     })
 limit_down_stocks.sort(key=lambda s: (-s['consecutiveDownDays'], -s['turnover']))
-# v2.0.7af:从 sina 全市场 5500 只按涨跌幅兜底取跌停(ak.stock_zt_pool_dtgc_em 经常返空)
+# v2.0.7ag:从 sina 全市场 5500 只按涨跌幅兜底取跌停(ak.stock_zt_pool_dtgc_em 经常返空)
 # 主板跌停: -9.9%~-11%, 创业板/科创板: -19.9%~-21%
-if len(limit_down_stocks) == 0 and '涨跌幅' in spot_df.columns:
+# 关键:limit_down_count 也要从 sina 算,跟 list 长度一致(避免 Overview 显示 2 但列表空)
+_dt_from_sina = []  # sina 兜底拉的跌停股(后面会覆盖)
+if '涨跌幅' in spot_df.columns:
     _cp = spot_df['涨跌幅'].astype(float)
     _code = spot_df['代码'].astype(str)
     _name = spot_df['名称'].astype(str) if '名称' in spot_df.columns else _code
@@ -501,7 +503,7 @@ if len(limit_down_stocks) == 0 and '涨跌幅' in spot_df.columns:
         _cp_v = float(row['涨跌幅'])
         # 连续跌停数(sina 拿不到,默认 1)
         _consec = 1
-        limit_down_stocks.append({
+        _dt_from_sina.append({
             'code': str(row['代码']),
             'name': str(row.get('名称', row['代码'])),
             'industry': '-',
@@ -510,9 +512,34 @@ if len(limit_down_stocks) == 0 and '涨跌幅' in spot_df.columns:
             'turnover': round(safe_float(row.get('成交额', 0)) / 1e8, 2),
             'turnoverRate': 0,
             'consecutiveDownDays': _consec,
+            'sealedAmount': 0,
         })
+
+# v2.0.7ag:关键修复 — 用 sina 数据覆盖(akshare 经常返空,导致 limitDownCount=2 但列表 0 的矛盾)
+# 合并:akshare 数据优先(有行业等),但 count 用 sina 算
+if _dt_from_sina:
+    # 用 sina 数据为主,字段(industry/sealedAmount)从 akshare 补
+    _sina_code = {s['code']: s for s in _dt_from_sina}
+    _merged = []
+    for s in _dt_from_sina:
+        # 找 akshare 里的同 code
+        ak_match = next((a for a in limit_down_stocks if a['code'] == s['code']), None)
+        if ak_match:
+            s['industry'] = ak_match.get('industry', '-')
+            s['sealedAmount'] = ak_match.get('sealedAmount', 0)
+            s['turnoverRate'] = ak_match.get('turnoverRate', 0)
+        _merged.append(s)
+    limit_down_stocks = _merged
     limit_down_stocks.sort(key=lambda s: -s['turnover'])
-    print(f"  跌停兜底(从 sina 5500 只取 ≤ -9.9%): {len(limit_down_stocks)} 只")
+    print(f"  跌停兜底(从 sina 5500 只取 ≤ -9.9%): {len(limit_down_stocks)} 只(覆盖 akshare 空数据)")
+    # v2.0.7ag:关键 — count 用 sina 算
+    limit_down_count = len(_dt_from_sina)
+elif limit_down_stocks:
+    print(f"  跌停(akshare): {len(limit_down_stocks)} 只")
+    limit_down_count = len(limit_down_stocks)
+else:
+    print(f"  跌停: 0 只")
+    limit_down_count = 0
 print(f"  情绪温度原始数据: 涨停 {len(limit_up_stocks)} 跌停 {len(limit_down_stocks)} 最高连板 {_max_boards} 炸板 {_broken_count} 二板 {_today_n2}")
 dt_ladders = {}
 for s in limit_down_stocks:
@@ -520,8 +547,8 @@ for s in limit_down_stocks:
     key = f"{n}个跌停"
     dt_ladders[key] = dt_ladders.get(key, 0) + 1
 dt_ladders_arr = [{'level': k, 'count': v} for k, v in sorted(dt_ladders.items(), key=lambda x: -int(x[0].rstrip('个跌停')))]
-limit_down_count = len(limit_down_stocks)
-print(f"  跌停 {limit_down_count} 只")
+# v2.0.7ag:limit_down_count 已在上面 sina/akshare 合并分支里算过了,这里删
+print(f"  跌停(最终) {limit_down_count} 只")
 
 # ========== 历史 7-90 日的涨停/跌停数 ==========
 print("\n[6/7] 历史涨跌停(用于折线图)...")

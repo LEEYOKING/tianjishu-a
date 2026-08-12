@@ -104,6 +104,7 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
   }
 
   return (
+    // v2.0.7ag:flex column 布局,内部内容用 flex: 1 spacer 把"资金性质分布"推到底
     <div
       style={{
         background: '#fff',
@@ -111,9 +112,9 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
         borderRadius: 14,
         padding: '20px 24px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)',
-        marginBottom: 0,  // v2.0.7ae:卡片间无间距(grid gap 控制)
-        // v2.0.7af:固定高度 521px(5 席位满高,所有卡片等高)
+        marginBottom: 0,
         minHeight: 521,
+        display: 'flex', flexDirection: 'column',
       }}
     >
       {/* L1: 股票名 + Tags + Summary */}
@@ -157,13 +158,13 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
       </div>
 
       {/* L2: 买卖力量对比图 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 18 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 18, flex: 1 }}>
         <SeatColumn seats={buys} side="buy" maxAmt={maxAmt} />
         <SeatColumn seats={sells} side="sell" maxAmt={maxAmt} />
       </div>
 
-      {/* L3: 资金性质分布(横条) — v2.0.7ac:买/卖并列,色块高 15px,删色块内文字 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      {/* v2.0.7ag:L3 资金性质分布 — 移到卡片底部,距离卡片底 20px */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 'auto', paddingBottom: 20 }}>
         {/* 买入 */}
         {Object.keys(data.force_distribution).length > 0 && (
           <div>
