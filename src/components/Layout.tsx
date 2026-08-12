@@ -27,14 +27,6 @@ const Icons = {
   Globe: <Icon d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z" />,
 };
 
-// 浅色背景工具函数 — 把 #RRGGBB 转 rgba(_, 0.12)
-function softBg(hex: string): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r},${g},${b},0.12)`;
-}
-
 export default function Layout({ data, children }: Props) {
   const location = useLocation();
 
@@ -59,8 +51,6 @@ export default function Layout({ data, children }: Props) {
     { key: '/surgery', label: '全景手术台', icon: Icons.Globe, count: 0 },
   ];
 
-  const mood = MOOD_TABLE[classifyMood(data)];
-  const moodBg = softBg(mood.color);
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#F7F9FC' }}>
@@ -148,43 +138,16 @@ export default function Layout({ data, children }: Props) {
           })}
         </nav>
 
-        {/* 当前市场情绪: 圆点 + 文字(同色浅背景) + 固定副标题
-            v1.9.7:色块宽度改 60% */}
-        <div style={{ padding: '12px 16px 4px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 6,
-              background: moodBg,
-              padding: '5px 12px',
-              borderRadius: 14,
-              width: '60%',  // v1.9.7:宽度改为 60%
-            }}
-          >
-            <span
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: '50%',
-                background: mood.color,
-                flexShrink: 0,
-              }}
-            />
-            <span style={{ fontSize: 13, fontWeight: 700, color: mood.color, letterSpacing: 0.5 }}>
-              {mood.label}
-            </span>
-          </div>
-          <div style={{ fontSize: 11, color: '#86909C', marginTop: 6, marginBottom: 4, textAlign: 'center' }}>
-            当前市场情绪
-          </div>
-          {/* v2.0.7r:情绪温度计 — 5 维度加权 0-100 */}
+        {/* v2.0.7s:情绪温度计(半圆弧仪表盘 + 估值/情绪双标签)— 完整卡片 */}
+        <div style={{ padding: '8px 12px 16px' }}>
           {data.marketOverview?.marketTemperature && (
             <EmotionThermometer
               temperature={data.marketOverview.marketTemperature.temperature}
               status={data.marketOverview.marketTemperature.status}
               details={data.marketOverview.marketTemperature.details}
+              limitUpCount={data.marketOverview.limitUpCount}
+              upCount={data.marketOverview.upCount}
+              downCount={data.marketOverview.downCount}
             />
           )}
         </div>
@@ -209,32 +172,3 @@ export default function Layout({ data, children }: Props) {
     </div>
   );
 }
-
-/** 计算市场情绪(基于实时数据) */
-type Mood = 'extreme-greed' | 'greed' | 'neutral' | 'fear' | 'extreme-fear';
-
-function classifyMood(data: ReportData): Mood {
-  const idx = data.marketOverview;
-  const up = idx.upCount, down = idx.downCount, lz = idx.limitUpCount, ld = idx.limitDownCount;
-  const upRatio = up / Math.max(1, up + down);
-  const idxSh = idx.indices.find(i => i.name === '上证指数');
-  const idxCy = idx.indices.find(i => i.name === '创业板指');
-  const idxPct = (idxSh?.changePercent || 0) + (idxCy?.changePercent || 0);
-  if (upRatio >= 0.7 && lz >= 30) return 'extreme-greed';
-  if (upRatio >= 0.55 && lz >= 15) return 'greed';
-  if (ld >= 30 || (ld > 20 && upRatio < 0.3)) return 'extreme-fear';
-  if (upRatio < 0.3 && ld > lz) return 'fear';
-  if (upRatio > 0.55 && idxPct > 0) return 'greed';
-  if (upRatio < 0.45 && idxPct < -1) return 'fear';
-  if (idxPct > 0) return 'greed';
-  if (idxPct < 0) return 'fear';
-  return 'neutral';
-}
-
-const MOOD_TABLE: Record<Mood, { label: string; color: string }> = {
-  'extreme-greed': { label: '极度亢奋', color: '#ff4d4f' },
-  'greed':         { label: '偏多',     color: '#ff7a45' },
-  'neutral':       { label: '震荡',     color: '#86909C' },
-  'fear':          { label: '偏空',     color: '#52c41a' },
-  'extreme-fear':  { label: '恐慌',     color: '#0ecd70' },
-};
