@@ -32,7 +32,7 @@ export default function Layout({ data, children }: Props) {
 
   const counts = {
     limitUp: data.limitUpStocks.length,
-    limitDown: data.marketOverview.limitDownCount ?? data.limitDownStocks.length,  // v2.0.7ae:跟 Overview 同步(em 实时)
+    limitDown: data.limitDownStocks.length,  // v2.0.7ah:跟列表长度一致(避免 list 0 但 count 2 的矛盾)
     dragonTiger: data.dragonTigerStocks.length,
     breakout: data.breakoutStocks.length,
     highBreak: data.highBreakStocks.length,

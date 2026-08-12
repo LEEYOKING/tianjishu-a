@@ -104,7 +104,7 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
   }
 
   return (
-    // v2.0.7ag:flex column 布局,内部内容用 flex: 1 spacer 把"资金性质分布"推到底
+    // v2.0.7ah:flex column + height: 521(固定,不是 minHeight)— 所有卡片等高
     <div
       style={{
         background: '#fff',
@@ -113,7 +113,9 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
         padding: '20px 24px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)',
         marginBottom: 0,
+        height: 521,  // 固定高(不是 minHeight)— 短的卡片内容少也会撑到 521
         minHeight: 521,
+        maxHeight: 521,
         display: 'flex', flexDirection: 'column',
       }}
     >

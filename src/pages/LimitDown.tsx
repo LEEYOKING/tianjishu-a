@@ -19,7 +19,7 @@ export default function LimitDown({ data }: { data: ReportData }) {
   }, [activeLevel, data.limitDownStocks]);
 
   const tags = data.limitDownLadders.map((l) => ({ level: `${l.level} × ${l.count}`, raw: l.level }));
-  const allTag = { level: `全部 × ${data.marketOverview.limitDownCount ?? data.limitDownStocks.length}`, raw: null as string | null };  // v2.0.7ae:跟 Overview 同步
+  const allTag = { level: `全部 × ${data.limitDownStocks.length}`, raw: null as string | null };  // v2.0.7ah:跟列表长度一致
 
   const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
 

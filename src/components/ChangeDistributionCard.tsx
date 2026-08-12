@@ -102,10 +102,10 @@ export function ChangeDistributionCard({ data }: Props) {
   }
 
   return (
-    // v2.0.7ag:整张卡片 flex column 布局,柱状图 flex:1 撑开,底部内容 margin-top:auto 推到底
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* 柱状图 — flex: 1 占满除底部外所有空间 */}
-      <div style={{ flex: 1, minHeight: 0 }}>
+    // v2.0.7ah:整张卡片 flex column — 柱状图固定 260px + 中间 30px 间距 + 底部内容固定
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {/* 柱状图 — 固定 260px(不拉伸) */}
+      <div style={{ height: 260 }}>
         <ReactECharts
           option={option}
           style={{ height: '100%', width: '100%' }}
@@ -114,9 +114,11 @@ export function ChangeDistributionCard({ data }: Props) {
         />
       </div>
 
-      {/* v2.0.7ag:底部块 — margin-top: auto 推到底,距离卡片底 25px */}
-      <div style={{ marginTop: 'auto', paddingBottom: 25 }}>
-        {/* 底部 1:涨跌家数 + 涨停跌停 */}
+      {/* v2.0.7ah:柱状图和底部内容之间 30px 间距 */}
+      <div style={{ height: 30 }} />
+
+      {/* v2.0.7ah:底部块 — 固定位置(不用 marginTop:auto) */}
+      <div style={{ paddingBottom: 25 }}>
         <div style={{ display: 'flex', gap: 16, padding: '0 45px 4px', fontSize: 13, color: '#4b5563' }}>
           <span>
             <span style={{ color: '#111827', fontWeight: 600 }}>涨跌</span>{' '}
@@ -131,7 +133,6 @@ export function ChangeDistributionCard({ data }: Props) {
           </span>
         </div>
 
-        {/* 底部 2:涨跌家数比例横条 */}
         <div style={{ display: 'flex', height: 10, margin: '4px 45px 0', background: '#F3F4F6', gap: 2 }}>
           {downPct > 0 && (
             <div
