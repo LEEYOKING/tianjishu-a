@@ -205,14 +205,15 @@ export async function fetchMarketSummary(): Promise<{
     else if (cp < 7) dist.up_5_to_7++;
     else if (cp < 10) dist.up_7_to_10++;
     else dist.up_ge_10++;
-    // v2.0.7aw:涨停:主板 9.0~11%(sina changepercent 字段精度问题,9.97% 阈值漏算 19 个,9% 阈值最接近涨停池 54)
-    // — 8/13 12:38 sandbox sina 全市场:9%阈值 59 / 9.97%阈值 35 / 9.99%阈值 32
-    // — 涨停池(akshare 9.97% 阈值) = 54,em 9% 阈值 59 差 5(可接受)
-    // — 双创 19.0~21%
-    if (cp >= 9 && cp < 11) lu++;
-    else if (cp >= 19 && cp < 21) lu++;
-    if (cp <= -9 && cp > -11) ld++;
-    else if (cp <= -19 && cp > -21) ld++;
+    // v2.0.7ay:涨停:主板 9.97~11%(跟同花顺涨停算法 9.97% 阈值完全一致)
+    // — 8/13 13:05 sandbox sina 全市场 5542 只:9.97% 阈值算 56 == 同花顺 56
+    // — 之前 v2.0.7aw 9% 阈值算 70-83(盘中变化大),跟同花顺 56 差 14-27
+    // — 改 9.97% 阈值后盘中跳变:开盘 0 → 早盘 30 → 中盘 60 → 收盘 80
+    // — 双创 19.97~21%
+    if (cp >= 9.97 && cp < 11) lu++;
+    else if (cp >= 19.97 && cp < 21) lu++;
+    if (cp <= -9.97 && cp > -11) ld++;
+    else if (cp <= -19.97 && cp > -21) ld++;
     total += amt;
   }
   return {
@@ -359,10 +360,10 @@ async function fetchSinaStatsByNode(
     else if (cp < 0) down++;
     else flat++;
     // v2.0.7aw:同主函数,9% 阈值
-    if (cp >= 9 && cp < 11) lu++;
-    else if (cp >= 19 && cp < 21) lu++;
-    if (cp <= -9 && cp > -11) ld++;
-    else if (cp <= -19 && cp > -21) ld++;
+    if (cp >= 9.97 && cp < 11) lu++;
+    else if (cp >= 19.97 && cp < 21) lu++;
+    if (cp <= -9.97 && cp > -11) ld++;
+    else if (cp <= -19.97 && cp > -21) ld++;
     total += amt;
   }
   return {
