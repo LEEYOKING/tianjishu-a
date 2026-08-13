@@ -385,8 +385,8 @@ for s in limit_up_stocks:
     key = f"{n}板"
     ladders[key] = ladders.get(key, 0) + 1
 ladders_arr = [{'level': k, 'count': v} for k, v in sorted(ladders.items(), key=lambda x: -int(x[0].rstrip('板')))]
-limit_up_count = len(limit_up_stocks)
-print(f"  涨停 {limit_up_count} 只,梯队 {len(ladders_arr)} 档")
+limit_up_count = len(limit_up_stocks) + _broken_count  # v2.0.7aw:涨停过总数 = 涨停池(封板) + 炸板池(开板)
+print(f"  涨停 {limit_up_count} 只(涨停池 {len(limit_up_stocks)} + 炸板 {_broken_count}),梯队 {len(ladders_arr)} 档")
 
 # v2.0.7aa:主力资金流(20 日) + 融资融券历史(沪+深)
 print("\n[v2.0.7aa] 主力资金流 + 融资融券...")
@@ -1471,6 +1471,7 @@ data = {
         'stockTotal': stock_total,
         'limitUpCount': limit_up_count,
         'limitDownCount': limit_down_count,
+        'brokenLimitCount': _broken_count,  # v2.0.7aw:炸板家数(em 实时算"当前封板" + 炸板 = 涨停过总数)
         'indices': indices,
         # 可转债 / ETF 涨/跌/平
         'etfUp': etf_up,

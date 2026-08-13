@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-13 11:59:40",
+    "generatedAt": "2026-08-13 12:54:26",
     "tradeDate": "20260813",
     "tradeDateSlash": "26/08/13",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
@@ -8,7 +8,7 @@
   "marketOverview": {
     "tradeDate": "20260813",
     "tradeDateSlash": "26/08/13",
-    "generatedAt": "2026-08-13 11:59",
+    "generatedAt": "2026-08-13 12:54",
     "marketTurnover": 15723.75,
     "turnoverDiff": -9032.38,
     "marketTemperature": {
@@ -56,8 +56,9 @@
     "flatCount": 161,
     "upPercent": 41.56,
     "stockTotal": 5500,
-    "limitUpCount": 54,
+    "limitUpCount": 76,
     "limitDownCount": 0,
+    "brokenLimitCount": 22,
     "indices": [
       {
         "name": "上证指数",
@@ -105,15 +106,15 @@
     "etfUp": 1027,
     "etfDown": 455,
     "etfFlat": 93,
-    "bondUp": 64,
-    "bondDown": 237,
+    "bondUp": 65,
+    "bondDown": 236,
     "bondFlat": 0,
-    "bondStockUp": 115,
-    "bondStockDown": 164,
+    "bondStockUp": 116,
+    "bondStockDown": 168,
     "bondStockFlat": 12,
     "mainCapitalFlow20d": {
       "date": "2026-08-13",
-      "total_net_inflow": 56.94,
+      "total_net_inflow": -258.67,
       "industries": [
         {
           "name": "化学制药",
@@ -192,8 +193,20 @@
           "net_inflow": 0.12
         },
         {
+          "name": "黑色家电",
+          "net_inflow": -0.11
+        },
+        {
           "name": "电机",
           "net_inflow": -0.13
+        },
+        {
+          "name": "纺织制造",
+          "net_inflow": -0.41
+        },
+        {
+          "name": "厨卫电器",
+          "net_inflow": -0.55
         },
         {
           "name": "光学光电子",
@@ -201,6 +214,10 @@
         },
         {
           "name": "养殖业",
+          "net_inflow": -0.67
+        },
+        {
+          "name": "轨交设备",
           "net_inflow": -0.67
         },
         {
@@ -212,12 +229,20 @@
           "net_inflow": -0.88
         },
         {
+          "name": "旅游及酒店",
+          "net_inflow": -0.92
+        },
+        {
           "name": "多元金融",
           "net_inflow": -1.15
         },
         {
           "name": "包装印刷",
           "net_inflow": -1.22
+        },
+        {
+          "name": "贸易",
+          "net_inflow": -1.26
         },
         {
           "name": "农产品加工",
@@ -236,6 +261,14 @@
           "net_inflow": -1.56
         },
         {
+          "name": "教育",
+          "net_inflow": -1.67
+        },
+        {
+          "name": "造纸",
+          "net_inflow": -1.86
+        },
+        {
           "name": "电子化学品",
           "net_inflow": -1.88
         },
@@ -244,24 +277,76 @@
           "net_inflow": -1.96
         },
         {
+          "name": "公路铁路运输",
+          "net_inflow": -2.05
+        },
+        {
+          "name": "机场航运",
+          "net_inflow": -2.07
+        },
+        {
           "name": "保险",
           "net_inflow": -2.27
+        },
+        {
+          "name": "服装家纺",
+          "net_inflow": -2.32
         },
         {
           "name": "塑料制品",
           "net_inflow": -2.36
         },
         {
+          "name": "物流",
+          "net_inflow": -2.39
+        },
+        {
+          "name": "其他社会服务",
+          "net_inflow": -2.4
+        },
+        {
           "name": "互联网电商",
           "net_inflow": -2.58
+        },
+        {
+          "name": "化学纤维",
+          "net_inflow": -2.81
+        },
+        {
+          "name": "种植业与林业",
+          "net_inflow": -3.04
         },
         {
           "name": "通信服务",
           "net_inflow": -3.26
         },
         {
+          "name": "零售",
+          "net_inflow": -3.26
+        },
+        {
+          "name": "煤炭开采加工",
+          "net_inflow": -3.55
+        },
+        {
+          "name": "工程机械",
+          "net_inflow": -3.66
+        },
+        {
+          "name": "白色家电",
+          "net_inflow": -3.78
+        },
+        {
           "name": "综合",
           "net_inflow": -3.86
+        },
+        {
+          "name": "港口航运",
+          "net_inflow": -4.01
+        },
+        {
+          "name": "环境治理",
+          "net_inflow": -4.23
         },
         {
           "name": "其他电子",
@@ -284,16 +369,36 @@
           "net_inflow": -5.79
         },
         {
+          "name": "石油加工贸易",
+          "net_inflow": -6.23
+        },
+        {
+          "name": "游戏",
+          "net_inflow": -6.26
+        },
+        {
           "name": "消费电子",
           "net_inflow": -6.74
+        },
+        {
+          "name": "油气开采及服务",
+          "net_inflow": -7.18
         },
         {
           "name": "汽车零部件",
           "net_inflow": -7.96
         },
         {
+          "name": "能源金属",
+          "net_inflow": -8.03
+        },
+        {
           "name": "电池",
           "net_inflow": -8.04
+        },
+        {
+          "name": "钢铁",
+          "net_inflow": -8.15
         },
         {
           "name": "其他电源设备",
@@ -304,16 +409,72 @@
           "net_inflow": -9.03
         },
         {
+          "name": "汽车整车",
+          "net_inflow": -9.04
+        },
+        {
+          "name": "影视院线",
+          "net_inflow": -9.27
+        },
+        {
+          "name": "化学原料",
+          "net_inflow": -9.61
+        },
+        {
+          "name": "专用设备",
+          "net_inflow": -9.82
+        },
+        {
+          "name": "建筑材料",
+          "net_inflow": -10.5
+        },
+        {
           "name": "文化传媒",
           "net_inflow": -13.75
+        },
+        {
+          "name": "光伏设备",
+          "net_inflow": -13.83
+        },
+        {
+          "name": "电网设备",
+          "net_inflow": -14.31
+        },
+        {
+          "name": "农化制品",
+          "net_inflow": -14.88
         },
         {
           "name": "IT服务",
           "net_inflow": -15.44
         },
         {
+          "name": "房地产",
+          "net_inflow": -15.84
+        },
+        {
+          "name": "小金属",
+          "net_inflow": -15.96
+        },
+        {
+          "name": "软件开发",
+          "net_inflow": -17.1
+        },
+        {
           "name": "元件",
           "net_inflow": -17.34
+        },
+        {
+          "name": "化学制品",
+          "net_inflow": -17.57
+        },
+        {
+          "name": "贵金属",
+          "net_inflow": -25.6
+        },
+        {
+          "name": "工业金属",
+          "net_inflow": -49.41
         }
       ]
     },

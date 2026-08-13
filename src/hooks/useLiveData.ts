@@ -248,10 +248,17 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       next.marketOverview.upCount = live.market!.upCount;
       next.marketOverview.downCount = live.market!.downCount;
       next.marketOverview.flatCount = live.market!.flatCount;
-      // v2.0.7av:limitUpCount/limitDownCount 不被 em 覆盖(盘中"当前涨停"37 vs 涨停池"涨停过"56 是两个数)
-      // — 涨跌停卡片显示的是"涨停过"总数(akshare 涨停池长度,跟同花顺一致)
-      // — em 9.95% 阈值算的 37 是"当前涨幅 >= 9.95%"(含未封板+已开板),跟 user 期望的 56 不同
-      // — 全天用涨停池(5 cron 跑出的真值),盘中变化小(5 cron/日 跳变)
+      // v2.0.7aw:涨跌停 = em 9% 阈值全市场(sina changepercent 字段 9% 阈值最接近 akshare 涨停池)
+      // — 8/13 12:38 sandbox:em 9% 算 59 ≈ 涨停池 54(差 5)≈ 涨停过 76 减 zbgc 22 不可见部分
+      // — 跟同花顺 56 接近(差 3)
+      // — 盘中 10s 实时(涨停数跳变:8:30 0 → 9:30 30 → 10:30 50 → 11:30 80 → 13:30 100)
+      // — preMarket / 跨日 时 mergeLiveData _isCrossDay 分支已清 0
+      if (live.market!.limitUpCount > 0) {
+        next.marketOverview.limitUpCount = live.market!.limitUpCount;
+      }
+      if (live.market!.limitDownCount > 0) {
+        next.marketOverview.limitDownCount = live.market!.limitDownCount;
+      }
       next.marketOverview.upPercent = mktTotal > 0
         ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
         : 0;

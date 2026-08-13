@@ -47,6 +47,8 @@ export interface MarketOverview {
   stockTotal: number;
   limitUpCount: number;
   limitDownCount: number;
+  // v2.0.7aw:炸板家数(5 cron 跑,盘中 em 实时算"当前封板" + 炸板 = 涨停过总数 实时)
+  brokenLimitCount?: number;
   indices: IndexQuote[];
   // v2.0.7z:情绪温度(5 维度直接相加 0-100,user 最新算法)
   marketTemperature?: {
