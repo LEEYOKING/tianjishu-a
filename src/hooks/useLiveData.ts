@@ -285,19 +285,11 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     next.marketOverview.bondDown = live.bondStats.down;
     next.marketOverview.bondFlat = live.bondStats.flat;
   }
-  // 5. 行业板块(按 sinaLabel 覆盖,60s 刷新)
-  if (live.sinaIndustries.size > 0) {
-    for (const s of next.sectors) {
-      const sl = (s as any).sinaLabel;
-      if (sl && live.sinaIndustries.has(sl)) {
-        const live_s = live.sinaIndustries.get(sl)!;
-        s.changePercent = live_s.changePercent;
-        if (live_s.totalTurnover > 0) s.totalTurnover = live_s.totalTurnover;
-        if (live_s.leaderName && live_s.leaderName !== '-') s.leaderName = live_s.leaderName;
-        if (live_s.leaderChangePercent) s.leaderChangePercent = live_s.leaderChangePercent;
-      }
-    }
-  }
+  // 5. v2.0.7ax:行业板块不再用 sina 49 行业覆盖 ths 90 细分类
+  // — sina 49 行业是聚合(自动化设备/通用设备/专用设备/工程机械/电机 都归到 new_jxhy)
+  // — 多个 ths 细分类共用 sina 同一 label,被覆盖后多个变成同一个值(看起来重复)
+  // — ths 自己 5 cron 跑的数据是准的,直接用静态
+  // — 想看实时,看 Overview 的"涨跌幅热力图"那个卡片(那个用 sina 49 行业实时)
   // 6. 把今日实时数据 push 到 history 末尾(让曲线图含当日点)
   const todayFallback = {
     date: (() => {
