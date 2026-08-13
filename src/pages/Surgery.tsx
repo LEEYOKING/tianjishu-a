@@ -109,7 +109,20 @@ function SurgeryInner({ data }: { data?: ReportData }) {
   }
 
   const { sealCards, loserChain, systemWarning, prevLimitUpCount, meta } = surgery as SurgeryData;
-  const { tradeDateSlash } = meta;
+  const { tradeDateSlash, tradeDate: _origTradeDate } = meta;
+  // v2.0.7av:08:00 之后,如果 data 是"昨天",显示 today(模拟新数据,跟 Overview 8:00 hook 一致)
+  let displayDate = tradeDateSlash;
+  if (_origTradeDate) {
+    const _now = new Date(Date.now() + 8 * 3600 * 1000);
+    const _mins = _now.getUTCHours() * 60 + _now.getUTCMinutes();
+    const _todayYMD = `${_now.getUTCFullYear()}${String(_now.getUTCMonth() + 1).padStart(2, '0')}${String(_now.getUTCDate()).padStart(2, '0')}`;
+    if (_mins >= 8 * 60 && _origTradeDate !== _todayYMD) {
+      const yy = String(_now.getUTCFullYear()).slice(2);
+      const mm = String(_now.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(_now.getUTCDate()).padStart(2, '0');
+      displayDate = `${yy}/${mm}/${dd}`;
+    }
+  }
   // v2.0.7ad:用 meta.generatedAt(数据本身生成时间) + tradeDate(数据交易日)
   // 不再用 live.fetchedAt(那是页面 fetch 时间,会跟着每次 live tick 变)
   // generatedTime 格式: HH:MM
@@ -140,9 +153,9 @@ function SurgeryInner({ data }: { data?: ReportData }) {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{ fontSize: 12, color: '#86909C' }}>
-            报告日期 <span style={{ color: COLOR_TEXT, fontWeight: 500 }}>{tradeDateSlash}</span>
+            报告日期 <span style={{ color: COLOR_TEXT, fontWeight: 500 }}>{displayDate}</span>
             <span style={{ margin: '0 12px' }}>·</span>
-            生成时间 <span style={{ color: COLOR_TEXT, fontWeight: 500 }}>{tradeDateSlash} {generatedTime}</span>
+            生成时间 <span style={{ color: COLOR_TEXT, fontWeight: 500 }}>{displayDate} {generatedTime}</span>
           </div>
           <button
             onClick={() => location.reload()}
