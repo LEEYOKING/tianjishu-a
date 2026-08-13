@@ -242,8 +242,11 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       next.marketOverview.upCount = live.market!.upCount;
       next.marketOverview.downCount = live.market!.downCount;
       next.marketOverview.flatCount = live.market!.flatCount;
-      next.marketOverview.limitUpCount = live.market!.limitUpCount;
-      next.marketOverview.limitDownCount = live.market!.limitDownCount;
+      // v2.0.7at:limitUpCount/limitDownCount 不被 fast tick(em 实时 9.9% 阈值)覆盖
+      // — 用 fetch_real_data 算的涨停池(akshare)真值,同花顺一致
+      // — fast tick 算的 70 vs 真实 54 偏差大(9.9% 阈值太严)
+      // next.marketOverview.limitUpCount = live.market!.limitUpCount;
+      // next.marketOverview.limitDownCount = live.market!.limitDownCount;
       next.marketOverview.upPercent = mktTotal > 0
         ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
         : 0;
@@ -253,7 +256,7 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       }
     }
   }
-  // v2.0.7ar:limitUpCount/limitDownCount 不被 fast tick(em 实时算)覆盖
+  // v2.0.7at:limitUpCount/limitDownCount 不被 fast tick(em 实时算)覆盖
   // — fetch_real_data 用 akshare 涨停池算(同花顺一致),em 实时算 9.9% 阈值会偏(70 vs 56)
   // — 让涨停池真值生效(15:35 cron 跑出来,盘后定格)
   // 3. ETF 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
