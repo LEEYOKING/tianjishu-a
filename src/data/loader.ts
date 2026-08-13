@@ -54,8 +54,9 @@ function normalize(j: any): ReportData {
 export function loadReportData(force = false): Promise<ReportData> {
   if (cached && !force) return Promise.resolve(cached);
   if (inflight) return inflight;
-  // v1.9.8:加 ?t=timestamp cache busting,让每 60s reload 能拉到最新 fetch 静态
-  inflight = fetch(import.meta.env.BASE_URL + 'data.json?t=' + Date.now(), { cache: 'no-cache' })
+  // v2.0.7as:改用 cache: 'no-store' 强制每次重新下载(避免浏览器 disk cache 拉到旧 data.json)
+  // 加 ?t=timestamp 双保险
+  inflight = fetch(import.meta.env.BASE_URL + 'data.json?t=' + Date.now(), { cache: 'no-store' })
     .then((r) => {
       if (!r.ok) throw new Error(`data.json 拉取失败: ${r.status}`);
       return r.json();
