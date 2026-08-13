@@ -394,7 +394,7 @@ export default function Overview({ data }: { data: ReportData }) {
       <OverviewStyles />
       <PageHeader
         title="大盘总览"
-        tradeDateSlash={idx.tradeDateSlash}
+        tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         subtitle="盘后深度复盘 · 大盘快照 + 多日趋势"
         lastUpdatedAt={useLive().fetchedAt}
@@ -414,7 +414,7 @@ export default function Overview({ data }: { data: ReportData }) {
           customValue={
             <span style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
               <span style={{ color: COLOR_UP, fontSize: 26, fontWeight: 700 }}>{idx.limitUpCount}</span>
-              <span style={{ color: '#C9CDD4', fontSize: 22, fontWeight: 400 }}>/</span>
+              <span style={{ color: '#C9CDD4', fontSize: 22, fontWeight: 400 }}>:</span>
               <span style={{ color: COLOR_DOWN, fontSize: 26, fontWeight: 700 }}>{idx.limitDownCount}</span>
             </span>
           }
@@ -568,8 +568,10 @@ export function getMarketSession(now = new Date()): { label: string; color: stri
 }
 
 // ====== 共享组件 ======
-export function PageHeader({ title, tradeDateSlash, generatedAt, subtitle, liveTag, liveColor, liveBg, lastUpdatedAt }: {
+export function PageHeader({ title, tradeDateSlash, generatedAt, subtitle, liveTag, liveColor, liveBg, lastUpdatedAt, _originalTradeDate }: {
   title: string; tradeDateSlash: string; generatedAt: string; subtitle?: string; liveTag?: string; liveColor?: string; liveBg?: string; lastUpdatedAt?: number;
+  // v2.0.7ar:可选的原始 tradeDate(YYYYMMDD)— 如果传,08:00 之后用 today 覆盖
+  _originalTradeDate?: string;
 }) {
   // 用户 #3 反馈:6 个表格"收盘复盘数据"标签文字色 #4b5563(原 #86909C)
   // 用户 #17 反馈:6 个表格复用大盘总览盘后灰色样式
@@ -608,7 +610,19 @@ export function PageHeader({ title, tradeDateSlash, generatedAt, subtitle, liveT
     if (s && /^\d{2}\/\d{2}\/\d{2}$/.test(s)) return s;
     return s;
   };
-  const displayDate = parseDate(tradeDateSlash);
+  // v2.0.7ar:08:00 之后,如果 data 是"昨天",显示 today(模拟新数据)
+  let displayDate = parseDate(tradeDateSlash);
+  if (_originalTradeDate) {
+    const _now = new Date(Date.now() + 8 * 3600 * 1000);
+    const _mins = _now.getUTCHours() * 60 + _now.getUTCMinutes();
+    const _todayYMD = `${_now.getUTCFullYear()}${String(_now.getUTCMonth() + 1).padStart(2, '0')}${String(_now.getUTCDate()).padStart(2, '0')}`;
+    if (_mins >= 8 * 60 && _originalTradeDate !== _todayYMD) {
+      const yy = String(_now.getUTCFullYear()).slice(2);
+      const mm = String(_now.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(_now.getUTCDate()).padStart(2, '0');
+      displayDate = `${yy}/${mm}/${dd}`;
+    }
+  }
   // v1.9.8:实时状态指示(蓝点闪烁显示"实时刷新"中)
   const isLive = lastUpdatedAt && lastUpdatedAt > 0;
   const liveAgoSec = lastUpdatedAt ? Math.floor((Date.now() - lastUpdatedAt) / 1000) : -1;

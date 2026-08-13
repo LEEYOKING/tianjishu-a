@@ -22,7 +22,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
       <div>
         <PageHeader
           title={`龙虎榜 · ${idx.tradeDate.replace(/^(\d{4})(\d{2})(\d{2})$/, '$1$2$3').replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3')}`}
-          tradeDateSlash={idx.tradeDateSlash}
+          tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
           generatedAt={idx.generatedAt}
           liveTag="智能解读"
           subtitle="机构/游资买卖席位"
@@ -62,7 +62,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
     <div>
       <PageHeader
         title={`龙虎榜 · ${titleDate}`}
-        tradeDateSlash={idx.tradeDateSlash}
+        tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         liveTag="智能解读"
         subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}`}

@@ -26,7 +26,7 @@ export default function LimitUp({ data }: { data: ReportData }) {
     <div>
       <PageHeader
         title="连板天梯"
-        tradeDateSlash={idx.tradeDateSlash}
+        tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         liveTag="收盘复盘数据"
         subtitle="连板梯队 · 涨停龙头股的全景画像"

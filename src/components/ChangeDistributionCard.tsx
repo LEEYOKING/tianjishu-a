@@ -85,8 +85,8 @@ export function ChangeDistributionCard({ data }: Props) {
             },
             label: { color: colors[i] },
           })),
-          // v2.0.7ae:柱子 1.4x(原 26 → 36)
-          barWidth: 36,
+          // v2.0.7ar:柱子 1.5x(原 36 → 54)
+          barWidth: 54,
           label: {
             show: true,
             position: 'top' as const,

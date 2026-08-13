@@ -253,6 +253,9 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       }
     }
   }
+  // v2.0.7ar:limitUpCount/limitDownCount 不被 fast tick(em 实时算)覆盖
+  // — fetch_real_data 用 akshare 涨停池算(同花顺一致),em 实时算 9.9% 阈值会偏(70 vs 56)
+  // — 让涨停池真值生效(15:35 cron 跑出来,盘后定格)
   // 3. ETF 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
   const etfTotal = live.etfStats ? (live.etfStats.up + live.etfStats.down + live.etfStats.flat) : 0;
   if (live.etfStats && etfTotal >= 200) {
