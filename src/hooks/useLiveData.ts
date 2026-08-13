@@ -246,18 +246,9 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
     const mktValid = live.market && mktTotal >= 600;
     if (mktValid) {
-      // v2.0.7d:成交量也实时刷新 + 自动算 turnoverDiff(用 history 末 1 日作为对照)
-      const prevDayVol = next.history && next.history.length >= 1
-        ? next.history[next.history.length - 1].volume
-        : 0;
+      // v2.0.7d:成交量也实时刷新 + turnoverDiff 由 fetch_real_data 5 cron 算(末 1 vs 末 2 收盘对比)
+      // v2.0.7bb:em 不覆盖 turnoverDiff(避免 8/13 跑出 25659 - 25673 = -14.46 自减)
       next.marketOverview.marketTurnover = live.market!.totalTurnover;
-      // v2.0.7bb:turnoverDiff 不被 em 实时覆盖 — 用 fetch_real_data 5 cron 算的(末 1 vs 末 2 收盘对比)
-      // — 之前用 history[-1] 算自减(25659 - 25673 = -14.46 错)
-      // — 之前用 history[-2] 算(em 实时 - 上一交易日 收盘) — 8/13 跑 +4003 准
-      // — 8/14 盘中间 em 实时 1000 - 25673 = -24673 错
-      // — 最稳:em 不覆盖 turnoverDiff,保持 fetch_real_data 5 cron 算的值(+4003 8/13)
-      // — 盘后 15:00+ em 实时仍是 8/14 盘中累计最大值,turnoverDiff 也不准
-      // — 所以 全天 em 不覆盖 turnoverDiff(只有 fetch_real_data 5 cron 跳变,1-3 小时 1 次)
       next.marketOverview.upCount = live.market!.upCount;
       next.marketOverview.downCount = live.market!.downCount;
       next.marketOverview.flatCount = live.market!.flatCount;
