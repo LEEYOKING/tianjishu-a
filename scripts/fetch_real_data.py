@@ -335,11 +335,12 @@ for i, row in hist_df.iterrows():
     })
 print(f"  历史 {len(history)} 个交易日")
 
-# 计算 turnoverDiff: 今日全市场 vs 7日均值
-# 用 7 天前 amount 估算
-last_7 = history[-8:-1]  # 不含今日
-mean_7 = sum(h['volume'] for h in last_7) / max(len(last_7), 1)
-turnover_diff = round(total_turnover - mean_7, 2)
+# 计算 turnoverDiff: 今日全市场 vs 昨日(跟同花顺一致)
+# v2.0.7az:之前用 7 日均值(7日均值大,差值小,user 反馈跟同花顺差 3600 亿)
+# 改用昨日 1 日(8/13 25145 - 8/12 22573 = +2572),跟同花顺算法一致
+last_1 = history[-1] if history and len(history) >= 1 else None
+yesterday_vol = last_1['volume'] if last_1 else 0
+turnover_diff = round(total_turnover - yesterday_vol, 2)
 
 # ========== 4. 涨停板 ==========
 print("\n[4/7] 涨停板...")
