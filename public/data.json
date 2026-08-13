@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-13 15:39:19",
+    "generatedAt": "2026-08-13 16:17:04",
     "tradeDate": "20260813",
     "tradeDateSlash": "26/08/13",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
@@ -8,27 +8,27 @@
   "marketOverview": {
     "tradeDate": "20260813",
     "tradeDateSlash": "26/08/13",
-    "generatedAt": "2026-08-13 15:39",
-    "marketTurnover": 25145.29,
-    "turnoverDiff": 2572.23,
+    "generatedAt": "2026-08-13 16:17",
+    "marketTurnover": 25673.46,
+    "turnoverDiff": 4003.32,
     "marketTemperature": {
-      "temperature": 68,
+      "temperature": 63,
       "status": "高温一致",
       "statusDesc": "主升浪,赚钱效应强",
       "details": {
         "limit_up": 59,
-        "limit_down": 4,
+        "limit_down": 6,
         "max_boards": 5,
         "broken_rate": "38%",
         "broken_count": 36,
-        "yest_perf": "+1.4%",
-        "yest_perf_value": 1.41,
+        "yest_perf": "+1.1%",
+        "yest_perf_value": 1.07,
         "promote_rate": "17%",
         "promote_rate_value": 0.17105263157894737,
-        "limit_ratio": "14.8"
+        "limit_ratio": "9.8"
       },
       "dimension_scores": {
-        "涨跌停对比": 15,
+        "涨跌停对比": 10,
         "连板高度": 8,
         "炸板率": -5,
         "昨日涨停今日": 5,
@@ -36,9 +36,9 @@
       }
     },
     "changeDistribution": {
-      "down_ge_10": 0,
-      "down_10_to_7": 0,
-      "down_7_to_5": 84,
+      "down_ge_10": 4,
+      "down_10_to_7": 32,
+      "down_7_to_5": 90,
       "down_5_to_3": 602,
       "down_3_to_0": 3589,
       "flat": 83,
@@ -49,15 +49,15 @@
       "up_ge_10": 63
     },
     "shTurnover": 11642.03,
-    "szTurnover": 13503.26,
+    "szTurnover": 14031.43,
     "bjTurnover": 0.0,
     "upCount": 1142,
-    "downCount": 4275,
+    "downCount": 4317,
     "flatCount": 83,
-    "upPercent": 20.76,
-    "stockTotal": 5500,
+    "upPercent": 20.61,
+    "stockTotal": 5542,
     "limitUpCount": 95,
-    "limitDownCount": 4,
+    "limitDownCount": 6,
     "brokenLimitCount": 36,
     "indices": [
       {
@@ -106,11 +106,11 @@
     "etfUp": 296,
     "etfDown": 1210,
     "etfFlat": 69,
-    "bondUp": 34,
-    "bondDown": 271,
+    "bondUp": 36,
+    "bondDown": 263,
     "bondFlat": 0,
     "bondStockUp": 68,
-    "bondStockDown": 226,
+    "bondStockDown": 219,
     "bondStockFlat": 6,
     "mainCapitalFlow20d": {
       "date": "2026-08-13",
@@ -844,7 +844,7 @@
   "history": [
     {
       "date": "2026-03-19",
-      "volume": 26931.93,
+      "volume": 25854.65,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -852,7 +852,7 @@
     },
     {
       "date": "2026-03-20",
-      "volume": 28018.61,
+      "volume": 26897.86,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -860,7 +860,7 @@
     },
     {
       "date": "2026-03-23",
-      "volume": 33141.84,
+      "volume": 31816.17,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -868,7 +868,7 @@
     },
     {
       "date": "2026-03-24",
-      "volume": 28241.73,
+      "volume": 27112.06,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -876,7 +876,7 @@
     },
     {
       "date": "2026-03-25",
-      "volume": 28235.55,
+      "volume": 27106.12,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -884,7 +884,7 @@
     },
     {
       "date": "2026-03-26",
-      "volume": 25659.58,
+      "volume": 24633.19,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -892,7 +892,7 @@
     },
     {
       "date": "2026-03-27",
-      "volume": 23838.24,
+      "volume": 22884.71,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -900,7 +900,7 @@
     },
     {
       "date": "2026-03-30",
-      "volume": 24980.05,
+      "volume": 23980.85,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -908,7 +908,7 @@
     },
     {
       "date": "2026-03-31",
-      "volume": 25423.92,
+      "volume": 24406.96,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -916,7 +916,7 @@
     },
     {
       "date": "2026-04-01",
-      "volume": 24407.5,
+      "volume": 23431.2,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -924,723 +924,731 @@
     },
     {
       "date": "2026-04-02",
-      "volume": 23605.03,
+      "volume": 22660.83,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 1266,
-      "down": 4033
+      "up": 1276,
+      "down": 4065
     },
     {
       "date": "2026-04-03",
-      "volume": 21585.43,
+      "volume": 20722.01,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 663,
-      "down": 4636
+      "up": 669,
+      "down": 4672
     },
     {
       "date": "2026-04-07",
-      "volume": 20284.91,
+      "volume": 19473.52,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3251,
-      "down": 2048
+      "up": 3276,
+      "down": 2065
     },
     {
       "date": "2026-04-08",
-      "volume": 27849.25,
+      "volume": 26735.28,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4918,
-      "down": 381
+      "up": 4956,
+      "down": 385
     },
     {
       "date": "2026-04-09",
-      "volume": 23891.92,
+      "volume": 22936.25,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 2628,
-      "down": 2671
+      "up": 2648,
+      "down": 2693
     },
     {
       "date": "2026-04-10",
-      "volume": 24302.83,
+      "volume": 23330.72,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 2812,
-      "down": 2487
+      "up": 2834,
+      "down": 2507
     },
     {
       "date": "2026-04-13",
-      "volume": 23388.37,
+      "volume": 22452.83,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4016,
-      "down": 1283
+      "up": 4046,
+      "down": 1295
     },
     {
       "date": "2026-04-14",
-      "volume": 25072.72,
+      "volume": 24069.81,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4140,
-      "down": 1159
+      "up": 4172,
+      "down": 1169
     },
     {
       "date": "2026-04-15",
-      "volume": 25336.56,
+      "volume": 24323.1,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 1812,
-      "down": 3487
+      "up": 1826,
+      "down": 3515
     },
     {
       "date": "2026-04-16",
-      "volume": 24646.66,
+      "volume": 23660.79,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4373,
-      "down": 926
+      "up": 4406,
+      "down": 935
     },
     {
       "date": "2026-04-17",
-      "volume": 24894.12,
+      "volume": 23898.35,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3388,
-      "down": 1911
+      "up": 3414,
+      "down": 1927
     },
     {
       "date": "2026-04-20",
-      "volume": 26263.47,
+      "volume": 25212.93,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4482,
-      "down": 817
+      "up": 4516,
+      "down": 825
     },
     {
       "date": "2026-04-21",
-      "volume": 25556.79,
+      "volume": 24534.52,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3469,
-      "down": 1830
+      "up": 3496,
+      "down": 1845
     },
     {
       "date": "2026-04-22",
-      "volume": 25628.44,
+      "volume": 24603.3,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4554,
-      "down": 745
+      "up": 4589,
+      "down": 752
     },
     {
       "date": "2026-04-23",
-      "volume": 28643.78,
+      "volume": 27498.03,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 1507,
-      "down": 3792
+      "up": 1518,
+      "down": 3823
     },
     {
       "date": "2026-04-24",
-      "volume": 26295.22,
+      "volume": 25243.42,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 2658,
-      "down": 2641
+      "up": 2678,
+      "down": 2663
     },
     {
       "date": "2026-04-27",
-      "volume": 25997.62,
+      "volume": 24957.71,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3631,
-      "down": 1668
+      "up": 3659,
+      "down": 1682
     },
     {
       "date": "2026-04-28",
-      "volume": 26484.7,
+      "volume": 25425.31,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 2951,
-      "down": 2348
+      "up": 2974,
+      "down": 2367
     },
     {
       "date": "2026-04-29",
-      "volume": 27012.04,
+      "volume": 25931.56,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4804,
-      "down": 495
+      "up": 4841,
+      "down": 500
     },
     {
       "date": "2026-04-30",
-      "volume": 27892.33,
+      "volume": 26776.64,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3136,
-      "down": 2163
+      "up": 3160,
+      "down": 2181
     },
     {
       "date": "2026-05-06",
-      "volume": 30548.52,
+      "volume": 29326.58,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4322,
-      "down": 977
+      "up": 4355,
+      "down": 986
     },
     {
       "date": "2026-05-07",
-      "volume": 30601.28,
+      "volume": 29377.23,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3621,
-      "down": 1678
+      "up": 3648,
+      "down": 1693
     },
     {
       "date": "2026-05-08",
-      "volume": 30464.75,
+      "volume": 29246.16,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3899,
-      "down": 1400
+      "up": 3929,
+      "down": 1412
     },
     {
       "date": "2026-05-11",
-      "volume": 33487.42,
+      "volume": 32147.93,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4264,
-      "down": 1035
+      "up": 4297,
+      "down": 1044
     },
     {
       "date": "2026-05-12",
-      "volume": 31336.02,
+      "volume": 30082.58,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 1691,
-      "down": 3608
+      "up": 1704,
+      "down": 3637
     },
     {
       "date": "2026-05-13",
-      "volume": 30647.2,
+      "volume": 29421.32,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4832,
-      "down": 467
+      "up": 4869,
+      "down": 472
     },
     {
       "date": "2026-05-14",
-      "volume": 32755.21,
+      "volume": 31445.0,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 567,
-      "down": 4732
+      "up": 571,
+      "down": 4770
     },
     {
       "date": "2026-05-15",
-      "volume": 31657.16,
+      "volume": 30390.87,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 805,
-      "down": 4494
+      "up": 811,
+      "down": 4530
     },
     {
       "date": "2026-05-18",
-      "volume": 27310.77,
+      "volume": 26218.34,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 3613,
-      "down": 1686
+      "up": 3640,
+      "down": 1701
     },
     {
       "date": "2026-05-19",
-      "volume": 26976.55,
+      "volume": 25897.49,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 4806,
-      "down": 493
-    },
-    {
-      "date": "2026-05-20",
-      "volume": 27007.4,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3475,
-      "down": 1824
-    },
-    {
-      "date": "2026-05-21",
-      "volume": 32124.06,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 554,
-      "down": 4745
-    },
-    {
-      "date": "2026-05-22",
-      "volume": 27050.54,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3951,
-      "down": 1348
-    },
-    {
-      "date": "2026-05-25",
-      "volume": 27943.13,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4381,
-      "down": 918
-    },
-    {
-      "date": "2026-05-26",
-      "volume": 29561.03,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3374,
-      "down": 1925
-    },
-    {
-      "date": "2026-05-27",
-      "volume": 29526.77,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 711,
-      "down": 4588
-    },
-    {
-      "date": "2026-05-28",
-      "volume": 27380.59,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4043,
-      "down": 1256
-    },
-    {
-      "date": "2026-05-29",
-      "volume": 31609.55,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 746,
-      "down": 4553
-    },
-    {
-      "date": "2026-06-01",
-      "volume": 28728.38,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 2015,
-      "down": 3284
-    },
-    {
-      "date": "2026-06-02",
-      "volume": 27591.9,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3773,
-      "down": 1526
-    },
-    {
-      "date": "2026-06-03",
-      "volume": 29223.81,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3893,
-      "down": 1406
-    },
-    {
-      "date": "2026-06-04",
-      "volume": 26802.68,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3082,
-      "down": 2217
-    },
-    {
-      "date": "2026-06-05",
-      "volume": 29623.4,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 1516,
-      "down": 3783
-    },
-    {
-      "date": "2026-06-08",
-      "volume": 28958.69,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4193,
-      "down": 1106
-    },
-    {
-      "date": "2026-06-09",
-      "volume": 25892.42,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4600,
-      "down": 699
-    },
-    {
-      "date": "2026-06-10",
-      "volume": 26183.14,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3401,
-      "down": 1898
-    },
-    {
-      "date": "2026-06-11",
-      "volume": 24767.26,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3340,
-      "down": 1959
-    },
-    {
-      "date": "2026-06-12",
-      "volume": 30709.35,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3783,
-      "down": 1516
-    },
-    {
-      "date": "2026-06-15",
-      "volume": 28719.25,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4773,
-      "down": 526
-    },
-    {
-      "date": "2026-06-16",
-      "volume": 27409.94,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 2563,
-      "down": 2736
-    },
-    {
-      "date": "2026-06-17",
-      "volume": 27079.87,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4612,
-      "down": 687
-    },
-    {
-      "date": "2026-06-18",
-      "volume": 28461.86,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 2449,
-      "down": 2850
-    },
-    {
-      "date": "2026-06-22",
-      "volume": 32409.36,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4922,
-      "down": 377
-    },
-    {
-      "date": "2026-06-23",
-      "volume": 30351.06,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 689,
-      "down": 4610
-    },
-    {
-      "date": "2026-06-24",
-      "volume": 28705.71,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4159,
-      "down": 1140
-    },
-    {
-      "date": "2026-06-25",
-      "volume": 30028.43,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3953,
-      "down": 1346
-    },
-    {
-      "date": "2026-06-26",
-      "volume": 29942.87,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 573,
-      "down": 4726
-    },
-    {
-      "date": "2026-06-29",
-      "volume": 29353.16,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4823,
-      "down": 476
-    },
-    {
-      "date": "2026-06-30",
-      "volume": 26871.24,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4667,
-      "down": 632
-    },
-    {
-      "date": "2026-07-01",
-      "volume": 30918.93,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4205,
-      "down": 1094
-    },
-    {
-      "date": "2026-07-02",
-      "volume": 30270.07,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 1140,
-      "down": 4159
-    },
-    {
-      "date": "2026-07-03",
-      "volume": 27758.1,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3691,
-      "down": 1608
-    },
-    {
-      "date": "2026-07-06",
-      "volume": 27170.14,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 1472,
-      "down": 3827
-    },
-    {
-      "date": "2026-07-07",
-      "volume": 23858.59,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 995,
-      "down": 4304
-    },
-    {
-      "date": "2026-07-08",
-      "volume": 23020.4,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 1099,
-      "down": 4200
-    },
-    {
-      "date": "2026-07-09",
-      "volume": 25392.1,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4899,
-      "down": 400
-    },
-    {
-      "date": "2026-07-10",
-      "volume": 29125.22,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 845,
-      "down": 4454
-    },
-    {
-      "date": "2026-07-13",
-      "volume": 26495.04,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 633,
-      "down": 4666
-    },
-    {
-      "date": "2026-07-14",
-      "volume": 25096.45,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4898,
-      "down": 401
-    },
-    {
-      "date": "2026-07-15",
-      "volume": 25303.87,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 2092,
-      "down": 3207
-    },
-    {
-      "date": "2026-07-16",
-      "volume": 24025.01,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 951,
-      "down": 4348
-    },
-    {
-      "date": "2026-07-17",
-      "volume": 28284.43,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 551,
-      "down": 4748
-    },
-    {
-      "date": "2026-07-20",
-      "volume": 29642.25,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3147,
-      "down": 2152
-    },
-    {
-      "date": "2026-07-21",
-      "volume": 31418.67,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4878,
-      "down": 421
-    },
-    {
-      "date": "2026-07-22",
-      "volume": 25912.43,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 4485,
-      "down": 814
-    },
-    {
-      "date": "2026-07-23",
-      "volume": 23754.03,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 3464,
-      "down": 1835
-    },
-    {
-      "date": "2026-07-24",
-      "volume": 21538.3,
-      "limitUp": 40,
-      "limitDown": 25,
-      "up": 745,
-      "down": 4554
-    },
-    {
-      "date": "2026-07-27",
-      "volume": 21524.81,
-      "limitUp": 111,
-      "limitDown": 6,
-      "up": 4861,
-      "down": 438
-    },
-    {
-      "date": "2026-07-28",
-      "volume": 21368.18,
-      "limitUp": 61,
-      "limitDown": 49,
-      "up": 1941,
-      "down": 3358
-    },
-    {
-      "date": "2026-07-29",
-      "volume": 24925.66,
-      "limitUp": 81,
-      "limitDown": 9,
-      "up": 3191,
-      "down": 2108
-    },
-    {
-      "date": "2026-07-30",
-      "volume": 25585.67,
-      "limitUp": 52,
-      "limitDown": 74,
-      "up": 2125,
-      "down": 3174
-    },
-    {
-      "date": "2026-07-31",
-      "volume": 26338.51,
-      "limitUp": 99,
-      "limitDown": 0,
-      "up": 2639,
-      "down": 2660
-    },
-    {
-      "date": "2026-08-03",
-      "volume": 22866.91,
-      "limitUp": 75,
-      "limitDown": 8,
-      "up": 2495,
-      "down": 2804
-    },
-    {
-      "date": "2026-08-04",
-      "volume": 24103.23,
-      "limitUp": 138,
-      "limitDown": 0,
-      "up": 3252,
-      "down": 2047
-    },
-    {
-      "date": "2026-08-05",
-      "volume": 26491.29,
-      "limitUp": 103,
-      "limitDown": 1,
-      "up": 4919,
-      "down": 380
-    },
-    {
-      "date": "2026-08-06",
-      "volume": 26094.55,
-      "limitUp": 79,
-      "limitDown": 1,
-      "up": 4698,
-      "down": 601
-    },
-    {
-      "date": "2026-08-07",
-      "volume": 25693.85,
-      "limitUp": 74,
-      "limitDown": 4,
-      "up": 4801,
+      "up": 4843,
       "down": 498
     },
     {
+      "date": "2026-05-20",
+      "volume": 25927.1,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3501,
+      "down": 1840
+    },
+    {
+      "date": "2026-05-21",
+      "volume": 30839.1,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 558,
+      "down": 4783
+    },
+    {
+      "date": "2026-05-22",
+      "volume": 25968.52,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3981,
+      "down": 1360
+    },
+    {
+      "date": "2026-05-25",
+      "volume": 26825.41,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4414,
+      "down": 927
+    },
+    {
+      "date": "2026-05-26",
+      "volume": 28378.58,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3400,
+      "down": 1941
+    },
+    {
+      "date": "2026-05-27",
+      "volume": 28345.7,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 716,
+      "down": 4625
+    },
+    {
+      "date": "2026-05-28",
+      "volume": 26285.36,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4073,
+      "down": 1268
+    },
+    {
+      "date": "2026-05-29",
+      "volume": 30345.17,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 752,
+      "down": 4589
+    },
+    {
+      "date": "2026-06-01",
+      "volume": 27579.24,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 2030,
+      "down": 3311
+    },
+    {
+      "date": "2026-06-02",
+      "volume": 26488.22,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3801,
+      "down": 1540
+    },
+    {
+      "date": "2026-06-03",
+      "volume": 28054.86,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3923,
+      "down": 1418
+    },
+    {
+      "date": "2026-06-04",
+      "volume": 25730.58,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3105,
+      "down": 2236
+    },
+    {
+      "date": "2026-06-05",
+      "volume": 28438.46,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 1528,
+      "down": 3813
+    },
+    {
+      "date": "2026-06-08",
+      "volume": 27800.34,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4225,
+      "down": 1116
+    },
+    {
+      "date": "2026-06-09",
+      "volume": 24856.72,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4635,
+      "down": 706
+    },
+    {
+      "date": "2026-06-10",
+      "volume": 25135.82,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3427,
+      "down": 1914
+    },
+    {
+      "date": "2026-06-11",
+      "volume": 23776.57,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3366,
+      "down": 1975
+    },
+    {
+      "date": "2026-06-12",
+      "volume": 29480.98,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3812,
+      "down": 1529
+    },
+    {
+      "date": "2026-06-15",
+      "volume": 27570.48,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4809,
+      "down": 532
+    },
+    {
+      "date": "2026-06-16",
+      "volume": 26313.54,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 2583,
+      "down": 2758
+    },
+    {
+      "date": "2026-06-17",
+      "volume": 25996.68,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4647,
+      "down": 694
+    },
+    {
+      "date": "2026-06-18",
+      "volume": 27323.39,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 2468,
+      "down": 2873
+    },
+    {
+      "date": "2026-06-22",
+      "volume": 31112.99,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4960,
+      "down": 381
+    },
+    {
+      "date": "2026-06-23",
+      "volume": 29137.02,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 694,
+      "down": 4647
+    },
+    {
+      "date": "2026-06-24",
+      "volume": 27557.48,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4191,
+      "down": 1150
+    },
+    {
+      "date": "2026-06-25",
+      "volume": 28827.3,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3983,
+      "down": 1358
+    },
+    {
+      "date": "2026-06-26",
+      "volume": 28745.15,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 577,
+      "down": 4764
+    },
+    {
+      "date": "2026-06-29",
+      "volume": 28179.03,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4860,
+      "down": 481
+    },
+    {
+      "date": "2026-06-30",
+      "volume": 25796.39,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4702,
+      "down": 639
+    },
+    {
+      "date": "2026-07-01",
+      "volume": 29682.18,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4237,
+      "down": 1104
+    },
+    {
+      "date": "2026-07-02",
+      "volume": 29059.26,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 1149,
+      "down": 4192
+    },
+    {
+      "date": "2026-07-03",
+      "volume": 26647.77,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3720,
+      "down": 1621
+    },
+    {
+      "date": "2026-07-06",
+      "volume": 26083.34,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 1484,
+      "down": 3857
+    },
+    {
+      "date": "2026-07-07",
+      "volume": 22904.25,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 1003,
+      "down": 4338
+    },
+    {
+      "date": "2026-07-08",
+      "volume": 22099.58,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 1108,
+      "down": 4233
+    },
+    {
+      "date": "2026-07-09",
+      "volume": 24376.42,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4936,
+      "down": 405
+    },
+    {
+      "date": "2026-07-10",
+      "volume": 27960.22,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 851,
+      "down": 4490
+    },
+    {
+      "date": "2026-07-13",
+      "volume": 25435.24,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 637,
+      "down": 4704
+    },
+    {
+      "date": "2026-07-14",
+      "volume": 24092.59,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4936,
+      "down": 405
+    },
+    {
+      "date": "2026-07-15",
+      "volume": 24291.72,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 2108,
+      "down": 3233
+    },
+    {
+      "date": "2026-07-16",
+      "volume": 23064.01,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 958,
+      "down": 4383
+    },
+    {
+      "date": "2026-07-17",
+      "volume": 27153.05,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 555,
+      "down": 4786
+    },
+    {
+      "date": "2026-07-20",
+      "volume": 28456.56,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3171,
+      "down": 2170
+    },
+    {
+      "date": "2026-07-21",
+      "volume": 30161.92,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4916,
+      "down": 425
+    },
+    {
+      "date": "2026-07-22",
+      "volume": 24875.93,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 4520,
+      "down": 821
+    },
+    {
+      "date": "2026-07-23",
+      "volume": 22803.87,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 3490,
+      "down": 1851
+    },
+    {
+      "date": "2026-07-24",
+      "volume": 20676.76,
+      "limitUp": 40,
+      "limitDown": 25,
+      "up": 750,
+      "down": 4591
+    },
+    {
+      "date": "2026-07-27",
+      "volume": 20663.82,
+      "limitUp": 111,
+      "limitDown": 6,
+      "up": 4898,
+      "down": 443
+    },
+    {
+      "date": "2026-07-28",
+      "volume": 20513.45,
+      "limitUp": 61,
+      "limitDown": 49,
+      "up": 1956,
+      "down": 3385
+    },
+    {
+      "date": "2026-07-29",
+      "volume": 23928.64,
+      "limitUp": 81,
+      "limitDown": 9,
+      "up": 3215,
+      "down": 2126
+    },
+    {
+      "date": "2026-07-30",
+      "volume": 24562.25,
+      "limitUp": 52,
+      "limitDown": 74,
+      "up": 2141,
+      "down": 3200
+    },
+    {
+      "date": "2026-07-31",
+      "volume": 25284.97,
+      "limitUp": 99,
+      "limitDown": 0,
+      "up": 2660,
+      "down": 2681
+    },
+    {
+      "date": "2026-08-03",
+      "volume": 21952.24,
+      "limitUp": 75,
+      "limitDown": 8,
+      "up": 2514,
+      "down": 2827
+    },
+    {
+      "date": "2026-08-04",
+      "volume": 23139.1,
+      "limitUp": 138,
+      "limitDown": 0,
+      "up": 3276,
+      "down": 2065
+    },
+    {
+      "date": "2026-08-05",
+      "volume": 25431.63,
+      "limitUp": 103,
+      "limitDown": 1,
+      "up": 4957,
+      "down": 384
+    },
+    {
+      "date": "2026-08-06",
+      "volume": 25050.76,
+      "limitUp": 79,
+      "limitDown": 1,
+      "up": 4733,
+      "down": 608
+    },
+    {
+      "date": "2026-08-07",
+      "volume": 24666.09,
+      "limitUp": 74,
+      "limitDown": 4,
+      "up": 4837,
+      "down": 504
+    },
+    {
       "date": "2026-08-10",
-      "volume": 24593.04,
+      "volume": 23609.32,
       "limitUp": 99,
       "limitDown": 5,
-      "up": 4288,
-      "down": 1011
+      "up": 4321,
+      "down": 1020
     },
     {
       "date": "2026-08-11",
-      "volume": 23450.06,
+      "volume": 22512.06,
       "limitUp": 58,
       "limitDown": 1,
-      "up": 1520,
-      "down": 3779
+      "up": 1532,
+      "down": 3809
     },
     {
       "date": "2026-08-12",
-      "volume": 22573.06,
+      "volume": 21670.14,
       "limitUp": 92,
       "limitDown": 0,
-      "up": 3767,
-      "down": 1532
+      "up": 3796,
+      "down": 1545
+    },
+    {
+      "date": "2026-08-13",
+      "volume": 25673.46,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 0,
+      "down": 0
     }
   ],
   "limitUpLadders": [
@@ -3016,10 +3024,21 @@
   "limitDownLadders": [
     {
       "level": "1个跌停",
-      "count": 4
+      "count": 6
     }
   ],
   "limitDownStocks": [
+    {
+      "code": "300996",
+      "name": "普联软件",
+      "industry": "-",
+      "closePrice": 17.7,
+      "changePercent": -10.52,
+      "turnover": 20.85,
+      "turnoverRate": 0,
+      "consecutiveDownDays": 1,
+      "sealedAmount": 0
+    },
     {
       "code": "603990",
       "name": "麦迪科技",
@@ -3028,8 +3047,8 @@
       "changePercent": -9.99,
       "turnover": 14.2,
       "turnoverRate": 20.54,
-      "sealedAmount": 0.84,
-      "consecutiveDownDays": 1
+      "consecutiveDownDays": 1,
+      "sealedAmount": 0.84
     },
     {
       "code": "000779",
@@ -3039,8 +3058,8 @@
       "changePercent": -9.98,
       "turnover": 12.85,
       "turnoverRate": 24.99,
-      "sealedAmount": 0.15,
-      "consecutiveDownDays": 1
+      "consecutiveDownDays": 1,
+      "sealedAmount": 0.15
     },
     {
       "code": "002827",
@@ -3050,8 +3069,8 @@
       "changePercent": -10.0,
       "turnover": 12.58,
       "turnoverRate": 7.87,
-      "sealedAmount": 0.19,
-      "consecutiveDownDays": 1
+      "consecutiveDownDays": 1,
+      "sealedAmount": 0.19
     },
     {
       "code": "003032",
@@ -3061,8 +3080,19 @@
       "changePercent": -9.99,
       "turnover": 11.18,
       "turnoverRate": 32.88,
-      "sealedAmount": 0.44,
-      "consecutiveDownDays": 1
+      "consecutiveDownDays": 1,
+      "sealedAmount": 0.44
+    },
+    {
+      "code": "300983",
+      "name": "尤安设计",
+      "industry": "-",
+      "closePrice": 38.38,
+      "changePercent": -10.74,
+      "turnover": 1.52,
+      "turnoverRate": 0,
+      "consecutiveDownDays": 1,
+      "sealedAmount": 0
     }
   ],
   "sectors": [

@@ -130,7 +130,9 @@ print("\n[2/7] 全市场快照...")
 import urllib.request, json as _json
 import time as _t
 spot_rows = []
-for page in range(1, 56):
+# v2.0.7ba:翻 60 页拿全市场 5542 只(之前 55 页 = 5500 只,漏 42 只,导致 8/13 估 25145 跟同花顺 25680 差 535)
+# sina 56 页返 42 只(8/13 新增/复牌),57 页返 0 — 改 < 30 才 break,翻 60 页
+for page in range(1, 61):
     url = (
         'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/'
         f'Market_Center.getHQNodeData?num=100&page={page}&sort=changepercent&asc=0&node=hs_a&_={int(_t.time()*1000)}'
@@ -142,7 +144,7 @@ for page in range(1, 56):
         })
         with urllib.request.urlopen(req, timeout=8) as resp:
             data = _json.loads(resp.read())
-        if not data or len(data) < 50:
+        if not data or len(data) < 30:
             break
         spot_rows.extend(data)
     except Exception:
@@ -323,23 +325,43 @@ hist_sz_df = ak.stock_zh_index_daily_tx("sz399001").tail(100).reset_index(drop=T
 # 简化: volume = amount / 1e4 作为 "千亿手" 单位的相对活跃度
 # 实际上原图的"成交量"是成交额(亿元),所以我用 7日均量来计算今日较均值的差
 history = []
-# amount(手) × 100(股) × 假设平均价 20元 / 1e8 = 成交额(亿元)
+# v2.0.7ba:history.volume 用 sina amount × 19 / 1e8 估算(沪深 8/12 估算 21444,差 1%)
+# — em sh000001 + sz399001 volume 字段单位"手",50+500 成分股加权
+# — 实际沪深 8/12 21672(同花顺) → 加权均价 19.2 元
+# — 19 元均价估算:1.13e9 × 19 / 1e8 = 21444 亿(差 1%)
+# — history 用 sina amount × 19 / 1e8 估算(老数据没 em 全市场 amount)
+# — history.append 末尾加当日 marketTurnover(8/13 实际 25673 准) — 下次 8/14 算 turnoverDiff 用
 for i, row in hist_df.iterrows():
     date_str = str(row['date'])
     amount_sh = safe_float(row['amount'])
     amount_sz = safe_float(hist_sz_df.iloc[i]['amount']) if i < len(hist_sz_df) else 0
-    volume_yi = round((amount_sh + amount_sz) * 100 * 20 / 1e8, 2)
+    # v2.0.7ba:× 100 × 19.2 / 1e8 估算(沪深 8/12 估算 21696,差 1%)
+    # 之前 × 100 × 20 / 1e8 = 22573(高估 4% 跟同花顺差 901)
+    # 实际 sina amount 字段单位 = em volume / 100(差 100 倍)
+    # 沪深全市场 8/12 估算 = (amount × 100 × 19.2) / 1e8 = 21696(同花顺 21672,差 1%)
+    # turnoverDiff 差 220 亿,可接受
+    volume_yi = round((amount_sh + amount_sz) * 100 * 19.2 / 1e8, 2)
     history.append({
         'date': date_str,
-        'volume': volume_yi,  # 估算的成交额(亿元)
+        'volume': volume_yi,  # 估算的成交额(亿元)— 跟同花顺差 1%
     })
-print(f"  历史 {len(history)} 个交易日")
+# v2.0.7ba:追加当日收盘成交额(下次算 turnoverDiff 用)
+# 8/13 跑出 25673,append 到 history 末尾(8/14 跑时 history[-1] = 8/13 收盘)
+history.append({
+    'date': TODAY.strftime('%Y-%m-%d'),
+    'volume': round(total_turnover, 2),  # 当日收盘成交额(8/13 实际 25673 准)
+})
+print(f"  历史 {len(history)} 个交易日(末 1 用今日 marketTurnover 准)")
 
-# 计算 turnoverDiff: 今日全市场 vs 昨日(跟同花顺一致)
-# v2.0.7az:之前用 7 日均值(7日均值大,差值小,user 反馈跟同花顺差 3600 亿)
-# 改用昨日 1 日(8/13 25145 - 8/12 22573 = +2572),跟同花顺算法一致
-last_1 = history[-1] if history and len(history) >= 1 else None
-yesterday_vol = last_1['volume'] if last_1 else 0
+# 计算 turnoverDiff: 今日全市场 vs 上一交易日收盘(跟同花顺一致)
+# v2.0.7ba:用 history[-2] 算(末 1 = 今日,末 2 = 上一交易日收盘)
+# 8/13 跑:turnoverDiff = 25673(今日) - 21444(history[-2] 8/12 估算) = +4229
+# 8/14 跑:turnoverDiff = 8/14 累计 - 25673(8/13 收盘) = 8/14 增量
+# — 但 8/14 盘中 跑 marketTurnover 是盘中累计(可能 10000+ 亿),turnoverDiff = -15000 亿(错)
+# — 所以 useLiveData 盘中间 不覆盖 turnoverDiff(保持 fetch_real_data 算的)
+# — 盘后 15:00+ em marketTurnover 仍是 8/14 收盘最大值,turnoverDiff = 8/14 收盘 - 25673 — 准
+last_2 = history[-2] if history and len(history) >= 2 else None
+yesterday_vol = last_2['volume'] if last_2 else 0
 turnover_diff = round(total_turnover - yesterday_vol, 2)
 
 # ========== 4. 涨停板 ==========
