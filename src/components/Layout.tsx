@@ -25,7 +25,6 @@ const Icons = {
   Bolt: <Icon d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />,
   Trophy: <Icon d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2z" />,
   Globe: <Icon d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z" />,
-  Bookmark: <Icon d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />,
 };
 
 export default function Layout({ data, children }: Props) {
@@ -50,7 +49,6 @@ export default function Layout({ data, children }: Props) {
     { key: '/low-position', label: '低位放量', icon: Icons.Bolt, count: counts.lowPosition },
     { key: '/dragon-tiger', label: '龙虎榜', icon: Icons.Trophy, count: counts.dragonTiger },
     { key: '/surgery', label: '全景手术台', icon: Icons.Globe, count: 0 },
-    { key: '/watchlist', label: '自选监控&笔记', icon: Icons.Bookmark, count: 0 },  // v2.0.7ao
   ];
 
 

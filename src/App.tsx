@@ -8,7 +8,6 @@ import Sector from './pages/Sector';
 import AnomalyStock from './pages/AnomalyStock';
 import DragonTiger from './pages/DragonTiger';
 import Surgery from './pages/Surgery';
-import WatchlistDashboard from './components/WatchlistDashboard';
 import { loadReportData, type ReportData } from './data/loader';
 import { useLiveData, mergeLiveData, type LiveSnapshot } from './hooks/useLiveData';
 
@@ -126,7 +125,6 @@ export default function App() {
             <Route path="/low-position" element={<AnomalyStock type="low-position" data={merged} />} />
             <Route path="/dragon-tiger" element={<DragonTiger data={merged} />} />
             <Route path="/surgery" element={<Surgery data={merged} />} />
-            <Route path="/watchlist" element={<WatchlistDashboard />} />
           </Routes>
         </Layout>
       </BrowserRouter>
