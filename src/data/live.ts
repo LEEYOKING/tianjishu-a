@@ -205,11 +205,11 @@ export async function fetchMarketSummary(): Promise<{
     else if (cp < 7) dist.up_5_to_7++;
     else if (cp < 10) dist.up_7_to_10++;
     else dist.up_ge_10++;
-    // 涨停:主板 9.9~11%,创业板/科创板 19.9~21%
-    if (cp >= 9.9 && cp < 11) lu++;
-    else if (cp >= 19.9 && cp < 21) lu++;
-    if (cp <= -9.9 && cp > -11) ld++;
-    else if (cp <= -19.9 && cp > -21) ld++;
+    // 涨停:主板 9.95~11%(A 股涨停价四舍五入到分,9.95% 算涨停),双创 19.95~21%
+    if (cp >= 9.95 && cp < 11) lu++;
+    else if (cp >= 19.95 && cp < 21) lu++;
+    if (cp <= -9.95 && cp > -11) ld++;
+    else if (cp <= -19.95 && cp > -21) ld++;
     total += amt;
   }
   return {
@@ -355,11 +355,11 @@ async function fetchSinaStatsByNode(
     if (cp > 0) up++;
     else if (cp < 0) down++;
     else flat++;
-    // 涨停:主板 9.9~11%,创业板/科创板 19.9~21%(沙盘抽样的全是主板,9.9~11 足够)
-    if (cp >= 9.9 && cp < 11) lu++;
-    else if (cp >= 19.9 && cp < 21) lu++;
-    if (cp <= -9.9 && cp > -11) ld++;
-    else if (cp <= -19.9 && cp > -21) ld++;
+    // 涨停:主板 9.95~11%,双创 19.95~21%(sina 涨跌幅四舍五入到 2 位小数,9.95 起步)
+    if (cp >= 9.95 && cp < 11) lu++;
+    else if (cp >= 19.95 && cp < 21) lu++;
+    if (cp <= -9.95 && cp > -11) ld++;
+    else if (cp <= -19.95 && cp > -21) ld++;
     total += amt;
   }
   return {

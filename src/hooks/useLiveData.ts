@@ -217,7 +217,13 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
   }
   // 2. 全市场汇总 — v2.0.7p:9:30 集合竞价前清零(避免显示 sina "半数据" 如 1 涨 5499 平)
   // 9:30 之后用 live 实时
-  if (isPreMarket()) {
+  // v2.0.7av:跨日时(8:00 hook 切日期后但 baseData 还没 cron 更新)也清 0 涨跌停
+  // — 否则 8/14 9:30-9:35 会显示 8/13 收盘涨停池 56(错,应 0)
+  const _now8 = new Date(Date.now() + 8 * 3600 * 1000);
+  const _todayYMD = `${_now8.getUTCFullYear()}${String(_now8.getUTCMonth() + 1).padStart(2, '0')}${String(_now8.getUTCDate()).padStart(2, '0')}`;
+  const _baseTradeDate = (next.marketOverview as any).tradeDate || '';
+  const _isCrossDay = _baseTradeDate && _baseTradeDate !== _todayYMD;
+  if (isPreMarket() || _isCrossDay) {
     next.marketOverview.marketTurnover = 0;
     next.marketOverview.turnoverDiff = 0;
     next.marketOverview.upCount = 0;
@@ -242,11 +248,10 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       next.marketOverview.upCount = live.market!.upCount;
       next.marketOverview.downCount = live.market!.downCount;
       next.marketOverview.flatCount = live.market!.flatCount;
-      // v2.0.7at:limitUpCount/limitDownCount 不被 fast tick(em 实时 9.9% 阈值)覆盖
-      // — 用 fetch_real_data 算的涨停池(akshare)真值,同花顺一致
-      // — fast tick 算的 70 vs 真实 54 偏差大(9.9% 阈值太严)
-      // next.marketOverview.limitUpCount = live.market!.limitUpCount;
-      // next.marketOverview.limitDownCount = live.market!.limitDownCount;
+      // v2.0.7av:limitUpCount/limitDownCount 不被 em 覆盖(盘中"当前涨停"37 vs 涨停池"涨停过"56 是两个数)
+      // — 涨跌停卡片显示的是"涨停过"总数(akshare 涨停池长度,跟同花顺一致)
+      // — em 9.95% 阈值算的 37 是"当前涨幅 >= 9.95%"(含未封板+已开板),跟 user 期望的 56 不同
+      // — 全天用涨停池(5 cron 跑出的真值),盘中变化小(5 cron/日 跳变)
       next.marketOverview.upPercent = mktTotal > 0
         ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
         : 0;
