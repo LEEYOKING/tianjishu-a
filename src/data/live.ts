@@ -398,3 +398,51 @@ export async function fetchEMBondStats(): Promise<{ up: number; down: number; fl
   const r = await fetchSinaStatsByNode('zhquan', 3, 100);
   return { up: r.up, down: r.down, flat: r.flat };
 }
+
+// =============================================================
+// v2.0.7ax:em 申万 90 行业实时(跟 ths 90 细分类 一一对应,不是 sina 49 行业聚合)
+// — em "m:90+t:2" 申万二级行业(约 90 个)
+// — 跟 ths 90 细分类 名字大部分一致(医疗服务/医疗器械/化学制药/中药 等都分开)
+// — em 实时 10s 拉,按 name 模糊匹配覆盖 ths 90 细分类
+// =============================================================
+
+
+export interface EMIndustryItem {
+  name: string;            // 申万行业名
+  changePercent: number;   // 涨跌幅
+  totalTurnover: number;   // 成交额(亿)
+  leaderName: string;      // 领涨股
+  leaderChangePercent: number;
+  stockCount: number;
+}
+
+/** 拉取 em 申万 90 行业实时数据(单页 100 个,够用)
+ * 返回: Map<name, EMIndustryItem> */
+export async function fetchEMIndustries(): Promise<Map<string, EMIndustryItem>> {
+  const params = 'pn=1&pz=200&po=1&np=1&fltt=2&invt=2&fs=m:90+t:2&fields=f3,f12,f14,f128&fid=f3';
+  const result = new Map<string, EMIndustryItem>();
+  for (const domain of ['https://push2.eastmoney.com', 'https://push2delay.eastmoney.com', 'https://82.push2.eastmoney.com']) {
+    try {
+      const r = await fetch(`${domain}/api/qt/clist/get?${params}`, { cache: 'no-store' });
+      const j = await r.json();
+      if (j && j.data && j.data.diff && j.data.diff.length > 0) {
+        for (const s of j.data.diff) {
+          const name = s.f14 || '';
+          if (!name) continue;
+          result.set(name, {
+            name,
+            changePercent: Math.round((s.f3 || 0) * 100) / 100,
+            totalTurnover: 0,  // em 这个接口没成交额,留着 0(用 ths 静态)
+            leaderName: s.f128 || '-',
+            leaderChangePercent: 0,
+            stockCount: 0,
+          });
+        }
+        break;
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+  return result;
+}

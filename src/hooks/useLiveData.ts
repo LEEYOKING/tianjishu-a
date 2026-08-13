@@ -7,6 +7,7 @@ import {
   fetchEMMarketStats,
   fetchEMEtfStats,
   fetchEMBondStats,
+  fetchEMIndustries,
   SINA_INDUSTRY_LABELS,
 } from '../data/live';
 import type { ReportData } from '../data/loader';
@@ -56,6 +57,8 @@ export interface LiveSnapshot {
   bondStats: { up: number; down: number; flat: number } | null;
   /** 49 个 sina 行业实时数据(60s 拉) */
   sinaIndustries: Map<string, { changePercent: number; totalTurnover: number; leaderName: string; leaderChangePercent: number; stockCount: number } | null>;
+  // v2.0.7ax:em 申万 90 行业(跟 ths 90 细分类 一一对应,60s 实时)
+  emIndustries?: Map<string, { name: string; changePercent: number; leaderName: string; totalTurnover: number; leaderChangePercent: number; stockCount: number }>;
   /** 今日实时快照(用于把今天数据 push 到 history 末尾) */
   today: { date: string; volume: number; up: number; down: number } | null;
   /** 数据源时间戳 */
@@ -120,13 +123,13 @@ export function useLiveData(enabled = true): LiveSnapshot {
         inflightRef.current = false;
       }
     };
-    // 60s 拉慢:行业(v2.0.7g:today 已进 fast tick 同步,不再在慢 tick 拉)
+    // 60s 拉慢:行业(v2.0.7ax:em 申万 90 行业,跟 ths 90 细分类 一一对应,不是 sina 49 行业聚合)
     const slowTick = async () => {
       try {
-        const sinaResult = await safe(fetchSinaIndustries(SINA_INDUSTRY_LABELS), new Map());
+        const emIndResult = await safe(fetchEMIndustries(), new Map());
         setSnap((prev) => ({
           ...prev,
-          sinaIndustries: sinaResult,
+          emIndustries: emIndResult,
         }));
       } catch (e) {
         console.warn('[useLiveData] slow tick error:', e);
@@ -157,6 +160,7 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
     etfStats: null,
     bondStats: null,
     sinaIndustries: new Map(),
+    emIndustries: new Map(),
     today: null,
     fetchedAt: 0,
     isFirstLoad: true,
@@ -166,14 +170,18 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
   useEffect(() => {
     if (!enabled) return;
     let cancelled = false;
+    const safe = async <T,>(p: Promise<T>, fallback: T): Promise<T> => {
+      try { return await p; } catch { return fallback; }
+    };
     (async () => {
       try {
-        const [idxResult, mkt, etf, bond, sinaResult, todayResult] = await Promise.all([
+        const [idxResult, mkt, etf, bond, sinaResult, emIndResult, todayResult] = await Promise.all([
           fetchLiveIndices(),
           fetchEMMarketStats(),
           fetchEMEtfStats(),
           fetchEMBondStats(),
           fetchSinaIndustries(SINA_INDUSTRY_LABELS),
+          safe(fetchEMIndustries(), new Map()),
           fetchTodaySnapshot(),
         ]);
         if (cancelled) return;
@@ -183,6 +191,7 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
           etfStats: etf,
           bondStats: bond,
           sinaIndustries: sinaResult,
+          emIndustries: emIndResult,
           today: todayResult,
           fetchedAt: Date.now(),
           isFirstLoad: false,
@@ -285,11 +294,33 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     next.marketOverview.bondDown = live.bondStats.down;
     next.marketOverview.bondFlat = live.bondStats.flat;
   }
-  // 5. v2.0.7ax:行业板块不再用 sina 49 行业覆盖 ths 90 细分类
-  // — sina 49 行业是聚合(自动化设备/通用设备/专用设备/工程机械/电机 都归到 new_jxhy)
-  // — 多个 ths 细分类共用 sina 同一 label,被覆盖后多个变成同一个值(看起来重复)
-  // — ths 自己 5 cron 跑的数据是准的,直接用静态
-  // — 想看实时,看 Overview 的"涨跌幅热力图"那个卡片(那个用 sina 49 行业实时)
+  // 5. v2.0.7ax:行业板块用 em 申万 90 行业实时覆盖 ths 90 细分类
+  // — em "m:90+t:2" 申万二级行业(约 90 个),跟 ths 90 细分类 一一对应(医疗服务/医疗器械/化学制药 等都分开)
+  // — 不再用 sina 49 行业(那是聚合,自动化设备/通用设备/.../电机 都归到 new_jxhy,会导致多个 ths 细分类被覆盖成同一值)
+  // — em 申万按 name 模糊匹配覆盖 ths 90 细分类(60s 实时,无重复)
+  if (live.emIndustries && live.emIndustries.size > 0) {
+    for (const s of next.sectors) {
+      const thsName = s.name || '';
+      if (!thsName) continue;
+      let bestMatch: { name: string; changePercent: number; leaderName: string } | null = null;
+      let bestLen = 0;
+      for (const [emName, emItem] of live.emIndustries) {
+        if (!emName) continue;
+        // 完全相等或包含
+        if (thsName === emName || thsName.includes(emName) || emName.includes(thsName)) {
+          // 取最长的匹配(避免"医疗服务"误匹配到"医疗器械"等)
+          if (emName.length > bestLen) {
+            bestLen = emName.length;
+            bestMatch = emItem;
+          }
+        }
+      }
+      if (bestMatch) {
+        s.changePercent = bestMatch.changePercent;
+        if (bestMatch.leaderName && bestMatch.leaderName !== '-') s.leaderName = bestMatch.leaderName;
+      }
+    }
+  }
   // 6. 把今日实时数据 push 到 history 末尾(让曲线图含当日点)
   const todayFallback = {
     date: (() => {
