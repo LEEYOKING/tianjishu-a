@@ -1,0 +1,109 @@
+# v2.0.7cb: GitHub Actions 自动跑 baseData + 部署到 Cloudflare Pages
+# 每天 15:35 + 18:30 北京时间(UTC 7:35 + 10:30)
+# 触发:推 main 时 + 定时 cron
+# 需要 secrets: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
+
+name: 每日自动跑 baseData + 部署
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '35 7 * * 1-5'   # 北京 15:35 收盘后(周一到周五)
+    - cron: '30 10 * * 1-5'  # 北京 18:30 龙虎榜披露后(周一到周五)
+  workflow_dispatch:           # 手动触发
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python deps (akshare)
+        run: pip install -r requirements.txt
+
+      - name: Install Node deps
+        run: npm ci --no-audit --no-fund
+
+      # 1. 跑 fetch_real_data.py 拿 A 股实时数据
+      - name: 跑 fetch_real_data.py
+        id: fetch_real
+        run: |
+          if python scripts/fetch_real_data.py; then
+            echo "fetch_real_data.py OK"
+            echo "fetch_real_status=ok" >> $GITHUB_OUTPUT
+          else
+            echo "fetch_real_data.py 失败 — 跳过(降级用上次 baseData)"
+            echo "fetch_real_status=failed" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      # 2. 跑 fetch_surgery_data.py 拿涨停封板卡
+      - name: 跑 fetch_surgery_data.py
+        id: fetch_surgery
+        run: |
+          if python scripts/fetch_surgery_data.py; then
+            echo "fetch_surgery_data.py OK"
+            echo "fetch_surgery_status=ok" >> $GITHUB_OUTPUT
+          else
+            echo "fetch_surgery_data.py 失败 — 跳过"
+            echo "fetch_surgery_status=failed" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      # 3. Build
+      - name: Build
+        run: npm run build
+
+      # 4. Copy data files to dist
+      - name: Copy data files
+        run: |
+          cp public/data.json dist/data.json
+          cp public/surgery.json dist/surgery.json
+          cp public/prescan.json dist/prescan.json
+
+      # 5. 部署到 Cloudflare Pages
+      - name: Deploy to Cloudflare Pages
+        if: steps.fetch_real.outputs.fetch_real_status != '' || steps.fetch_surgery.outputs.fetch_surgery_status != ''
+        run: |
+          npx wrangler pages deploy dist \
+            --project-name=tianjishu-a \
+            --branch=main \
+            --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      # 6. 提交更新的 baseData(可选,只为记录)
+      - name: 提交更新的 baseData
+        if: steps.fetch_real.outputs.fetch_real_status == 'ok' || steps.fetch_surgery.outputs.fetch_surgery_status == 'ok'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add public/data.json public/surgery.json public/prescan.json
+          if git diff --cached --quiet; then
+            echo "无新 baseData,跳过提交"
+          else
+            NOW=$(date -u +'%Y-%m-%d %H:%M:%S UTC')
+            git commit -m "data: 自动跑 baseData ${NOW}"
+            git push
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
