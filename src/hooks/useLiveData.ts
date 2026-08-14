@@ -233,8 +233,17 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
   const _todayYMD = `${_now8.getUTCFullYear()}${String(_now8.getUTCMonth() + 1).padStart(2, '0')}${String(_now8.getUTCDate()).padStart(2, '0')}`;
   const _baseTradeDate = (next.marketOverview as any).tradeDate || '';
   const _isCrossDay = _baseTradeDate && _baseTradeDate !== _todayYMD;
-  if (isPreMarket()) {
+  if (_isCrossDay) {
+    // v2.0.7ci:跨日(baseData 是 8/14 但 today 8/15)只清 0 涨跌停
+    // — upCount/downCount/flatCount/turnover 保留 8/14 收盘值(避免显示 0)
+    // — 涨跌停 0:00-9:30 保留 baseData 8/14 收盘(用户还在看昨天的数据)
+    // — 9:30 后 em 实时(fast tick)覆盖
+    // 注意:这里不清 0 涨跌停,保留 baseData(0:00-9:30 期间显示昨天收盘值)
+    // — 因为 8:00 hook 之后到 9:35 cron 之前,涨跌停应该还是昨天收盘的
+  } else if (isPreMarket()) {
     // v2.0.7bd:preMarket(0:00-9:30 集合竞价前)清 0
+    // 注意:实际 isPreMarket 在 _isCrossDay 之后判断
+    // 0:00-9:30 但不是跨日(罕見) → 可能有 baseData 没同步情况,清 0 兜底
     next.marketOverview.marketTurnover = 0;
     next.marketOverview.turnoverDiff = 0;
     next.marketOverview.upCount = 0;
@@ -243,13 +252,6 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     next.marketOverview.limitUpCount = 0;
     next.marketOverview.limitDownCount = 0;
     next.marketOverview.upPercent = 0;
-  } else if (_isCrossDay) {
-    // v2.0.7bd:跨日(baseData 是 8/13 但 today 8/14)只清 0 涨跌停
-    // — upCount/downCount/flatCount/turnover 保留 8/13 收盘值(避免显示 0)
-    // — 涨跌停今日还没数据 → 0
-    // — em 实时(fast tick)如果拉到 8/14 实时数据 → 覆盖
-    next.marketOverview.limitUpCount = 0;
-    next.marketOverview.limitDownCount = 0;
   } else {
     // v2.0.7e:兜底 — fs 编码错时返回空/总数 < 1000,fallback 到 data.json 静态值
     const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
