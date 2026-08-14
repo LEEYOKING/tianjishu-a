@@ -46,9 +46,17 @@ export default function DragonTiger({ data }: { data: ReportData }) {
           tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
           generatedAt={idx.generatedAt}
           liveTag="智能解读"
-          subtitle={_isT1DataDefault(dtMeta, idx)
-            ? `机构/游资买卖席位 · ⚠️ 数据截至 ${_dataDateText} 收盘(18:00 完整披露,盘后可见当日数据)`
-            : '机构/游资买卖席位 · 当日数据(18:00 后披露)'}
+          subtitle={(() => {
+            const _isT1 = _isT1DataDefault(dtMeta, idx);
+            // 总是显示"数据截至"提示(数据日期 + 状态)
+            // T-1:9:30-15:00 盘中,数据是上一交易日(18:00 还没披露当天的)
+            // T:盘后 15:00 后 + 周末,数据是今天/最后交易日
+            if (_isT1) {
+              return `机构/游资买卖席位 · ⚠️ 数据截至 ${_dataDateText} 收盘(18:00 完整披露)`;
+            } else {
+              return `机构/游资买卖席位 · ✓ 数据截至 ${_dataDateText} 收盘(18:00 完整披露)`;
+            }
+          })()}
           lastUpdatedAt={useLive().fetchedAt}
         />
         <div style={{ marginBottom: 16 }}>
@@ -85,7 +93,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         liveTag="智能解读"
-        subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}${_isT1Data ? ` · ⚠️ 数据截至 ${_dataDateText} 收盘(18:00 完整披露)` : ''}`}
+        subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}${_isT1Data ? ` · ⚠️ 数据截至 ${_dataDateText} 收盘(18:00 完整披露)` : ` · ✓ 数据截至 ${_dataDateText} 收盘(18:00 完整披露)`}`}
         lastUpdatedAt={useLive().fetchedAt}
       />
       <div className="dt-grid">
