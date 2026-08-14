@@ -223,7 +223,13 @@ function SurgeryInner({ data }: { data?: ReportData }) {
           </div>
         }
       >
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 10 }}>
+        <div style={{
+            display: 'grid',
+            // v2.0.7cf:屏幕宽度自适应 — 屏幕变窄自动减少每行列数
+            // 最小 120px 卡片 + 10px gap,容器宽度够就 auto-fit
+            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+            gap: 10,
+          }}>
           {sealCards.map((card) => (
             <SealCardItem key={card.code} card={card} onClick={() => setSelectedCard(card)} />
           ))}
