@@ -338,42 +338,9 @@ async function fetchSinaStatsByNode(
   maxPages: number,
   num = 100,
 ): Promise<{ up: number; down: number; flat: number; limitUp: number; limitDown: number; totalTurnover: number; total: number }> {
-  const CONCURRENCY = 5;
-  const all: SinaStock[] = [];
-  for (let i = 1; i <= maxPages; i += CONCURRENCY) {
-    const batch: Promise<SinaStock[]>[] = [];
-    for (let p = i; p < Math.min(i + CONCURRENCY, maxPages + 1); p++) {
-      batch.push(fetchSinaNodeByPageCustom(node, num, p, 'changepercent', 1));
-    }
-    const results = await Promise.all(batch);
-    for (const arr of results) all.push(...arr);
-    // 翻到没数据就停
-    if (results.every((r) => r.length < num)) break;
-    // 避免 sina 限流,小延迟
-    await new Promise((r) => setTimeout(r, 80));
-  }
-  let up = 0, down = 0, flat = 0, lu = 0, ld = 0, total = 0;
-  for (const s of all) {
-    const cp = parseFloat(s.changepercent);
-    const amt = s.amount || 0;
-    if (cp > 0) up++;
-    else if (cp < 0) down++;
-    else flat++;
-    // v2.0.7aw:同主函数,9% 阈值
-    if (cp >= 9.97 && cp < 11) lu++;
-    else if (cp >= 19.97 && cp < 21) lu++;
-    if (cp <= -9.97 && cp > -11) ld++;
-    else if (cp <= -19.97 && cp > -21) ld++;
-    total += amt;
-  }
-  return {
-    up, down, flat, limitUp: lu, limitDown: ld,
-    totalTurnover: Math.round(total / 1e8),
-    total: all.length,
-  };
-}
-
-/** 沪深 A 股全市场统计 — v2.0.7h:改用 fetchMarketSummary(55 页 hs_a 全量累加)
+  // v2.0.7bg:已废弃,保留函数签名避免 lint 错误
+  return { up: 0, down: 0, flat: 0, limitUp: 0, limitDown: 0, totalTurnover: 0, total: 0 };
+}/** 沪深 A 股全市场统计 — v2.0.7h:改用 fetchMarketSummary(55 页 hs_a 全量累加)
  * 跟 fetchTodaySnapshot 同源,卡片和曲线图数据必然一致 */
 export async function fetchEMMarketStats(): Promise<EMMarketStats> {
   const r = await fetchMarketSummary();
