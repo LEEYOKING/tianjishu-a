@@ -331,16 +331,7 @@ interface EMMarketStats {
 // v2.0.7f:全部改用 sina vip API(已验证浏览器 CORS ✓,跟 49 行业同源,稳定)
 // 不再赌东方财富 push2(fs 编码容易失效,且有风控)
 // =============================================================
-
-/** 通用 sina vip 节点统计 — 翻 N 页累计,返回 up/down/flat/limit/turnover/total */
-async function fetchSinaStatsByNode(
-  _node: string,
-  _maxPages: number,
-  _num = 100,
-): Promise<{ up: number; down: number; flat: number; limitUp: number; limitDown: number; totalTurnover: number; total: number }> {
-  // v2.0.7bg:已废弃,保留函数签名避免 lint 错误
-  return { up: 0, down: 0, flat: 0, limitUp: 0, limitDown: 0, totalTurnover: 0, total: 0 };
-}/** 沪深 A 股全市场统计 — v2.0.7h:改用 fetchMarketSummary(55 页 hs_a 全量累加)
+/** 沪深 A 股全市场统计 — v2.0.7h:改用 fetchMarketSummary(55 页 hs_a 全量累加)
  * 跟 fetchTodaySnapshot 同源,卡片和曲线图数据必然一致 */
 export async function fetchEMMarketStats(): Promise<EMMarketStats> {
   const r = await fetchMarketSummary();
