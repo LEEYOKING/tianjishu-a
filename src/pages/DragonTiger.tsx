@@ -11,6 +11,8 @@ const TABLE_STYLE = { background: '#fff', borderRadius: 14, boxShadow: '0 1px 3p
 
 export default function DragonTiger({ data }: { data: ReportData }) {
   const idx = data.marketOverview;
+  // v2.0.7ck:数据截至日期(从 dragonTiger 元信息拿,跟 baseData 实际跑出的日期一致)
+  const dtMeta = data.dragonTiger;
   const sorted = useMemo(() => [...data.dragonTigerStocks].sort((a, b) => b.netBuy - a.netBuy), [data.dragonTigerStocks]);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [page, setPage] = useState(1);
@@ -25,7 +27,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
           tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
           generatedAt={idx.generatedAt}
           liveTag="智能解读"
-          subtitle="机构/游资买卖席位 · AI 解读"
+          subtitle={`机构/游资买卖席位 · AI 解读(数据截至 ${dtMeta?.tradeDateSlash || idx.tradeDateSlash} 收盘)`}
           lastUpdatedAt={useLive().fetchedAt}
         />
         <div style={{ marginBottom: 16 }}>
@@ -58,7 +60,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         liveTag="智能解读"
-        subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}`}
+        subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}（数据截至 ${dtMeta?.tradeDateSlash || idx.tradeDateSlash} 收盘）`}
         lastUpdatedAt={useLive().fetchedAt}
       />
       <div className="dt-grid">
