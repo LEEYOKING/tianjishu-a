@@ -1,9 +1,9 @@
 // 涨跌分布柱状图 — v2.0.7ae
 // 11 档分桶:跌 5 / 平 1 / 涨 5,色:跌绿 / 平灰 / 涨红
-// v2.0.7ae:左右外边距 35/底部左右 45/柱子 1.4x(=36)/横线 10px+圆角最大+3 色间 2px 间距/底部整体底部对齐卡片
+// v2.0.7bq 左右外边距 30px / 柱子宽度动态(根据容器宽自适应)
 
 import ReactECharts from 'echarts-for-react';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReportData } from '../data/loader';
 
 interface Props {
@@ -40,11 +40,10 @@ function barColor(type: 'down' | 'flat' | 'up'): string {
 
 export function ChangeDistributionCard({ data }: Props) {
   const dist = data.marketOverview.changeDistribution;
-  // v2.0.7am:涨跌家数从 dist 累加(跟柱状图同源),不读 marketOverview(22:58 em 不稳会丢)
+  // v2.0.7am:涨跌家数从 dist 累加(跟柱状图同源)
   const upCount = dist ? (dist.up_0_to_3 + dist.up_3_to_5 + dist.up_5_to_7 + dist.up_7_to_10 + dist.up_ge_10) : (data.marketOverview.upCount ?? 0);
   const downCount = dist ? (dist.down_ge_10 + dist.down_10_to_7 + dist.down_7_to_5 + dist.down_5_to_3 + dist.down_3_to_0) : (data.marketOverview.downCount ?? 0);
   const flatCount = dist ? dist.flat : (data.marketOverview.flatCount ?? 0);
-  // 跌停/涨停 — 仍从 marketOverview 读(em 实时算,准确)
   const limitUp = data.marketOverview.limitUpCount ?? 0;
   const limitDown = data.marketOverview.limitDownCount ?? 0;
   const total = upCount + downCount + flatCount;
@@ -52,6 +51,25 @@ export function ChangeDistributionCard({ data }: Props) {
   const downPct = total > 0 ? downCount / total : 0;
   const flatPct = total > 0 ? flatCount / total : 0;
   const upPct = total > 0 ? upCount / total : 0;
+
+  // v2.0.7bq:测容器宽度 → 动态算柱子宽度
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width;
+        setContainerWidth(w);
+      }
+    });
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  // 容器宽 - 左右 30*2 = 内部宽 / 11 桶 = 单桶宽,柱子 = 单桶宽 * 0.7
+  const innerWidth = Math.max(0, containerWidth - 60);
+  const barWidth = containerWidth > 0 ? Math.max(8, Math.floor((innerWidth / 11) * 0.7)) : 24;
 
   const option = useMemo(() => {
     if (!dist) return {};
@@ -61,8 +79,8 @@ export function ChangeDistributionCard({ data }: Props) {
 
     return {
       animation: false,
-      // v2.0.7ae:左右外边距 35
-      grid: { top: 22, right: 35, left: 35, bottom: 20 },
+      // v2.0.7bq:左右外边距 30 统一
+      grid: { top: 22, right: 30, left: 30, bottom: 20 },
       tooltip: { show: false },
       xAxis: {
         type: 'category' as const,
@@ -79,14 +97,13 @@ export function ChangeDistributionCard({ data }: Props) {
             value: v,
             itemStyle: {
               color: colors[i],
-              // v2.0.7af:柱子上方圆角参数 2 倍(2→4)
               borderRadius: [4, 4, 0, 0],
               opacity: v === 0 ? 0.6 : 1,
             },
             label: { color: colors[i] },
           })),
-          // v2.0.7ar:柱子 1.5x(原 36 → 54)
-          barWidth: 54,
+          // v2.0.7bq:柱子宽度动态(根据容器宽度)
+          barWidth: barWidth,
           label: {
             show: true,
             position: 'top' as const,
@@ -97,15 +114,14 @@ export function ChangeDistributionCard({ data }: Props) {
         },
       ],
     };
-  }, [dist]);
+  }, [dist, barWidth]);
 
   if (!dist) {
     return <div style={{ padding: 40, textAlign: 'center', color: '#9ca3af' }}>暂无数据</div>;
   }
 
   return (
-    // v2.0.7ak:整张卡片 flex column — 柱状图固定 227px(从 260 改) + 底部内容固定
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column' }}>
       {/* 柱状图 — 固定 227px */}
       <div style={{ height: 227 }}>
         <ReactECharts
@@ -116,12 +132,12 @@ export function ChangeDistributionCard({ data }: Props) {
         />
       </div>
 
-      {/* v2.0.7ak:柱状图和底部内容之间 30px 间距 */}
+      {/* 柱状图和底部内容之间 30px 间距 */}
       <div style={{ height: 30 }} />
 
-      {/* v2.0.7aj:底部块 — 固定位置 */}
+      {/* 底部块 — 左右 30px 统一 */}
       <div style={{ paddingBottom: 25 }}>
-        <div style={{ display: 'flex', gap: 16, padding: '0 45px 4px', fontSize: 13, color: '#4b5563' }}>
+        <div style={{ display: 'flex', gap: 16, padding: '0 30px 4px', fontSize: 13, color: '#4b5563' }}>
           <span>
             <span style={{ color: '#111827', fontWeight: 600 }}>涨跌</span>{' '}
             <span style={{ color: GREEN }}>跌{downCount}家</span>
@@ -135,7 +151,7 @@ export function ChangeDistributionCard({ data }: Props) {
           </span>
         </div>
 
-        <div style={{ display: 'flex', height: 10, margin: '4px 45px 0', background: '#F3F4F6', gap: 2 }}>
+        <div style={{ display: 'flex', height: 10, margin: '4px 30px 0', background: '#F3F4F6', gap: 2 }}>
           {downPct > 0 && (
             <div
               style={{
