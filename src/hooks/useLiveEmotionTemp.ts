@@ -59,7 +59,7 @@ export function useLiveEmotionTemp(enabled = true): { data: LiveEmotionTemp | nu
     fetchOnce();
     
     // 1 min 拉一次
-    intervalRef.current = setInterval(fetchOnce, 60000);
+    intervalRef.current = setInterval(fetchOnce, 600000);
     
     return () => {
       cancelled = true;

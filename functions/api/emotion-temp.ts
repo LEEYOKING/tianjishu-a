@@ -34,7 +34,7 @@ interface EmotionTempData {
 
 const BASE_SCORE = 50;
 const TIMEOUT_MS = 8000;
-const CACHE_TTL = 60;
+const CACHE_TTL = 600;
 
 // em push2 多个域名(主域被限流时 fallback)
 const EM_DOMAINS = [
