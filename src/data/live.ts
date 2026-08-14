@@ -371,7 +371,7 @@ export async function fetchEMEtfStats(): Promise<{ up: number; down: number; fla
           else if (f3 < 0) down++;
           else flat++;
         }
-        if (up + down + flat > 100) {
+        
           return { up, down, flat };
         }
       }
@@ -381,8 +381,35 @@ export async function fetchEMEtfStats(): Promise<{ up: number; down: number; fla
   return { up: 0, down: 0, flat: 0 };
 }
 
-/** 沪深可转债涨跌统计 — v2.0.7bg:同上(不覆盖,只用 baseData) */
+/** 沪深可转债涨跌统计 — v2.0.7bk:em push2 沪深可转债(主域,多域名 fallback)
+ * — em 可转债编码 m:0+t:23,m:1+t:23 含可转债 + LOF 基金(1350+)
+ * — 跟同花顺可转债分类接近(akshare 299 vs 同花顺 ~300)
+ * — sandbox 拉不到主域 / delay limit 100
+ * — 失败时返 0 走 baseData(5 cron 跳变) */
 export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
+  const domains = [
+    'https://push2.eastmoney.com',
+    'https://82.push2.eastmoney.com',
+    'https://push2delay.eastmoney.com',
+  ];
+  // em 可转债 + LOF:fs=m:0+t:23,m:1+t:23
+  const params = 'pn=1&pz=2000&po=1&np=1&fltt=2&invt=2&fs=m:0+t:23,m:1+t:23&fields=f3,f12,f14&fid=f3';
+  for (const d of domains) {
+    try {
+      const r = await fetch(`${d}/api/qt/clist/get?${params}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
+      const j = await r.json();
+      if (j && j.data && j.data.diff && j.data.diff.length > 0) {
+        let up = 0, down = 0, flat = 0;
+        for (const s of j.data.diff) {
+          const f3 = s.f3 || 0;
+          if (f3 > 0) up++;
+          else if (f3 < 0) down++;
+          else flat++;
+        }
+        return { up, down, flat };
+      }
+    } catch (e) { continue; }
+  }
   return { up: 0, down: 0, flat: 0 };
 }
 
