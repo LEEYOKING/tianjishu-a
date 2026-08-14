@@ -39,7 +39,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
     return (
       <div>
         <PageHeader
-          title={`龙虎榜 · ${_dataDateText}`}
+          title="龙虎榜"
           tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
           generatedAt={idx.generatedAt}
           liveTag="智能解读"
@@ -71,20 +71,14 @@ export default function DragonTiger({ data }: { data: ReportData }) {
   // 过滤有 interpreted 数据的股票
   const hasInterp = sorted.filter(s => s.interpreted).length;
 
-  // v2.0.7bn:title 用数据自身 tradeDate(8/13) — 跟用户预期一致
-  const titleDate = (() => {
-    if (dtMeta?.tradeDateSlash) return dtMeta.tradeDateSlash;
-    const d = idx.tradeDate;
-    if (d.length === 8) return `${d.slice(0, 4)}/${d.slice(4, 6)}/${d.slice(6, 8)}`;
-    return d;
-  })();
+  // v2.0.7bn:title 简化为"龙虎榜",subtitle 显示数据实际日期
   const _isT1Data = _isT1DataDefault(dtMeta, idx);
   const _dataDateText = dtMeta?.tradeDateSlash || idx.tradeDateSlash;
 
   return (
     <div>
       <PageHeader
-        title={`龙虎榜 · ${titleDate}`}
+        title="龙虎榜"
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         liveTag="智能解读"
