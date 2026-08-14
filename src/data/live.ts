@@ -346,68 +346,29 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats> {
   };
 }
 
-/** 沪深 ETF 涨跌统计 — v2.0.7bj:em push2 沪深跨市场 ETF(主域,多域名 fallback)
- * — 之前返 0 不覆盖(8/14 14:18 user 反馈 ETF 740:756 stale,实际 833:707)
- * — em push2 m:1+t:0,m:0+t:1,m:1+t:1,m:0+t:2 是沪深跨市场 ETF 集合(跟同花顺 接近)
- * — sandbox 拉不到主域 / delay 限 100 — 多域名 fallback
- * — 失败时返 0 触发 useLiveData 走 baseData(5 cron 跳变) */
+/** 沪深 ETF 涨跌统计 — v2.0.7bl:em 接口 sandbox/Netlify 都拉不到主域,返 0 走 baseData
+ * — v2.0.7bj em push2 主域沙箱 fetch failed,delay limit 100 → 100:0 写死
+ * — 走 baseData(5 cron 跳变,akshare 真值)虽然 stale 5-30 分钟,至少不是写死
+ * — 真正"实时"需要后端 API(Python akshare,不被 CORS 限制) */
 export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
-  const domains = [
-    'https://push2.eastmoney.com',
-    'https://82.push2.eastmoney.com',
-    'https://push2delay.eastmoney.com',
-  ];
-  // 沪深跨市场 ETF:fs=m:1+t:0,m:0+t:1,m:1+t:1,m:0+t:2,m:1+t:2
-  const params = 'pn=1&pz=2000&po=1&np=1&fltt=2&invt=2&fs=m:1+t:0,m:0+t:1,m:1+t:1,m:0+t:2,m:1+t:2&fields=f3,f12,f14&fid=f3';
-  for (const d of domains) {
-    try {
-      const r = await fetch(`${d}/api/qt/clist/get?${params}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
-      const j = await r.json();
-      if (j && j.data && j.data.diff && j.data.diff.length > 0) {
-        let up = 0, down = 0, flat = 0;
-        for (const s of j.data.diff) {
-          const f3 = s.f3 || 0;
-          if (f3 > 0) up++;
-          else if (f3 < 0) down++;
-          else flat++;
-        }
-        return { up, down, flat };
-      }
-    } catch (e) { continue; }
-  }
-  // fallback:返 0 让 useLiveData 走 baseData
+  // v2.0.7bl:直接返 0 — em 接口 sandbox/Netlify 都拉不到主域,delay 100 写死 100:0
+  // 走 baseData(5 cron 跳变,akshare 真值)虽然 stale 5-30 分钟,至少不是写死
+  // 真正"实时"需要后端 API(Python akshare,不被 CORS 限制)
   return { up: 0, down: 0, flat: 0 };
 }
 
-/** 沪深可转债涨跌统计 — v2.0.7bk:em push2 沪深可转债(主域,多域名 fallback)
- * — em 可转债编码 m:0+t:23,m:1+t:23 含可转债 + LOF 基金(1350+)
- * — 跟同花顺可转债分类接近(akshare 299 vs 同花顺 ~300)
- * — sandbox 拉不到主域 / delay limit 100
- * — 失败时返 0 走 baseData(5 cron 跳变) */
+/** 沪深可转债涨跌统计 — v2.0.7bl:em 接口 sandbox/Netlify 都拉不到主域,返 0 走 baseData
+ * — 跟 ETF 同样的问题:em 主域拉不到,delay 100 写死 100:0
+ * — 走 baseData(5 cron 跳变)虽然是 stale,至少不是写死的 100:0
+ * — 真正"实时"需要后端 API */
 export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
   const domains = [
     'https://push2.eastmoney.com',
     'https://82.push2.eastmoney.com',
     'https://push2delay.eastmoney.com',
   ];
-  // em 可转债 + LOF:fs=m:0+t:23,m:1+t:23
-  const params = 'pn=1&pz=2000&po=1&np=1&fltt=2&invt=2&fs=m:0+t:23,m:1+t:23&fields=f3,f12,f14&fid=f3';
-  for (const d of domains) {
-    try {
-      const r = await fetch(`${d}/api/qt/clist/get?${params}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
-      const j = await r.json();
-      if (j && j.data && j.data.diff && j.data.diff.length > 0) {
-        let up = 0, down = 0, flat = 0;
-        for (const s of j.data.diff) {
-          const f3 = s.f3 || 0;
-          if (f3 > 0) up++;
-          else if (f3 < 0) down++;
-          else flat++;
-        }
-        return { up, down, flat };
-      }
-    } catch (e) { continue; }
-  }
+  // v2.0.7bl:直接返 0 — em 接口 sandbox/Netlify 都拉不到主域,delay 100 写死 100:0
+  // 走 baseData(5 cron 跳变,akshare 真值)虽然 stale 5-30 分钟,至少不是写死
   return { up: 0, down: 0, flat: 0 };
 }
 
