@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, Tooltip, Modal, Popover } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { COLOR_UP, COLOR_DOWN, COLOR_TEXT, COLOR_PURPLE, COLOR_BLUE, COLOR_ORANGE } from '../utils/format';
@@ -223,17 +223,7 @@ function SurgeryInner({ data }: { data?: ReportData }) {
           </div>
         }
       >
-        <div style={{
-            display: 'grid',
-            // v2.0.7cg:屏幕宽度自适应 — 默认 6 列(用户期望),屏幕变窄减少列数
-            // 200px minmax:1200px 容器 = 6 列(默认),800px = 4 列
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: 10,
-          }}>
-          {sealCards.map((card) => (
-            <SealCardItem key={card.code} card={card} onClick={() => setSelectedCard(card)} />
-          ))}
-        </div>
+        <SealCardGrid sealCards={sealCards} onSelect={setSelectedCard} />
       </Card>
 
       {/* 亏钱效应传导链 */}
@@ -451,4 +441,43 @@ function formatMin(m: number): string {
   const h = Math.floor(totalMin / 60);
   const min = Math.floor(totalMin % 60);
   return `${String(h).padStart(2, '0')}:${String(min).padStart(2, '0')}`;
+}
+
+// v2.0.7ch:SealCardGrid 组件 — ResizeObserver + 最多 8 列 + 卡片最小 200px
+function SealCardGrid({ sealCards, onSelect }: { sealCards: SealCard[]; onSelect: (c: SealCard) => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [cols, setCols] = useState(8);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width;
+        // 列数 = min(8, max(1, floor(容器宽/200)))
+        // 200 是卡片最小宽度,gap 10
+        // 容器 2000px / 200 = 10 → 限制 8 列
+        // 容器 1500px / 200 = 7.5 → 7 列
+        // 容器 1000px / 200 = 5 列
+        const newCols = Math.min(8, Math.max(1, Math.floor((w + 10) / 210)));
+        setCols(newCols);
+      }
+    });
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gap: 10,
+      }}
+    >
+      {sealCards.map((card) => (
+        <SealCardItem key={card.code} card={card} onClick={() => onSelect(card)} />
+      ))}
+    </div>
+  );
 }
