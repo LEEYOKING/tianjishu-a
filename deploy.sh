@@ -18,7 +18,7 @@ cp public/surgery.json dist/surgery.json
 cp public/prescan.json dist/prescan.json
 
 echo "=== 5/5 wrangler pages deploy ==="
-wrangler pages deploy dist --project-name=tianjishu-a --branch=main --commit-dirty=true
+npx wrangler pages deploy dist --project-name=tianjishu-a --branch=main --commit-dirty=true
 
 echo ""
 echo "✓ 部署完成! 访问 https://tianjishu-a-6is.pages.dev"
