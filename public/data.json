@@ -1,18 +1,18 @@
 {
   "meta": {
-    "generatedAt": "2026-08-14 22:49:54",
-    "tradeDate": "20260814",
-    "tradeDateSlash": "26/08/14",
+    "generatedAt": "2026-08-15 00:20:27",
+    "tradeDate": "20260815",
+    "tradeDateSlash": "26/08/15",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
   },
   "marketOverview": {
-    "tradeDate": "20260814",
-    "tradeDateSlash": "26/08/14",
-    "generatedAt": "2026-08-14 22:49",
+    "tradeDate": "20260815",
+    "tradeDateSlash": "26/08/15",
+    "generatedAt": "2026-08-15 00:20",
     "marketTurnover": 21561.29,
     "turnoverDiff": -366.7,
     "marketTemperature": {
-      "temperature": 68,
+      "temperature": 73,
       "status": "高温一致",
       "statusDesc": "主升浪,赚钱效应强",
       "details": {
@@ -21,17 +21,17 @@
         "max_boards": 5,
         "broken_rate": "23%",
         "broken_count": 19,
-        "yest_perf": "+0.1%",
-        "yest_perf_value": 0.06,
-        "promote_rate": "14%",
-        "promote_rate_value": 0.13513513513513514,
+        "yest_perf": "+12.1%",
+        "yest_perf_value": 12.07,
+        "promote_rate": "10%",
+        "promote_rate_value": 0.09615384615384616,
         "limit_ratio": "3.7"
       },
       "dimension_scores": {
         "涨跌停对比": 5,
         "连板高度": 8,
         "炸板率": 5,
-        "昨日涨停今日": 5,
+        "昨日涨停今日": 10,
         "晋级率": -5
       }
     },
@@ -106,14 +106,14 @@
     "etfUp": 791,
     "etfDown": 713,
     "etfFlat": 72,
-    "bondUp": 116,
-    "bondDown": 190,
+    "bondUp": 111,
+    "bondDown": 188,
     "bondFlat": 0,
-    "bondStockUp": 142,
-    "bondStockDown": 153,
+    "bondStockUp": 137,
+    "bondStockDown": 148,
     "bondStockFlat": 8,
     "mainCapitalFlow20d": {
-      "date": "2026-08-14",
+      "date": "2026-08-15",
       "total_net_inflow": -202.92,
       "industries": [
         {
@@ -1636,11 +1636,19 @@
     },
     {
       "date": "2026-08-14",
-      "volume": 21561.29,
+      "volume": 21927.99,
       "limitUp": 63,
       "limitDown": 10,
       "up": 2531,
       "down": 2810
+    },
+    {
+      "date": "2026-08-15",
+      "volume": 21561.29,
+      "limitUp": 0,
+      "limitDown": 0,
+      "up": 0,
+      "down": 0
     }
   ],
   "limitUpLadders": [
@@ -16848,14 +16856,6 @@
       "code": "688179",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 24.04,
-          "close": 22.91,
-          "high": 24.68,
-          "low": 22.76,
-          "amount": 14548600.0
-        },
-        {
           "date": "2026-05-22",
           "open": 22.93,
           "close": 23.71,
@@ -17341,14 +17341,6 @@
       "leaderName": "杭钢股份",
       "code": "600126",
       "kline": [
-        {
-          "date": "2026-05-21",
-          "open": 8.575,
-          "close": 8.135,
-          "high": 8.585,
-          "low": 8.125,
-          "amount": 970382.0
-        },
         {
           "date": "2026-05-22",
           "open": 8.205,
@@ -17836,14 +17828,6 @@
       "code": "000831",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 52.121,
-          "close": 51.131,
-          "high": 53.721,
-          "low": 50.961,
-          "amount": 331559.0
-        },
-        {
           "date": "2026-05-22",
           "open": 51.151,
           "close": 51.481,
@@ -18330,14 +18314,6 @@
       "code": "300684",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 63.263,
-          "close": 60.053,
-          "high": 65.363,
-          "low": 59.263,
-          "amount": 189679.0
-        },
-        {
           "date": "2026-05-22",
           "open": 61.143,
           "close": 63.513,
@@ -18823,14 +18799,6 @@
       "leaderName": "中通客车",
       "code": "000957",
       "kline": [
-        {
-          "date": "2026-05-21",
-          "open": 11.291,
-          "close": 11.031,
-          "high": 11.521,
-          "low": 11.011,
-          "amount": 169890.0
-        },
         {
           "date": "2026-05-22",
           "open": 11.101,
@@ -19327,14 +19295,6 @@
       "code": "002674",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 14.57,
-          "close": 14.67,
-          "high": 15.02,
-          "low": 14.36,
-          "amount": 103169.0
-        },
-        {
           "date": "2026-05-22",
           "open": 14.79,
           "close": 14.52,
@@ -19820,14 +19780,6 @@
       "leaderName": "安妮股份",
       "code": "002235",
       "kline": [
-        {
-          "date": "2026-05-21",
-          "open": 11.5,
-          "close": 10.31,
-          "high": 11.76,
-          "low": 10.31,
-          "amount": 686206.0
-        },
         {
           "date": "2026-05-22",
           "open": 10.32,
@@ -20315,14 +20267,6 @@
       "code": "301130",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 32.057,
-          "close": 30.407,
-          "high": 32.647,
-          "low": 30.257,
-          "amount": 19371.0
-        },
-        {
           "date": "2026-05-22",
           "open": 30.607,
           "close": 31.087,
@@ -20809,14 +20753,6 @@
       "code": "600475",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 18.753,
-          "close": 18.983,
-          "high": 19.183,
-          "low": 18.553,
-          "amount": 227898.0
-        },
-        {
           "date": "2026-05-22",
           "open": 19.063,
           "close": 18.873,
@@ -21302,14 +21238,6 @@
       "leaderName": "*ST瑞茂",
       "code": "600180",
       "kline": [
-        {
-          "date": "2026-05-21",
-          "open": 1.57,
-          "close": 1.57,
-          "high": 1.58,
-          "low": 1.57,
-          "amount": 659177.0
-        },
         {
           "date": "2026-05-22",
           "open": 1.49,
@@ -21809,14 +21737,6 @@
       "code": "601825",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 8.496,
-          "close": 8.436,
-          "high": 8.536,
-          "low": 8.426,
-          "amount": 162454.0
-        },
-        {
           "date": "2026-05-22",
           "open": 8.406,
           "close": 8.406,
@@ -22302,14 +22222,6 @@
       "leaderName": "太平洋",
       "code": "601099",
       "kline": [
-        {
-          "date": "2026-05-21",
-          "open": 3.56,
-          "close": 3.54,
-          "high": 3.69,
-          "low": 3.54,
-          "amount": 2099060.0
-        },
         {
           "date": "2026-05-22",
           "open": 3.55,
@@ -22810,14 +22722,6 @@
       "code": "002774",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 12.45,
-          "close": 12.05,
-          "high": 12.6,
-          "low": 11.9,
-          "amount": 77306.0
-        },
-        {
           "date": "2026-05-22",
           "open": 12.09,
           "close": 12.78,
@@ -23303,14 +23207,6 @@
       "leaderName": "盛路通信",
       "code": "002446",
       "kline": [
-        {
-          "date": "2026-05-21",
-          "open": 10.6,
-          "close": 10.09,
-          "high": 10.7,
-          "low": 10.05,
-          "amount": 431475.0
-        },
         {
           "date": "2026-05-22",
           "open": 10.24,
@@ -23802,14 +23698,6 @@
       "code": "002408",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 5.65,
-          "close": 5.5,
-          "high": 5.7,
-          "low": 5.47,
-          "amount": 352360.0
-        },
-        {
           "date": "2026-05-22",
           "open": 5.53,
           "close": 5.57,
@@ -24295,14 +24183,6 @@
       "leaderName": "平煤股份",
       "code": "601666",
       "kline": [
-        {
-          "date": "2026-05-21",
-          "open": 7.37,
-          "close": 7.16,
-          "high": 7.44,
-          "low": 7.15,
-          "amount": 281733.0
-        },
         {
           "date": "2026-05-22",
           "open": 7.16,
@@ -24794,14 +24674,6 @@
       "code": "600673",
       "kline": [
         {
-          "date": "2026-05-21",
-          "open": 38.7,
-          "close": 36.18,
-          "high": 38.87,
-          "low": 35.99,
-          "amount": 734546.0
-        },
-        {
           "date": "2026-05-22",
           "open": 36.53,
           "close": 38.78,
@@ -25286,7 +25158,7 @@
   },
   "surgery": {
     "meta": {
-      "generatedAt": "2026-08-14 22:14:35",
+      "generatedAt": "2026-08-14 23:00:09",
       "tradeDate": "20260814",
       "tradeDateSlash": "26/08/14"
     },
