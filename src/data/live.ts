@@ -362,11 +362,6 @@ export async function fetchEMEtfStats(): Promise<{ up: number; down: number; fla
  * — 走 baseData(5 cron 跳变)虽然是 stale,至少不是写死的 100:0
  * — 真正"实时"需要后端 API */
 export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
-  const domains = [
-    'https://push2.eastmoney.com',
-    'https://82.push2.eastmoney.com',
-    'https://push2delay.eastmoney.com',
-  ];
   // v2.0.7bl:直接返 0 — em 接口 sandbox/Netlify 都拉不到主域,delay 100 写死 100:0
   // 走 baseData(5 cron 跳变,akshare 真值)虽然 stale 5-30 分钟,至少不是写死
   return { up: 0, down: 0, flat: 0 };
