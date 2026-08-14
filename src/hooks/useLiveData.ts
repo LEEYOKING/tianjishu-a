@@ -23,13 +23,14 @@ export function isLiveMarket(): boolean {
 
 // v2.0.7p:9:30 集合竞价前(交易日)— 9:15 集合竞价开始,但 sina 在 9:05 也能拉到少量"集合竞价预报价"
 // 看着像"半数据"(如 1 涨 / 5499 平盘)。这段时间清零 A 股统计(避免显示半数据),
-// 等 9:30 正式开盘后用 live 实时数据
+// v2.0.7bc:用东八区时间判断(海外 user 浏览器本地时间 < 9:30 会被误判为 preMarket)
+// 之前用 new Date() 本地时间 — 海外 user 看到 0(强制清 0 触发)
 export function isPreMarket(): boolean {
-  const now = new Date();
-  const day = now.getDay();
+  const now = new Date(Date.now() + 8 * 3600 * 1000);
+  const day = now.getUTCDay();
   if (day === 0 || day === 6) return false;
-  const mins = now.getHours() * 60 + now.getMinutes();
-  return mins < 9 * 60 + 30;  // 9:30 之前
+  const mins = now.getUTCHours() * 60 + now.getUTCMinutes();
+  return mins < 9 * 60 + 30;  // 东八区 9:30 之前
 }
 
 export interface LiveSnapshot {
