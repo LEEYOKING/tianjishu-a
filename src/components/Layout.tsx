@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useLiveEmotionTemp } from '../hooks/useLiveEmotionTemp';
 import { EmotionThermometer } from './EmotionThermometer';
 import type { ReportData } from '../data/loader';
 
@@ -28,6 +29,7 @@ const Icons = {
 };
 
 export default function Layout({ data, children }: Props) {
+  const liveEmotion = useLiveEmotionTemp(true);
   const location = useLocation();
 
   const counts = {
@@ -138,21 +140,23 @@ export default function Layout({ data, children }: Props) {
           })}
         </nav>
 
-        {/* v2.0.7an:情绪温度计 — 估值/情绪 用 details 固定值(盘后定格,不随 isPreMarket 清零) */}
+        {/* v2.0.7bv:情绪温度计 — 优先用 liveEmotion(1 min 实时),fallback 到 baseData */}
         <div style={{ padding: '0 8px 12px' }}>
-          {data.marketOverview?.marketTemperature && (
-            <EmotionThermometer
-              temperature={data.marketOverview.marketTemperature.temperature}
-              status={data.marketOverview.marketTemperature.status}
-              statusDesc={data.marketOverview.marketTemperature.statusDesc}
-              details={data.marketOverview.marketTemperature.details}
-              dimension_scores={data.marketOverview.marketTemperature.dimension_scores}
-              // v2.0.7an:用 details 里的固定值(盘后定格),不用 marketOverview 实时(em 22:58 会被 isPreMarket 清 0)
-              limitUpCount={data.marketOverview.marketTemperature.details.limit_up}
-              upCount={data.marketOverview.marketTemperature.details.limit_up}
-              downCount={data.marketOverview.marketTemperature.details.limit_down}
-            />
-          )}
+          {(liveEmotion.data || data.marketOverview?.marketTemperature) && (() => {
+            const temp = liveEmotion.data || data.marketOverview!.marketTemperature!;
+            return (
+              <EmotionThermometer
+                temperature={temp.temperature}
+                status={temp.status}
+                statusDesc={temp.statusDesc}
+                details={temp.details}
+                dimension_scores={temp.dimension_scores}
+                limitUpCount={temp.details.limit_up}
+                upCount={temp.details.limit_up}
+                downCount={temp.details.limit_down}
+              />
+            );
+          })()}
         </div>
       </aside>
 
