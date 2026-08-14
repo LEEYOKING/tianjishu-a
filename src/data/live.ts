@@ -346,26 +346,91 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats> {
   };
 }
 
-/** 沪深 ETF 涨跌统计 — v2.0.7bl:em 接口 sandbox/Netlify 都拉不到主域,返 0 走 baseData
- * — v2.0.7bj em push2 主域沙箱 fetch failed,delay limit 100 → 100:0 写死
- * — 走 baseData(5 cron 跳变,akshare 真值)虽然 stale 5-30 分钟,至少不是写死
- * — 真正"实时"需要后端 API(Python akshare,不被 CORS 限制) */
+/** 沪深 ETF 涨跌统计 — v2.0.7ca:用 em push2 + 多域名 fallback
+ * — em 拉 ETF:fs=m:0+t:9,m:1+t:9 沪深 ETF(覆盖 700+ 只)
+ * — Cloudflare Workers 出口 IP 跟 sandbox 不同,可能能拉到(沙箱拉不到)
+ * — 失败返 0 走 baseData(5 cron 跳变,akshare 真值) */
 export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
-  // v2.0.7bl:直接返 0 — em 接口 sandbox/Netlify 都拉不到主域,delay 100 写死 100:0
-  // 走 baseData(5 cron 跳变,akshare 真值)虽然 stale 5-30 分钟,至少不是写死
-  // 真正"实时"需要后端 API(Python akshare,不被 CORS 限制)
+  const EM_DOMAINS = [
+    'https://push2.eastmoney.com',
+    'https://82.push2.eastmoney.com',
+    'https://push2his.eastmoney.com',
+  ];
+  const UA = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Referer': 'https://quote.eastmoney.com/',
+    'Accept': 'application/json, text/plain, */*',
+  };
+
+  for (const domain of EM_DOMAINS) {
+    try {
+      // m:0+t:9 沪 ETF + m:1+t:9 深 ETF
+      const url = `${domain}/api/qt/clist/get?pn=1&pz=2000&po=1&fid=f3&fs=m:0+t:9,m:1+t:9&fields=f12,f3`;
+      const res = await fetch(url, { headers: UA });
+      if (!res.ok) continue;
+      const data = await res.json();
+      if (!data?.data?.diff) continue;
+      let up = 0, down = 0, flat = 0;
+      for (const s of data.data.diff) {
+        const pct = parseFloat(s.f3);
+        if (pct > 0.01) up++;
+        else if (pct < -0.01) down++;
+        else flat++;
+      }
+      if (up + down + flat > 0) {
+        return { up, down, flat };
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+  // 都失败返 0 走 baseData
   return { up: 0, down: 0, flat: 0 };
 }
 
-/** 沪深可转债涨跌统计 — v2.0.7bl:em 接口 sandbox/Netlify 都拉不到主域,返 0 走 baseData
- * — 跟 ETF 同样的问题:em 主域拉不到,delay 100 写死 100:0
- * — 走 baseData(5 cron 跳变)虽然是 stale,至少不是写死的 100:0
- * — 真正"实时"需要后端 API */
+
+/** 沪深可转债涨跌统计 — v2.0.7ca:em push2 + 多域名 fallback
+ * — em 可转债:fs=m:128+t:4,m:129+t:4 沪深可转债(akshare bond_zh_hs_cov_spot 同源)
+ * — Cloudflare Workers 出口 IP 跟 sandbox 不同,可能能拉到(沙箱拉不到)
+ * — 失败返 0 走 baseData(5 cron 跳变)虽然 stale 12-30 分钟,至少不是写死的 100:0 */
 export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
-  // v2.0.7bl:直接返 0 — em 接口 sandbox/Netlify 都拉不到主域,delay 100 写死 100:0
-  // 走 baseData(5 cron 跳变,akshare 真值)虽然 stale 5-30 分钟,至少不是写死
+  const EM_DOMAINS = [
+    'https://push2.eastmoney.com',
+    'https://82.push2.eastmoney.com',
+    'https://push2his.eastmoney.com',
+  ];
+  const UA = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Referer': 'https://quote.eastmoney.com/',
+    'Accept': 'application/json, text/plain, */*',
+  };
+
+  for (const domain of EM_DOMAINS) {
+    try {
+      // m:128+t:4 上交所可转债 + m:129+t:4 深交所可转债
+      const url = `${domain}/api/qt/clist/get?pn=1&pz=2000&po=1&fid=f3&fs=m:128+t:4,m:129+t:4&fields=f12,f3`;
+      const res = await fetch(url, { headers: UA });
+      if (!res.ok) continue;
+      const data = await res.json();
+      if (!data?.data?.diff) continue;
+      let up = 0, down = 0, flat = 0;
+      for (const s of data.data.diff) {
+        const pct = parseFloat(s.f3);
+        if (pct > 0.01) up++;
+        else if (pct < -0.01) down++;
+        else flat++;
+      }
+      if (up + down + flat > 0) {
+        return { up, down, flat };
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+  // 都失败返 0 走 baseData
   return { up: 0, down: 0, flat: 0 };
 }
+
 
 // =============================================================
 // v2.0.7ax:em 申万 90 行业实时(跟 ths 90 细分类 一一对应,不是 sina 49 行业聚合)
