@@ -19,7 +19,7 @@ OUT = os.path.join(os.path.dirname(__file__), '..', 'public', 'data.json')
 OUT = os.path.abspath(OUT)
 
 # v1.9.1 修复:用东八区(Asia/Shanghai)日期 — 8:44 sandbox 8.7 上午 8:44,东八区日期是 8.7
-TODAY = datetime.now()
+TODAY = datetime.utcnow() + timedelta(hours=8)
 TRADE_DATE = TODAY.strftime('%Y%m%d')
 TRADE_DATE_DASH = TODAY.strftime('%Y-%m-%d')
 TRADE_DATE_SLASH = TODAY.strftime('%y/%m/%d')
@@ -1529,6 +1529,13 @@ data = {
     'lowPositionStocks': low_position_stocks,
     'allStrongStocks': all_strong_stocks,  # v1.9.1:全量候选股,客户端自定义筛选
     'dragonTigerStocks': dragon_tiger,
+    'dragonTiger': {  # v2.0.7bn:龙虎榜数据自身的元信息(实际是哪天披露的)
+        'tradeDate': _lhb_recent_ymd,  # 20260813(实际是上一交易日 18:00 披露的数据)
+        'tradeDateDash': _lhb_recent,  # 2026-08-13
+        'tradeDateSlash': f"{_lhb_recent[:4]}/{_lhb_recent[5:7]}/{_lhb_recent[8:10]}",  # 2026/08/13
+        'publishedAt': '18:00',  # A 股龙虎榜披露时间
+        'count': len(dragon_tiger),
+    },
     'sectorKlines': sector_klines,  # v1.9.3:行业领涨股 K 线(用 leader 代理)
 }
 

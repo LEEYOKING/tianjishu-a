@@ -36,6 +36,13 @@ export interface ReportData {
   allStrongStocks?: BreakoutStock[]; // v1.9.1:全量候选股(给客户端自定义筛选)
   sectorKlines?: Record<string, { leaderName: string; code?: string; kline: KLinePoint[] }>; // v1.9.3:行业 leader K 线(用于所处位置量化判断)
   dragonTigerStocks: DragonTigerStock[];
+  dragonTiger?: {                // v2.0.7bn:龙虎榜数据自身的元信息(实际是哪天披露的)
+    tradeDate: string;           // YYYYMMDD,如 20260813
+    tradeDateDash: string;       // YYYY-MM-DD
+    tradeDateSlash: string;      // YYYY/MM/DD
+    publishedAt: string;         // 披露时间 '18:00'
+    count: number;
+  };
   surgery?: any;                 // 全景手术台数据(从 surgery.json 合并)
 }
 
