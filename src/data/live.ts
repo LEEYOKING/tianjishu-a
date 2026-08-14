@@ -388,69 +388,19 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats> {
   };
 }
 
-/** 沪深 ETF 涨跌统计 — v2.0.7bf:用 em push2 沪深跨市场 ETF
- * — fs=m:1+t:0,m:0+t:1,m:1+t:1,m:0+t:2 是沪深跨市场 ETF 集合
- * — 跟同花顺 ETF 分类接近(akshare 1576 vs 同花顺 1553,差 23 只)
- * — 之前用 sina etf_hs_a 返空,fetch_real_data 5 cron 跑 akshare(差 100 只不可避免)
- * — em push2 主域浏览器端直连 OK,sandbox 可能 fetch failed — 多域名 fallback */
+/** 沪深 ETF 涨跌统计 — v2.0.7bg:fetch_real_data 5 cron 跑 akshare(准) + useLiveData 不覆盖
+ * — em push2 ETF 接口在 sandbox 拉不到主域 / delay 限制 100 不全
+ * — 改:useLiveData 不调用 fetchEMEtfStats 实时覆盖,只用 baseData(5 cron 跳变)
+ * — 实时 ETFCard 取消 — 让 user 看 5 cron 跳变的数据(akshare 接口准,差 100 只是分类差异) */
 export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
-  // em push2 ETF 接口(m:1+t:0,m:0+t:1,m:1+t:1,m:0+t:2 是沪深跨市场 ETF)
-  // pn=1 pz=5000 po=1 np=1 拉全部
-  const domains = ['https://push2.eastmoney.com', 'https://push2delay.eastmoney.com', 'https://82.push2.eastmoney.com'];
-  for (const d of domains) {
-    try {
-      const params = 'pn=1&pz=5000&po=1&np=1&fltt=2&invt=2&fs=m:1+t:0,m:0+t:1,m:1+t:1,m:0+t:2,m:1+t:2&fields=f3,f12,f14&fid=f3';
-      const r = await fetch(`${d}/api/qt/clist/get?${params}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
-      const j = await r.json();
-      if (j && j.data && j.data.diff && j.data.diff.length > 0) {
-        let up = 0, down = 0, flat = 0;
-        for (const s of j.data.diff) {
-          const f3 = s.f3 || 0;
-          if (f3 > 0) up++;
-          else if (f3 < 0) down++;
-          else flat++;
-        }
-        return { up, down, flat };
-      }
-    } catch (e) { continue; }
-  }
-  // fallback:用 sina 翻页
-  try {
-    const r = await fetchSinaStatsByNode('etf_hs_a', 5, 100);
-    return { up: r.up, down: r.down, flat: r.flat };
-  } catch (e) {
-    return { up: 0, down: 0, flat: 0 };
-  }
+  // v2.0.7bg:不覆盖 — em push2 sandbox 拉不到 / delay 限制 100 不全
+  // 返 0 触发 useLiveData 走 baseData(5 cron 跳变)
+  return { up: 0, down: 0, flat: 0 };
 }
 
-/** 沪深可转债涨跌统计 — v2.0.7bf:用 em push2 沪深可转债
- * — fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024 是沪深可转债集合
- * — 跟同花顺可转债分类接近(akshare 299 vs 同花顺 ~300) */
+/** 沪深可转债涨跌统计 — v2.0.7bg:同上(不覆盖,只用 baseData) */
 export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
-  const domains = ['https://push2.eastmoney.com', 'https://push2delay.eastmoney.com', 'https://82.push2.eastmoney.com'];
-  for (const d of domains) {
-    try {
-      const params = 'pn=1&pz=5000&po=1&np=1&fltt=2&invt=2&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f3,f12,f14&fid=f3';
-      const r = await fetch(`${d}/api/qt/clist/get?${params}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
-      const j = await r.json();
-      if (j && j.data && j.data.diff && j.data.diff.length > 0) {
-        let up = 0, down = 0, flat = 0;
-        for (const s of j.data.diff) {
-          const f3 = s.f3 || 0;
-          if (f3 > 0) up++;
-          else if (f3 < 0) down++;
-          else flat++;
-        }
-        return { up, down, flat };
-      }
-    } catch (e) { continue; }
-  }
-  try {
-    const r = await fetchSinaStatsByNode('zhquan', 3, 100);
-    return { up: r.up, down: r.down, flat: r.flat };
-  } catch (e) {
-    return { up: 0, down: 0, flat: 0 };
-  }
+  return { up: 0, down: 0, flat: 0 };
 }
 
 // =============================================================
