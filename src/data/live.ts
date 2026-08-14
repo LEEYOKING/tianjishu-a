@@ -334,9 +334,9 @@ interface EMMarketStats {
 
 /** 通用 sina vip 节点统计 — 翻 N 页累计,返回 up/down/flat/limit/turnover/total */
 async function fetchSinaStatsByNode(
-  node: string,
-  maxPages: number,
-  num = 100,
+  _node: string,
+  _maxPages: number,
+  _num = 100,
 ): Promise<{ up: number; down: number; flat: number; limitUp: number; limitDown: number; totalTurnover: number; total: number }> {
   // v2.0.7bg:已废弃,保留函数签名避免 lint 错误
   return { up: 0, down: 0, flat: 0, limitUp: 0, limitDown: 0, totalTurnover: 0, total: 0 };
