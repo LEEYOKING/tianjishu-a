@@ -261,12 +261,18 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       next.marketOverview.upCount = live.market!.upCount;
       next.marketOverview.downCount = live.market!.downCount;
       next.marketOverview.flatCount = live.market!.flatCount;
-      // v2.0.7bh:涨跌停 不被 em 覆盖(跟 Netlify v2.0.7ac 一致)
-      // — Netlify v2.0.7ac em 9% 阈值算 8/12 跟同花顺 差 — user 看到 53:8 跟同花顺 8/12 53 涨停一致
-      // — baseData 涨停池 73:9 跟 em 实时 46:5 差异 27/4(akshare 跟 em 阈值算法不同)
-      // — akshare stock_zt_pool_em 涨停池 + 炸板池 = 涨停过总数 — 跟同花顺 接近
-      // — 改:涨跌停保留 baseData(5 cron 跳变,akshare 真值)
-      // — preMarket / 跨日 时 mergeLiveData 已清 0
+      // v2.0.7bi:涨跌停 = em 实时 9.99% 阈值 算(盘中 9:30-15:00)
+      // — em 9.99% 阈值 ≈ 当前封板(跟同花顺"当前封板"接近)
+      // — 8/14 14:09 sandbox em 9.99% 阈值算 46(差同花顺 6),14:15 em 算 50-55(跟同花顺 52 接近)
+      // — 之前用 baseData 涨停池 73:9 = "当日封板过"(含已开板),跟同花顺"当前封板 52"差 21
+      // — 改成 em 实时覆盖
+      // — preMarket / 跨日 已清 0
+      if (live.market!.limitUpCount > 0) {
+        next.marketOverview.limitUpCount = live.market!.limitUpCount;
+      }
+      if (live.market!.limitDownCount > 0) {
+        next.marketOverview.limitDownCount = live.market!.limitDownCount;
+      }
       next.marketOverview.upPercent = mktTotal > 0
         ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
         : 0;
