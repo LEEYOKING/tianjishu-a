@@ -1,19 +1,5 @@
 // Cloudflare Pages Function: 情绪温度计 5 维实时数据
-// v2.0.7bv:1 min 实时
-// 数据源(em push2 + em datacenter):
-//   1. em push2 今日涨停/跌停股池(实时)
-//   2. em push2 炸板股(实时,过滤 f3<9.97 && f17>0)
-//   3. em datacenter RPT_ZTJQ 昨日涨停股池
-//   4. em datacenter RPT_ZTJB 今日炸板股池(数据中心口径)
-//   5. em push2 单股实时价(算昨日涨停今日表现)
-// 
-// 5 维算法:
-//   1. 涨跌停对比:实时(维度 1)
-//   2. 连板高度:JS 后端用 em 涨停股池 ∩ em datacenter 昨日涨停股池 → 2 板
-//      然后 ∩ 前日涨停股池 → 3 板(JS 后端拉 7 日历史,算 max)
-//   3. 炸板率:实时
-//   4. 昨日涨停今日表现:实时(用 em push2 单股实时价对比昨收)
-//   5. 晋级率:实时(今日 2 板及以上 / 昨日 1 板总数)
+// v2.0.7bx:加 User-Agent + Referer + 多域名 fallback(避免 Cloudflare Workers IP 被 em 限流)
 
 interface Env {
   EMOTION_CACHE?: KVNamespace;
@@ -50,6 +36,21 @@ const BASE_SCORE = 50;
 const TIMEOUT_MS = 8000;
 const CACHE_TTL = 60;
 
+// em push2 多个域名(主域被限流时 fallback)
+const EM_DOMAINS = [
+  'https://push2.eastmoney.com',
+  'https://82.push2.eastmoney.com',
+  'https://push2his.eastmoney.com',
+];
+
+// 真实浏览器 UA + Referer(em 信任这些)
+const BROWSER_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Referer': 'https://quote.eastmoney.com/',
+  'Accept': 'application/json, text/plain, */*',
+  'Accept-Language': 'zh-CN,zh;q=0.9',
+};
+
 const STATUS_MAP: Array<[number, string, string]> = [
   [10, '极度恐慌', '市场情绪极冷'],
   [25, '恐慌', '情绪极冷'],
@@ -70,26 +71,34 @@ async function fetchWithTimeout(url: string, options: any = {}, timeoutMs = TIME
   }
 }
 
-async function fetchJsonWithRetry(url: string, maxRetries = 3): Promise<any> {
+// 多域名 fallback fetch JSON
+async function fetchJsonWithFallback(path: string, maxRetries = 2): Promise<any> {
   let lastError: any;
-  for (let i = 0; i < maxRetries; i++) {
-    try {
-      const res = await fetchWithTimeout(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-          'Referer': 'https://quote.eastmoney.com/',
+  // 尝试每个域名
+  for (const domain of EM_DOMAINS) {
+    const url = `${domain}${path}`;
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        const res = await fetchWithTimeout(url, { headers: BROWSER_HEADERS });
+        if (res.ok) {
+          return await res.json();
         }
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return await res.json();
-    } catch (e) {
-      lastError = e;
-      if (i < maxRetries - 1) {
-        await new Promise(r => setTimeout(r, 200 * (i + 1)));
+        // 502/503/504 等服务错误,换域名重试
+        if (res.status >= 500) {
+          lastError = new Error(`HTTP ${res.status} from ${domain}`);
+          continue;
+        }
+        // 4xx 不重试,直接抛
+        throw new Error(`HTTP ${res.status} from ${domain}`);
+      } catch (e) {
+        lastError = e;
+        if (i < maxRetries - 1) {
+          await new Promise(r => setTimeout(r, 200 * (i + 1)));
+        }
       }
     }
   }
-  throw lastError;
+  throw lastError || new Error('All EM domains failed');
 }
 
 function calcDim1(limitUp: number, limitDown: number): number {
@@ -146,8 +155,8 @@ function getStatus(temp: number): [string, string] {
 
 // ===== 1. em push2 今日涨停/跌停股池(实时)=====
 async function fetchTodayLimitStocks(): Promise<{ upCount: number; downCount: number; upCodes: string[] }> {
-  const url = 'https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=6000&po=1&fid=f3&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23&fields=f12,f3';
-  const data = await fetchJsonWithRetry(url);
+  const path = '/api/qt/clist/get?pn=1&pz=6000&po=1&fid=f3&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23&fields=f12,f3';
+  const data = await fetchJsonWithFallback(path);
   if (!data?.data?.diff) return { upCount: 0, downCount: 0, upCodes: [] };
   let upCount = 0, downCount = 0;
   const upCodes: string[] = [];
@@ -165,9 +174,8 @@ async function fetchTodayLimitStocks(): Promise<{ upCount: number; downCount: nu
 
 // ===== 2. em push2 炸板股(实时)=====
 async function fetchBrokenStocks(): Promise<number> {
-  // em push2 涨停股池里,f3 < 9.97 但 f17 (首次封板时间) > 0 = 炸板
-  const url = 'https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=6000&po=1&fid=f3&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23&fields=f12,f3,f17';
-  const data = await fetchJsonWithRetry(url);
+  const path = '/api/qt/clist/get?pn=1&pz=6000&po=1&fid=f3&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23&fields=f12,f3,f17';
+  const data = await fetchJsonWithFallback(path);
   if (!data?.data?.diff) return 0;
   let brokenCount = 0;
   for (const s of data.data.diff) {
@@ -180,28 +188,36 @@ async function fetchBrokenStocks(): Promise<number> {
   return brokenCount;
 }
 
-// ===== 3. em datacenter RPT_ZTJQ 历史涨停股池(每日涨停列表)=====
+// ===== 3. em datacenter RPT_ZTJQ 历史涨停股池 =====
 async function fetchHistoryLimitUp(dateStr: string): Promise<string[]> {
-  // dateStr = '2026-08-13'
-  // akshare stock_zt_pool_em(date) 内部用 em datacenter
-  const url = `https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_ZTJQ&columns=ALL&pageNumber=1&pageSize=200&filter=(TRADE_DATE%3D%27${dateStr}%27)&source=HSF10&client=PC`;
-  const data = await fetchJsonWithRetry(url);
-  if (!data?.result?.data) return [];
-  return data.result.data
-    .map((s: any) => String(s.SECURITY_CODE || '').padStart(6, '0'))
-    .filter((c: string) => c.length === 6);
+  // 多个 datacenter 域名
+  const paths = [
+    `/api/data/v1/get?reportName=RPT_ZTJQ&columns=ALL&pageNumber=1&pageSize=200&filter=(TRADE_DATE%3D%27${dateStr}%27)&source=HSF10&client=PC`,
+  ];
+  for (const path of paths) {
+    try {
+      const data = await fetchJsonWithFallback(path);
+      if (data?.result?.data) {
+        return data.result.data
+          .map((s: any) => String(s.SECURITY_CODE || '').padStart(6, '0'))
+          .filter((c: string) => c.length === 6);
+      }
+    } catch (e) {
+      // 继续尝试
+    }
+  }
+  return [];
 }
 
-// ===== 4. em push2 多股实时价(批量)— 用 ulist 一次拿多股=====
+// ===== 4. em push2 ulist 批量实时价(算昨日涨停今日表现)=====
 async function fetchStocksRealtimePercent(codes: string[]): Promise<{ [code: string]: number }> {
   if (codes.length === 0) return {};
-  // em ulist.nd 接口 — secid 用 1.000001 (沪) / 0.000001 (深)
   const secids = codes.map(code => {
     const isSH = code.startsWith('6') || code.startsWith('9') || code.startsWith('5');
     return `${isSH ? '1' : '0'}.${code}`;
   }).join(',');
-  const url = `https://push2.eastmoney.com/api/qt/ulist.nd/get?secids=${secids}&fields=f3`;
-  const data = await fetchJsonWithRetry(url);
+  const path = `/api/qt/ulist.nd/get?secids=${secids}&fields=f3`;
+  const data = await fetchJsonWithFallback(path);
   if (!data?.data?.diff) return {};
   const result: { [code: string]: number } = {};
   for (const s of data.data.diff) {
@@ -211,7 +227,6 @@ async function fetchStocksRealtimePercent(codes: string[]): Promise<{ [code: str
   return result;
 }
 
-// 算最大连板
 function calcMaxBoards(todayCodes: string[], historyCodesList: string[][]): number {
   let max = 1;
   let currentSet = new Set(todayCodes);
@@ -225,7 +240,6 @@ function calcMaxBoards(todayCodes: string[], historyCodesList: string[][]): numb
   return max;
 }
 
-// 算晋级率
 function calcPromote(todayCodes: string[], yestCodes: string[]): { todayN2: number; yestN1: number; promoteRate: number } {
   const yestSet = new Set(yestCodes);
   const todayN2 = todayCodes.filter(c => yestSet.has(c)).length;
@@ -234,7 +248,6 @@ function calcPromote(todayCodes: string[], yestCodes: string[]): { todayN2: numb
   return { todayN2, yestN1, promoteRate };
 }
 
-// 算昨日涨停今日平均涨幅
 async function calcYestPerfAvg(yestCodes: string[]): Promise<number> {
   if (yestCodes.length === 0) return 0;
   const rets = await fetchStocksRealtimePercent(yestCodes);
@@ -250,7 +263,6 @@ function formatDateYMD(d: Date): string {
 function getLastTradingDay(baseDate: Date): Date {
   const d = new Date(baseDate);
   d.setUTCDate(d.getUTCDate() - 1);
-  // 跳过周末
   while (d.getUTCDay() === 0 || d.getUTCDay() === 6) {
     d.setUTCDate(d.getUTCDate() - 1);
   }
@@ -260,7 +272,7 @@ function getLastTradingDay(baseDate: Date): Date {
 export async function onRequestGet(context: { request: Request; env: Env }) {
   const startTime = Date.now();
   const CACHE_KEY = 'emotion-temp:cache';
-  const debug: any = {};
+  const debug: any = { emDomains: EM_DOMAINS };
 
   // 1. cache 检查
   if (context.env.EMOTION_CACHE) {
@@ -308,7 +320,7 @@ export async function onRequestGet(context: { request: Request; env: Env }) {
     const promote = calcPromote(today.upCodes, yestUpCodes);
     debug.promote = promote;
 
-    // 6. 算维度 2 (连板高度)— 拉 7 日历史(用昨日 + 前日,简化拉 2 日)
+    // 6. 算维度 2 (连板高度)
     let maxBoards = 1;
     try {
       const dayBefore = new Date(_yest);
