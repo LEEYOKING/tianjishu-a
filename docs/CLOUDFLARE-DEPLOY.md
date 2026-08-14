@@ -35,7 +35,7 @@ Cloudflare 自动:
 2. 跑 `npm ci && npm run build`
 3. 部署 `dist/` 到全球 CDN
 
-完成后给你一个域名:`https://tianjishu-a.pages.dev`
+完成后给你一个域名:`https://tianjishu-a-6is.pages.dev`(`-6is` 是你 Cloudflare 账号 suffix)
 
 ### 步骤 5:绑定自定义域名(可选)
 
@@ -49,7 +49,7 @@ Cloudflare 自动:
 之后你每次 `git push origin main`:
 - Cloudflare 自动触发部署
 - 1-2 分钟完成
-- `https://tianjishu-a.pages.dev` 自动更新到最新版
+- `https://tianjishu-a-6is.pages.dev` 自动更新到最新版
 
 ## 国内访问速度
 
