@@ -1,0 +1,13 @@
+# Cloudflare Pages 配置 — v2.0.7br
+# Git 集成后,主要 build/output 配在 Cloudflare 后台
+# wrangler.toml 用于 SPA fallback / functions / 环境变量
+
+name = "tianjishu-a"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+# SPA fallback: 所有路径 → /index.html(让 react-router 处理路由)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

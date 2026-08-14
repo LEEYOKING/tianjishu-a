@@ -1,0 +1,46 @@
+# v2.0.7br: GitHub Actions 自动部署到 Cloudflare Pages
+# 触发:推 main 分支自动部署到 production
+# 需要 secrets: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
+
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+
+      - name: Build
+        run: npm run build
+
+      - name: Copy data files
+        run: |
+          cp public/data.json dist/data.json
+          cp public/surgery.json dist/surgery.json
+          cp public/prescan.json dist/prescan.json
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: tianjishu-a
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

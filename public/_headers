@@ -1,0 +1,32 @@
+# Cloudflare Pages 自定义响应头 — v2.0.7br
+
+# data.json / surgery.json: 强制不缓存,实时拉最新
+/data.json
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+/surgery.json
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+/prescan.json
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+# JS / CSS / 图片: 1 年强缓存(文件名带 hash,内容变了 hash 也变)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 字体 / logo
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/logo-*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 安全 headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
