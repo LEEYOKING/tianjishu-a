@@ -21,4 +21,4 @@ echo "=== 5/5 wrangler pages deploy ==="
 wrangler pages deploy dist --project-name=tianjishu-a --branch=main --commit-dirty=true
 
 echo ""
-echo "✓ 部署完成! 访问 https://tianjishu-a.pages.dev"
+echo "✓ 部署完成! 访问 https://tianjishu-a-6is.pages.dev"
