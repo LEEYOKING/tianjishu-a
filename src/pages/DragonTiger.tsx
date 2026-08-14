@@ -9,17 +9,20 @@ import { SmartDragonTigerCard, type InterpretedData } from '../components/SmartD
 // 表格容器样式(用户 #18 / #6 反馈:全站圆角 14 + 新阴影)
 const TABLE_STYLE = { background: '#fff', borderRadius: 14, boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04), 0 0 30px 5px rgba(0, 0, 0, 0.02)', border: '1px solid #E5E7EB', padding: 4 };
 
-// v2.0.7bn:龙虎榜 T-1 判断 — 用数据自身 tradeDate(8/13) 跟 todayYMD(8/14)对比
-function _isT1DataDefault(dtMeta: any, idx: any): boolean {
-  if (dtMeta?.tradeDate) {
-    const _now8 = new Date(Date.now() + 8 * 3600 * 1000);
-    const _todayYMD = `${_now8.getUTCFullYear()}${String(_now8.getUTCMonth() + 1).padStart(2, '0')}${String(_now8.getUTCDate()).padStart(2, '0')}`;
-    return dtMeta.tradeDate !== _todayYMD;
-  }
-  return idx.tradeDate !== (() => {
-    const _now8 = new Date(Date.now() + 8 * 3600 * 1000);
-    return `${_now8.getUTCFullYear()}${String(_now8.getUTCMonth() + 1).padStart(2, '0')}${String(_now8.getUTCDate()).padStart(2, '0')}`;
-  })();
+// v2.0.7cd:龙虎榜 T-1 判断逻辑修正
+// 盘中(9:30-15:00)→ T-1(显示"数据截至 {dtMeta.tradeDate} 收盘")— 15:00 收盘后龙虎榜还在披露中
+// 盘后(15:00 后)+ 周末 + 节假日 → T(不显示 T-1 提示,数据就是今天或最后交易日)
+function _isT1DataDefault(_dtMeta: any, _idx: any): boolean {
+  const _now8 = new Date(Date.now() + 8 * 3600 * 1000);
+  const _dayOfWeek = _now8.getUTCDay();  // 0=周日, 6=周六
+  const _isWeekend = _dayOfWeek === 0 || _dayOfWeek === 6;
+  // 周末/节假日永远 T(没新数据,显示最后交易日的)
+  if (_isWeekend) return false;
+  const _nowMinutes = _now8.getUTCHours() * 60 + _now8.getUTCMinutes();
+  const _isIntraday = _nowMinutes >= 9*60+30 && _nowMinutes < 15*60;  // 9:30-15:00
+  // 盘中 → T-1(因为 9:35/10:30/13:30/14:30 cron 跑时 18:00 还没披露,tradeDate=上一交易日)
+  // 盘后(15:00 后)→ T(15:35 cron 跑过了,tradeDate=今天)
+  return _isIntraday;
 }
 
 export default function DragonTiger({ data }: { data: ReportData }) {
