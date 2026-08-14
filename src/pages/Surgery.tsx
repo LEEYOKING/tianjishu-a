@@ -225,9 +225,9 @@ function SurgeryInner({ data }: { data?: ReportData }) {
       >
         <div style={{
             display: 'grid',
-            // v2.0.7cf:屏幕宽度自适应 — 屏幕变窄自动减少每行列数
-            // 最小 120px 卡片 + 10px gap,容器宽度够就 auto-fit
-            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+            // v2.0.7cg:屏幕宽度自适应 — 默认 6 列(用户期望),屏幕变窄减少列数
+            // 200px minmax:1200px 容器 = 6 列(默认),800px = 4 列
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
             gap: 10,
           }}>
           {sealCards.map((card) => (
