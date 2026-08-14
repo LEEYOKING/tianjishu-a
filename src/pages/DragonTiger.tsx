@@ -68,6 +68,13 @@ export default function DragonTiger({ data }: { data: ReportData }) {
     return d;
   })();
 
+  // v2.0.7bg:龙虎榜数据是 T-1 收盘数据(交易所 15:30 后才公布当日上榜)
+  // 盘中:idx.tradeDate 跟 todayYMD 不一致(8/14 盘中 idx.tradeDate 仍是 8/13)
+  const _now8 = new Date(Date.now() + 8 * 3600 * 1000);
+  const _todayYMD = `${_now8.getUTCFullYear()}${String(_now8.getUTCMonth() + 1).padStart(2, '0')}${String(_now8.getUTCDate()).padStart(2, '0')}`;
+  const _isT1Data = idx.tradeDate !== _todayYMD;
+  const _dataDateText = idx.tradeDateSlash || idx.tradeDate;
+
   return (
     <div>
       <PageHeader
