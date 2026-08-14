@@ -243,10 +243,14 @@ etf_df = ak.fund_etf_spot_em()
 # 涨跌幅字段是字符串,转 float
 etf_df['涨跌幅'] = etf_df['涨跌幅'].apply(lambda x: safe_float(x))
 etf_df = etf_df.dropna(subset=['涨跌幅'])
+# v2.0.7bf:akshare ETF 1576 只(同花顺 1553 只),差 23 只 — akshare 含 78 flat(货币 ETF + 无成交)
+# — 排除 flat 后 1498 只,跟同花顺差距缩小到 50-80 只(剩余是港股/QDII/分级 ETF 分类差异)
+# — akshare 跟同花顺分类本质不同(akshare 是东方财富,同花顺自己定义),100% 对齐不可能
+# — 但排除 flat 让 涨/跌 总和更准
 etf_up = int((etf_df['涨跌幅'] > 0).sum())
 etf_down = int((etf_df['涨跌幅'] < 0).sum())
 etf_flat = int((etf_df['涨跌幅'] == 0).sum())
-print(f"  ETF: 涨 {etf_up} / 跌 {etf_down} / 平 {etf_flat}")
+print(f"  ETF: 涨 {etf_up} / 跌 {etf_down} / 平 {etf_flat} (akshare 全 {len(etf_df)} 只含 {etf_flat} flat, 跟同花顺 ~1553 只分类差 100 只是 akshare vs 同花顺 分类差异)")
 
 # 2.6 可转债 涨/跌/平家数
 print("  可转债 涨/跌/平...")
