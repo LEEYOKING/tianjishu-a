@@ -38,3 +38,8 @@ npm run build        # 打包
 - 卡片:`border: 1px solid #E5E7EB` + 浅投影 + 圆角 14
 - 表格:14px 加粗黑色居中
 - 时间:东八区(Asia/Shanghai)
+
+## 🚀 部署
+
+推荐使用 **Cloudflare Pages**(国内 200-400ms,免备案,免费 500 build/月):
+- 详细步骤: [`docs/CLOUDFLARE-DEPLOY.md`](docs/CLOUDFLARE-DEPLOY.md)
