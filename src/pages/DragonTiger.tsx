@@ -18,6 +18,14 @@ export default function DragonTiger({ data }: { data: ReportData }) {
 
   if (selectedIdx !== null) {
     const stock = sorted[selectedIdx];
+    // v2.0.7bg:龙虎榜数据是 T-1 收盘数据(交易所 15:30 后才公布当日上榜)
+    // 盘中:idx.tradeDate 已经是 8:00 hook 切的今天日期(8/14)
+    // 但 fetch_real_data 跑出的龙虎榜实际是上一交易日(8/13)的上榜股
+    // — 用 idx.tradeDate 跟 上一交易日 tradeDateSlash 对比,显示提示
+    const _now8 = new Date(Date.now() + 8 * 3600 * 1000);
+    const _todayYMD = `${_now8.getUTCFullYear()}${String(_now8.getUTCMonth() + 1).padStart(2, '0')}${String(_now8.getUTCDate()).padStart(2, '0')}`;
+    const _isT1Data = idx.tradeDate !== _todayYMD;
+    const _dataDateText = idx.tradeDateSlash || idx.tradeDate;
     return (
       <div>
         <PageHeader
@@ -25,7 +33,9 @@ export default function DragonTiger({ data }: { data: ReportData }) {
           tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
           generatedAt={idx.generatedAt}
           liveTag="智能解读"
-          subtitle="机构/游资买卖席位"
+          subtitle={_isT1Data
+            ? `机构/游资买卖席位 · ⚠️ 数据截至 ${_dataDateText} 收盘(${_todayYMD.slice(0,4)}/${_todayYMD.slice(4,6)}/${_todayYMD.slice(6,8)} 盘中未公布当日龙虎榜)`
+            : '机构/游资买卖席位 · 当日数据'}
           lastUpdatedAt={useLive().fetchedAt}
         />
         <div style={{ marginBottom: 16 }}>
@@ -65,7 +75,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         liveTag="智能解读"
-        subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}`}
+        subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}${_isT1Data ? ` · ⚠️ 数据截至 ${_dataDateText} 收盘` : ''}`}
         lastUpdatedAt={useLive().fetchedAt}
       />
       <div className="dt-grid">
