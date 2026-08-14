@@ -19,7 +19,7 @@ OUT = os.path.join(os.path.dirname(__file__), '..', 'public', 'data.json')
 OUT = os.path.abspath(OUT)
 
 # v1.9.1 修复:用东八区(Asia/Shanghai)日期 — 8:44 sandbox 8.7 上午 8:44,东八区日期是 8.7
-TODAY = datetime.utcnow() + timedelta(hours=8)
+TODAY = datetime.now()
 TRADE_DATE = TODAY.strftime('%Y%m%d')
 TRADE_DATE_DASH = TODAY.strftime('%Y-%m-%d')
 TRADE_DATE_SLASH = TODAY.strftime('%y/%m/%d')

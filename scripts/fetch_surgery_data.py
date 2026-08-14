@@ -20,7 +20,7 @@ OUT = os.path.join(OUT_DIR, 'surgery.json')
 PRE = os.path.join(OUT_DIR, 'prescan.json')
 
 # v1.9.1:用东八区日期
-TODAY = datetime.utcnow() + timedelta(hours=8)
+TODAY = datetime.now()
 TRADE_DATE = TODAY.strftime('%Y%m%d')
 TRADE_DATE_DASH = TODAY.strftime('%Y-%m-%d')
 YESTERDAY = (TODAY - timedelta(days=1)).strftime('%Y%m%d')

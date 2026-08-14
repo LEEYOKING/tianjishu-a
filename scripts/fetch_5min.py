@@ -144,9 +144,9 @@ except Exception:
 # 用 akshare 的 zt_pool(如果可用)
 try:
     import akshare as ak
-    zt_df = ak.stock_zt_pool_em(date=(datetime.utcnow()+timedelta(hours=8)).strftime('%Y%m%d'))
+    zt_df = ak.stock_zt_pool_em(date=(datetime.now()).strftime('%Y%m%d'))
     limit_up = len(zt_df)
-    dt_df = ak.stock_zt_pool_dtgc_em(date=(datetime.utcnow()+timedelta(hours=8)).strftime('%Y%m%d'))
+    dt_df = ak.stock_zt_pool_dtgc_em(date=(datetime.now()).strftime('%Y%m%d'))
     limit_down = len(dt_df)
     print(f'  涨停 {limit_up} 跌停 {limit_down}(akshare)')
 except Exception as e:
@@ -182,7 +182,7 @@ d['marketOverview']['limitUpCount'] = limit_up
 d['marketOverview']['limitDownCount'] = limit_down
 
 # update meta
-now_east8 = datetime.utcnow() + timedelta(hours=8)
+now_east8 = datetime.now()
 d['meta']['generatedAt'] = now_east8.strftime('%Y-%m-%d %H:%M:%S')
 d['meta']['tradeDate'] = now_east8.strftime('%Y%m%d')
 
