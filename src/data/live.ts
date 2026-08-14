@@ -371,9 +371,7 @@ export async function fetchEMEtfStats(): Promise<{ up: number; down: number; fla
           else if (f3 < 0) down++;
           else flat++;
         }
-        
-          return { up, down, flat };
-        }
+        return { up, down, flat };
       }
     } catch (e) { continue; }
   }
