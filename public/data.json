@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-14 14:16:47",
+    "generatedAt": "2026-08-14 14:20:20",
     "tradeDate": "20260814",
     "tradeDateSlash": "26/08/14",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
@@ -8,24 +8,24 @@
   "marketOverview": {
     "tradeDate": "20260814",
     "tradeDateSlash": "26/08/14",
-    "generatedAt": "2026-08-14 14:16",
-    "marketTurnover": 18268.35,
-    "turnoverDiff": -6901.0,
+    "generatedAt": "2026-08-14 14:20",
+    "marketTurnover": 18588.25,
+    "turnoverDiff": -6581.1,
     "marketTemperature": {
       "temperature": 63,
       "status": "高温一致",
       "statusDesc": "主升浪,赚钱效应强",
       "details": {
-        "limit_up": 53,
+        "limit_up": 56,
         "limit_down": 8,
         "max_boards": 5,
-        "broken_rate": "28%",
+        "broken_rate": "27%",
         "broken_count": 21,
-        "yest_perf": "-0.2%",
-        "yest_perf_value": -0.25,
+        "yest_perf": "-0.1%",
+        "yest_perf_value": -0.08,
         "promote_rate": "14%",
         "promote_rate_value": 0.13513513513513514,
-        "limit_ratio": "6.6"
+        "limit_ratio": "7.0"
       },
       "dimension_scores": {
         "涨跌停对比": 10,
@@ -37,444 +37,444 @@
     },
     "changeDistribution": {
       "down_ge_10": 2,
-      "down_10_to_7": 42,
-      "down_7_to_5": 47,
-      "down_5_to_3": 225,
-      "down_3_to_0": 2633,
-      "flat": 192,
-      "up_0_to_3": 1936,
-      "up_3_to_5": 257,
-      "up_5_to_7": 99,
-      "up_7_to_10": 57,
-      "up_ge_10": 52
+      "down_10_to_7": 41,
+      "down_7_to_5": 49,
+      "down_5_to_3": 235,
+      "down_3_to_0": 2636,
+      "flat": 195,
+      "up_0_to_3": 1897,
+      "up_3_to_5": 269,
+      "up_5_to_7": 103,
+      "up_7_to_10": 62,
+      "up_ge_10": 53
     },
-    "shTurnover": 8404.59,
-    "szTurnover": 9863.76,
+    "shTurnover": 8502.53,
+    "szTurnover": 10085.72,
     "bjTurnover": 0.0,
-    "upCount": 2401,
-    "downCount": 2949,
-    "flatCount": 192,
-    "upPercent": 43.32,
+    "upCount": 2384,
+    "downCount": 2963,
+    "flatCount": 195,
+    "upPercent": 43.02,
     "stockTotal": 5542,
-    "limitUpCount": 74,
+    "limitUpCount": 77,
     "limitDownCount": 8,
     "brokenLimitCount": 21,
     "indices": [
       {
         "name": "上证指数",
-        "point": 3928.51,
-        "changeAmount": 1.54,
-        "changePercent": 0.04,
-        "turnover": 8404.59
+        "point": 3928.09,
+        "changeAmount": 1.13,
+        "changePercent": 0.03,
+        "turnover": 8502.53
       },
       {
         "name": "深证成指",
-        "point": 14356.34,
-        "changeAmount": 66.9,
-        "changePercent": 0.47,
-        "turnover": 9757.63
+        "point": 14358.76,
+        "changeAmount": 69.32,
+        "changePercent": 0.48,
+        "turnover": 9871.28
       },
       {
         "name": "创业板指",
-        "point": 3625.17,
-        "changeAmount": 39.13,
-        "changePercent": 1.09,
-        "turnover": 4682.25
+        "point": 3626.1,
+        "changeAmount": 40.06,
+        "changePercent": 1.12,
+        "turnover": 4739.85
       },
       {
         "name": "科创50",
-        "point": 1716.69,
-        "changeAmount": -1.06,
-        "changePercent": -0.06,
-        "turnover": 852.81
+        "point": 1715.83,
+        "changeAmount": -1.92,
+        "changePercent": -0.11,
+        "turnover": 862.54
       },
       {
         "name": "沪深300",
-        "point": 4667.39,
-        "changeAmount": 3.44,
+        "point": 4667.34,
+        "changeAmount": 3.38,
         "changePercent": 0.07,
-        "turnover": 4639.05
+        "turnover": 4694.97
       },
       {
         "name": "微盘指数",
-        "point": 10107.24,
-        "changeAmount": 70.89,
-        "changePercent": 0.71,
-        "turnover": 5624.64
+        "point": 10110.4,
+        "changeAmount": 74.05,
+        "changePercent": 0.74,
+        "turnover": 5691.37
       }
     ],
-    "etfUp": 788,
-    "etfDown": 704,
-    "etfFlat": 84,
-    "bondUp": 106,
-    "bondDown": 197,
+    "etfUp": 786,
+    "etfDown": 707,
+    "etfFlat": 83,
+    "bondUp": 108,
+    "bondDown": 194,
     "bondFlat": 0,
-    "bondStockUp": 144,
-    "bondStockDown": 142,
-    "bondStockFlat": 9,
+    "bondStockUp": 140,
+    "bondStockDown": 153,
+    "bondStockFlat": 4,
     "mainCapitalFlow20d": {
       "date": "2026-08-14",
-      "total_net_inflow": -269.13,
+      "total_net_inflow": -256.94,
       "industries": [
         {
           "name": "通信设备",
-          "net_inflow": 104.41
+          "net_inflow": 107.45
         },
         {
           "name": "小金属",
-          "net_inflow": 23.12
+          "net_inflow": 22.94
         },
         {
           "name": "通信服务",
-          "net_inflow": 19.08
+          "net_inflow": 20.19
         },
         {
           "name": "IT服务",
-          "net_inflow": 16.88
-        },
-        {
-          "name": "电池",
-          "net_inflow": 14.65
+          "net_inflow": 19.7
         },
         {
           "name": "电子化学品",
-          "net_inflow": 14.61
+          "net_inflow": 14.9
+        },
+        {
+          "name": "电池",
+          "net_inflow": 14.6
         },
         {
           "name": "建筑材料",
-          "net_inflow": 10.84
+          "net_inflow": 10.9
         },
         {
           "name": "游戏",
-          "net_inflow": 8.37
+          "net_inflow": 9.51
         },
         {
           "name": "贵金属",
-          "net_inflow": 6.71
+          "net_inflow": 6.36
         },
         {
           "name": "煤炭开采加工",
-          "net_inflow": 5.64
+          "net_inflow": 5.73
         },
         {
           "name": "金属新材料",
-          "net_inflow": 5.35
+          "net_inflow": 5.44
         },
         {
           "name": "互联网电商",
-          "net_inflow": 4.33
-        },
-        {
-          "name": "钢铁",
-          "net_inflow": 3.55
+          "net_inflow": 5.23
         },
         {
           "name": "专用设备",
-          "net_inflow": 2.93
+          "net_inflow": 3.6
         },
         {
-          "name": "综合",
-          "net_inflow": 2.66
+          "name": "钢铁",
+          "net_inflow": 3.47
         },
         {
           "name": "自动化设备",
-          "net_inflow": 2.65
+          "net_inflow": 3.35
         },
         {
-          "name": "石油加工贸易",
-          "net_inflow": 2.27
-        },
-        {
-          "name": "银行",
-          "net_inflow": 1.76
+          "name": "综合",
+          "net_inflow": 2.73
         },
         {
           "name": "其他电子",
-          "net_inflow": 1.67
+          "net_inflow": 1.89
+        },
+        {
+          "name": "银行",
+          "net_inflow": 1.37
         },
         {
           "name": "燃气",
-          "net_inflow": 1.32
+          "net_inflow": 1.36
+        },
+        {
+          "name": "消费电子",
+          "net_inflow": 1.17
         },
         {
           "name": "橡胶制品",
-          "net_inflow": 0.43
+          "net_inflow": 0.47
         },
         {
           "name": "环保设备",
-          "net_inflow": 0.25
+          "net_inflow": 0.39
         },
         {
           "name": "贸易",
-          "net_inflow": 0.22
+          "net_inflow": 0.21
         },
         {
           "name": "非金属材料",
-          "net_inflow": 0.14
+          "net_inflow": 0.09
         },
         {
           "name": "汽车服务及其他",
-          "net_inflow": -0.21
+          "net_inflow": -0.22
         },
         {
           "name": "公路铁路运输",
-          "net_inflow": -0.32
+          "net_inflow": -0.36
         },
         {
           "name": "造纸",
-          "net_inflow": -0.39
-        },
-        {
-          "name": "小家电",
-          "net_inflow": -0.59
-        },
-        {
-          "name": "教育",
-          "net_inflow": -0.59
+          "net_inflow": -0.47
         },
         {
           "name": "厨卫电器",
-          "net_inflow": -0.62
+          "net_inflow": -0.51
         },
         {
-          "name": "环境治理",
-          "net_inflow": -0.7
+          "name": "教育",
+          "net_inflow": -0.57
+        },
+        {
+          "name": "小家电",
+          "net_inflow": -0.6
         },
         {
           "name": "黑色家电",
           "net_inflow": -0.71
         },
         {
-          "name": "物流",
-          "net_inflow": -0.92
+          "name": "轨交设备",
+          "net_inflow": -0.94
         },
         {
           "name": "轨交设备",
-          "net_inflow": -0.96
+          "net_inflow": -0.94
         },
         {
           "name": "油气开采及服务",
-          "net_inflow": -0.97
+          "net_inflow": -0.98
+        },
+        {
+          "name": "物流",
+          "net_inflow": -1.0
+        },
+        {
+          "name": "环境治理",
+          "net_inflow": -1.09
         },
         {
           "name": "家居用品",
-          "net_inflow": -1.04
-        },
-        {
-          "name": "军工装备",
-          "net_inflow": -1.24
+          "net_inflow": -1.11
         },
         {
           "name": "其他社会服务",
-          "net_inflow": -1.29
-        },
-        {
-          "name": "消费电子",
-          "net_inflow": -1.3
-        },
-        {
-          "name": "农化制品",
-          "net_inflow": -1.59
-        },
-        {
-          "name": "包装印刷",
-          "net_inflow": -1.61
-        },
-        {
-          "name": "旅游及酒店",
-          "net_inflow": -1.63
+          "net_inflow": -1.28
         },
         {
           "name": "工程机械",
+          "net_inflow": -1.33
+        },
+        {
+          "name": "军工装备",
+          "net_inflow": -1.54
+        },
+        {
+          "name": "农化制品",
+          "net_inflow": -1.66
+        },
+        {
+          "name": "旅游及酒店",
+          "net_inflow": -1.67
+        },
+        {
+          "name": "包装印刷",
           "net_inflow": -1.74
         },
         {
           "name": "农产品加工",
-          "net_inflow": -1.77
+          "net_inflow": -1.78
         },
         {
           "name": "服装家纺",
-          "net_inflow": -1.84
+          "net_inflow": -1.83
         },
         {
           "name": "纺织制造",
-          "net_inflow": -1.88
+          "net_inflow": -1.87
         },
         {
           "name": "港口航运",
-          "net_inflow": -2.17
+          "net_inflow": -2.23
         },
         {
           "name": "食品加工制造",
-          "net_inflow": -2.51
-        },
-        {
-          "name": "电机",
-          "net_inflow": -2.69
+          "net_inflow": -2.46
         },
         {
           "name": "多元金融",
-          "net_inflow": -2.72
+          "net_inflow": -2.54
+        },
+        {
+          "name": "电机",
+          "net_inflow": -2.75
         },
         {
           "name": "机场航运",
-          "net_inflow": -2.81
+          "net_inflow": -2.82
         },
         {
           "name": "生物制品",
-          "net_inflow": -3.16
-        },
-        {
-          "name": "美容护理",
-          "net_inflow": -3.46
+          "net_inflow": -2.89
         },
         {
           "name": "其他电源设备",
-          "net_inflow": -3.48
+          "net_inflow": -3.2
+        },
+        {
+          "name": "美容护理",
+          "net_inflow": -3.52
         },
         {
           "name": "医药商业",
-          "net_inflow": -3.6
-        },
-        {
-          "name": "种植业与林业",
-          "net_inflow": -3.75
+          "net_inflow": -3.67
         },
         {
           "name": "塑料制品",
-          "net_inflow": -3.85
+          "net_inflow": -3.77
+        },
+        {
+          "name": "种植业与林业",
+          "net_inflow": -3.82
         },
         {
           "name": "能源金属",
-          "net_inflow": -4.44
+          "net_inflow": -4.61
         },
         {
           "name": "饮料制造",
-          "net_inflow": -4.67
-        },
-        {
-          "name": "工业金属",
-          "net_inflow": -4.78
-        },
-        {
-          "name": "养殖业",
-          "net_inflow": -5.3
+          "net_inflow": -4.66
         },
         {
           "name": "军工电子",
-          "net_inflow": -5.37
+          "net_inflow": -5.05
         },
         {
-          "name": "房地产",
-          "net_inflow": -5.4
+          "name": "养殖业",
+          "net_inflow": -5.42
         },
         {
-          "name": "白色家电",
-          "net_inflow": -5.51
+          "name": "工业金属",
+          "net_inflow": -5.56
         },
         {
           "name": "风电设备",
-          "net_inflow": -5.63
+          "net_inflow": -5.62
+        },
+        {
+          "name": "房地产",
+          "net_inflow": -5.65
         },
         {
           "name": "化学原料",
-          "net_inflow": -5.68
+          "net_inflow": -5.69
+        },
+        {
+          "name": "白色家电",
+          "net_inflow": -5.71
         },
         {
           "name": "化学纤维",
-          "net_inflow": -5.98
-        },
-        {
-          "name": "汽车零部件",
-          "net_inflow": -6.91
+          "net_inflow": -5.95
         },
         {
           "name": "元件",
-          "net_inflow": -8.04
+          "net_inflow": -6.25
+        },
+        {
+          "name": "汽车零部件",
+          "net_inflow": -6.79
         },
         {
           "name": "影视院线",
-          "net_inflow": -8.21
+          "net_inflow": -8.18
         },
         {
           "name": "医疗器械",
-          "net_inflow": -8.24
+          "net_inflow": -8.22
         },
         {
           "name": "汽车整车",
-          "net_inflow": -8.72
+          "net_inflow": -8.67
         },
         {
           "name": "光伏设备",
-          "net_inflow": -8.8
-        },
-        {
-          "name": "化学制品",
-          "net_inflow": -10.12
-        },
-        {
-          "name": "通用设备",
-          "net_inflow": -10.24
-        },
-        {
-          "name": "零售",
-          "net_inflow": -10.45
+          "net_inflow": -9.13
         },
         {
           "name": "半导体",
-          "net_inflow": -10.47
+          "net_inflow": -9.48
+        },
+        {
+          "name": "通用设备",
+          "net_inflow": -9.66
+        },
+        {
+          "name": "化学制品",
+          "net_inflow": -10.43
+        },
+        {
+          "name": "零售",
+          "net_inflow": -10.52
         },
         {
           "name": "中药",
-          "net_inflow": -11.72
+          "net_inflow": -11.61
         },
         {
           "name": "保险",
-          "net_inflow": -11.72
+          "net_inflow": -11.86
         },
         {
           "name": "建筑装饰",
-          "net_inflow": -12.64
+          "net_inflow": -12.46
         },
         {
           "name": "光学光电子",
-          "net_inflow": -13.65
+          "net_inflow": -13.39
         },
         {
           "name": "软件开发",
-          "net_inflow": -15.6
+          "net_inflow": -14.32
         },
         {
           "name": "白酒",
-          "net_inflow": -17.84
+          "net_inflow": -18.07
         },
         {
           "name": "计算机设备",
-          "net_inflow": -19.73
-        },
-        {
-          "name": "电网设备",
-          "net_inflow": -24.86
+          "net_inflow": -19.15
         },
         {
           "name": "医疗服务",
-          "net_inflow": -24.89
+          "net_inflow": -24.77
+        },
+        {
+          "name": "电网设备",
+          "net_inflow": -25.09
         },
         {
           "name": "文化传媒",
-          "net_inflow": -31.84
+          "net_inflow": -31.85
         },
         {
           "name": "证券",
-          "net_inflow": -40.32
+          "net_inflow": -40.93
         },
         {
           "name": "化学制药",
-          "net_inflow": -42.82
+          "net_inflow": -42.5
         },
         {
           "name": "电力",
-          "net_inflow": -54.27
+          "net_inflow": -54.87
         }
       ]
     },
@@ -1644,7 +1644,7 @@
     },
     {
       "date": "2026-08-14",
-      "volume": 18268.35,
+      "volume": 18588.25,
       "limitUp": 0,
       "limitDown": 0,
       "up": 0,
@@ -1666,7 +1666,7 @@
     },
     {
       "level": "1板",
-      "count": 42
+      "count": 45
     }
   ],
   "limitUpStocks": [
@@ -1678,9 +1678,9 @@
       "limitUpStats": "5/5",
       "closePrice": 47.29,
       "changePercent": 19.99,
-      "turnover": 34.78,
+      "turnover": 34.79,
       "turnoverRate": 51.46,
-      "sealedAmount": 0.44,
+      "sealedAmount": 0.45,
       "bombedCount": 5,
       "firstSealTime": "10:13:57"
     },
@@ -1693,7 +1693,7 @@
       "closePrice": 6.97,
       "changePercent": 9.94,
       "turnover": 9.45,
-      "turnoverRate": 15.35,
+      "turnoverRate": 15.36,
       "sealedAmount": 0.57,
       "bombedCount": 7,
       "firstSealTime": "09:25:00"
@@ -1720,7 +1720,7 @@
       "limitUpStats": "3/3",
       "closePrice": 5.29,
       "changePercent": 9.98,
-      "turnover": 26.34,
+      "turnover": 26.35,
       "turnoverRate": 19.62,
       "sealedAmount": 1.03,
       "bombedCount": 1,
@@ -1749,8 +1749,8 @@
       "closePrice": 10.68,
       "changePercent": 9.99,
       "turnover": 2.59,
-      "turnoverRate": 6.03,
-      "sealedAmount": 1.29,
+      "turnoverRate": 6.04,
+      "sealedAmount": 1.28,
       "bombedCount": 0,
       "firstSealTime": "09:30:47"
     },
@@ -1764,7 +1764,7 @@
       "changePercent": 10.03,
       "turnover": 3.18,
       "turnoverRate": 7.04,
-      "sealedAmount": 1.08,
+      "sealedAmount": 1.07,
       "bombedCount": 1,
       "firstSealTime": "09:31:30"
     },
@@ -1790,9 +1790,9 @@
       "limitUpStats": "2/2",
       "closePrice": 17.34,
       "changePercent": 20.0,
-      "turnover": 13.09,
-      "turnoverRate": 27.3,
-      "sealedAmount": 1.06,
+      "turnover": 13.11,
+      "turnoverRate": 27.34,
+      "sealedAmount": 1.03,
       "bombedCount": 5,
       "firstSealTime": "09:35:18"
     },
@@ -1806,7 +1806,7 @@
       "changePercent": 9.95,
       "turnover": 0.77,
       "turnoverRate": 2.52,
-      "sealedAmount": 2.1,
+      "sealedAmount": 2.08,
       "bombedCount": 0,
       "firstSealTime": "09:25:01"
     },
@@ -1832,9 +1832,9 @@
       "limitUpStats": "1/1",
       "closePrice": 3.03,
       "changePercent": 10.18,
-      "turnover": 15.54,
-      "turnoverRate": 11.42,
-      "sealedAmount": 4.76,
+      "turnover": 15.55,
+      "turnoverRate": 11.43,
+      "sealedAmount": 4.65,
       "bombedCount": 0,
       "firstSealTime": "13:34:00"
     },
@@ -1846,9 +1846,9 @@
       "limitUpStats": "1/1",
       "closePrice": 60.95,
       "changePercent": 10.0,
-      "turnover": 52.02,
-      "turnoverRate": 8.21,
-      "sealedAmount": 10.22,
+      "turnover": 52.17,
+      "turnoverRate": 8.23,
+      "sealedAmount": 9.66,
       "bombedCount": 1,
       "firstSealTime": "09:53:21"
     },
@@ -1860,7 +1860,7 @@
       "limitUpStats": "1/1",
       "closePrice": 6.29,
       "changePercent": 9.97,
-      "turnover": 3.52,
+      "turnover": 3.53,
       "turnoverRate": 3.34,
       "sealedAmount": 0.88,
       "bombedCount": 0,
@@ -1874,11 +1874,25 @@
       "limitUpStats": "1/1",
       "closePrice": 4.07,
       "changePercent": 10.0,
-      "turnover": 3.16,
-      "turnoverRate": 6.87,
-      "sealedAmount": 1.01,
+      "turnover": 3.17,
+      "turnoverRate": 6.88,
+      "sealedAmount": 0.99,
       "bombedCount": 1,
       "firstSealTime": "09:31:00"
+    },
+    {
+      "code": "002628",
+      "name": "成都路桥",
+      "industry": "基础建设",
+      "consecutiveDays": 1,
+      "limitUpStats": "1/1",
+      "closePrice": 5.56,
+      "changePercent": 10.1,
+      "turnover": 2.34,
+      "turnoverRate": 5.9,
+      "sealedAmount": 1.82,
+      "bombedCount": 0,
+      "firstSealTime": "14:21:09"
     },
     {
       "code": "002645",
@@ -1888,9 +1902,9 @@
       "limitUpStats": "1/1",
       "closePrice": 21.48,
       "changePercent": 9.98,
-      "turnover": 10.25,
-      "turnoverRate": 7.23,
-      "sealedAmount": 7.5,
+      "turnover": 10.27,
+      "turnoverRate": 7.25,
+      "sealedAmount": 7.46,
       "bombedCount": 0,
       "firstSealTime": "13:56:48"
     },
@@ -1902,9 +1916,9 @@
       "limitUpStats": "1/1",
       "closePrice": 8.39,
       "changePercent": 9.96,
-      "turnover": 1.42,
-      "turnoverRate": 3.06,
-      "sealedAmount": 2.08,
+      "turnover": 1.43,
+      "turnoverRate": 3.07,
+      "sealedAmount": 2.02,
       "bombedCount": 0,
       "firstSealTime": "09:45:00"
     },
@@ -1916,8 +1930,8 @@
       "limitUpStats": "1/1",
       "closePrice": 8.23,
       "changePercent": 10.03,
-      "turnover": 1.81,
-      "turnoverRate": 6.31,
+      "turnover": 1.82,
+      "turnoverRate": 6.33,
       "sealedAmount": 1.1,
       "bombedCount": 0,
       "firstSealTime": "10:24:33"
@@ -1958,9 +1972,9 @@
       "limitUpStats": "1/1",
       "closePrice": 11.3,
       "changePercent": 10.03,
-      "turnover": 0.92,
-      "turnoverRate": 3.01,
-      "sealedAmount": 1.12,
+      "turnover": 0.93,
+      "turnoverRate": 3.03,
+      "sealedAmount": 1.09,
       "bombedCount": 0,
       "firstSealTime": "10:22:27"
     },
@@ -1972,9 +1986,9 @@
       "limitUpStats": "1/1",
       "closePrice": 10.14,
       "changePercent": 9.98,
-      "turnover": 1.22,
-      "turnoverRate": 6.31,
-      "sealedAmount": 0.8,
+      "turnover": 1.23,
+      "turnoverRate": 6.32,
+      "sealedAmount": 0.9,
       "bombedCount": 0,
       "firstSealTime": "11:07:24"
     },
@@ -2015,8 +2029,8 @@
       "closePrice": 25.36,
       "changePercent": 10.02,
       "turnover": 2.27,
-      "turnoverRate": 4.72,
-      "sealedAmount": 2.33,
+      "turnoverRate": 4.73,
+      "sealedAmount": 2.31,
       "bombedCount": 0,
       "firstSealTime": "13:56:30"
     },
@@ -2028,9 +2042,9 @@
       "limitUpStats": "1/1",
       "closePrice": 17.33,
       "changePercent": 20.01,
-      "turnover": 71.89,
-      "turnoverRate": 19.15,
-      "sealedAmount": 20.93,
+      "turnover": 72.45,
+      "turnoverRate": 19.29,
+      "sealedAmount": 21.36,
       "bombedCount": 0,
       "firstSealTime": "14:14:54"
     },
@@ -2042,9 +2056,9 @@
       "limitUpStats": "1/1",
       "closePrice": 67.36,
       "changePercent": 20.01,
-      "turnover": 2.79,
+      "turnover": 2.8,
       "turnoverRate": 2.03,
-      "sealedAmount": 16.23,
+      "sealedAmount": 16.05,
       "bombedCount": 0,
       "firstSealTime": "09:25:00"
     },
@@ -2056,9 +2070,9 @@
       "limitUpStats": "1/1",
       "closePrice": 16.82,
       "changePercent": 19.97,
-      "turnover": 1.98,
-      "turnoverRate": 10.18,
-      "sealedAmount": 1.59,
+      "turnover": 1.99,
+      "turnoverRate": 10.19,
+      "sealedAmount": 1.58,
       "bombedCount": 0,
       "firstSealTime": "13:12:27"
     },
@@ -2084,9 +2098,9 @@
       "limitUpStats": "1/1",
       "closePrice": 12.02,
       "changePercent": 9.97,
-      "turnover": 34.76,
-      "turnoverRate": 16.68,
-      "sealedAmount": 7.47,
+      "turnover": 34.77,
+      "turnoverRate": 16.69,
+      "sealedAmount": 7.23,
       "bombedCount": 2,
       "firstSealTime": "10:02:56"
     },
@@ -2098,7 +2112,7 @@
       "limitUpStats": "1/1",
       "closePrice": 7.84,
       "changePercent": 9.96,
-      "turnover": 4.08,
+      "turnover": 4.09,
       "turnoverRate": 4.05,
       "sealedAmount": 1.94,
       "bombedCount": 1,
@@ -2112,9 +2126,9 @@
       "limitUpStats": "7/5",
       "closePrice": 17.6,
       "changePercent": 10.0,
-      "turnover": 7.57,
-      "turnoverRate": 27.86,
-      "sealedAmount": 0.42,
+      "turnover": 7.58,
+      "turnoverRate": 27.9,
+      "sealedAmount": 0.41,
       "bombedCount": 1,
       "firstSealTime": "09:44:00"
     },
@@ -2127,8 +2141,8 @@
       "closePrice": 13.22,
       "changePercent": 9.98,
       "turnover": 6.36,
-      "turnoverRate": 11.21,
-      "sealedAmount": 1.99,
+      "turnoverRate": 11.22,
+      "sealedAmount": 1.96,
       "bombedCount": 1,
       "firstSealTime": "09:41:35"
     },
@@ -2140,9 +2154,9 @@
       "limitUpStats": "1/1",
       "closePrice": 31.03,
       "changePercent": 10.0,
-      "turnover": 20.47,
-      "turnoverRate": 8.27,
-      "sealedAmount": 7.26,
+      "turnover": 20.49,
+      "turnoverRate": 8.28,
+      "sealedAmount": 7.22,
       "bombedCount": 0,
       "firstSealTime": "13:39:52"
     },
@@ -2156,7 +2170,7 @@
       "changePercent": 10.0,
       "turnover": 9.79,
       "turnoverRate": 9.48,
-      "sealedAmount": 0.91,
+      "sealedAmount": 0.9,
       "bombedCount": 2,
       "firstSealTime": "09:30:04"
     },
@@ -2169,10 +2183,24 @@
       "closePrice": 16.51,
       "changePercent": 9.99,
       "turnover": 3.04,
-      "turnoverRate": 5.14,
-      "sealedAmount": 0.97,
+      "turnoverRate": 5.15,
+      "sealedAmount": 0.84,
       "bombedCount": 0,
       "firstSealTime": "13:51:38"
+    },
+    {
+      "code": "600815",
+      "name": "厦工股份",
+      "industry": "工程机械",
+      "consecutiveDays": 1,
+      "limitUpStats": "1/1",
+      "closePrice": 3.98,
+      "changePercent": 9.94,
+      "turnover": 4.06,
+      "turnoverRate": 6.08,
+      "sealedAmount": 3.0,
+      "bombedCount": 0,
+      "firstSealTime": "14:20:19"
     },
     {
       "code": "601609",
@@ -2182,9 +2210,9 @@
       "limitUpStats": "1/1",
       "closePrice": 10.95,
       "changePercent": 10.05,
-      "turnover": 6.2,
-      "turnoverRate": 3.34,
-      "sealedAmount": 1.96,
+      "turnover": 6.22,
+      "turnoverRate": 3.35,
+      "sealedAmount": 1.94,
       "bombedCount": 1,
       "firstSealTime": "09:47:31"
     },
@@ -2198,7 +2226,7 @@
       "changePercent": 10.0,
       "turnover": 2.88,
       "turnoverRate": 1.72,
-      "sealedAmount": 1.1,
+      "sealedAmount": 1.09,
       "bombedCount": 1,
       "firstSealTime": "09:30:44"
     },
@@ -2212,7 +2240,7 @@
       "changePercent": 10.01,
       "turnover": 1.16,
       "turnoverRate": 4.7,
-      "sealedAmount": 0.98,
+      "sealedAmount": 0.97,
       "bombedCount": 1,
       "firstSealTime": "10:44:02"
     },
@@ -2224,9 +2252,9 @@
       "limitUpStats": "1/1",
       "closePrice": 185.9,
       "changePercent": 10.0,
-      "turnover": 70.48,
-      "turnoverRate": 14.27,
-      "sealedAmount": 5.85,
+      "turnover": 70.53,
+      "turnoverRate": 14.28,
+      "sealedAmount": 5.73,
       "bombedCount": 1,
       "firstSealTime": "10:41:11"
     },
@@ -2239,7 +2267,7 @@
       "closePrice": 9.75,
       "changePercent": 10.05,
       "turnover": 0.58,
-      "turnoverRate": 2.54,
+      "turnoverRate": 2.55,
       "sealedAmount": 0.46,
       "bombedCount": 1,
       "firstSealTime": "10:15:02"
@@ -2282,7 +2310,7 @@
       "changePercent": 10.0,
       "turnover": 15.27,
       "turnoverRate": 5.98,
-      "sealedAmount": 4.96,
+      "sealedAmount": 4.91,
       "bombedCount": 0,
       "firstSealTime": "09:37:30"
     },
@@ -2308,11 +2336,25 @@
       "limitUpStats": "1/1",
       "closePrice": 29.87,
       "changePercent": 10.02,
-      "turnover": 32.52,
-      "turnoverRate": 16.23,
-      "sealedAmount": 4.8,
+      "turnover": 32.53,
+      "turnoverRate": 16.24,
+      "sealedAmount": 4.69,
       "bombedCount": 2,
       "firstSealTime": "10:35:42"
+    },
+    {
+      "code": "603629",
+      "name": "利通电子",
+      "industry": "消费电子",
+      "consecutiveDays": 1,
+      "limitUpStats": "1/1",
+      "closePrice": 137.5,
+      "changePercent": 10.0,
+      "turnover": 86.29,
+      "turnoverRate": 18.34,
+      "sealedAmount": 11.6,
+      "bombedCount": 1,
+      "firstSealTime": "14:19:43"
     },
     {
       "code": "603725",
@@ -2323,7 +2365,7 @@
       "closePrice": 12.23,
       "changePercent": 9.98,
       "turnover": 3.75,
-      "turnoverRate": 10.17,
+      "turnoverRate": 10.18,
       "sealedAmount": 0.84,
       "bombedCount": 1,
       "firstSealTime": "09:34:52"
@@ -2336,9 +2378,9 @@
       "limitUpStats": "1/1",
       "closePrice": 29.04,
       "changePercent": 10.0,
-      "turnover": 26.69,
-      "turnoverRate": 11.29,
-      "sealedAmount": 10.22,
+      "turnover": 26.76,
+      "turnoverRate": 11.32,
+      "sealedAmount": 9.77,
       "bombedCount": 0,
       "firstSealTime": "13:44:20"
     },
@@ -2352,7 +2394,7 @@
       "changePercent": 10.0,
       "turnover": 13.79,
       "turnoverRate": 10.63,
-      "sealedAmount": 2.85,
+      "sealedAmount": 2.84,
       "bombedCount": 3,
       "firstSealTime": "09:35:30"
     },
@@ -2366,7 +2408,7 @@
       "changePercent": 20.01,
       "turnover": 6.06,
       "turnoverRate": 15.35,
-      "sealedAmount": 1.8,
+      "sealedAmount": 1.71,
       "bombedCount": 0,
       "firstSealTime": "13:51:40"
     },
@@ -2378,9 +2420,9 @@
       "limitUpStats": "1/1",
       "closePrice": 72.1,
       "changePercent": 20.01,
-      "turnover": 11.31,
-      "turnoverRate": 10.89,
-      "sealedAmount": 1.27,
+      "turnover": 11.69,
+      "turnoverRate": 11.24,
+      "sealedAmount": 1.1,
       "bombedCount": 1,
       "firstSealTime": "10:45:58"
     },
@@ -2392,7 +2434,7 @@
       "limitUpStats": "1/1",
       "closePrice": 98.4,
       "changePercent": 20.0,
-      "turnover": 16.74,
+      "turnover": 16.75,
       "turnoverRate": 15.41,
       "sealedAmount": 2.95,
       "bombedCount": 1,
@@ -2422,9 +2464,9 @@
       "limitUpStats": "1/1",
       "closePrice": 3.03,
       "changePercent": 10.18,
-      "turnover": 15.54,
-      "turnoverRate": 11.42,
-      "sealedAmount": 4.76,
+      "turnover": 15.55,
+      "turnoverRate": 11.43,
+      "sealedAmount": 4.65,
       "bombedCount": 0,
       "firstSealTime": "13:34:00"
     },
@@ -2436,9 +2478,9 @@
       "limitUpStats": "1/1",
       "closePrice": 60.95,
       "changePercent": 10.0,
-      "turnover": 52.02,
-      "turnoverRate": 8.21,
-      "sealedAmount": 10.22,
+      "turnover": 52.17,
+      "turnoverRate": 8.23,
+      "sealedAmount": 9.66,
       "bombedCount": 1,
       "firstSealTime": "09:53:21"
     },
@@ -2450,7 +2492,7 @@
       "limitUpStats": "1/1",
       "closePrice": 6.29,
       "changePercent": 9.97,
-      "turnover": 3.52,
+      "turnover": 3.53,
       "turnoverRate": 3.34,
       "sealedAmount": 0.88,
       "bombedCount": 0,
@@ -2464,11 +2506,25 @@
       "limitUpStats": "1/1",
       "closePrice": 4.07,
       "changePercent": 10.0,
-      "turnover": 3.16,
-      "turnoverRate": 6.87,
-      "sealedAmount": 1.01,
+      "turnover": 3.17,
+      "turnoverRate": 6.88,
+      "sealedAmount": 0.99,
       "bombedCount": 1,
       "firstSealTime": "09:31:00"
+    },
+    {
+      "code": "002628",
+      "name": "成都路桥",
+      "industry": "基础建设",
+      "consecutiveDays": 1,
+      "limitUpStats": "1/1",
+      "closePrice": 5.56,
+      "changePercent": 10.1,
+      "turnover": 2.34,
+      "turnoverRate": 5.9,
+      "sealedAmount": 1.82,
+      "bombedCount": 0,
+      "firstSealTime": "14:21:09"
     },
     {
       "code": "002645",
@@ -2478,9 +2534,9 @@
       "limitUpStats": "1/1",
       "closePrice": 21.48,
       "changePercent": 9.98,
-      "turnover": 10.25,
-      "turnoverRate": 7.23,
-      "sealedAmount": 7.5,
+      "turnover": 10.27,
+      "turnoverRate": 7.25,
+      "sealedAmount": 7.46,
       "bombedCount": 0,
       "firstSealTime": "13:56:48"
     },
@@ -2492,9 +2548,9 @@
       "limitUpStats": "1/1",
       "closePrice": 8.39,
       "changePercent": 9.96,
-      "turnover": 1.42,
-      "turnoverRate": 3.06,
-      "sealedAmount": 2.08,
+      "turnover": 1.43,
+      "turnoverRate": 3.07,
+      "sealedAmount": 2.02,
       "bombedCount": 0,
       "firstSealTime": "09:45:00"
     },
@@ -2506,8 +2562,8 @@
       "limitUpStats": "1/1",
       "closePrice": 8.23,
       "changePercent": 10.03,
-      "turnover": 1.81,
-      "turnoverRate": 6.31,
+      "turnover": 1.82,
+      "turnoverRate": 6.33,
       "sealedAmount": 1.1,
       "bombedCount": 0,
       "firstSealTime": "10:24:33"
@@ -2548,9 +2604,9 @@
       "limitUpStats": "1/1",
       "closePrice": 11.3,
       "changePercent": 10.03,
-      "turnover": 0.92,
-      "turnoverRate": 3.01,
-      "sealedAmount": 1.12,
+      "turnover": 0.93,
+      "turnoverRate": 3.03,
+      "sealedAmount": 1.09,
       "bombedCount": 0,
       "firstSealTime": "10:22:27"
     },
@@ -2562,9 +2618,9 @@
       "limitUpStats": "1/1",
       "closePrice": 10.14,
       "changePercent": 9.98,
-      "turnover": 1.22,
-      "turnoverRate": 6.31,
-      "sealedAmount": 0.8,
+      "turnover": 1.23,
+      "turnoverRate": 6.32,
+      "sealedAmount": 0.9,
       "bombedCount": 0,
       "firstSealTime": "11:07:24"
     },
@@ -2605,8 +2661,8 @@
       "closePrice": 25.36,
       "changePercent": 10.02,
       "turnover": 2.27,
-      "turnoverRate": 4.72,
-      "sealedAmount": 2.33,
+      "turnoverRate": 4.73,
+      "sealedAmount": 2.31,
       "bombedCount": 0,
       "firstSealTime": "13:56:30"
     },
@@ -2618,9 +2674,9 @@
       "limitUpStats": "1/1",
       "closePrice": 17.33,
       "changePercent": 20.01,
-      "turnover": 71.89,
-      "turnoverRate": 19.15,
-      "sealedAmount": 20.93,
+      "turnover": 72.45,
+      "turnoverRate": 19.29,
+      "sealedAmount": 21.36,
       "bombedCount": 0,
       "firstSealTime": "14:14:54"
     },
@@ -2632,9 +2688,9 @@
       "limitUpStats": "1/1",
       "closePrice": 67.36,
       "changePercent": 20.01,
-      "turnover": 2.79,
+      "turnover": 2.8,
       "turnoverRate": 2.03,
-      "sealedAmount": 16.23,
+      "sealedAmount": 16.05,
       "bombedCount": 0,
       "firstSealTime": "09:25:00"
     },
@@ -2646,9 +2702,9 @@
       "limitUpStats": "1/1",
       "closePrice": 16.82,
       "changePercent": 19.97,
-      "turnover": 1.98,
-      "turnoverRate": 10.18,
-      "sealedAmount": 1.59,
+      "turnover": 1.99,
+      "turnoverRate": 10.19,
+      "sealedAmount": 1.58,
       "bombedCount": 0,
       "firstSealTime": "13:12:27"
     },
@@ -2674,9 +2730,9 @@
       "limitUpStats": "1/1",
       "closePrice": 12.02,
       "changePercent": 9.97,
-      "turnover": 34.76,
-      "turnoverRate": 16.68,
-      "sealedAmount": 7.47,
+      "turnover": 34.77,
+      "turnoverRate": 16.69,
+      "sealedAmount": 7.23,
       "bombedCount": 2,
       "firstSealTime": "10:02:56"
     },
@@ -2688,7 +2744,7 @@
       "limitUpStats": "1/1",
       "closePrice": 7.84,
       "changePercent": 9.96,
-      "turnover": 4.08,
+      "turnover": 4.09,
       "turnoverRate": 4.05,
       "sealedAmount": 1.94,
       "bombedCount": 1,
@@ -2702,9 +2758,9 @@
       "limitUpStats": "7/5",
       "closePrice": 17.6,
       "changePercent": 10.0,
-      "turnover": 7.57,
-      "turnoverRate": 27.86,
-      "sealedAmount": 0.42,
+      "turnover": 7.58,
+      "turnoverRate": 27.9,
+      "sealedAmount": 0.41,
       "bombedCount": 1,
       "firstSealTime": "09:44:00"
     },
@@ -2717,8 +2773,8 @@
       "closePrice": 13.22,
       "changePercent": 9.98,
       "turnover": 6.36,
-      "turnoverRate": 11.21,
-      "sealedAmount": 1.99,
+      "turnoverRate": 11.22,
+      "sealedAmount": 1.96,
       "bombedCount": 1,
       "firstSealTime": "09:41:35"
     },
@@ -2730,9 +2786,9 @@
       "limitUpStats": "1/1",
       "closePrice": 31.03,
       "changePercent": 10.0,
-      "turnover": 20.47,
-      "turnoverRate": 8.27,
-      "sealedAmount": 7.26,
+      "turnover": 20.49,
+      "turnoverRate": 8.28,
+      "sealedAmount": 7.22,
       "bombedCount": 0,
       "firstSealTime": "13:39:52"
     },
@@ -2746,7 +2802,7 @@
       "changePercent": 10.0,
       "turnover": 9.79,
       "turnoverRate": 9.48,
-      "sealedAmount": 0.91,
+      "sealedAmount": 0.9,
       "bombedCount": 2,
       "firstSealTime": "09:30:04"
     },
@@ -2759,10 +2815,24 @@
       "closePrice": 16.51,
       "changePercent": 9.99,
       "turnover": 3.04,
-      "turnoverRate": 5.14,
-      "sealedAmount": 0.97,
+      "turnoverRate": 5.15,
+      "sealedAmount": 0.84,
       "bombedCount": 0,
       "firstSealTime": "13:51:38"
+    },
+    {
+      "code": "600815",
+      "name": "厦工股份",
+      "industry": "工程机械",
+      "consecutiveDays": 1,
+      "limitUpStats": "1/1",
+      "closePrice": 3.98,
+      "changePercent": 9.94,
+      "turnover": 4.06,
+      "turnoverRate": 6.08,
+      "sealedAmount": 3.0,
+      "bombedCount": 0,
+      "firstSealTime": "14:20:19"
     },
     {
       "code": "601609",
@@ -2772,9 +2842,9 @@
       "limitUpStats": "1/1",
       "closePrice": 10.95,
       "changePercent": 10.05,
-      "turnover": 6.2,
-      "turnoverRate": 3.34,
-      "sealedAmount": 1.96,
+      "turnover": 6.22,
+      "turnoverRate": 3.35,
+      "sealedAmount": 1.94,
       "bombedCount": 1,
       "firstSealTime": "09:47:31"
     },
@@ -2788,7 +2858,7 @@
       "changePercent": 10.0,
       "turnover": 2.88,
       "turnoverRate": 1.72,
-      "sealedAmount": 1.1,
+      "sealedAmount": 1.09,
       "bombedCount": 1,
       "firstSealTime": "09:30:44"
     },
@@ -2802,7 +2872,7 @@
       "changePercent": 10.01,
       "turnover": 1.16,
       "turnoverRate": 4.7,
-      "sealedAmount": 0.98,
+      "sealedAmount": 0.97,
       "bombedCount": 1,
       "firstSealTime": "10:44:02"
     },
@@ -2814,9 +2884,9 @@
       "limitUpStats": "1/1",
       "closePrice": 185.9,
       "changePercent": 10.0,
-      "turnover": 70.48,
-      "turnoverRate": 14.27,
-      "sealedAmount": 5.85,
+      "turnover": 70.53,
+      "turnoverRate": 14.28,
+      "sealedAmount": 5.73,
       "bombedCount": 1,
       "firstSealTime": "10:41:11"
     },
@@ -2829,7 +2899,7 @@
       "closePrice": 9.75,
       "changePercent": 10.05,
       "turnover": 0.58,
-      "turnoverRate": 2.54,
+      "turnoverRate": 2.55,
       "sealedAmount": 0.46,
       "bombedCount": 1,
       "firstSealTime": "10:15:02"
@@ -2872,7 +2942,7 @@
       "changePercent": 10.0,
       "turnover": 15.27,
       "turnoverRate": 5.98,
-      "sealedAmount": 4.96,
+      "sealedAmount": 4.91,
       "bombedCount": 0,
       "firstSealTime": "09:37:30"
     },
@@ -2898,11 +2968,25 @@
       "limitUpStats": "1/1",
       "closePrice": 29.87,
       "changePercent": 10.02,
-      "turnover": 32.52,
-      "turnoverRate": 16.23,
-      "sealedAmount": 4.8,
+      "turnover": 32.53,
+      "turnoverRate": 16.24,
+      "sealedAmount": 4.69,
       "bombedCount": 2,
       "firstSealTime": "10:35:42"
+    },
+    {
+      "code": "603629",
+      "name": "利通电子",
+      "industry": "消费电子",
+      "consecutiveDays": 1,
+      "limitUpStats": "1/1",
+      "closePrice": 137.5,
+      "changePercent": 10.0,
+      "turnover": 86.29,
+      "turnoverRate": 18.34,
+      "sealedAmount": 11.6,
+      "bombedCount": 1,
+      "firstSealTime": "14:19:43"
     },
     {
       "code": "603725",
@@ -2913,7 +2997,7 @@
       "closePrice": 12.23,
       "changePercent": 9.98,
       "turnover": 3.75,
-      "turnoverRate": 10.17,
+      "turnoverRate": 10.18,
       "sealedAmount": 0.84,
       "bombedCount": 1,
       "firstSealTime": "09:34:52"
@@ -2926,9 +3010,9 @@
       "limitUpStats": "1/1",
       "closePrice": 29.04,
       "changePercent": 10.0,
-      "turnover": 26.69,
-      "turnoverRate": 11.29,
-      "sealedAmount": 10.22,
+      "turnover": 26.76,
+      "turnoverRate": 11.32,
+      "sealedAmount": 9.77,
       "bombedCount": 0,
       "firstSealTime": "13:44:20"
     },
@@ -2942,7 +3026,7 @@
       "changePercent": 10.0,
       "turnover": 13.79,
       "turnoverRate": 10.63,
-      "sealedAmount": 2.85,
+      "sealedAmount": 2.84,
       "bombedCount": 3,
       "firstSealTime": "09:35:30"
     },
@@ -2956,7 +3040,7 @@
       "changePercent": 20.01,
       "turnover": 6.06,
       "turnoverRate": 15.35,
-      "sealedAmount": 1.8,
+      "sealedAmount": 1.71,
       "bombedCount": 0,
       "firstSealTime": "13:51:40"
     },
@@ -2968,9 +3052,9 @@
       "limitUpStats": "1/1",
       "closePrice": 72.1,
       "changePercent": 20.01,
-      "turnover": 11.31,
-      "turnoverRate": 10.89,
-      "sealedAmount": 1.27,
+      "turnover": 11.69,
+      "turnoverRate": 11.24,
+      "sealedAmount": 1.1,
       "bombedCount": 1,
       "firstSealTime": "10:45:58"
     },
@@ -2982,7 +3066,7 @@
       "limitUpStats": "1/1",
       "closePrice": 98.4,
       "changePercent": 20.0,
-      "turnover": 16.74,
+      "turnover": 16.75,
       "turnoverRate": 15.41,
       "sealedAmount": 2.95,
       "bombedCount": 1,
@@ -3016,29 +3100,29 @@
       "industry": "广告营销",
       "closePrice": 7.16,
       "changePercent": -9.94,
-      "turnover": 17.88,
-      "turnoverRate": 14.17,
+      "turnover": 17.92,
+      "turnoverRate": 14.19,
       "consecutiveDownDays": 1,
-      "sealedAmount": 1.48
+      "sealedAmount": 1.47
     },
     {
       "code": "600683",
       "name": "京投发展",
-      "industry": "-",
+      "industry": "房地产开",
       "closePrice": 11.64,
       "changePercent": -9.98,
-      "turnover": 10.79,
-      "turnoverRate": 0,
+      "turnover": 10.93,
+      "turnoverRate": 11.99,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0
+      "sealedAmount": 0.21
     },
     {
       "code": "000582",
       "name": "北部湾港",
       "industry": "-",
-      "closePrice": 11.35,
-      "changePercent": -9.92,
-      "turnover": 10.7,
+      "closePrice": 11.34,
+      "changePercent": -10.0,
+      "turnover": 10.76,
       "turnoverRate": 0,
       "consecutiveDownDays": 1,
       "sealedAmount": 0
@@ -3049,10 +3133,10 @@
       "industry": "燃气Ⅱ",
       "closePrice": 25.02,
       "changePercent": -10.0,
-      "turnover": 9.15,
-      "turnoverRate": 10.1,
+      "turnover": 9.17,
+      "turnoverRate": 10.12,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.18
+      "sealedAmount": 0.22
     },
     {
       "code": "600936",
@@ -3060,10 +3144,10 @@
       "industry": "IT服务Ⅱ",
       "closePrice": 5.36,
       "changePercent": -10.07,
-      "turnover": 7.3,
-      "turnoverRate": 7.92,
+      "turnover": 7.31,
+      "turnoverRate": 7.93,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.49
+      "sealedAmount": 0.48
     },
     {
       "code": "002047",
@@ -3072,7 +3156,7 @@
       "closePrice": 3.78,
       "changePercent": -10.0,
       "turnover": 3.31,
-      "turnoverRate": 5.73,
+      "turnoverRate": 5.74,
       "consecutiveDownDays": 1,
       "sealedAmount": 0.67
     },
@@ -3080,9 +3164,9 @@
       "code": "300935",
       "name": "盈建科",
       "industry": "-",
-      "closePrice": 31.42,
-      "changePercent": -10.69,
-      "turnover": 1.93,
+      "closePrice": 31.47,
+      "changePercent": -10.55,
+      "turnover": 1.95,
       "turnoverRate": 0,
       "consecutiveDownDays": 1,
       "sealedAmount": 0
@@ -3093,8 +3177,8 @@
       "industry": "汽车零部",
       "closePrice": 13.82,
       "changePercent": -9.97,
-      "turnover": 1.8,
-      "turnoverRate": 2.93,
+      "turnover": 1.81,
+      "turnoverRate": 2.94,
       "consecutiveDownDays": 1,
       "sealedAmount": 1.93
     }
@@ -3103,28 +3187,29 @@
     {
       "name": "电子化学品",
       "sinaLabel": "new_dzxx",
-      "changePercent": 3.9,
-      "stockCount": 43,
-      "upCount": 41,
+      "changePercent": 3.98,
+      "stockCount": 42,
+      "upCount": 40,
       "downCount": 2,
-      "totalTurnover": 408.13,
-      "netInflow": 54.96,
+      "totalTurnover": 410.87,
+      "netInflow": 54.18,
       "leaderName": "中石科技",
       "leaderChangePercent": 20.01,
       "topStocks": [
-        "中石科技"
+        "中石科技",
+        "利通电子"
       ],
-      "limitUpCount": 1
+      "limitUpCount": 2
     },
     {
       "name": "非金属材料",
       "sinaLabel": "new_jzqg",
-      "changePercent": 3.29,
+      "changePercent": 3.33,
       "stockCount": 16,
       "upCount": 13,
       "downCount": 3,
-      "totalTurnover": 57.24,
-      "netInflow": 17.72,
+      "totalTurnover": 57.54,
+      "netInflow": 17.81,
       "leaderName": "金戈新材",
       "leaderChangePercent": 29.98,
       "topStocks": [
@@ -3135,14 +3220,14 @@
     {
       "name": "元件",
       "sinaLabel": "new_dzqj",
-      "changePercent": 2.48,
+      "changePercent": 2.46,
       "stockCount": 63,
       "upCount": 54,
       "downCount": 9,
-      "totalTurnover": 949.1,
-      "netInflow": 68.94,
+      "totalTurnover": 956.11,
+      "netInflow": 69.04,
       "leaderName": "中富电路",
-      "leaderChangePercent": 13.91,
+      "leaderChangePercent": 13.79,
       "topStocks": [
         "中富电路",
         "华正新材"
@@ -3152,12 +3237,12 @@
     {
       "name": "通信设备",
       "sinaLabel": "new_txfw",
-      "changePercent": 2.12,
+      "changePercent": 2.19,
       "stockCount": 90,
-      "upCount": 71,
-      "downCount": 19,
-      "totalTurnover": 1550.39,
-      "netInflow": 87.25,
+      "upCount": 67,
+      "downCount": 23,
+      "totalTurnover": 1559.61,
+      "netInflow": 79.57,
       "leaderName": "阿莱德",
       "leaderChangePercent": 20.0,
       "topStocks": [
@@ -3169,14 +3254,14 @@
     {
       "name": "金属新材料",
       "sinaLabel": "new_gthy",
-      "changePercent": 2.04,
-      "stockCount": 34,
+      "changePercent": 2.01,
+      "stockCount": 33,
       "upCount": 29,
-      "downCount": 5,
-      "totalTurnover": 70.48,
-      "netInflow": 29.49,
+      "downCount": 4,
+      "totalTurnover": 71.09,
+      "netInflow": 30.44,
       "leaderName": "龙磁科技",
-      "leaderChangePercent": 7.1,
+      "leaderChangePercent": 7.39,
       "topStocks": [
         "龙磁科技"
       ],
@@ -3185,12 +3270,12 @@
     {
       "name": "小金属",
       "sinaLabel": "new_gthy",
-      "changePercent": 1.97,
-      "stockCount": 27,
-      "upCount": 26,
-      "downCount": 1,
-      "totalTurnover": 395.94,
-      "netInflow": 36.86,
+      "changePercent": 1.86,
+      "stockCount": 29,
+      "upCount": 27,
+      "downCount": 2,
+      "totalTurnover": 398.11,
+      "netInflow": 36.68,
       "leaderName": "中国稀土",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -3201,12 +3286,12 @@
     {
       "name": "半导体",
       "sinaLabel": "new_dzqj",
-      "changePercent": 1.74,
-      "stockCount": 183,
-      "upCount": 146,
-      "downCount": 37,
-      "totalTurnover": 2421.77,
-      "netInflow": 160.92,
+      "changePercent": 1.78,
+      "stockCount": 184,
+      "upCount": 148,
+      "downCount": 36,
+      "totalTurnover": 2435.21,
+      "netInflow": 164.26,
       "leaderName": "敏芯股份",
       "leaderChangePercent": 20.01,
       "topStocks": [
@@ -3217,29 +3302,45 @@
     {
       "name": "其他电子",
       "sinaLabel": "new_dzqj",
-      "changePercent": 1.61,
+      "changePercent": 1.65,
       "stockCount": 34,
-      "upCount": 25,
-      "downCount": 9,
-      "totalTurnover": 167.75,
-      "netInflow": 22.57,
+      "upCount": 24,
+      "downCount": 10,
+      "totalTurnover": 168.8,
+      "netInflow": 20.68,
       "leaderName": "富信科技",
       "leaderChangePercent": 20.0,
       "topStocks": [
         "富信科技",
         "旭光电子"
       ],
-      "limitUpCount": 2
+      "limitUpCount": 3
+    },
+    {
+      "name": "通信服务",
+      "sinaLabel": "new_txfw",
+      "changePercent": 1.53,
+      "stockCount": 43,
+      "upCount": 31,
+      "downCount": 12,
+      "totalTurnover": 258.71,
+      "netInflow": 27.23,
+      "leaderName": "数据港",
+      "leaderChangePercent": 10.0,
+      "topStocks": [
+        "数据港"
+      ],
+      "limitUpCount": 1
     },
     {
       "name": "环保设备",
       "sinaLabel": "new_hbhy",
-      "changePercent": 1.54,
+      "changePercent": 1.46,
       "stockCount": 30,
       "upCount": 21,
       "downCount": 9,
-      "totalTurnover": 67.53,
-      "netInflow": 16.43,
+      "totalTurnover": 67.68,
+      "netInflow": 16.27,
       "leaderName": "蓝盾光电",
       "leaderChangePercent": 20.0,
       "topStocks": [
@@ -3249,30 +3350,14 @@
       "limitUpCount": 2
     },
     {
-      "name": "通信服务",
-      "sinaLabel": "new_txfw",
-      "changePercent": 1.41,
-      "stockCount": 43,
-      "upCount": 32,
-      "downCount": 11,
-      "totalTurnover": 256.74,
-      "netInflow": 28.95,
-      "leaderName": "数据港",
-      "leaderChangePercent": 10.0,
-      "topStocks": [
-        "数据港"
-      ],
-      "limitUpCount": 1
-    },
-    {
       "name": "自动化设备",
       "sinaLabel": "new_jxhy",
-      "changePercent": 1.16,
-      "stockCount": 93,
-      "upCount": 68,
-      "downCount": 25,
-      "totalTurnover": 323.65,
-      "netInflow": 51.79,
+      "changePercent": 1.18,
+      "stockCount": 95,
+      "upCount": 66,
+      "downCount": 29,
+      "totalTurnover": 326.82,
+      "netInflow": 45.9,
       "leaderName": "大豪科技",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -3281,62 +3366,96 @@
       "limitUpCount": 1
     },
     {
-      "name": "光学光电子",
-      "sinaLabel": "new_dzqj",
-      "changePercent": 1.1,
-      "stockCount": 104,
-      "upCount": 78,
-      "downCount": 26,
-      "totalTurnover": 347.37,
-      "netInflow": 61.15,
-      "leaderName": "海洋王",
-      "leaderChangePercent": 10.06,
+      "name": "游戏",
+      "sinaLabel": "new_cmyl",
+      "changePercent": 1.16,
+      "stockCount": 23,
+      "upCount": 14,
+      "downCount": 9,
+      "totalTurnover": 149.34,
+      "netInflow": 10.31,
+      "leaderName": "迅游科技",
+      "leaderChangePercent": 6.96,
       "topStocks": [
-        "海洋王"
+        "迅游科技"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "游戏",
-      "sinaLabel": "new_cmyl",
-      "changePercent": 1.01,
-      "stockCount": 23,
-      "upCount": 14,
-      "downCount": 9,
-      "totalTurnover": 147.96,
-      "netInflow": 9.98,
-      "leaderName": "世纪华通",
-      "leaderChangePercent": 6.26,
+      "name": "光学光电子",
+      "sinaLabel": "new_dzqj",
+      "changePercent": 1.13,
+      "stockCount": 104,
+      "upCount": 76,
+      "downCount": 28,
+      "totalTurnover": 349.62,
+      "netInflow": 57.25,
+      "leaderName": "海洋王",
+      "leaderChangePercent": 10.06,
       "topStocks": [
-        "世纪华通"
+        "海洋王",
+        "利通电子"
       ],
-      "limitUpCount": 0
+      "limitUpCount": 1
     },
     {
       "name": "电池",
       "sinaLabel": "new_xnyhy",
-      "changePercent": 0.96,
-      "stockCount": 102,
-      "upCount": 66,
-      "downCount": 36,
-      "totalTurnover": 496.37,
-      "netInflow": 41.85,
+      "changePercent": 0.94,
+      "stockCount": 103,
+      "upCount": 65,
+      "downCount": 38,
+      "totalTurnover": 498.95,
+      "netInflow": 38.86,
       "leaderName": "龙鑫智能",
-      "leaderChangePercent": 11.39,
+      "leaderChangePercent": 11.54,
       "topStocks": [
         "龙鑫智能"
       ],
       "limitUpCount": 0
     },
     {
+      "name": "煤炭开采加工",
+      "sinaLabel": "new_lthy",
+      "changePercent": 0.94,
+      "stockCount": 33,
+      "upCount": 22,
+      "downCount": 11,
+      "totalTurnover": 110.65,
+      "netInflow": 15.09,
+      "leaderName": "平煤股份",
+      "leaderChangePercent": 6.56,
+      "topStocks": [
+        "平煤股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "塑料制品",
+      "sinaLabel": "new_snhy",
+      "changePercent": 0.93,
+      "stockCount": 72,
+      "upCount": 45,
+      "downCount": 27,
+      "totalTurnover": 164.33,
+      "netInflow": 23.15,
+      "leaderName": "瑞丰高材",
+      "leaderChangePercent": 13.21,
+      "topStocks": [
+        "瑞丰高材",
+        "天洋新材"
+      ],
+      "limitUpCount": 1
+    },
+    {
       "name": "工业金属",
       "sinaLabel": "new_gthy",
-      "changePercent": 0.95,
+      "changePercent": 0.87,
       "stockCount": 53,
-      "upCount": 38,
-      "downCount": 15,
-      "totalTurnover": 256.58,
-      "netInflow": 30.03,
+      "upCount": 35,
+      "downCount": 18,
+      "totalTurnover": 258.66,
+      "netInflow": 23.91,
       "leaderName": "金田股份",
       "leaderChangePercent": 10.05,
       "topStocks": [
@@ -3346,47 +3465,14 @@
       "limitUpCount": 2
     },
     {
-      "name": "塑料制品",
-      "sinaLabel": "new_snhy",
-      "changePercent": 0.92,
-      "stockCount": 72,
-      "upCount": 48,
-      "downCount": 24,
-      "totalTurnover": 163.14,
-      "netInflow": 29.1,
-      "leaderName": "瑞丰高材",
-      "leaderChangePercent": 12.11,
-      "topStocks": [
-        "瑞丰高材",
-        "天洋新材"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "煤炭开采加工",
-      "sinaLabel": "new_lthy",
-      "changePercent": 0.9,
-      "stockCount": 33,
-      "upCount": 22,
-      "downCount": 11,
-      "totalTurnover": 109.41,
-      "netInflow": 14.99,
-      "leaderName": "平煤股份",
-      "leaderChangePercent": 6.67,
-      "topStocks": [
-        "平煤股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
       "name": "其他电源设备",
       "sinaLabel": "new_dlhy",
-      "changePercent": 0.84,
-      "stockCount": 34,
-      "upCount": 20,
-      "downCount": 14,
-      "totalTurnover": 132.57,
-      "netInflow": 10.33,
+      "changePercent": 0.86,
+      "stockCount": 35,
+      "upCount": 22,
+      "downCount": 13,
+      "totalTurnover": 133.53,
+      "netInflow": 13.39,
       "leaderName": "金时科技",
       "leaderChangePercent": 10.01,
       "topStocks": [
@@ -3397,44 +3483,29 @@
     {
       "name": "消费电子",
       "sinaLabel": "new_xfhy",
-      "changePercent": 0.69,
-      "stockCount": 95,
-      "upCount": 58,
+      "changePercent": 0.71,
+      "stockCount": 93,
+      "upCount": 56,
       "downCount": 37,
-      "totalTurnover": 432.1,
-      "netInflow": 31.02,
+      "totalTurnover": 435.7,
+      "netInflow": 29.13,
       "leaderName": "奕东电子",
-      "leaderChangePercent": 8.48,
+      "leaderChangePercent": 8.3,
       "topStocks": [
-        "奕东电子"
+        "奕东电子",
+        "利通电子"
       ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "贵金属",
-      "sinaLabel": "new_gthy",
-      "changePercent": 0.65,
-      "stockCount": 13,
-      "upCount": 10,
-      "downCount": 3,
-      "totalTurnover": 209.22,
-      "netInflow": 12.48,
-      "leaderName": "赤峰黄金",
-      "leaderChangePercent": 3.29,
-      "topStocks": [
-        "赤峰黄金"
-      ],
-      "limitUpCount": 0
+      "limitUpCount": 1
     },
     {
       "name": "军工装备",
       "sinaLabel": "new_zyyd",
-      "changePercent": 0.61,
-      "stockCount": 78,
-      "upCount": 58,
-      "downCount": 20,
-      "totalTurnover": 238.28,
-      "netInflow": 43.99,
+      "changePercent": 0.64,
+      "stockCount": 80,
+      "upCount": 59,
+      "downCount": 21,
+      "totalTurnover": 239.54,
+      "netInflow": 44.07,
       "leaderName": "利君股份",
       "leaderChangePercent": 9.96,
       "topStocks": [
@@ -3445,12 +3516,12 @@
     {
       "name": "化学纤维",
       "sinaLabel": "new_hxxgy",
-      "changePercent": 0.61,
-      "stockCount": 28,
-      "upCount": 12,
-      "downCount": 16,
-      "totalTurnover": 44.3,
-      "netInflow": -1.89,
+      "changePercent": 0.63,
+      "stockCount": 27,
+      "upCount": 13,
+      "downCount": 14,
+      "totalTurnover": 44.58,
+      "netInflow": 1.15,
       "leaderName": "海阳科技",
       "leaderChangePercent": 9.98,
       "topStocks": [
@@ -3462,14 +3533,14 @@
     {
       "name": "通用设备",
       "sinaLabel": "new_jxhy",
-      "changePercent": 0.57,
-      "stockCount": 249,
-      "upCount": 145,
-      "downCount": 104,
-      "totalTurnover": 475.13,
-      "netInflow": 51.64,
+      "changePercent": 0.58,
+      "stockCount": 246,
+      "upCount": 136,
+      "downCount": 110,
+      "totalTurnover": 478.46,
+      "netInflow": 36.73,
       "leaderName": "致远新能",
-      "leaderChangePercent": 18.34,
+      "leaderChangePercent": 17.38,
       "topStocks": [
         "致远新能",
         "蓝盾光电"
@@ -3479,65 +3550,98 @@
     {
       "name": "专用设备",
       "sinaLabel": "new_jxhy",
-      "changePercent": 0.56,
+      "changePercent": 0.57,
       "stockCount": 191,
-      "upCount": 120,
-      "downCount": 71,
-      "totalTurnover": 358.48,
-      "netInflow": 57.29,
+      "upCount": 117,
+      "downCount": 74,
+      "totalTurnover": 361.16,
+      "netInflow": 51.36,
       "leaderName": "快意电梯",
       "leaderChangePercent": 10.03,
       "topStocks": [
         "快意电梯",
-        "越剑智能"
+        "厦工股份"
       ],
-      "limitUpCount": 2
-    },
-    {
-      "name": "能源金属",
-      "sinaLabel": "new_gthy",
-      "changePercent": 0.48,
-      "stockCount": 12,
-      "upCount": 9,
-      "downCount": 3,
-      "totalTurnover": 120.79,
-      "netInflow": 9.38,
-      "leaderName": "融捷股份",
-      "leaderChangePercent": 3.02,
-      "topStocks": [
-        "融捷股份"
-      ],
-      "limitUpCount": 0
+      "limitUpCount": 3
     },
     {
       "name": "橡胶制品",
       "sinaLabel": "new_snhy",
-      "changePercent": 0.45,
-      "stockCount": 22,
+      "changePercent": 0.49,
+      "stockCount": 21,
       "upCount": 14,
-      "downCount": 8,
-      "totalTurnover": 18.66,
-      "netInflow": 7.27,
+      "downCount": 7,
+      "totalTurnover": 18.81,
+      "netInflow": 8.36,
       "leaderName": "科创新源",
-      "leaderChangePercent": 4.67,
+      "leaderChangePercent": 4.62,
       "topStocks": [
         "科创新源"
       ],
       "limitUpCount": 0
     },
     {
+      "name": "能源金属",
+      "sinaLabel": "new_gthy",
+      "changePercent": 0.46,
+      "stockCount": 12,
+      "upCount": 9,
+      "downCount": 3,
+      "totalTurnover": 121.49,
+      "netInflow": 9.35,
+      "leaderName": "融捷股份",
+      "leaderChangePercent": 2.96,
+      "topStocks": [
+        "融捷股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "贵金属",
+      "sinaLabel": "new_gthy",
+      "changePercent": 0.41,
+      "stockCount": 13,
+      "upCount": 8,
+      "downCount": 5,
+      "totalTurnover": 210.27,
+      "netInflow": 8.03,
+      "leaderName": "赤峰黄金",
+      "leaderChangePercent": 3.0,
+      "topStocks": [
+        "赤峰黄金"
+      ],
+      "limitUpCount": 0
+    },
+    {
       "name": "军工电子",
       "sinaLabel": "new_zyyd",
-      "changePercent": 0.33,
-      "stockCount": 60,
+      "changePercent": 0.37,
+      "stockCount": 61,
       "upCount": 37,
-      "downCount": 23,
-      "totalTurnover": 153.13,
-      "netInflow": 17.72,
+      "downCount": 24,
+      "totalTurnover": 154.33,
+      "netInflow": 16.83,
       "leaderName": "盛路通信",
-      "leaderChangePercent": 4.05,
+      "leaderChangePercent": 4.39,
       "topStocks": [
-        "盛路通信"
+        "盛路通信",
+        "利通电子"
+      ],
+      "limitUpCount": 1
+    },
+    {
+      "name": "黑色家电",
+      "sinaLabel": "new_jdhy",
+      "changePercent": 0.33,
+      "stockCount": 9,
+      "upCount": 5,
+      "downCount": 4,
+      "totalTurnover": 17.52,
+      "netInflow": 2.01,
+      "leaderName": "兆驰股份",
+      "leaderChangePercent": 2.78,
+      "topStocks": [
+        "兆驰股份"
       ],
       "limitUpCount": 0
     },
@@ -3548,8 +3652,8 @@
       "stockCount": 32,
       "upCount": 12,
       "downCount": 20,
-      "totalTurnover": 72.1,
-      "netInflow": -5.94,
+      "totalTurnover": 72.32,
+      "netInflow": -5.93,
       "leaderName": "开开实业",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -3559,49 +3663,16 @@
       "limitUpCount": 2
     },
     {
-      "name": "黑色家电",
-      "sinaLabel": "new_jdhy",
-      "changePercent": 0.3,
-      "stockCount": 9,
-      "upCount": 5,
-      "downCount": 4,
-      "totalTurnover": 17.42,
-      "netInflow": 1.95,
-      "leaderName": "兆驰股份",
-      "leaderChangePercent": 3.02,
-      "topStocks": [
-        "兆驰股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "环境治理",
-      "sinaLabel": "new_hbhy",
-      "changePercent": 0.22,
-      "stockCount": 102,
-      "upCount": 42,
-      "downCount": 60,
-      "totalTurnover": 117.03,
-      "netInflow": -15.22,
-      "leaderName": "九州一轨",
-      "leaderChangePercent": 20.01,
-      "topStocks": [
-        "九州一轨",
-        "华骐环保"
-      ],
-      "limitUpCount": 3
-    },
-    {
       "name": "白色家电",
       "sinaLabel": "new_jdhy",
-      "changePercent": 0.22,
-      "stockCount": 42,
+      "changePercent": 0.24,
+      "stockCount": 43,
       "upCount": 17,
-      "downCount": 25,
-      "totalTurnover": 80.02,
-      "netInflow": -5.96,
+      "downCount": 26,
+      "totalTurnover": 80.78,
+      "netInflow": -6.9,
       "leaderName": "海达尔",
-      "leaderChangePercent": 15.24,
+      "leaderChangePercent": 16.53,
       "topStocks": [
         "海达尔"
       ],
@@ -3610,12 +3681,12 @@
     {
       "name": "造纸",
       "sinaLabel": "new_zjhy",
-      "changePercent": 0.21,
-      "stockCount": 20,
+      "changePercent": 0.2,
+      "stockCount": 19,
       "upCount": 10,
-      "downCount": 10,
-      "totalTurnover": 21.62,
-      "netInflow": 0.85,
+      "downCount": 9,
+      "totalTurnover": 21.72,
+      "netInflow": 1.83,
       "leaderName": "安妮股份",
       "leaderChangePercent": 6.09,
       "topStocks": [
@@ -3626,79 +3697,45 @@
     {
       "name": "计算机设备",
       "sinaLabel": "new_dzxx",
-      "changePercent": 0.13,
-      "stockCount": 80,
-      "upCount": 41,
-      "downCount": 39,
-      "totalTurnover": 334.67,
-      "netInflow": 8.95,
+      "changePercent": 0.19,
+      "stockCount": 79,
+      "upCount": 39,
+      "downCount": 40,
+      "totalTurnover": 337.21,
+      "netInflow": 6.12,
       "leaderName": "ST达华",
-      "leaderChangePercent": 6.32,
+      "leaderChangePercent": 6.05,
       "topStocks": [
         "ST达华"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "化学制品",
-      "sinaLabel": "new_hxxgy",
-      "changePercent": 0.09,
-      "stockCount": 178,
-      "upCount": 92,
-      "downCount": 86,
-      "totalTurnover": 339.85,
-      "netInflow": 12.98,
-      "leaderName": "阿拉丁",
-      "leaderChangePercent": 10.47,
+      "name": "环境治理",
+      "sinaLabel": "new_hbhy",
+      "changePercent": 0.18,
+      "stockCount": 107,
+      "upCount": 42,
+      "downCount": 65,
+      "totalTurnover": 118.02,
+      "netInflow": -20.28,
+      "leaderName": "九州一轨",
+      "leaderChangePercent": 20.01,
       "topStocks": [
-        "阿拉丁",
-        "圣达生物"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "生物制品",
-      "sinaLabel": "new_zyyd",
-      "changePercent": 0.08,
-      "stockCount": 53,
-      "upCount": 18,
-      "downCount": 35,
-      "totalTurnover": 168.03,
-      "netInflow": -13.48,
-      "leaderName": "义翘神州",
-      "leaderChangePercent": 8.33,
-      "topStocks": [
-        "义翘神州",
-        "中源协和"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "汽车零部件",
-      "sinaLabel": "new_qczz",
-      "changePercent": 0.06,
-      "stockCount": 262,
-      "upCount": 120,
-      "downCount": 142,
-      "totalTurnover": 353.56,
-      "netInflow": -14.81,
-      "leaderName": "正裕工业",
-      "leaderChangePercent": 10.04,
-      "topStocks": [
-        "正裕工业",
-        "坤泰股份"
+        "九州一轨",
+        "华骐环保"
       ],
       "limitUpCount": 3
     },
     {
       "name": "IT服务",
       "sinaLabel": "new_dzxx",
-      "changePercent": 0.06,
-      "stockCount": 126,
-      "upCount": 51,
-      "downCount": 75,
-      "totalTurnover": 615.28,
-      "netInflow": -11.57,
+      "changePercent": 0.15,
+      "stockCount": 123,
+      "upCount": 49,
+      "downCount": 74,
+      "totalTurnover": 623.81,
+      "netInflow": -12.22,
       "leaderName": "网宿科技",
       "leaderChangePercent": 20.01,
       "topStocks": [
@@ -3708,110 +3745,14 @@
       "limitUpCount": 3
     },
     {
-      "name": "贸易",
-      "sinaLabel": "new_qqhy",
-      "changePercent": 0.05,
-      "stockCount": 14,
-      "upCount": 6,
-      "downCount": 8,
-      "totalTurnover": 9.18,
-      "netInflow": -1.72,
-      "leaderName": "江苏国泰",
-      "leaderChangePercent": 2.38,
-      "topStocks": [
-        "江苏国泰"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "建筑材料",
-      "sinaLabel": "new_jzqg",
-      "changePercent": 0.03,
-      "stockCount": 69,
-      "upCount": 30,
-      "downCount": 39,
-      "totalTurnover": 248.66,
-      "netInflow": -3.97,
-      "leaderName": "中材科技",
-      "leaderChangePercent": 7.51,
-      "topStocks": [
-        "中材科技"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "光伏设备",
-      "sinaLabel": "new_xnyhy",
-      "changePercent": 0.01,
-      "stockCount": 69,
-      "upCount": 29,
-      "downCount": 40,
-      "totalTurnover": 190.1,
-      "netInflow": -7.18,
-      "leaderName": "华民股份",
-      "leaderChangePercent": 8.29,
-      "topStocks": [
-        "华民股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "工程机械",
-      "sinaLabel": "new_jxhy",
-      "changePercent": 0.0,
-      "stockCount": 32,
-      "upCount": 13,
-      "downCount": 19,
-      "totalTurnover": 47.92,
-      "netInflow": -5.04,
-      "leaderName": "厦工股份",
-      "leaderChangePercent": 7.46,
-      "topStocks": [
-        "厦工股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "服装家纺",
-      "sinaLabel": "new_qqhy",
-      "changePercent": 0.0,
-      "stockCount": 68,
-      "upCount": 32,
-      "downCount": 36,
-      "totalTurnover": 55.3,
-      "netInflow": -2.89,
-      "leaderName": "万里马",
-      "leaderChangePercent": 7.32,
-      "topStocks": [
-        "万里马"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "综合",
-      "sinaLabel": "new_qqhy",
-      "changePercent": -0.01,
-      "stockCount": 17,
-      "upCount": 8,
-      "downCount": 9,
-      "totalTurnover": 57.45,
-      "netInflow": 0.13,
-      "leaderName": "东阳光",
-      "leaderChangePercent": 5.54,
-      "topStocks": [
-        "东阳光"
-      ],
-      "limitUpCount": 0
-    },
-    {
       "name": "软件开发",
       "sinaLabel": "new_dzxx",
-      "changePercent": -0.01,
+      "changePercent": 0.12,
       "stockCount": 135,
       "upCount": 55,
       "downCount": 80,
-      "totalTurnover": 394.7,
-      "netInflow": -17.13,
+      "totalTurnover": 397.63,
+      "netInflow": -16.81,
       "leaderName": "理工能科",
       "leaderChangePercent": 10.03,
       "topStocks": [
@@ -3821,97 +3762,260 @@
       "limitUpCount": 3
     },
     {
-      "name": "钢铁",
-      "sinaLabel": "new_gthy",
-      "changePercent": -0.03,
-      "stockCount": 38,
-      "upCount": 18,
-      "downCount": 20,
-      "totalTurnover": 59.62,
-      "netInflow": -0.87,
-      "leaderName": "杭钢股份",
-      "leaderChangePercent": 3.73,
+      "name": "生物制品",
+      "sinaLabel": "new_zyyd",
+      "changePercent": 0.12,
+      "stockCount": 54,
+      "upCount": 19,
+      "downCount": 35,
+      "totalTurnover": 168.99,
+      "netInflow": -12.38,
+      "leaderName": "义翘神州",
+      "leaderChangePercent": 8.0,
       "topStocks": [
-        "杭钢股份"
+        "义翘神州",
+        "中源协和"
+      ],
+      "limitUpCount": 1
+    },
+    {
+      "name": "汽车零部件",
+      "sinaLabel": "new_qczz",
+      "changePercent": 0.1,
+      "stockCount": 260,
+      "upCount": 113,
+      "downCount": 147,
+      "totalTurnover": 355.86,
+      "netInflow": -26.68,
+      "leaderName": "正裕工业",
+      "leaderChangePercent": 10.04,
+      "topStocks": [
+        "正裕工业",
+        "坤泰股份"
+      ],
+      "limitUpCount": 3
+    },
+    {
+      "name": "化学制品",
+      "sinaLabel": "new_hxxgy",
+      "changePercent": 0.09,
+      "stockCount": 178,
+      "upCount": 89,
+      "downCount": 89,
+      "totalTurnover": 341.64,
+      "netInflow": 7.01,
+      "leaderName": "阿拉丁",
+      "leaderChangePercent": 11.06,
+      "topStocks": [
+        "阿拉丁",
+        "圣达生物"
+      ],
+      "limitUpCount": 1
+    },
+    {
+      "name": "光伏设备",
+      "sinaLabel": "new_xnyhy",
+      "changePercent": 0.05,
+      "stockCount": 66,
+      "upCount": 26,
+      "downCount": 40,
+      "totalTurnover": 191.37,
+      "netInflow": -10.07,
+      "leaderName": "华民股份",
+      "leaderChangePercent": 10.32,
+      "topStocks": [
+        "华民股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "工程机械",
+      "sinaLabel": "new_jxhy",
+      "changePercent": 0.03,
+      "stockCount": 32,
+      "upCount": 13,
+      "downCount": 19,
+      "totalTurnover": 48.25,
+      "netInflow": -4.98,
+      "leaderName": "厦工股份",
+      "leaderChangePercent": 8.84,
+      "topStocks": [
+        "厦工股份"
+      ],
+      "limitUpCount": 1
+    },
+    {
+      "name": "服装家纺",
+      "sinaLabel": "new_qqhy",
+      "changePercent": 0.01,
+      "stockCount": 71,
+      "upCount": 33,
+      "downCount": 38,
+      "totalTurnover": 55.66,
+      "netInflow": -3.87,
+      "leaderName": "万里马",
+      "leaderChangePercent": 8.11,
+      "topStocks": [
+        "万里马"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "建筑材料",
+      "sinaLabel": "new_jzqg",
+      "changePercent": -0.0,
+      "stockCount": 69,
+      "upCount": 28,
+      "downCount": 41,
+      "totalTurnover": 249.71,
+      "netInflow": -8.01,
+      "leaderName": "中材科技",
+      "leaderChangePercent": 7.53,
+      "topStocks": [
+        "中材科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "贸易",
+      "sinaLabel": "new_qqhy",
+      "changePercent": -0.04,
+      "stockCount": 14,
+      "upCount": 6,
+      "downCount": 8,
+      "totalTurnover": 9.2,
+      "netInflow": -1.9,
+      "leaderName": "江苏国泰",
+      "leaderChangePercent": 2.24,
+      "topStocks": [
+        "江苏国泰"
       ],
       "limitUpCount": 0
     },
     {
       "name": "纺织制造",
       "sinaLabel": "new_qqhy",
-      "changePercent": -0.06,
-      "stockCount": 31,
+      "changePercent": -0.04,
+      "stockCount": 30,
       "upCount": 16,
-      "downCount": 15,
-      "totalTurnover": 31.78,
-      "netInflow": 1.52,
+      "downCount": 14,
+      "totalTurnover": 31.89,
+      "netInflow": 2.56,
       "leaderName": "兴业科技",
-      "leaderChangePercent": 4.22,
+      "leaderChangePercent": 4.08,
       "topStocks": [
         "兴业科技"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "轨交设备",
-      "sinaLabel": "new_cbzz",
-      "changePercent": -0.13,
-      "stockCount": 27,
-      "upCount": 15,
-      "downCount": 12,
-      "totalTurnover": 15.67,
-      "netInflow": 3.05,
-      "leaderName": "研奥股份",
-      "leaderChangePercent": 2.14,
+      "name": "钢铁",
+      "sinaLabel": "new_gthy",
+      "changePercent": -0.04,
+      "stockCount": 40,
+      "upCount": 18,
+      "downCount": 22,
+      "totalTurnover": 60.12,
+      "netInflow": -2.88,
+      "leaderName": "杭钢股份",
+      "leaderChangePercent": 3.44,
       "topStocks": [
-        "研奥股份",
-        "九州一轨"
+        "杭钢股份"
       ],
-      "limitUpCount": 1
+      "limitUpCount": 0
     },
     {
-      "name": "家居用品",
-      "sinaLabel": "new_jjhy",
-      "changePercent": -0.14,
-      "stockCount": 96,
-      "upCount": 38,
-      "downCount": 58,
-      "totalTurnover": 56.78,
-      "netInflow": -19.14,
-      "leaderName": "天安新材",
-      "leaderChangePercent": 9.98,
+      "name": "综合",
+      "sinaLabel": "new_qqhy",
+      "changePercent": -0.05,
+      "stockCount": 18,
+      "upCount": 7,
+      "downCount": 11,
+      "totalTurnover": 57.71,
+      "netInflow": -2.95,
+      "leaderName": "东阳光",
+      "leaderChangePercent": 5.48,
       "topStocks": [
-        "天安新材"
+        "东阳光"
       ],
-      "limitUpCount": 1
+      "limitUpCount": 0
     },
     {
       "name": "其他社会服务",
       "sinaLabel": "new_qqhy",
-      "changePercent": -0.14,
-      "stockCount": 41,
+      "changePercent": -0.15,
+      "stockCount": 40,
       "upCount": 14,
-      "downCount": 27,
-      "totalTurnover": 41.94,
-      "netInflow": -12.44,
+      "downCount": 26,
+      "totalTurnover": 42.14,
+      "netInflow": -11.46,
       "leaderName": "联检科技",
-      "leaderChangePercent": 9.82,
+      "leaderChangePercent": 9.45,
       "topStocks": [
         "联检科技"
       ],
       "limitUpCount": 0
     },
     {
+      "name": "石油加工贸易",
+      "sinaLabel": "new_qqhy",
+      "changePercent": -0.15,
+      "stockCount": 25,
+      "upCount": 11,
+      "downCount": 14,
+      "totalTurnover": 41.2,
+      "netInflow": -2.48,
+      "leaderName": "宇新股份",
+      "leaderChangePercent": 1.38,
+      "topStocks": [
+        "宇新股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "建筑装饰",
+      "sinaLabel": "new_jzzs",
+      "changePercent": -0.16,
+      "stockCount": 133,
+      "upCount": 45,
+      "downCount": 88,
+      "totalTurnover": 245.32,
+      "netInflow": -38.41,
+      "leaderName": "矩阵股份",
+      "leaderChangePercent": 11.71,
+      "topStocks": [
+        "矩阵股份",
+        "金 螳 螂"
+      ],
+      "limitUpCount": 3
+    },
+    {
       "name": "汽车服务及其他",
       "sinaLabel": "new_qczz",
-      "changePercent": -0.15,
+      "changePercent": -0.17,
       "stockCount": 25,
       "upCount": 10,
       "downCount": 15,
-      "totalTurnover": 23.23,
-      "netInflow": -4.84,
+      "totalTurnover": 23.35,
+      "netInflow": -4.87,
       "leaderName": "绿通科技",
-      "leaderChangePercent": 5.58,
+      "leaderChangePercent": 5.63,
+      "topStocks": [
+        "绿通科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "汽车服务及其他",
+      "sinaLabel": "new_qczz",
+      "changePercent": -0.17,
+      "stockCount": 25,
+      "upCount": 10,
+      "downCount": 15,
+      "totalTurnover": 23.35,
+      "netInflow": -4.87,
+      "leaderName": "绿通科技",
+      "leaderChangePercent": 5.63,
       "topStocks": [
         "绿通科技"
       ],
@@ -3920,12 +4024,12 @@
     {
       "name": "农化制品",
       "sinaLabel": "new_nyhy",
-      "changePercent": -0.17,
-      "stockCount": 61,
-      "upCount": 27,
-      "downCount": 34,
-      "totalTurnover": 90.35,
-      "netInflow": -5.53,
+      "changePercent": -0.18,
+      "stockCount": 57,
+      "upCount": 24,
+      "downCount": 33,
+      "totalTurnover": 91.07,
+      "netInflow": -7.54,
       "leaderName": "中旗股份",
       "leaderChangePercent": 4.43,
       "topStocks": [
@@ -3934,67 +4038,35 @@
       "limitUpCount": 0
     },
     {
-      "name": "建筑装饰",
-      "sinaLabel": "new_jzzs",
-      "changePercent": -0.18,
-      "stockCount": 133,
-      "upCount": 46,
-      "downCount": 87,
-      "totalTurnover": 244.38,
-      "netInflow": -36.47,
-      "leaderName": "矩阵股份",
-      "leaderChangePercent": 11.66,
-      "topStocks": [
-        "矩阵股份",
-        "金 螳 螂"
-      ],
-      "limitUpCount": 3
-    },
-    {
-      "name": "石油加工贸易",
-      "sinaLabel": "new_qqhy",
+      "name": "轨交设备",
+      "sinaLabel": "new_cbzz",
       "changePercent": -0.19,
-      "stockCount": 25,
-      "upCount": 11,
-      "downCount": 14,
-      "totalTurnover": 40.94,
-      "netInflow": -2.56,
-      "leaderName": "宇新股份",
-      "leaderChangePercent": 1.6,
+      "stockCount": 29,
+      "upCount": 14,
+      "downCount": 15,
+      "totalTurnover": 15.76,
+      "netInflow": -1.06,
+      "leaderName": "研奥股份",
+      "leaderChangePercent": 1.92,
       "topStocks": [
-        "宇新股份"
+        "研奥股份",
+        "九州一轨"
       ],
-      "limitUpCount": 0
+      "limitUpCount": 1
     },
     {
-      "name": "银行",
-      "sinaLabel": "new_zqqy",
-      "changePercent": -0.19,
-      "stockCount": 40,
-      "upCount": 10,
-      "downCount": 30,
-      "totalTurnover": 180.37,
-      "netInflow": -16.77,
-      "leaderName": "沪农商行",
-      "leaderChangePercent": 2.58,
+      "name": "电机",
+      "sinaLabel": "new_jxhy",
+      "changePercent": -0.21,
+      "stockCount": 24,
+      "upCount": 9,
+      "downCount": 15,
+      "totalTurnover": 43.4,
+      "netInflow": -5.55,
+      "leaderName": "康平科技",
+      "leaderChangePercent": 5.41,
       "topStocks": [
-        "沪农商行"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "公路铁路运输",
-      "sinaLabel": "new_wlys",
-      "changePercent": -0.2,
-      "stockCount": 27,
-      "upCount": 4,
-      "downCount": 23,
-      "totalTurnover": 26.71,
-      "netInflow": -18.87,
-      "leaderName": "大众交通",
-      "leaderChangePercent": 3.9,
-      "topStocks": [
-        "大众交通"
+        "康平科技"
       ],
       "limitUpCount": 0
     },
@@ -4002,11 +4074,11 @@
       "name": "医疗器械",
       "sinaLabel": "new_ylqx",
       "changePercent": -0.22,
-      "stockCount": 140,
-      "upCount": 59,
-      "downCount": 81,
-      "totalTurnover": 209.11,
-      "netInflow": -18.26,
+      "stockCount": 136,
+      "upCount": 52,
+      "downCount": 84,
+      "totalTurnover": 210.08,
+      "netInflow": -28.24,
       "leaderName": "中源协和",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -4016,30 +4088,46 @@
       "limitUpCount": 2
     },
     {
-      "name": "电机",
-      "sinaLabel": "new_jxhy",
-      "changePercent": -0.25,
-      "stockCount": 26,
-      "upCount": 9,
-      "downCount": 17,
-      "totalTurnover": 43.19,
-      "netInflow": -7.64,
-      "leaderName": "康平科技",
-      "leaderChangePercent": 5.37,
+      "name": "银行",
+      "sinaLabel": "new_zqqy",
+      "changePercent": -0.23,
+      "stockCount": 38,
+      "upCount": 10,
+      "downCount": 28,
+      "totalTurnover": 181.28,
+      "netInflow": -14.83,
+      "leaderName": "沪农商行",
+      "leaderChangePercent": 2.46,
       "topStocks": [
-        "康平科技"
+        "沪农商行"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "公路铁路运输",
+      "sinaLabel": "new_wlys",
+      "changePercent": -0.24,
+      "stockCount": 28,
+      "upCount": 4,
+      "downCount": 24,
+      "totalTurnover": 26.81,
+      "netInflow": -19.94,
+      "leaderName": "大众交通",
+      "leaderChangePercent": 4.11,
+      "topStocks": [
+        "大众交通"
       ],
       "limitUpCount": 0
     },
     {
       "name": "食品加工制造",
       "sinaLabel": "new_slhy",
-      "changePercent": -0.35,
-      "stockCount": 64,
-      "upCount": 20,
+      "changePercent": -0.36,
+      "stockCount": 65,
+      "upCount": 21,
       "downCount": 44,
-      "totalTurnover": 113.07,
-      "netInflow": -22.44,
+      "totalTurnover": 113.39,
+      "netInflow": -21.45,
       "leaderName": "桂发祥",
       "leaderChangePercent": 9.98,
       "topStocks": [
@@ -4050,14 +4138,14 @@
     {
       "name": "化学原料",
       "sinaLabel": "new_hxxgy",
-      "changePercent": -0.36,
-      "stockCount": 59,
-      "upCount": 22,
+      "changePercent": -0.39,
+      "stockCount": 58,
+      "upCount": 21,
       "downCount": 37,
-      "totalTurnover": 89.83,
-      "netInflow": -13.92,
+      "totalTurnover": 90.41,
+      "netInflow": -14.97,
       "leaderName": "新金路",
-      "leaderChangePercent": 4.24,
+      "leaderChangePercent": 4.18,
       "topStocks": [
         "新金路",
         "圣达生物"
@@ -4065,16 +4153,65 @@
       "limitUpCount": 1
     },
     {
+      "name": "油气开采及服务",
+      "sinaLabel": "new_syhy",
+      "changePercent": -0.46,
+      "stockCount": 17,
+      "upCount": 6,
+      "downCount": 11,
+      "totalTurnover": 44.1,
+      "netInflow": -5.04,
+      "leaderName": "*ST准油",
+      "leaderChangePercent": 1.18,
+      "topStocks": [
+        "*ST准油"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "互联网电商",
+      "sinaLabel": "new_cmyl",
+      "changePercent": -0.47,
+      "stockCount": 18,
+      "upCount": 6,
+      "downCount": 12,
+      "totalTurnover": 82.38,
+      "netInflow": -5.29,
+      "leaderName": "行云科技",
+      "leaderChangePercent": 10.32,
+      "topStocks": [
+        "行云科技",
+        "网宿科技"
+      ],
+      "limitUpCount": 1
+    },
+    {
+      "name": "风电设备",
+      "sinaLabel": "new_fdsb",
+      "changePercent": -0.52,
+      "stockCount": 31,
+      "upCount": 7,
+      "downCount": 24,
+      "totalTurnover": 62.28,
+      "netInflow": -16.79,
+      "leaderName": "恒润股份",
+      "leaderChangePercent": 5.69,
+      "topStocks": [
+        "恒润股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
       "name": "包装印刷",
       "sinaLabel": "new_yysc",
-      "changePercent": -0.5,
-      "stockCount": 42,
-      "upCount": 14,
-      "downCount": 28,
-      "totalTurnover": 42.07,
-      "netInflow": -14.16,
+      "changePercent": -0.54,
+      "stockCount": 44,
+      "upCount": 15,
+      "downCount": 29,
+      "totalTurnover": 42.32,
+      "netInflow": -14.23,
       "leaderName": "金富科技",
-      "leaderChangePercent": 3.43,
+      "leaderChangePercent": 3.36,
       "topStocks": [
         "金富科技"
       ],
@@ -4083,12 +4220,12 @@
     {
       "name": "物流",
       "sinaLabel": "new_wlys",
-      "changePercent": -0.51,
-      "stockCount": 48,
-      "upCount": 17,
+      "changePercent": -0.55,
+      "stockCount": 46,
+      "upCount": 15,
       "downCount": 31,
-      "totalTurnover": 36.16,
-      "netInflow": -14.3,
+      "totalTurnover": 36.35,
+      "netInflow": -16.37,
       "leaderName": "*ST瑞茂",
       "leaderChangePercent": 3.17,
       "topStocks": [
@@ -4097,65 +4234,16 @@
       "limitUpCount": 0
     },
     {
-      "name": "油气开采及服务",
-      "sinaLabel": "new_syhy",
-      "changePercent": -0.51,
-      "stockCount": 17,
-      "upCount": 5,
-      "downCount": 12,
-      "totalTurnover": 43.88,
-      "netInflow": -7.14,
-      "leaderName": "*ST准油",
-      "leaderChangePercent": 1.01,
-      "topStocks": [
-        "*ST准油"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "风电设备",
-      "sinaLabel": "new_fdsb",
-      "changePercent": -0.51,
-      "stockCount": 31,
-      "upCount": 7,
-      "downCount": 24,
-      "totalTurnover": 61.86,
-      "netInflow": -16.78,
-      "leaderName": "恒润股份",
-      "leaderChangePercent": 5.63,
-      "topStocks": [
-        "恒润股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "互联网电商",
-      "sinaLabel": "new_cmyl",
-      "changePercent": -0.52,
-      "stockCount": 19,
-      "upCount": 5,
-      "downCount": 14,
-      "totalTurnover": 81.23,
-      "netInflow": -8.42,
-      "leaderName": "行云科技",
-      "leaderChangePercent": 10.13,
-      "topStocks": [
-        "行云科技",
-        "网宿科技"
-      ],
-      "limitUpCount": 1
-    },
-    {
       "name": "机场航运",
       "sinaLabel": "new_wlys",
-      "changePercent": -0.55,
+      "changePercent": -0.56,
       "stockCount": 12,
       "upCount": 1,
       "downCount": 11,
-      "totalTurnover": 18.5,
-      "netInflow": -10.73,
+      "totalTurnover": 18.6,
+      "netInflow": -10.75,
       "leaderName": "厦门空港",
-      "leaderChangePercent": 0.2,
+      "leaderChangePercent": 0.27,
       "topStocks": [
         "厦门空港"
       ],
@@ -4164,14 +4252,14 @@
     {
       "name": "化学制药",
       "sinaLabel": "new_zyyd",
-      "changePercent": -0.64,
-      "stockCount": 155,
+      "changePercent": -0.66,
+      "stockCount": 157,
       "upCount": 44,
-      "downCount": 111,
-      "totalTurnover": 505.27,
-      "netInflow": -58.17,
+      "downCount": 113,
+      "totalTurnover": 507.79,
+      "netInflow": -60.16,
       "leaderName": "西点药业",
-      "leaderChangePercent": 19.99,
+      "leaderChangePercent": 19.84,
       "topStocks": [
         "西点药业",
         "神奇制药"
@@ -4181,44 +4269,28 @@
     {
       "name": "小家电",
       "sinaLabel": "new_jdhy",
-      "changePercent": -0.66,
+      "changePercent": -0.68,
       "stockCount": 26,
-      "upCount": 8,
-      "downCount": 18,
-      "totalTurnover": 17.3,
-      "netInflow": -10.97,
+      "upCount": 9,
+      "downCount": 17,
+      "totalTurnover": 17.4,
+      "netInflow": -9.01,
       "leaderName": "开能健康",
-      "leaderChangePercent": 2.3,
+      "leaderChangePercent": 1.97,
       "topStocks": [
         "开能健康"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "港口航运",
-      "sinaLabel": "new_wlys",
-      "changePercent": -0.74,
-      "stockCount": 33,
-      "upCount": 10,
-      "downCount": 23,
-      "totalTurnover": 57.79,
-      "netInflow": -13.32,
-      "leaderName": "秦港股份",
-      "leaderChangePercent": 1.2,
-      "topStocks": [
-        "秦港股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
       "name": "医疗服务",
       "sinaLabel": "new_ylqx",
-      "changePercent": -0.76,
-      "stockCount": 55,
-      "upCount": 12,
-      "downCount": 43,
-      "totalTurnover": 394.73,
-      "netInflow": -24.63,
+      "changePercent": -0.74,
+      "stockCount": 53,
+      "upCount": 11,
+      "downCount": 42,
+      "totalTurnover": 396.58,
+      "netInflow": -24.55,
       "leaderName": "博济医药",
       "leaderChangePercent": 20.0,
       "topStocks": [
@@ -4228,16 +4300,32 @@
       "limitUpCount": 2
     },
     {
+      "name": "港口航运",
+      "sinaLabel": "new_wlys",
+      "changePercent": -0.76,
+      "stockCount": 32,
+      "upCount": 9,
+      "downCount": 23,
+      "totalTurnover": 58.05,
+      "netInflow": -14.36,
+      "leaderName": "秦港股份",
+      "leaderChangePercent": 1.2,
+      "topStocks": [
+        "秦港股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
       "name": "多元金融",
       "sinaLabel": "new_zqqy",
-      "changePercent": -0.88,
-      "stockCount": 25,
-      "upCount": 2,
+      "changePercent": -0.8,
+      "stockCount": 26,
+      "upCount": 3,
       "downCount": 23,
-      "totalTurnover": 33.83,
-      "netInflow": -22.08,
+      "totalTurnover": 34.14,
+      "netInflow": -20.92,
       "leaderName": "仁东控股",
-      "leaderChangePercent": 1.24,
+      "leaderChangePercent": 1.33,
       "topStocks": [
         "仁东控股"
       ],
@@ -4246,12 +4334,12 @@
     {
       "name": "电网设备",
       "sinaLabel": "new_fdsb",
-      "changePercent": -0.9,
+      "changePercent": -0.88,
       "stockCount": 138,
-      "upCount": 34,
-      "downCount": 104,
-      "totalTurnover": 340.99,
-      "netInflow": -64.98,
+      "upCount": 33,
+      "downCount": 105,
+      "totalTurnover": 342.71,
+      "netInflow": -66.91,
       "leaderName": "杭电股份",
       "leaderChangePercent": 10.02,
       "topStocks": [
@@ -4266,10 +4354,10 @@
       "stockCount": 33,
       "upCount": 5,
       "downCount": 28,
-      "totalTurnover": 24.71,
-      "netInflow": -24.31,
+      "totalTurnover": 24.79,
+      "netInflow": -24.3,
       "leaderName": "丽江股份",
-      "leaderChangePercent": 1.59,
+      "leaderChangePercent": 1.7,
       "topStocks": [
         "丽江股份"
       ],
@@ -4278,14 +4366,14 @@
     {
       "name": "燃气",
       "sinaLabel": "new_gghy1",
-      "changePercent": -0.96,
-      "stockCount": 25,
+      "changePercent": -0.93,
+      "stockCount": 26,
       "upCount": 10,
-      "downCount": 15,
-      "totalTurnover": 35.47,
-      "netInflow": -6.21,
+      "downCount": 16,
+      "totalTurnover": 35.69,
+      "netInflow": -7.15,
       "leaderName": "九丰能源",
-      "leaderChangePercent": 5.87,
+      "leaderChangePercent": 6.36,
       "topStocks": [
         "九丰能源"
       ],
@@ -4294,12 +4382,12 @@
     {
       "name": "中药",
       "sinaLabel": "new_zyyd",
-      "changePercent": -0.97,
+      "changePercent": -0.98,
       "stockCount": 68,
       "upCount": 16,
       "downCount": 52,
-      "totalTurnover": 150.63,
-      "netInflow": -34.93,
+      "totalTurnover": 151.24,
+      "netInflow": -34.94,
       "leaderName": "华森制药",
       "leaderChangePercent": 10.02,
       "topStocks": [
@@ -4308,14 +4396,30 @@
       "limitUpCount": 1
     },
     {
+      "name": "汽车整车",
+      "sinaLabel": "new_qczz",
+      "changePercent": -1.07,
+      "stockCount": 21,
+      "upCount": 3,
+      "downCount": 18,
+      "totalTurnover": 68.96,
+      "netInflow": -15.76,
+      "leaderName": "中通客车",
+      "leaderChangePercent": 1.47,
+      "topStocks": [
+        "中通客车"
+      ],
+      "limitUpCount": 0
+    },
+    {
       "name": "证券",
       "sinaLabel": "new_zqqy",
-      "changePercent": -1.08,
+      "changePercent": -1.11,
       "stockCount": 50,
       "upCount": 2,
       "downCount": 48,
-      "totalTurnover": 204.92,
-      "netInflow": -44.06,
+      "totalTurnover": 205.95,
+      "netInflow": -44.1,
       "leaderName": "太平洋",
       "leaderChangePercent": 1.17,
       "topStocks": [
@@ -4324,32 +4428,16 @@
       "limitUpCount": 0
     },
     {
-      "name": "汽车整车",
-      "sinaLabel": "new_qczz",
-      "changePercent": -1.1,
-      "stockCount": 22,
-      "upCount": 3,
-      "downCount": 19,
-      "totalTurnover": 68.67,
-      "netInflow": -16.83,
-      "leaderName": "中通客车",
-      "leaderChangePercent": 1.37,
-      "topStocks": [
-        "中通客车"
-      ],
-      "limitUpCount": 0
-    },
-    {
       "name": "教育",
       "sinaLabel": "new_qqhy",
       "changePercent": -1.13,
-      "stockCount": 15,
-      "upCount": 5,
+      "stockCount": 14,
+      "upCount": 4,
       "downCount": 10,
-      "totalTurnover": 21.93,
-      "netInflow": -6.82,
+      "totalTurnover": 22.0,
+      "netInflow": -7.82,
       "leaderName": "传智教育",
-      "leaderChangePercent": 3.18,
+      "leaderChangePercent": 3.27,
       "topStocks": [
         "传智教育"
       ],
@@ -4359,11 +4447,11 @@
       "name": "农产品加工",
       "sinaLabel": "new_nlmy",
       "changePercent": -1.14,
-      "stockCount": 42,
-      "upCount": 10,
+      "stockCount": 43,
+      "upCount": 11,
       "downCount": 32,
-      "totalTurnover": 41.91,
-      "netInflow": -23.44,
+      "totalTurnover": 42.09,
+      "netInflow": -22.44,
       "leaderName": "中粮糖业",
       "leaderChangePercent": 3.31,
       "topStocks": [
@@ -4372,34 +4460,34 @@
       "limitUpCount": 0
     },
     {
-      "name": "养殖业",
-      "sinaLabel": "new_nlmy",
-      "changePercent": -1.22,
-      "stockCount": 35,
-      "upCount": 3,
-      "downCount": 32,
-      "totalTurnover": 51.46,
-      "netInflow": -30.41,
-      "leaderName": "回盛生物",
-      "leaderChangePercent": 2.67,
+      "name": "文化传媒",
+      "sinaLabel": "new_cmyl",
+      "changePercent": -1.15,
+      "stockCount": 82,
+      "upCount": 16,
+      "downCount": 66,
+      "totalTurnover": 309.89,
+      "netInflow": -46.1,
+      "leaderName": "*ST三六五",
+      "leaderChangePercent": 6.91,
       "topStocks": [
-        "回盛生物"
+        "*ST三六五"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "文化传媒",
-      "sinaLabel": "new_cmyl",
-      "changePercent": -1.23,
-      "stockCount": 82,
-      "upCount": 16,
-      "downCount": 66,
-      "totalTurnover": 308.76,
-      "netInflow": -46.28,
-      "leaderName": "*ST三六五",
-      "leaderChangePercent": 6.74,
+      "name": "养殖业",
+      "sinaLabel": "new_nlmy",
+      "changePercent": -1.21,
+      "stockCount": 35,
+      "upCount": 3,
+      "downCount": 32,
+      "totalTurnover": 51.88,
+      "netInflow": -30.38,
+      "leaderName": "回盛生物",
+      "leaderChangePercent": 2.41,
       "topStocks": [
-        "*ST三六五"
+        "回盛生物"
       ],
       "limitUpCount": 0
     },
@@ -4407,11 +4495,11 @@
       "name": "房地产",
       "sinaLabel": "new_fdc",
       "changePercent": -1.37,
-      "stockCount": 82,
+      "stockCount": 83,
       "upCount": 12,
-      "downCount": 70,
-      "totalTurnover": 130.56,
-      "netInflow": -58.13,
+      "downCount": 71,
+      "totalTurnover": 131.33,
+      "netInflow": -59.11,
       "leaderName": "盈新发展",
       "leaderChangePercent": 10.18,
       "topStocks": [
@@ -4420,48 +4508,48 @@
       "limitUpCount": 1
     },
     {
-      "name": "厨卫电器",
-      "sinaLabel": "new_jdhy",
-      "changePercent": -1.39,
-      "stockCount": 8,
-      "upCount": 1,
-      "downCount": 7,
-      "totalTurnover": 7.76,
-      "netInflow": -8.62,
-      "leaderName": "日出东方",
-      "leaderChangePercent": 0.87,
-      "topStocks": [
-        "日出东方"
-      ],
-      "limitUpCount": 0
-    },
-    {
       "name": "美容护理",
       "sinaLabel": "new_qqhy",
-      "changePercent": -1.4,
+      "changePercent": -1.38,
       "stockCount": 33,
       "upCount": 8,
       "downCount": 25,
-      "totalTurnover": 34.7,
-      "netInflow": -19.11,
+      "totalTurnover": 34.84,
+      "netInflow": -19.06,
       "leaderName": "洁雅股份",
-      "leaderChangePercent": 1.47,
+      "leaderChangePercent": 1.39,
       "topStocks": [
         "洁雅股份"
       ],
       "limitUpCount": 0
     },
     {
+      "name": "厨卫电器",
+      "sinaLabel": "new_jdhy",
+      "changePercent": -1.39,
+      "stockCount": 8,
+      "upCount": 1,
+      "downCount": 7,
+      "totalTurnover": 7.77,
+      "netInflow": -8.62,
+      "leaderName": "日出东方",
+      "leaderChangePercent": 0.72,
+      "topStocks": [
+        "日出东方"
+      ],
+      "limitUpCount": 0
+    },
+    {
       "name": "零售",
       "sinaLabel": "new_sphy",
-      "changePercent": -1.51,
+      "changePercent": -1.54,
       "stockCount": 70,
       "upCount": 6,
       "downCount": 64,
-      "totalTurnover": 101.31,
-      "netInflow": -58.99,
+      "totalTurnover": 101.67,
+      "netInflow": -59.05,
       "leaderName": "*ST皇庭",
-      "leaderChangePercent": 3.17,
+      "leaderChangePercent": 2.65,
       "topStocks": [
         "*ST皇庭"
       ],
@@ -4470,12 +4558,12 @@
     {
       "name": "种植业与林业",
       "sinaLabel": "new_nlmy",
-      "changePercent": -1.53,
-      "stockCount": 28,
-      "upCount": 3,
+      "changePercent": -1.55,
+      "stockCount": 27,
+      "upCount": 2,
       "downCount": 25,
-      "totalTurnover": 26.66,
-      "netInflow": -24.53,
+      "totalTurnover": 26.83,
+      "netInflow": -25.56,
       "leaderName": "辉隆股份",
       "leaderChangePercent": 0.6,
       "topStocks": [
@@ -4486,12 +4574,12 @@
     {
       "name": "保险",
       "sinaLabel": "new_zqqy",
-      "changePercent": -1.67,
+      "changePercent": -1.69,
       "stockCount": 5,
       "upCount": 0,
       "downCount": 5,
-      "totalTurnover": 54.15,
-      "netInflow": -7.26,
+      "totalTurnover": 54.66,
+      "netInflow": -7.29,
       "leaderName": "新华保险",
       "leaderChangePercent": -1.21,
       "topStocks": [
@@ -4502,14 +4590,14 @@
     {
       "name": "饮料制造",
       "sinaLabel": "new_xfhy",
-      "changePercent": -1.72,
-      "stockCount": 46,
+      "changePercent": -1.74,
+      "stockCount": 45,
       "upCount": 6,
-      "downCount": 40,
-      "totalTurnover": 88.89,
-      "netInflow": -35.66,
+      "downCount": 39,
+      "totalTurnover": 89.29,
+      "netInflow": -34.69,
       "leaderName": "会稽山",
-      "leaderChangePercent": 6.36,
+      "leaderChangePercent": 6.3,
       "topStocks": [
         "会稽山"
       ],
@@ -4518,12 +4606,12 @@
     {
       "name": "白酒",
       "sinaLabel": "new_xfhy",
-      "changePercent": -1.88,
+      "changePercent": -1.91,
       "stockCount": 19,
       "upCount": 0,
       "downCount": 19,
-      "totalTurnover": 98.94,
-      "netInflow": -20.78,
+      "totalTurnover": 99.61,
+      "netInflow": -20.83,
       "leaderName": "伊力特",
       "leaderChangePercent": -0.85,
       "topStocks": [
@@ -4532,14 +4620,30 @@
       "limitUpCount": 0
     },
     {
+      "name": "影视院线",
+      "sinaLabel": "new_cmyl",
+      "changePercent": -2.4,
+      "stockCount": 20,
+      "upCount": 1,
+      "downCount": 19,
+      "totalTurnover": 75.45,
+      "netInflow": -21.29,
+      "leaderName": "中视传媒",
+      "leaderChangePercent": 0.68,
+      "topStocks": [
+        "中视传媒"
+      ],
+      "limitUpCount": 0
+    },
+    {
       "name": "电力",
       "sinaLabel": "new_dlhy",
-      "changePercent": -2.45,
+      "changePercent": -2.5,
       "stockCount": 108,
-      "upCount": 11,
-      "downCount": 97,
-      "totalTurnover": 430.08,
-      "netInflow": -82.3,
+      "upCount": 10,
+      "downCount": 98,
+      "totalTurnover": 432.12,
+      "netInflow": -84.36,
       "leaderName": "华光环能",
       "leaderChangePercent": 4.74,
       "topStocks": [
@@ -4547,33 +4651,17 @@
         "杭电股份"
       ],
       "limitUpCount": 1
-    },
-    {
-      "name": "影视院线",
-      "sinaLabel": "new_cmyl",
-      "changePercent": -2.6,
-      "stockCount": 20,
-      "upCount": 1,
-      "downCount": 19,
-      "totalTurnover": 75.06,
-      "netInflow": -21.7,
-      "leaderName": "中视传媒",
-      "leaderChangePercent": 0.51,
-      "topStocks": [
-        "中视传媒"
-      ],
-      "limitUpCount": 0
     }
   ],
   "conceptSectors": [
     {
       "name": "成飞概念",
-      "changePercent": 4.1135,
+      "changePercent": 4.1749,
       "stockCount": 2,
       "upCount": 2,
       "downCount": 0,
-      "totalTurnover": 11.23,
-      "netInflow": 4.69,
+      "totalTurnover": 11.29,
+      "netInflow": 4.73,
       "leaderName": "成飞集成",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -4920,12 +5008,12 @@
     },
     {
       "name": "传感器",
-      "changePercent": 0.1979,
-      "stockCount": 4,
-      "upCount": 4,
+      "changePercent": 0.3111,
+      "stockCount": 3,
+      "upCount": 3,
       "downCount": 0,
-      "totalTurnover": 3.87,
-      "netInflow": 4.31,
+      "totalTurnover": 2.18,
+      "netInflow": 3.32,
       "leaderName": "苏奥传感",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -4936,12 +5024,12 @@
     },
     {
       "name": "超导概念",
-      "changePercent": 0.005,
+      "changePercent": -0.0325,
       "stockCount": 2,
       "upCount": 1,
       "downCount": 1,
-      "totalTurnover": 2.89,
-      "netInflow": 0.06,
+      "totalTurnover": 2.92,
+      "netInflow": 0.04,
       "leaderName": "健信超导",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -4952,12 +5040,12 @@
     },
     {
       "name": "安防",
-      "changePercent": -0.4457,
+      "changePercent": -0.4508,
       "stockCount": 2,
       "upCount": 0,
       "downCount": 2,
-      "totalTurnover": 0.65,
-      "netInflow": -2.25,
+      "totalTurnover": 0.66,
+      "netInflow": -2.26,
       "leaderName": "恒辉安防",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -4967,29 +5055,13 @@
       "limitUpCount": 0
     },
     {
-      "name": "宁德时代概念",
-      "changePercent": -0.656,
-      "stockCount": 1,
-      "upCount": 0,
-      "downCount": 1,
-      "totalTurnover": 53.95,
-      "netInflow": -0.12,
-      "leaderName": "宁德时代",
-      "leaderChangePercent": 10.0,
-      "topStocks": [
-        "宁德时代",
-        "-"
-      ],
-      "limitUpCount": 0
-    },
-    {
       "name": "阿尔茨海默概念",
-      "changePercent": -0.815,
+      "changePercent": -0.543,
       "stockCount": 1,
       "upCount": 0,
       "downCount": 1,
-      "totalTurnover": 1.45,
-      "netInflow": -1.22,
+      "totalTurnover": 1.49,
+      "netInflow": -1.13,
       "leaderName": "阿尔特",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -4999,13 +5071,29 @@
       "limitUpCount": 0
     },
     {
-      "name": "比亚迪概念",
-      "changePercent": -0.925,
+      "name": "宁德时代概念",
+      "changePercent": -0.636,
       "stockCount": 1,
       "upCount": 0,
       "downCount": 1,
-      "totalTurnover": 14.96,
-      "netInflow": -0.98,
+      "totalTurnover": 54.4,
+      "netInflow": -0.1,
+      "leaderName": "宁德时代",
+      "leaderChangePercent": 10.0,
+      "topStocks": [
+        "宁德时代",
+        "-"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "比亚迪概念",
+      "changePercent": -0.903,
+      "stockCount": 1,
+      "upCount": 0,
+      "downCount": 1,
+      "totalTurnover": 15.12,
+      "netInflow": -0.97,
       "leaderName": "比亚迪",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -5016,12 +5104,12 @@
     },
     {
       "name": "长安汽车概念",
-      "changePercent": -1.376,
+      "changePercent": -1.513,
       "stockCount": 1,
       "upCount": 0,
       "downCount": 1,
-      "totalTurnover": 3.5,
-      "netInflow": -1.34,
+      "totalTurnover": 3.51,
+      "netInflow": -1.38,
       "leaderName": "长安汽车",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -5032,12 +5120,12 @@
     },
     {
       "name": "宠物经济",
-      "changePercent": -2.6663,
+      "changePercent": -2.6492,
       "stockCount": 3,
       "upCount": 0,
       "downCount": 3,
-      "totalTurnover": 3.38,
-      "netInflow": -5.33,
+      "totalTurnover": 3.4,
+      "netInflow": -5.32,
       "leaderName": "天元宠物",
       "leaderChangePercent": 10.0,
       "topStocks": [
@@ -5050,12 +5138,12 @@
   "regionSectors": [
     {
       "name": "新疆振兴",
-      "changePercent": 3.401,
+      "changePercent": 3.1426,
       "stockCount": 4,
       "upCount": 1,
       "downCount": 3,
-      "totalTurnover": 7.4,
-      "netInflow": 2.16,
+      "totalTurnover": 7.47,
+      "netInflow": 1.81,
       "leaderName": "新疆众和",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5071,28 +5159,12 @@
       "upCount": 12,
       "downCount": 13,
       "totalTurnover": 37.0,
-      "netInflow": 12.73,
+      "netInflow": 12.69,
       "leaderName": "-",
       "leaderChangePercent": 0,
       "topStocks": [
         "-",
         "-"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "西部大开发",
-      "changePercent": 1.6826,
-      "stockCount": 8,
-      "upCount": 3,
-      "downCount": 5,
-      "totalTurnover": 61.25,
-      "netInflow": 2.12,
-      "leaderName": "西部矿业",
-      "leaderChangePercent": 0,
-      "topStocks": [
-        "西部矿业",
-        "西部黄金"
       ],
       "limitUpCount": 0
     },
@@ -5103,7 +5175,7 @@
       "upCount": 12,
       "downCount": 13,
       "totalTurnover": 32.5,
-      "netInflow": 10.7,
+      "netInflow": 10.67,
       "leaderName": "-",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5119,12 +5191,28 @@
       "upCount": 12,
       "downCount": 13,
       "totalTurnover": 31.9,
-      "netInflow": 10.4,
+      "netInflow": 10.37,
       "leaderName": "-",
       "leaderChangePercent": 0,
       "topStocks": [
         "-",
         "-"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "西部大开发",
+      "changePercent": 1.5099,
+      "stockCount": 8,
+      "upCount": 3,
+      "downCount": 5,
+      "totalTurnover": 61.72,
+      "netInflow": 1.67,
+      "leaderName": "西部矿业",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "西部矿业",
+        "西部黄金"
       ],
       "limitUpCount": 0
     },
@@ -5135,7 +5223,7 @@
       "upCount": 12,
       "downCount": 13,
       "totalTurnover": 30.4,
-      "netInflow": 9.73,
+      "netInflow": 9.69,
       "leaderName": "-",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5151,7 +5239,7 @@
       "upCount": 12,
       "downCount": 13,
       "totalTurnover": 27.1,
-      "netInflow": 8.3,
+      "netInflow": 8.27,
       "leaderName": "-",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5167,7 +5255,7 @@
       "upCount": 12,
       "downCount": 13,
       "totalTurnover": 17.5,
-      "netInflow": 3.95,
+      "netInflow": 3.92,
       "leaderName": "-",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5183,7 +5271,7 @@
       "upCount": 12,
       "downCount": 13,
       "totalTurnover": 15.4,
-      "netInflow": 2.98,
+      "netInflow": 2.94,
       "leaderName": "-",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5193,29 +5281,13 @@
       "limitUpCount": 0
     },
     {
-      "name": "福建自贸区",
-      "changePercent": 0.2058,
-      "stockCount": 2,
-      "upCount": 1,
-      "downCount": 0,
-      "totalTurnover": 0.59,
-      "netInflow": 1.2,
-      "leaderName": "福建高速",
-      "leaderChangePercent": 0,
-      "topStocks": [
-        "福建高速",
-        "福建金森"
-      ],
-      "limitUpCount": 0
-    },
-    {
       "name": "深圳国企改革",
-      "changePercent": 0.0933,
+      "changePercent": 0.0999,
       "stockCount": 6,
-      "upCount": 4,
+      "upCount": 3,
       "downCount": 2,
-      "totalTurnover": 6.65,
-      "netInflow": 2.25,
+      "totalTurnover": 6.73,
+      "netInflow": 1.22,
       "leaderName": "深圳华强",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5225,13 +5297,29 @@
       "limitUpCount": 0
     },
     {
+      "name": "福建自贸区",
+      "changePercent": -0.055,
+      "stockCount": 3,
+      "upCount": 0,
+      "downCount": 1,
+      "totalTurnover": 0.8,
+      "netInflow": -1.01,
+      "leaderName": "福建高速",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "福建高速",
+        "福建金森"
+      ],
+      "limitUpCount": 0
+    },
+    {
       "name": "天津自贸区",
-      "changePercent": 0.0,
+      "changePercent": -0.1006,
       "stockCount": 2,
       "upCount": 0,
-      "downCount": 0,
-      "totalTurnover": 1.52,
-      "netInflow": 0.08,
+      "downCount": 1,
+      "totalTurnover": 1.53,
+      "netInflow": -1.02,
       "leaderName": "天津港",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5242,12 +5330,12 @@
     },
     {
       "name": "上海国企改革",
-      "changePercent": -0.3082,
-      "stockCount": 38,
+      "changePercent": -0.2997,
+      "stockCount": 37,
       "upCount": 15,
-      "downCount": 22,
-      "totalTurnover": 68.59,
-      "netInflow": -10.44,
+      "downCount": 21,
+      "totalTurnover": 67.21,
+      "netInflow": -9.28,
       "leaderName": "上海亚虹",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5258,12 +5346,12 @@
     },
     {
       "name": "上海自贸区",
-      "changePercent": -0.3082,
-      "stockCount": 38,
+      "changePercent": -0.2997,
+      "stockCount": 37,
       "upCount": 15,
-      "downCount": 22,
-      "totalTurnover": 68.59,
-      "netInflow": -10.44,
+      "downCount": 21,
+      "totalTurnover": 67.21,
+      "netInflow": -9.28,
       "leaderName": "上海亚虹",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5274,28 +5362,28 @@
     },
     {
       "name": "广东自贸区",
-      "changePercent": -0.945,
-      "stockCount": 4,
+      "changePercent": -0.7421,
+      "stockCount": 5,
       "upCount": 0,
-      "downCount": 4,
-      "totalTurnover": 2.49,
-      "netInflow": -5.06,
-      "leaderName": "广东鸿图",
+      "downCount": 5,
+      "totalTurnover": 3.29,
+      "netInflow": -6.07,
+      "leaderName": "广东明珠",
       "leaderChangePercent": 0,
       "topStocks": [
-        "广东鸿图",
-        "广东建工"
+        "广东明珠",
+        "广东鸿图"
       ],
       "limitUpCount": 0
     },
     {
       "name": "海南自贸区",
-      "changePercent": -2.6453,
-      "stockCount": 7,
+      "changePercent": -2.5924,
+      "stockCount": 8,
       "upCount": 1,
-      "downCount": 6,
-      "totalTurnover": 15.7,
-      "netInflow": -10.48,
+      "downCount": 7,
+      "totalTurnover": 16.96,
+      "netInflow": -12.18,
       "leaderName": "海南矿业",
       "leaderChangePercent": 0,
       "topStocks": [
@@ -5312,8 +5400,8 @@
       "industry": "通用设备",
       "closePrice": 47.29,
       "changePercent": 19.99,
-      "turnover": 34.78,
-      "volumeMultiple": 14.9,
+      "turnover": 34.79,
+      "volumeMultiple": 14.7,
       "isNewHigh": true,
       "isLimitUp": true
     },
@@ -5323,7 +5411,7 @@
       "industry": "环境治理",
       "closePrice": 16.82,
       "changePercent": 19.97,
-      "turnover": 1.98,
+      "turnover": 1.99,
       "volumeMultiple": 4.2,
       "isNewHigh": true,
       "isLimitUp": true
@@ -5332,9 +5420,9 @@
       "code": "301365",
       "name": "矩阵股份",
       "industry": "工程咨询",
-      "closePrice": 42.93,
-      "changePercent": 11.74,
-      "turnover": 2.82,
+      "closePrice": 42.88,
+      "changePercent": 11.61,
+      "turnover": 2.85,
       "volumeMultiple": 3.3,
       "isNewHigh": true,
       "isLimitUp": false
@@ -5357,7 +5445,7 @@
       "closePrice": 13.05,
       "changePercent": 10.03,
       "turnover": 3.18,
-      "volumeMultiple": 8.8,
+      "volumeMultiple": 8.7,
       "isNewHigh": true,
       "isLimitUp": true
     },
@@ -5376,21 +5464,21 @@
       "code": "300705",
       "name": "九典制药",
       "industry": "化学制药",
-      "closePrice": 12.5,
-      "changePercent": 6.93,
-      "turnover": 3.95,
+      "closePrice": 12.45,
+      "changePercent": 6.5,
+      "turnover": 3.98,
       "volumeMultiple": 3.6,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "301015",
-      "name": "百洋医药",
-      "industry": "医药商业",
-      "closePrice": 26.78,
-      "changePercent": 6.27,
-      "turnover": 6.37,
-      "volumeMultiple": 2.5,
+      "code": "601579",
+      "name": "会稽山",
+      "industry": "非白酒",
+      "closePrice": 18.53,
+      "changePercent": 6.19,
+      "turnover": 10.14,
+      "volumeMultiple": 5.4,
       "isNewHigh": true,
       "isLimitUp": false
     }
@@ -5402,7 +5490,7 @@
       "industry": "医疗服务",
       "closePrice": 17.34,
       "changePercent": 20.0,
-      "turnover": 13.09,
+      "turnover": 13.11,
       "volumeMultiple": 1.8,
       "isNewHigh": true,
       "isLimitUp": true,
@@ -5414,8 +5502,8 @@
       "industry": "通用设备",
       "closePrice": 47.29,
       "changePercent": 19.99,
-      "turnover": 34.78,
-      "volumeMultiple": 14.9,
+      "turnover": 34.79,
+      "volumeMultiple": 14.7,
       "isNewHigh": true,
       "isLimitUp": true,
       "breakoutPercent": 19.99
@@ -5426,7 +5514,7 @@
       "industry": "环境治理",
       "closePrice": 16.82,
       "changePercent": 19.97,
-      "turnover": 1.98,
+      "turnover": 1.99,
       "volumeMultiple": 4.2,
       "isNewHigh": true,
       "isLimitUp": true,
@@ -5436,13 +5524,13 @@
       "code": "301365",
       "name": "矩阵股份",
       "industry": "工程咨询",
-      "closePrice": 42.93,
-      "changePercent": 11.74,
-      "turnover": 2.82,
+      "closePrice": 42.88,
+      "changePercent": 11.61,
+      "turnover": 2.85,
       "volumeMultiple": 3.3,
       "isNewHigh": true,
       "isLimitUp": false,
-      "breakoutPercent": 11.74
+      "breakoutPercent": 11.61
     },
     {
       "code": "002724",
@@ -5463,7 +5551,7 @@
       "closePrice": 13.05,
       "changePercent": 10.03,
       "turnover": 3.18,
-      "volumeMultiple": 8.8,
+      "volumeMultiple": 8.7,
       "isNewHigh": true,
       "isLimitUp": true,
       "breakoutPercent": 10.03
@@ -5486,7 +5574,7 @@
       "industry": "医药商业",
       "closePrice": 17.6,
       "changePercent": 10.0,
-      "turnover": 7.58,
+      "turnover": 7.59,
       "volumeMultiple": 1.4,
       "isNewHigh": true,
       "isLimitUp": true,
@@ -5498,25 +5586,13 @@
       "code": "300705",
       "name": "九典制药",
       "industry": "化学制药",
-      "closePrice": 12.5,
-      "changePercent": 6.93,
-      "turnover": 3.95,
+      "closePrice": 12.45,
+      "changePercent": 6.5,
+      "turnover": 3.98,
       "volumeMultiple": 3.6,
       "isNewHigh": true,
       "isLimitUp": false,
-      "breakoutPercent": 6.93
-    },
-    {
-      "code": "301015",
-      "name": "百洋医药",
-      "industry": "医药商业",
-      "closePrice": 26.78,
-      "changePercent": 6.27,
-      "turnover": 6.37,
-      "volumeMultiple": 2.5,
-      "isNewHigh": true,
-      "isLimitUp": false,
-      "breakoutPercent": 6.27
+      "breakoutPercent": 6.5
     },
     {
       "code": "601579",
@@ -5524,11 +5600,23 @@
       "industry": "非白酒",
       "closePrice": 18.53,
       "changePercent": 6.19,
-      "turnover": 10.1,
+      "turnover": 10.14,
       "volumeMultiple": 5.4,
       "isNewHigh": true,
       "isLimitUp": false,
       "breakoutPercent": 6.19
+    },
+    {
+      "code": "301015",
+      "name": "百洋医药",
+      "industry": "医药商业",
+      "closePrice": 26.74,
+      "changePercent": 6.11,
+      "turnover": 6.4,
+      "volumeMultiple": 2.5,
+      "isNewHigh": true,
+      "isLimitUp": false,
+      "breakoutPercent": 6.11
     },
     {
       "code": "002437",
@@ -5536,7 +5624,7 @@
       "industry": "化学制药",
       "closePrice": 4.49,
       "changePercent": 5.65,
-      "turnover": 38.11,
+      "turnover": 38.27,
       "volumeMultiple": 2.2,
       "isNewHigh": true,
       "isLimitUp": false,
@@ -5546,25 +5634,25 @@
       "code": "300333",
       "name": "兆日科技",
       "industry": "计算机设",
-      "closePrice": 11.19,
-      "changePercent": 5.17,
-      "turnover": 8.6,
-      "volumeMultiple": 7.1,
+      "closePrice": 11.21,
+      "changePercent": 5.36,
+      "turnover": 8.65,
+      "volumeMultiple": 7.0,
       "isNewHigh": true,
       "isLimitUp": false,
-      "breakoutPercent": 5.17
+      "breakoutPercent": 5.36
     },
     {
       "code": "002279",
       "name": "久其软件",
       "industry": "软件开发",
-      "closePrice": 7.37,
-      "changePercent": 5.14,
-      "turnover": 9.1,
-      "volumeMultiple": 2.2,
+      "closePrice": 7.36,
+      "changePercent": 4.99,
+      "turnover": 9.11,
+      "volumeMultiple": 2.1,
       "isNewHigh": true,
       "isLimitUp": false,
-      "breakoutPercent": 5.14
+      "breakoutPercent": 4.99
     }
   ],
   "allStrongStocks": [
@@ -5574,7 +5662,7 @@
       "industry": "医疗服务",
       "closePrice": 17.34,
       "changePercent": 20.0,
-      "turnover": 13.09,
+      "turnover": 13.11,
       "volumeMultiple": 1.8,
       "isNewHigh": true,
       "isLimitUp": true
@@ -5585,8 +5673,8 @@
       "industry": "通用设备",
       "closePrice": 47.29,
       "changePercent": 19.99,
-      "turnover": 34.78,
-      "volumeMultiple": 14.9,
+      "turnover": 34.79,
+      "volumeMultiple": 14.7,
       "isNewHigh": true,
       "isLimitUp": true
     },
@@ -5596,7 +5684,7 @@
       "industry": "环境治理",
       "closePrice": 16.82,
       "changePercent": 19.97,
-      "turnover": 1.98,
+      "turnover": 1.99,
       "volumeMultiple": 4.2,
       "isNewHigh": true,
       "isLimitUp": true
@@ -5605,9 +5693,9 @@
       "code": "301365",
       "name": "矩阵股份",
       "industry": "工程咨询",
-      "closePrice": 42.93,
-      "changePercent": 11.74,
-      "turnover": 2.82,
+      "closePrice": 42.88,
+      "changePercent": 11.61,
+      "turnover": 2.85,
       "volumeMultiple": 3.3,
       "isNewHigh": true,
       "isLimitUp": false
@@ -5630,7 +5718,7 @@
       "closePrice": 13.05,
       "changePercent": 10.03,
       "turnover": 3.18,
-      "volumeMultiple": 8.8,
+      "volumeMultiple": 8.7,
       "isNewHigh": true,
       "isLimitUp": true
     },
@@ -5673,7 +5761,7 @@
       "industry": "医药商业",
       "closePrice": 17.6,
       "changePercent": 10.0,
-      "turnover": 7.58,
+      "turnover": 7.59,
       "volumeMultiple": 1.4,
       "isNewHigh": true,
       "isLimitUp": true
@@ -5717,8 +5805,8 @@
       "industry": "装修装饰",
       "closePrice": 5.29,
       "changePercent": 9.98,
-      "turnover": 26.34,
-      "volumeMultiple": 9.1,
+      "turnover": 26.35,
+      "volumeMultiple": 9.0,
       "isNewHigh": false,
       "isLimitUp": true
     },
@@ -5728,7 +5816,7 @@
       "industry": "医药商业",
       "closePrice": 6.29,
       "changePercent": 9.97,
-      "turnover": 3.52,
+      "turnover": 3.53,
       "volumeMultiple": 1.6,
       "isNewHigh": true,
       "isLimitUp": true
@@ -5751,7 +5839,7 @@
       "closePrice": 6.97,
       "changePercent": 9.94,
       "turnover": 9.45,
-      "volumeMultiple": 9.8,
+      "volumeMultiple": 9.6,
       "isNewHigh": false,
       "isLimitUp": true
     },
@@ -5770,9 +5858,9 @@
       "code": "688296",
       "name": "和达科技",
       "industry": "软件开发",
-      "closePrice": 24.04,
-      "changePercent": 8.78,
-      "turnover": 1.39,
+      "closePrice": 23.96,
+      "changePercent": 8.42,
+      "turnover": 1.42,
       "volumeMultiple": 1.0,
       "isNewHigh": true,
       "isLimitUp": false
@@ -5781,21 +5869,10 @@
       "code": "301047",
       "name": "义翘神州",
       "industry": "生物制品",
-      "closePrice": 129.63,
-      "changePercent": 8.03,
-      "turnover": 16.34,
+      "closePrice": 129.5,
+      "changePercent": 7.92,
+      "turnover": 16.38,
       "volumeMultiple": 1.0,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "688137",
-      "name": "近岸蛋白",
-      "industry": "生物制品",
-      "closePrice": 68.98,
-      "changePercent": 7.78,
-      "turnover": 5.94,
-      "volumeMultiple": 1.6,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5803,21 +5880,21 @@
       "code": "300705",
       "name": "九典制药",
       "industry": "化学制药",
-      "closePrice": 12.5,
-      "changePercent": 6.93,
-      "turnover": 3.95,
+      "closePrice": 12.45,
+      "changePercent": 6.5,
+      "turnover": 3.98,
       "volumeMultiple": 3.6,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "301015",
-      "name": "百洋医药",
-      "industry": "医药商业",
-      "closePrice": 26.78,
-      "changePercent": 6.27,
-      "turnover": 6.37,
-      "volumeMultiple": 2.5,
+      "code": "688115",
+      "name": "思林杰",
+      "industry": "通用设备",
+      "closePrice": 68.54,
+      "changePercent": 6.2,
+      "turnover": 2.76,
+      "volumeMultiple": 1.6,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5827,30 +5904,19 @@
       "industry": "非白酒",
       "closePrice": 18.53,
       "changePercent": 6.19,
-      "turnover": 10.1,
+      "turnover": 10.14,
       "volumeMultiple": 5.4,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "688115",
-      "name": "思林杰",
-      "industry": "通用设备",
-      "closePrice": 68.51,
-      "changePercent": 6.15,
-      "turnover": 2.74,
-      "volumeMultiple": 1.6,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "300951",
-      "name": "博硕科技",
-      "industry": "消费电子",
-      "closePrice": 74.91,
-      "changePercent": 6.12,
-      "turnover": 4.72,
-      "volumeMultiple": 1.3,
+      "code": "301015",
+      "name": "百洋医药",
+      "industry": "医药商业",
+      "closePrice": 26.74,
+      "changePercent": 6.11,
+      "turnover": 6.4,
+      "volumeMultiple": 2.5,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5860,7 +5926,18 @@
       "industry": "通用设备",
       "closePrice": 9.47,
       "changePercent": 6.05,
-      "turnover": 2.08,
+      "turnover": 2.09,
+      "volumeMultiple": 1.6,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "688137",
+      "name": "近岸蛋白",
+      "industry": "生物制品",
+      "closePrice": 67.69,
+      "changePercent": 5.77,
+      "turnover": 5.96,
       "volumeMultiple": 1.6,
       "isNewHigh": true,
       "isLimitUp": false
@@ -5871,7 +5948,7 @@
       "industry": "化学制药",
       "closePrice": 4.49,
       "changePercent": 5.65,
-      "turnover": 38.11,
+      "turnover": 38.27,
       "volumeMultiple": 2.2,
       "isNewHigh": true,
       "isLimitUp": false
@@ -5880,10 +5957,21 @@
       "code": "300333",
       "name": "兆日科技",
       "industry": "计算机设",
-      "closePrice": 11.19,
-      "changePercent": 5.17,
-      "turnover": 8.6,
-      "volumeMultiple": 7.1,
+      "closePrice": 11.21,
+      "changePercent": 5.36,
+      "turnover": 8.65,
+      "volumeMultiple": 7.0,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "300951",
+      "name": "博硕科技",
+      "industry": "消费电子",
+      "closePrice": 74.15,
+      "changePercent": 5.04,
+      "turnover": 4.97,
+      "volumeMultiple": 1.3,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5891,10 +5979,10 @@
       "code": "002279",
       "name": "久其软件",
       "industry": "软件开发",
-      "closePrice": 7.37,
-      "changePercent": 5.14,
-      "turnover": 9.1,
-      "volumeMultiple": 2.2,
+      "closePrice": 7.36,
+      "changePercent": 4.99,
+      "turnover": 9.11,
+      "volumeMultiple": 2.1,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5902,9 +5990,9 @@
       "code": "300314",
       "name": "戴维医疗",
       "industry": "医疗器械",
-      "closePrice": 12.14,
-      "changePercent": 4.75,
-      "turnover": 2.17,
+      "closePrice": 12.12,
+      "changePercent": 4.57,
+      "turnover": 2.18,
       "volumeMultiple": 2.2,
       "isNewHigh": true,
       "isLimitUp": false
@@ -5915,8 +6003,19 @@
       "industry": "医疗器械",
       "closePrice": 16.56,
       "changePercent": 4.15,
-      "turnover": 2.86,
-      "volumeMultiple": 1.5,
+      "turnover": 2.87,
+      "volumeMultiple": 1.4,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "301060",
+      "name": "兰卫医学",
+      "industry": "医疗服务",
+      "closePrice": 12.44,
+      "changePercent": 4.01,
+      "turnover": 8.64,
+      "volumeMultiple": 4.0,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5924,8 +6023,8 @@
       "code": "301166",
       "name": "优宁维",
       "industry": "生物制品",
-      "closePrice": 30.22,
-      "changePercent": 3.92,
+      "closePrice": 30.19,
+      "changePercent": 3.82,
       "turnover": 1.09,
       "volumeMultiple": 2.2,
       "isNewHigh": true,
@@ -5935,21 +6034,10 @@
       "code": "688247",
       "name": "宣泰医药",
       "industry": "化学制药",
-      "closePrice": 10.48,
-      "changePercent": 3.87,
-      "turnover": 2.43,
+      "closePrice": 10.45,
+      "changePercent": 3.57,
+      "turnover": 2.44,
       "volumeMultiple": 2.4,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "301060",
-      "name": "兰卫医学",
-      "industry": "医疗服务",
-      "closePrice": 12.42,
-      "changePercent": 3.85,
-      "turnover": 8.61,
-      "volumeMultiple": 4.0,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5957,9 +6045,9 @@
       "code": "688177",
       "name": "百奥泰",
       "industry": "生物制品",
-      "closePrice": 21.76,
-      "changePercent": 3.77,
-      "turnover": 1.7,
+      "closePrice": 21.71,
+      "changePercent": 3.53,
+      "turnover": 1.71,
       "volumeMultiple": 1.4,
       "isNewHigh": true,
       "isLimitUp": false
@@ -5968,21 +6056,21 @@
       "code": "688004",
       "name": "博汇科技",
       "industry": "IT服务Ⅱ",
-      "closePrice": 24.72,
-      "changePercent": 3.73,
-      "turnover": 0.71,
+      "closePrice": 24.67,
+      "changePercent": 3.52,
+      "turnover": 0.73,
       "volumeMultiple": 1.3,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "300832",
-      "name": "新产业",
-      "industry": "医疗器械",
-      "closePrice": 51.32,
-      "changePercent": 3.38,
-      "turnover": 9.16,
-      "volumeMultiple": 2.4,
+      "code": "300791",
+      "name": "仙乐健康",
+      "industry": "食品加工",
+      "closePrice": 17.73,
+      "changePercent": 3.5,
+      "turnover": 1.42,
+      "volumeMultiple": 5.8,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -5990,32 +6078,10 @@
       "code": "002870",
       "name": "香山股份",
       "industry": "汽车零部",
-      "closePrice": 47.98,
-      "changePercent": 3.38,
-      "turnover": 2.85,
+      "closePrice": 47.97,
+      "changePercent": 3.36,
+      "turnover": 2.87,
       "volumeMultiple": 1.0,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "002216",
-      "name": "三全食品",
-      "industry": "食品加工",
-      "closePrice": 13.14,
-      "changePercent": 3.3,
-      "turnover": 2.72,
-      "volumeMultiple": 3.0,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "300171",
-      "name": "东富龙",
-      "industry": "医疗器械",
-      "closePrice": 14.47,
-      "changePercent": 3.21,
-      "turnover": 3.78,
-      "volumeMultiple": 1.2,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6023,21 +6089,43 @@
       "code": "003032",
       "name": "传智教育",
       "industry": "教育",
-      "closePrice": 11.98,
-      "changePercent": 3.1,
-      "turnover": 7.9,
+      "closePrice": 12.01,
+      "changePercent": 3.36,
+      "turnover": 8.01,
       "volumeMultiple": 0.9,
       "isNewHigh": false,
       "isLimitUp": false
     },
     {
-      "code": "300791",
-      "name": "仙乐健康",
+      "code": "300832",
+      "name": "新产业",
+      "industry": "医疗器械",
+      "closePrice": 51.19,
+      "changePercent": 3.12,
+      "turnover": 9.24,
+      "volumeMultiple": 2.4,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "300171",
+      "name": "东富龙",
+      "industry": "医疗器械",
+      "closePrice": 14.45,
+      "changePercent": 3.07,
+      "turnover": 3.79,
+      "volumeMultiple": 1.2,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "002216",
+      "name": "三全食品",
       "industry": "食品加工",
-      "closePrice": 17.63,
-      "changePercent": 2.92,
-      "turnover": 1.41,
-      "volumeMultiple": 5.9,
+      "closePrice": 13.11,
+      "changePercent": 3.07,
+      "turnover": 2.73,
+      "volumeMultiple": 3.0,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6047,8 +6135,8 @@
       "industry": "饲料",
       "closePrice": 15.86,
       "changePercent": 2.85,
-      "turnover": 1.23,
-      "volumeMultiple": 1.3,
+      "turnover": 1.24,
+      "volumeMultiple": 1.2,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6056,9 +6144,9 @@
       "code": "601825",
       "name": "沪农商行",
       "industry": "银行Ⅱ",
-      "closePrice": 8.73,
-      "changePercent": 2.46,
-      "turnover": 3.78,
+      "closePrice": 8.74,
+      "changePercent": 2.58,
+      "turnover": 3.82,
       "volumeMultiple": 2.3,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6067,9 +6155,9 @@
       "code": "300009",
       "name": "安科生物",
       "industry": "生物制品",
-      "closePrice": 8.99,
-      "changePercent": 2.39,
-      "turnover": 4.47,
+      "closePrice": 8.97,
+      "changePercent": 2.16,
+      "turnover": 4.5,
       "volumeMultiple": 1.6,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6078,33 +6166,22 @@
       "code": "603236",
       "name": "移远通信",
       "industry": "通信设备",
-      "closePrice": 60.66,
-      "changePercent": 2.07,
-      "turnover": 25.46,
+      "closePrice": 60.56,
+      "changePercent": 1.9,
+      "turnover": 25.56,
       "volumeMultiple": 3.8,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "301509",
-      "name": "金凯生科",
-      "industry": "医疗服务",
-      "closePrice": 33.62,
-      "changePercent": 1.82,
-      "turnover": 2.79,
-      "volumeMultiple": 1.5,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "300463",
-      "name": "迈克生物",
-      "industry": "医疗器械",
-      "closePrice": 9.65,
-      "changePercent": 1.79,
-      "turnover": 1.84,
-      "volumeMultiple": 2.6,
-      "isNewHigh": true,
+      "code": "002552",
+      "name": "宝鼎科技",
+      "industry": "元件",
+      "closePrice": 59.75,
+      "changePercent": 1.86,
+      "turnover": 18.88,
+      "volumeMultiple": 1.1,
+      "isNewHigh": false,
       "isLimitUp": false
     },
     {
@@ -6113,19 +6190,41 @@
       "industry": "医疗器械",
       "closePrice": 12.49,
       "changePercent": 1.79,
-      "turnover": 1.45,
+      "turnover": 1.46,
       "volumeMultiple": 2.1,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "603284",
-      "name": "林平发展",
-      "industry": "造纸",
-      "closePrice": 44.22,
-      "changePercent": 1.73,
-      "turnover": 1.89,
+      "code": "301509",
+      "name": "金凯生科",
+      "industry": "医疗服务",
+      "closePrice": 33.61,
+      "changePercent": 1.79,
+      "turnover": 2.8,
       "volumeMultiple": 1.5,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "603161",
+      "name": "科华控股",
+      "industry": "汽车零部",
+      "closePrice": 16.72,
+      "changePercent": 1.77,
+      "turnover": 0.95,
+      "volumeMultiple": 0.7,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "300347",
+      "name": "泰格医药",
+      "industry": "医疗服务",
+      "closePrice": 56.2,
+      "changePercent": 1.59,
+      "turnover": 13.31,
+      "volumeMultiple": 1.0,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6135,52 +6234,41 @@
       "industry": "旅游及景",
       "closePrice": 8.96,
       "changePercent": 1.59,
-      "turnover": 1.86,
+      "turnover": 1.88,
       "volumeMultiple": 1.2,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "603161",
-      "name": "科华控股",
-      "industry": "汽车零部",
-      "closePrice": 16.69,
-      "changePercent": 1.58,
-      "turnover": 0.93,
-      "volumeMultiple": 0.7,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "300795",
-      "name": "米奥会展",
-      "industry": "专业服务",
-      "closePrice": 16.87,
-      "changePercent": 1.44,
-      "turnover": 7.47,
-      "volumeMultiple": 1.1,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "688505",
-      "name": "复旦张江",
-      "industry": "化学制药",
-      "closePrice": 8.52,
-      "changePercent": 1.43,
-      "turnover": 2.07,
-      "volumeMultiple": 2.4,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "688338",
-      "name": "赛科希德",
+      "code": "300463",
+      "name": "迈克生物",
       "industry": "医疗器械",
-      "closePrice": 31.0,
-      "changePercent": 1.41,
-      "turnover": 0.61,
-      "volumeMultiple": 1.0,
+      "closePrice": 9.62,
+      "changePercent": 1.48,
+      "turnover": 1.85,
+      "volumeMultiple": 2.5,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "603284",
+      "name": "林平发展",
+      "industry": "造纸",
+      "closePrice": 44.11,
+      "changePercent": 1.47,
+      "turnover": 1.9,
+      "volumeMultiple": 1.5,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "601886",
+      "name": "江河集团",
+      "industry": "装修装饰",
+      "closePrice": 11.69,
+      "changePercent": 1.39,
+      "turnover": 4.55,
+      "volumeMultiple": 2.0,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6190,41 +6278,41 @@
       "industry": "化学制药",
       "closePrice": 6.76,
       "changePercent": 1.35,
-      "turnover": 1.22,
+      "turnover": 1.24,
       "volumeMultiple": 1.4,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "600267",
-      "name": "海正药业",
+      "code": "688505",
+      "name": "复旦张江",
       "industry": "化学制药",
-      "closePrice": 14.14,
-      "changePercent": 1.29,
-      "turnover": 10.85,
-      "volumeMultiple": 0.9,
+      "closePrice": 8.51,
+      "changePercent": 1.31,
+      "turnover": 2.07,
+      "volumeMultiple": 2.4,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "300347",
-      "name": "泰格医药",
-      "industry": "医疗服务",
-      "closePrice": 55.99,
+      "code": "300795",
+      "name": "米奥会展",
+      "industry": "专业服务",
+      "closePrice": 16.84,
+      "changePercent": 1.26,
+      "turnover": 7.5,
+      "volumeMultiple": 1.1,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "688338",
+      "name": "赛科希德",
+      "industry": "医疗器械",
+      "closePrice": 30.94,
       "changePercent": 1.21,
-      "turnover": 13.13,
+      "turnover": 0.62,
       "volumeMultiple": 1.0,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "300233",
-      "name": "金城医药",
-      "industry": "化学制药",
-      "closePrice": 14.37,
-      "changePercent": 1.2,
-      "turnover": 3.91,
-      "volumeMultiple": 2.2,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6232,10 +6320,21 @@
       "code": "300908",
       "name": "仲景食品",
       "industry": "调味发酵",
-      "closePrice": 25.36,
-      "changePercent": 1.12,
-      "turnover": 1.06,
+      "closePrice": 25.38,
+      "changePercent": 1.2,
+      "turnover": 1.07,
       "volumeMultiple": 1.8,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "600267",
+      "name": "海正药业",
+      "industry": "化学制药",
+      "closePrice": 14.12,
+      "changePercent": 1.15,
+      "turnover": 10.93,
+      "volumeMultiple": 0.9,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6245,7 +6344,7 @@
       "industry": "医疗服务",
       "closePrice": 7.47,
       "changePercent": 1.08,
-      "turnover": 2.38,
+      "turnover": 2.39,
       "volumeMultiple": 1.0,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6256,41 +6355,19 @@
       "industry": "特钢Ⅱ",
       "closePrice": 24.89,
       "changePercent": 1.06,
-      "turnover": 1.55,
+      "turnover": 1.56,
       "volumeMultiple": 0.9,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "002349",
-      "name": "精华制药",
-      "industry": "中药Ⅱ",
-      "closePrice": 7.15,
+      "code": "300233",
+      "name": "金城医药",
+      "industry": "化学制药",
+      "closePrice": 14.34,
       "changePercent": 0.99,
-      "turnover": 1.33,
-      "volumeMultiple": 1.4,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "002552",
-      "name": "宝鼎科技",
-      "industry": "元件",
-      "closePrice": 59.21,
-      "changePercent": 0.94,
-      "turnover": 18.33,
-      "volumeMultiple": 1.1,
-      "isNewHigh": false,
-      "isLimitUp": false
-    },
-    {
-      "code": "601886",
-      "name": "江河集团",
-      "industry": "装修装饰",
-      "closePrice": 11.63,
-      "changePercent": 0.87,
-      "turnover": 4.52,
-      "volumeMultiple": 2.0,
+      "turnover": 3.93,
+      "volumeMultiple": 2.2,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6300,7 +6377,7 @@
       "industry": "家居用品",
       "closePrice": 20.62,
       "changePercent": 0.83,
-      "turnover": 0.78,
+      "turnover": 0.79,
       "volumeMultiple": 1.1,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6311,7 +6388,7 @@
       "industry": "银行Ⅱ",
       "closePrice": 8.51,
       "changePercent": 0.83,
-      "turnover": 3.36,
+      "turnover": 3.4,
       "volumeMultiple": 1.4,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6322,19 +6399,19 @@
       "industry": "医药商业",
       "closePrice": 13.55,
       "changePercent": 0.82,
-      "turnover": 4.23,
+      "turnover": 4.26,
       "volumeMultiple": 1.4,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "000788",
-      "name": "北大医药",
-      "industry": "化学制药",
-      "closePrice": 5.82,
-      "changePercent": 0.52,
-      "turnover": 1.9,
-      "volumeMultiple": 1.3,
+      "code": "002349",
+      "name": "精华制药",
+      "industry": "中药Ⅱ",
+      "closePrice": 7.13,
+      "changePercent": 0.71,
+      "turnover": 1.34,
+      "volumeMultiple": 1.4,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6350,24 +6427,24 @@
       "isLimitUp": false
     },
     {
-      "code": "300181",
-      "name": "佐力药业",
-      "industry": "中药Ⅱ",
-      "closePrice": 14.97,
-      "changePercent": 0.47,
-      "turnover": 5.93,
-      "volumeMultiple": 1.5,
+      "code": "000788",
+      "name": "北大医药",
+      "industry": "化学制药",
+      "closePrice": 5.81,
+      "changePercent": 0.35,
+      "turnover": 1.91,
+      "volumeMultiple": 1.3,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "603998",
-      "name": "方盛制药",
+      "code": "300181",
+      "name": "佐力药业",
       "industry": "中药Ⅱ",
-      "closePrice": 10.82,
-      "changePercent": 0.46,
-      "turnover": 5.74,
-      "volumeMultiple": 4.1,
+      "closePrice": 14.95,
+      "changePercent": 0.34,
+      "turnover": 5.98,
+      "volumeMultiple": 1.5,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6378,62 +6455,18 @@
       "closePrice": 3.14,
       "changePercent": 0.32,
       "turnover": 1.12,
-      "volumeMultiple": 1.3,
+      "volumeMultiple": 1.2,
       "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "600664",
-      "name": "哈药股份",
-      "industry": "化学制药",
-      "closePrice": 8.88,
-      "changePercent": 0.23,
-      "turnover": 26.19,
-      "volumeMultiple": 0.8,
-      "isNewHigh": false,
       "isLimitUp": false
     },
     {
       "code": "603055",
       "name": "台华新材",
       "industry": "纺织制造",
-      "closePrice": 9.0,
-      "changePercent": 0.22,
-      "turnover": 0.56,
+      "closePrice": 8.99,
+      "changePercent": 0.11,
+      "turnover": 0.57,
       "volumeMultiple": 0.9,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "600162",
-      "name": "香江控股",
-      "industry": "房地产开",
-      "closePrice": 4.58,
-      "changePercent": 0.22,
-      "turnover": 11.57,
-      "volumeMultiple": 1.4,
-      "isNewHigh": false,
-      "isLimitUp": false
-    },
-    {
-      "code": "600641",
-      "name": "先导基电",
-      "industry": "半导体",
-      "closePrice": 34.08,
-      "changePercent": 0.18,
-      "turnover": 23.43,
-      "volumeMultiple": 0.9,
-      "isNewHigh": false,
-      "isLimitUp": false
-    },
-    {
-      "code": "603987",
-      "name": "康德莱",
-      "industry": "医疗器械",
-      "closePrice": 7.64,
-      "changePercent": 0.13,
-      "turnover": 0.27,
-      "volumeMultiple": 0.8,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6443,8 +6476,30 @@
       "industry": "通用设备",
       "closePrice": 11.75,
       "changePercent": 0.09,
-      "turnover": 9.04,
-      "volumeMultiple": 2.0,
+      "turnover": 9.07,
+      "volumeMultiple": 1.9,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "603887",
+      "name": "城地香江",
+      "industry": "IT服务Ⅱ",
+      "closePrice": 12.5,
+      "changePercent": 0.08,
+      "turnover": 13.07,
+      "volumeMultiple": 7.0,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "600641",
+      "name": "先导基电",
+      "industry": "半导体",
+      "closePrice": 34.04,
+      "changePercent": 0.06,
+      "turnover": 23.66,
+      "volumeMultiple": 0.9,
       "isNewHigh": false,
       "isLimitUp": false
     },
@@ -6454,8 +6509,52 @@
       "industry": "医疗服务",
       "closePrice": 2.5,
       "changePercent": 0.0,
-      "turnover": 10.39,
+      "turnover": 10.42,
       "volumeMultiple": 3.6,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "600162",
+      "name": "香江控股",
+      "industry": "房地产开",
+      "closePrice": 4.57,
+      "changePercent": 0.0,
+      "turnover": 11.61,
+      "volumeMultiple": 1.4,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "600664",
+      "name": "哈药股份",
+      "industry": "化学制药",
+      "closePrice": 8.86,
+      "changePercent": 0.0,
+      "turnover": 26.53,
+      "volumeMultiple": 0.8,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "603987",
+      "name": "康德莱",
+      "industry": "医疗器械",
+      "closePrice": 7.63,
+      "changePercent": 0.0,
+      "turnover": 0.27,
+      "volumeMultiple": 0.7,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "603998",
+      "name": "方盛制药",
+      "industry": "中药Ⅱ",
+      "closePrice": 10.77,
+      "changePercent": 0.0,
+      "turnover": 5.79,
+      "volumeMultiple": 4.1,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6463,9 +6562,9 @@
       "code": "300453",
       "name": "三鑫医疗",
       "industry": "医疗器械",
-      "closePrice": 10.02,
-      "changePercent": 0.0,
-      "turnover": 2.22,
+      "closePrice": 10.0,
+      "changePercent": -0.2,
+      "turnover": 2.23,
       "volumeMultiple": 1.5,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6476,7 +6575,7 @@
       "industry": "家居用品",
       "closePrice": 4.08,
       "changePercent": -0.24,
-      "turnover": 0.95,
+      "turnover": 0.96,
       "volumeMultiple": 1.5,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6496,31 +6595,9 @@
       "code": "603858",
       "name": "步长制药",
       "industry": "中药Ⅱ",
-      "closePrice": 15.92,
-      "changePercent": -0.5,
+      "closePrice": 15.88,
+      "changePercent": -0.75,
       "turnover": 1.15,
-      "volumeMultiple": 1.1,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "688278",
-      "name": "特宝生物",
-      "industry": "生物制品",
-      "closePrice": 61.08,
-      "changePercent": -0.57,
-      "turnover": 2.73,
-      "volumeMultiple": 0.9,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "300534",
-      "name": "陇神戎发",
-      "industry": "中药Ⅱ",
-      "closePrice": 18.8,
-      "changePercent": -0.63,
-      "turnover": 16.45,
       "volumeMultiple": 1.1,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6529,9 +6606,42 @@
       "code": "603373",
       "name": "安邦护卫",
       "industry": "专业服务",
-      "closePrice": 41.05,
-      "changePercent": -0.68,
+      "closePrice": 41.02,
+      "changePercent": -0.75,
       "turnover": 1.02,
+      "volumeMultiple": 1.1,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "002963",
+      "name": "豪尔赛",
+      "industry": "装修装饰",
+      "closePrice": 17.94,
+      "changePercent": -0.88,
+      "turnover": 1.41,
+      "volumeMultiple": 0.5,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "688278",
+      "name": "特宝生物",
+      "industry": "生物制品",
+      "closePrice": 60.88,
+      "changePercent": -0.9,
+      "turnover": 2.77,
+      "volumeMultiple": 0.9,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "300534",
+      "name": "陇神戎发",
+      "industry": "中药Ⅱ",
+      "closePrice": 18.73,
+      "changePercent": -1.0,
+      "turnover": 16.54,
       "volumeMultiple": 1.1,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6540,22 +6650,11 @@
       "code": "300833",
       "name": "浩洋股份",
       "industry": "专用设备",
-      "closePrice": 37.56,
-      "changePercent": -1.24,
-      "turnover": 0.22,
+      "closePrice": 37.51,
+      "changePercent": -1.37,
+      "turnover": 0.23,
       "volumeMultiple": 1.2,
       "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "002963",
-      "name": "豪尔赛",
-      "industry": "装修装饰",
-      "closePrice": 17.87,
-      "changePercent": -1.27,
-      "turnover": 1.4,
-      "volumeMultiple": 0.6,
-      "isNewHigh": false,
       "isLimitUp": false
     },
     {
@@ -6573,21 +6672,10 @@
       "code": "688767",
       "name": "博拓生物",
       "industry": "医疗器械",
-      "closePrice": 41.28,
-      "changePercent": -2.11,
+      "closePrice": 41.23,
+      "changePercent": -2.23,
       "turnover": 1.07,
       "volumeMultiple": 1.1,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "600881",
-      "name": "亚泰集团",
-      "industry": "综合Ⅱ",
-      "closePrice": 2.2,
-      "changePercent": -3.08,
-      "turnover": 15.48,
-      "volumeMultiple": 4.1,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6595,32 +6683,10 @@
       "code": "603261",
       "name": "立航科技",
       "industry": "航空装备",
-      "closePrice": 55.4,
-      "changePercent": -3.43,
-      "turnover": 2.53,
+      "closePrice": 55.6,
+      "changePercent": -3.09,
+      "turnover": 2.56,
       "volumeMultiple": 2.2,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "301520",
-      "name": "万邦医药",
-      "industry": "医疗服务",
-      "closePrice": 85.36,
-      "changePercent": -3.74,
-      "turnover": 9.87,
-      "volumeMultiple": 0.8,
-      "isNewHigh": false,
-      "isLimitUp": false
-    },
-    {
-      "code": "002644",
-      "name": "佛慈制药",
-      "industry": "中药Ⅱ",
-      "closePrice": 8.47,
-      "changePercent": -3.75,
-      "turnover": 2.95,
-      "volumeMultiple": 4.6,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6628,21 +6694,21 @@
       "code": "000802",
       "name": "北京文化",
       "industry": "影视院线",
-      "closePrice": 6.02,
-      "changePercent": -3.83,
-      "turnover": 16.96,
+      "closePrice": 6.06,
+      "changePercent": -3.19,
+      "turnover": 17.1,
       "volumeMultiple": 3.3,
       "isNewHigh": true,
       "isLimitUp": false
     },
     {
-      "code": "605179",
-      "name": "一鸣食品",
-      "industry": "饮料乳品",
-      "closePrice": 32.04,
-      "changePercent": -4.16,
-      "turnover": 12.01,
-      "volumeMultiple": 1.3,
+      "code": "600881",
+      "name": "亚泰集团",
+      "industry": "综合Ⅱ",
+      "closePrice": 2.19,
+      "changePercent": -3.52,
+      "turnover": 15.55,
+      "volumeMultiple": 4.1,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6650,20 +6716,53 @@
       "code": "000692",
       "name": "惠天热电",
       "industry": "电力",
-      "closePrice": 4.66,
-      "changePercent": -4.51,
-      "turnover": 4.5,
+      "closePrice": 4.7,
+      "changePercent": -3.69,
+      "turnover": 4.51,
       "volumeMultiple": 2.4,
       "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "002644",
+      "name": "佛慈制药",
+      "industry": "中药Ⅱ",
+      "closePrice": 8.45,
+      "changePercent": -3.98,
+      "turnover": 2.97,
+      "volumeMultiple": 4.6,
+      "isNewHigh": true,
       "isLimitUp": false
     },
     {
       "code": "300937",
       "name": "药易购",
       "industry": "医药商业",
-      "closePrice": 30.26,
-      "changePercent": -4.54,
-      "turnover": 4.5,
+      "closePrice": 30.3,
+      "changePercent": -4.42,
+      "turnover": 4.56,
+      "volumeMultiple": 1.3,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "301520",
+      "name": "万邦医药",
+      "industry": "医疗服务",
+      "closePrice": 84.73,
+      "changePercent": -4.45,
+      "turnover": 9.94,
+      "volumeMultiple": 0.8,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "605179",
+      "name": "一鸣食品",
+      "industry": "饮料乳品",
+      "closePrice": 31.84,
+      "changePercent": -4.76,
+      "turnover": 12.04,
       "volumeMultiple": 1.3,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6672,9 +6771,9 @@
       "code": "600721",
       "name": "百花医药",
       "industry": "医疗服务",
-      "closePrice": 13.82,
-      "changePercent": -4.69,
-      "turnover": 13.53,
+      "closePrice": 13.8,
+      "changePercent": -4.83,
+      "turnover": 13.62,
       "volumeMultiple": 1.3,
       "isNewHigh": false,
       "isLimitUp": false
@@ -6683,32 +6782,10 @@
       "code": "603191",
       "name": "望变电气",
       "industry": "电网设备",
-      "closePrice": 16.09,
-      "changePercent": -5.02,
-      "turnover": 4.3,
+      "closePrice": 16.07,
+      "changePercent": -5.14,
+      "turnover": 4.36,
       "volumeMultiple": 2.2,
-      "isNewHigh": false,
-      "isLimitUp": false
-    },
-    {
-      "code": "002792",
-      "name": "通宇通讯",
-      "industry": "通信设备",
-      "closePrice": 36.6,
-      "changePercent": -5.25,
-      "turnover": 26.16,
-      "volumeMultiple": 1.2,
-      "isNewHigh": false,
-      "isLimitUp": false
-    },
-    {
-      "code": "002031",
-      "name": "巨轮智能",
-      "industry": "专用设备",
-      "closePrice": 5.9,
-      "changePercent": -5.9,
-      "turnover": 13.11,
-      "volumeMultiple": 1.4,
       "isNewHigh": false,
       "isLimitUp": false
     },
@@ -6718,18 +6795,29 @@
       "industry": "医药商业",
       "closePrice": 3.49,
       "changePercent": -5.93,
-      "turnover": 7.73,
+      "turnover": 7.77,
       "volumeMultiple": 1.1,
       "isNewHigh": false,
       "isLimitUp": false
     },
     {
-      "code": "603897",
-      "name": "长城科技",
-      "industry": "电网设备",
-      "closePrice": 32.4,
-      "changePercent": -6.57,
-      "turnover": 7.37,
+      "code": "002792",
+      "name": "通宇通讯",
+      "industry": "通信设备",
+      "closePrice": 36.32,
+      "changePercent": -5.98,
+      "turnover": 26.37,
+      "volumeMultiple": 1.2,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "002031",
+      "name": "巨轮智能",
+      "industry": "专用设备",
+      "closePrice": 5.89,
+      "changePercent": -6.06,
+      "turnover": 13.19,
       "volumeMultiple": 1.4,
       "isNewHigh": false,
       "isLimitUp": false
@@ -6738,21 +6826,21 @@
       "code": "002229",
       "name": "鸿博股份",
       "industry": "IT服务Ⅱ",
-      "closePrice": 12.75,
-      "changePercent": -6.59,
-      "turnover": 16.95,
+      "closePrice": 12.8,
+      "changePercent": -6.23,
+      "turnover": 17.05,
       "volumeMultiple": 2.2,
       "isNewHigh": false,
       "isLimitUp": false
     },
     {
-      "code": "603887",
-      "name": "城地香江",
-      "industry": "IT服务Ⅱ",
-      "closePrice": 11.66,
-      "changePercent": -6.65,
-      "turnover": 12.57,
-      "volumeMultiple": 6.9,
+      "code": "603897",
+      "name": "长城科技",
+      "industry": "电网设备",
+      "closePrice": 32.5,
+      "changePercent": -6.29,
+      "turnover": 7.41,
+      "volumeMultiple": 1.4,
       "isNewHigh": false,
       "isLimitUp": false
     },
@@ -6760,32 +6848,10 @@
       "code": "603466",
       "name": "风语筑",
       "industry": "数字媒体",
-      "closePrice": 12.6,
-      "changePercent": -8.16,
-      "turnover": 17.78,
+      "closePrice": 12.64,
+      "changePercent": -7.87,
+      "turnover": 17.87,
       "volumeMultiple": 2.6,
-      "isNewHigh": true,
-      "isLimitUp": false
-    },
-    {
-      "code": "601700",
-      "name": "风范股份",
-      "industry": "电网设备",
-      "closePrice": 6.52,
-      "changePercent": -8.17,
-      "turnover": 11.42,
-      "volumeMultiple": 1.1,
-      "isNewHigh": false,
-      "isLimitUp": false
-    },
-    {
-      "code": "603682",
-      "name": "锦和商管",
-      "industry": "一般零售",
-      "closePrice": 12.05,
-      "changePercent": -8.43,
-      "turnover": 4.69,
-      "volumeMultiple": 1.7,
       "isNewHigh": true,
       "isLimitUp": false
     },
@@ -6793,9 +6859,9 @@
       "code": "002329",
       "name": "皇氏集团",
       "industry": "饮料乳品",
-      "closePrice": 4.23,
-      "changePercent": -8.44,
-      "turnover": 9.13,
+      "closePrice": 4.25,
+      "changePercent": -8.01,
+      "turnover": 9.15,
       "volumeMultiple": 2.7,
       "isNewHigh": true,
       "isLimitUp": false
@@ -6804,10 +6870,32 @@
       "code": "000887",
       "name": "中鼎股份",
       "industry": "汽车零部",
-      "closePrice": 21.66,
-      "changePercent": -8.57,
-      "turnover": 31.05,
+      "closePrice": 21.78,
+      "changePercent": -8.06,
+      "turnover": 31.31,
       "volumeMultiple": 3.8,
+      "isNewHigh": false,
+      "isLimitUp": false
+    },
+    {
+      "code": "603682",
+      "name": "锦和商管",
+      "industry": "一般零售",
+      "closePrice": 12.03,
+      "changePercent": -8.59,
+      "turnover": 4.73,
+      "volumeMultiple": 1.7,
+      "isNewHigh": true,
+      "isLimitUp": false
+    },
+    {
+      "code": "601700",
+      "name": "风范股份",
+      "industry": "电网设备",
+      "closePrice": 6.48,
+      "changePercent": -8.73,
+      "turnover": 11.49,
+      "volumeMultiple": 1.1,
       "isNewHigh": false,
       "isLimitUp": false
     },
@@ -6815,10 +6903,10 @@
       "code": "605286",
       "name": "同力天启",
       "industry": "专用设备",
-      "closePrice": 30.98,
-      "changePercent": -9.12,
-      "turnover": 5.28,
-      "volumeMultiple": 4.8,
+      "closePrice": 30.91,
+      "changePercent": -9.33,
+      "turnover": 5.3,
+      "volumeMultiple": 4.7,
       "isNewHigh": false,
       "isLimitUp": false
     },
@@ -6839,8 +6927,8 @@
       "industry": "房地产开",
       "closePrice": 11.64,
       "changePercent": -9.98,
-      "turnover": 10.9,
-      "volumeMultiple": 14.1,
+      "turnover": 10.94,
+      "volumeMultiple": 13.9,
       "isNewHigh": false,
       "isLimitUp": false
     },
@@ -6850,7 +6938,7 @@
       "industry": "燃气Ⅱ",
       "closePrice": 25.02,
       "changePercent": -10.0,
-      "turnover": 9.16,
+      "turnover": 9.17,
       "volumeMultiple": 1.3,
       "isNewHigh": false,
       "isLimitUp": false
@@ -17751,10 +17839,10 @@
         {
           "date": "2026-08-14",
           "open": 21.75,
-          "close": 24.27,
+          "close": 24.26,
           "high": 26.18,
           "low": 21.69,
-          "amount": 36611664.0
+          "amount": 36757541.0
         }
       ]
     },
@@ -18245,10 +18333,10 @@
         {
           "date": "2026-08-14",
           "open": 6.93,
-          "close": 7.22,
+          "close": 7.23,
           "high": 7.26,
           "low": 6.82,
-          "amount": 1315958.0
+          "amount": 1326066.0
         }
       ]
     },
@@ -18742,7 +18830,7 @@
           "close": 60.95,
           "high": 60.95,
           "low": 55.73,
-          "amount": 871313.0
+          "amount": 873690.0
         }
       ]
     },
@@ -19236,7 +19324,7 @@
           "close": 67.36,
           "high": 67.36,
           "low": 67.36,
-          "amount": 41493.0
+          "amount": 41520.0
         }
       ]
     },
@@ -19727,10 +19815,10 @@
         {
           "date": "2026-08-14",
           "open": 10.17,
-          "close": 10.35,
+          "close": 10.34,
           "high": 10.39,
           "low": 10.04,
-          "amount": 77642.0
+          "amount": 78298.0
         }
       ]
     },
@@ -20230,10 +20318,10 @@
         {
           "date": "2026-08-14",
           "open": 28.64,
-          "close": 29.64,
+          "close": 29.68,
           "high": 31.31,
           "low": 28.63,
-          "amount": 311437.0
+          "amount": 315082.0
         }
       ]
     },
@@ -20724,10 +20812,10 @@
         {
           "date": "2026-08-14",
           "open": 10.24,
-          "close": 10.44,
+          "close": 10.46,
           "high": 10.58,
           "low": 10.12,
-          "amount": 558844.0
+          "amount": 565544.0
         }
       ]
     },
@@ -21218,10 +21306,10 @@
         {
           "date": "2026-08-14",
           "open": 25.71,
-          "close": 30.8,
+          "close": 30.83,
           "high": 30.85,
           "low": 25.3,
-          "amount": 101181.0
+          "amount": 101685.0
         }
       ]
     },
@@ -21712,10 +21800,10 @@
         {
           "date": "2026-08-14",
           "open": 14.32,
-          "close": 15.02,
+          "close": 14.99,
           "high": 15.6,
           "low": 13.97,
-          "amount": 268715.0
+          "amount": 269596.0
         }
       ]
     },
@@ -22206,10 +22294,10 @@
         {
           "date": "2026-08-14",
           "open": 1.59,
-          "close": 1.64,
+          "close": 1.63,
           "high": 1.64,
           "low": 1.53,
-          "amount": 197895.0
+          "amount": 200329.0
         }
       ]
     },
@@ -22712,10 +22800,10 @@
         {
           "date": "2026-08-14",
           "open": 8.45,
-          "close": 8.73,
+          "close": 8.74,
           "high": 8.85,
           "low": 8.45,
-          "amount": 433079.0
+          "amount": 437843.0
         }
       ]
     },
@@ -23209,7 +23297,7 @@
           "close": 3.48,
           "high": 3.53,
           "low": 3.4,
-          "amount": 1771081.0
+          "amount": 1775168.0
         }
       ]
     },
@@ -23716,7 +23804,7 @@
           "close": 17.55,
           "high": 17.55,
           "low": 15.7,
-          "amount": 110949.0
+          "amount": 110981.0
         }
       ]
     },
@@ -24207,10 +24295,10 @@
         {
           "date": "2026-08-14",
           "open": 8.76,
-          "close": 9.01,
+          "close": 9.04,
           "high": 9.09,
           "low": 8.76,
-          "amount": 329395.0
+          "amount": 354821.0
         }
       ]
     },
@@ -24705,10 +24793,10 @@
         {
           "date": "2026-08-14",
           "open": 13.1,
-          "close": 13.28,
+          "close": 13.27,
           "high": 13.34,
           "low": 13.05,
-          "amount": 33062.0
+          "amount": 33196.0
         }
       ]
     },
@@ -25199,10 +25287,10 @@
         {
           "date": "2026-08-14",
           "open": 9.03,
-          "close": 9.6,
+          "close": 9.52,
           "high": 9.65,
           "low": 8.91,
-          "amount": 483581.0
+          "amount": 490806.0
         }
       ]
     },
@@ -25697,10 +25785,10 @@
         {
           "date": "2026-08-14",
           "open": 34.33,
-          "close": 36.34,
+          "close": 36.4,
           "high": 36.5,
           "low": 34.15,
-          "amount": 470430.0
+          "amount": 475697.0
         }
       ]
     }
