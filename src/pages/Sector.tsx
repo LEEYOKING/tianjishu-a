@@ -58,7 +58,7 @@ export default function Sector({ data }: { data: ReportData }) {
       <style>{responsiveStyle}</style>
       <PageHeader
         title="板块涨跌"
-        tradeDateSlash={idx.tradeDateSlash}
+        tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
         generatedAt={idx.generatedAt}
         subtitle="行业 + 概念 + 地域板块涨跌幅 + 主力资金流向"
         lastUpdatedAt={useLive().fetchedAt}

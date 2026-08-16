@@ -100,7 +100,7 @@ export default function PreScan() {
     <div>
       <PageHeader
         title="盘前扫描"
-        tradeDateSlash={tradeDateSlash}
+        tradeDateSlash={tradeDateSlash} _originalTradeDate={data.meta.tradeDate}
         generatedAt={data.meta.generatedAt}
         liveTag="隔夜数据"
         liveColor="#1890FF"
