@@ -546,7 +546,17 @@ export default function Overview({ data }: { data: ReportData }) {
     </div>
   );
 
-  function sliceHistory(range: number) { return history.slice(-range); }
+  // v2.0.7cq:过滤周末(周六/周日)+ 节假日占位(A 股交易日),避免 baseData 周末 stale 数据污染图表
+  // — baseData 周末没刷新,history 末 1/2 条会是周六/周日的 0 数据(或 weekend 量)
+  // — 8/15 周六(2026)被 user 反馈:图表显示 0:0 tooltip,看起来是 "数据缺失"
+  // — 过滤后图表只显示真实交易日,周末/节假日自动跳过
+  function isTradingDay(date: string): boolean {
+    const d = new Date(date);
+    return d.getDay() !== 0 && d.getDay() !== 6;  // 排除周日(0)、周六(6)
+  }
+  function sliceHistory(range: number) {
+    return history.filter((h: HistoryPoint) => isTradingDay(h.date)).slice(-range);
+  }
 }
 
 // ====== 时间判断(盘中/收盘)— v1.9.1:只保留 2 个状态 ======

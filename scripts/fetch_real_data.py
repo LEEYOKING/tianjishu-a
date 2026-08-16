@@ -337,6 +337,10 @@ history = []
 # — history.append 末尾加当日 marketTurnover(8/13 实际 25673 准) — 下次 8/14 算 turnoverDiff 用
 for i, row in hist_df.iterrows():
     date_str = str(row['date'])
+    # v2.0.7cq:过滤周末(akshare stock_zh_index_daily_tx 会返回周末空数据)
+    _dt = datetime.strptime(date_str, '%Y-%m-%d')
+    if _dt.weekday() >= 5:  # 周六(5)/周日(6)跳过
+        continue
     amount_sh = safe_float(row['amount'])
     amount_sz = safe_float(hist_sz_df.iloc[i]['amount']) if i < len(hist_sz_df) else 0
     # v2.0.7ba:× 100 × 19.2 / 1e8 估算(沪深 8/12 估算 21696,差 1%)
@@ -351,10 +355,12 @@ for i, row in hist_df.iterrows():
     })
 # v2.0.7ba:追加当日收盘成交额(下次算 turnoverDiff 用)
 # 8/13 跑出 25673,append 到 history 末尾(8/14 跑时 history[-1] = 8/13 收盘)
-history.append({
-    'date': TODAY.strftime('%Y-%m-%d'),
-    'volume': round(total_turnover, 2),  # 当日收盘成交额(8/13 实际 25673 准)
-})
+# v2.0.7cq:周末 cron 不会跑(UTC 7:35/10:30 北京时间,周一到周五),但防御性再过滤一次
+if TODAY.weekday() < 5:  # 周一到周五才 append
+    history.append({
+        'date': TODAY.strftime('%Y-%m-%d'),
+        'volume': round(total_turnover, 2),  # 当日收盘成交额(8/13 实际 25673 准)
+    })
 print(f"  历史 {len(history)} 个交易日(末 1 用今日 marketTurnover 准)")
 
 # 计算 turnoverDiff: 今日全市场 vs 上一交易日收盘(跟同花顺一致)
