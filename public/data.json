@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generatedAt": "2026-08-15 14:19:17",
-    "tradeDate": "20260815",
-    "tradeDateSlash": "26/08/15",
+    "generatedAt": "2026-08-16 16:17:32",
+    "tradeDate": "20260816",
+    "tradeDateSlash": "26/08/16",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
   },
   "marketOverview": {
-    "tradeDate": "20260815",
-    "tradeDateSlash": "26/08/15",
-    "generatedAt": "2026-08-15 14:19",
+    "tradeDate": "20260816",
+    "tradeDateSlash": "26/08/16",
+    "generatedAt": "2026-08-16 16:17",
     "marketTurnover": 21561.29,
     "turnoverDiff": -366.7,
     "marketTemperature": {
@@ -113,7 +113,7 @@
     "bondStockDown": 150,
     "bondStockFlat": 8,
     "mainCapitalFlow20d": {
-      "date": "2026-08-15",
+      "date": "2026-08-16",
       "total_net_inflow": -202.92,
       "industries": [
         {
@@ -1643,7 +1643,7 @@
       "down": 2810
     },
     {
-      "date": "2026-08-15",
+      "date": "2026-08-16",
       "volume": 21561.29,
       "limitUp": 0,
       "limitDown": 0,
@@ -7852,6 +7852,102 @@
       }
     },
     {
+      "code": "300534",
+      "name": "陇神戎发",
+      "closePrice": 18.9,
+      "changePercent": -0.11,
+      "turnover": 0,
+      "netBuy": 4.41,
+      "buyAmount": 34.18,
+      "sellAmount": 29.77,
+      "reason": "80家机构买卖, 成功率",
+      "isMockSeats": false,
+      "details": {
+        "buys": [
+          {
+            "direction": "buy",
+            "seat": "招商证券股份有限公司深圳益田路免税商务大厦证券营业部",
+            "buyAmount": 0.29,
+            "sellAmount": 0.19,
+            "netAmount": 0.11
+          }
+        ],
+        "sells": [
+          {
+            "direction": "sell",
+            "seat": "开源证券股份有限公司西安太华路证券营业部",
+            "buyAmount": 0.0,
+            "sellAmount": 1.04,
+            "netAmount": -1.04
+          },
+          {
+            "direction": "sell",
+            "seat": "国泰海通证券股份有限公司上海长宁区江苏路证券营业部",
+            "buyAmount": 0.04,
+            "sellAmount": 0.35,
+            "netAmount": -0.31
+          },
+          {
+            "direction": "sell",
+            "seat": "机构专用",
+            "buyAmount": 4.75,
+            "sellAmount": 4.06,
+            "netAmount": 0.68
+          }
+        ]
+      },
+      "interpreted": {
+        "stock_info": {
+          "code": "300534",
+          "name": "陇神戎发",
+          "reason": "80家机构买卖, 成功率"
+        },
+        "tags": [
+          "普通"
+        ],
+        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
+        "structured_buy_list": [
+          {
+            "seat": "招商证券股份有限公司深圳益田路免税商务大厦证券营业部",
+            "name": "益田路免税",
+            "type": "一线游资",
+            "style": "趋势抱团",
+            "icon": "🎯",
+            "net_amount": 11000000.0
+          }
+        ],
+        "structured_sell_list": [
+          {
+            "seat": "开源证券股份有限公司西安太华路证券营业部",
+            "name": "方新侠",
+            "type": "一线游资",
+            "style": "潜伏锁仓",
+            "icon": "🛡",
+            "net_amount": -104000000.0
+          },
+          {
+            "seat": "国泰海通证券股份有限公司上海长宁区江苏路证券营业部",
+            "name": "章盟主",
+            "type": "一线游资",
+            "style": "点火打板",
+            "icon": "🔥",
+            "net_amount": -31000000.0
+          },
+          {
+            "seat": "机构专用",
+            "name": "机构资金",
+            "type": "机构",
+            "style": "中长线价值",
+            "icon": "🏛",
+            "net_amount": 68000000.0
+          }
+        ],
+        "force_distribution": {
+          "一线游资": 100.0
+        }
+      }
+    },
+    {
       "code": "300862",
       "name": "蓝盾光电",
       "closePrice": 47.29,
@@ -8020,102 +8116,6 @@
         "force_distribution": {
           "普通营业部": 64.6,
           "一线游资": 35.4
-        }
-      }
-    },
-    {
-      "code": "300534",
-      "name": "陇神戎发",
-      "closePrice": 18.9,
-      "changePercent": -0.11,
-      "turnover": 0,
-      "netBuy": 4.15,
-      "buyAmount": 34.88,
-      "sellAmount": 30.72,
-      "reason": "83家机构买卖, 成功率",
-      "isMockSeats": false,
-      "details": {
-        "buys": [
-          {
-            "direction": "buy",
-            "seat": "招商证券股份有限公司深圳益田路免税商务大厦证券营业部",
-            "buyAmount": 0.29,
-            "sellAmount": 0.19,
-            "netAmount": 0.11
-          }
-        ],
-        "sells": [
-          {
-            "direction": "sell",
-            "seat": "开源证券股份有限公司西安太华路证券营业部",
-            "buyAmount": 0.0,
-            "sellAmount": 1.04,
-            "netAmount": -1.04
-          },
-          {
-            "direction": "sell",
-            "seat": "国泰海通证券股份有限公司上海长宁区江苏路证券营业部",
-            "buyAmount": 0.04,
-            "sellAmount": 0.35,
-            "netAmount": -0.31
-          },
-          {
-            "direction": "sell",
-            "seat": "机构专用",
-            "buyAmount": 4.75,
-            "sellAmount": 4.06,
-            "netAmount": 0.68
-          }
-        ]
-      },
-      "interpreted": {
-        "stock_info": {
-          "code": "300534",
-          "name": "陇神戎发",
-          "reason": "83家机构买卖, 成功率"
-        },
-        "tags": [
-          "普通"
-        ],
-        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
-        "structured_buy_list": [
-          {
-            "seat": "招商证券股份有限公司深圳益田路免税商务大厦证券营业部",
-            "name": "益田路免税",
-            "type": "一线游资",
-            "style": "趋势抱团",
-            "icon": "🎯",
-            "net_amount": 11000000.0
-          }
-        ],
-        "structured_sell_list": [
-          {
-            "seat": "开源证券股份有限公司西安太华路证券营业部",
-            "name": "方新侠",
-            "type": "一线游资",
-            "style": "潜伏锁仓",
-            "icon": "🛡",
-            "net_amount": -104000000.0
-          },
-          {
-            "seat": "国泰海通证券股份有限公司上海长宁区江苏路证券营业部",
-            "name": "章盟主",
-            "type": "一线游资",
-            "style": "点火打板",
-            "icon": "🔥",
-            "net_amount": -31000000.0
-          },
-          {
-            "seat": "机构专用",
-            "name": "机构资金",
-            "type": "机构",
-            "style": "中长线价值",
-            "icon": "🏛",
-            "net_amount": 68000000.0
-          }
-        ],
-        "force_distribution": {
-          "一线游资": 100.0
         }
       }
     },
@@ -9664,163 +9664,6 @@
       }
     },
     {
-      "code": "600829",
-      "name": "人民同泰",
-      "closePrice": 11.83,
-      "changePercent": 10.05,
-      "turnover": 0,
-      "netBuy": 0.87,
-      "buyAmount": 2.02,
-      "sellAmount": 1.15,
-      "reason": "游资接力, 成功率",
-      "isMockSeats": false,
-      "details": {
-        "buys": [
-          {
-            "direction": "buy",
-            "seat": "开源证券股份有限公司西安太华路证券营业部",
-            "buyAmount": 0.39,
-            "sellAmount": 0.0,
-            "netAmount": 0.39
-          },
-          {
-            "direction": "buy",
-            "seat": "中泰证券股份有限公司常州惠国路证券营业部",
-            "buyAmount": 0.16,
-            "sellAmount": 0.0,
-            "netAmount": 0.16
-          },
-          {
-            "direction": "buy",
-            "seat": "华泰证券股份有限公司北京东三环北路证券营业部",
-            "buyAmount": 0.12,
-            "sellAmount": 0.0,
-            "netAmount": 0.12
-          }
-        ],
-        "sells": [
-          {
-            "direction": "sell",
-            "seat": "中信证券股份有限公司上海分公司",
-            "buyAmount": 0.0,
-            "sellAmount": 0.06,
-            "netAmount": -0.06
-          },
-          {
-            "direction": "sell",
-            "seat": "国泰海通证券股份有限公司杭州金华南路证券营业部",
-            "buyAmount": 0.0,
-            "sellAmount": 0.05,
-            "netAmount": -0.05
-          },
-          {
-            "direction": "sell",
-            "seat": "东方财富证券股份有限公司拉萨东城区江苏大道证券营业部",
-            "buyAmount": 0.0,
-            "sellAmount": 0.05,
-            "netAmount": -0.05
-          },
-          {
-            "direction": "sell",
-            "seat": "高盛(中国)证券有限责任公司上海浦东新区世纪大道证券营业部",
-            "buyAmount": 0.15,
-            "sellAmount": 0.14,
-            "netAmount": 0.01
-          },
-          {
-            "direction": "sell",
-            "seat": "沪股通专用",
-            "buyAmount": 0.45,
-            "sellAmount": 0.27,
-            "netAmount": 0.18
-          }
-        ]
-      },
-      "interpreted": {
-        "stock_info": {
-          "code": "600829",
-          "name": "人民同泰",
-          "reason": "游资接力, 成功率"
-        },
-        "tags": [
-          "普通"
-        ],
-        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
-        "structured_buy_list": [
-          {
-            "seat": "开源证券股份有限公司西安太华路证券营业部",
-            "name": "方新侠",
-            "type": "一线游资",
-            "style": "潜伏锁仓",
-            "icon": "🛡",
-            "net_amount": 39000000.0
-          },
-          {
-            "seat": "中泰证券股份有限公司常州惠国路证券营业部",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": 16000000.0
-          },
-          {
-            "seat": "华泰证券股份有限公司北京东三环北路证券营业部",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": 12000000.0
-          }
-        ],
-        "structured_sell_list": [
-          {
-            "seat": "中信证券股份有限公司上海分公司",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": -6000000.0
-          },
-          {
-            "seat": "国泰海通证券股份有限公司杭州金华南路证券营业部",
-            "name": "杭州系",
-            "type": "一线游资",
-            "style": "题材挖掘",
-            "icon": "🌟",
-            "net_amount": -5000000.0
-          },
-          {
-            "seat": "东方财富证券股份有限公司拉萨东城区江苏大道证券营业部",
-            "name": "拉萨天团",
-            "type": "散户集中营",
-            "style": "高频量化",
-            "icon": "👥",
-            "net_amount": -5000000.0
-          },
-          {
-            "seat": "高盛(中国)证券有限责任公司上海浦东新区世纪大道证券营业部",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": 1000000.0
-          },
-          {
-            "seat": "沪股通专用",
-            "name": "北向资金",
-            "type": "外资",
-            "style": "配置型",
-            "icon": "🌐",
-            "net_amount": 18000000.0
-          }
-        ],
-        "force_distribution": {
-          "一线游资": 58.2,
-          "普通营业部": 41.8
-        }
-      }
-    },
-    {
       "code": "603083",
       "name": "剑桥科技",
       "closePrice": 185.9,
@@ -10602,6 +10445,163 @@
         "force_distribution": {
           "普通营业部": 76.1,
           "一线游资": 23.9
+        }
+      }
+    },
+    {
+      "code": "600829",
+      "name": "人民同泰",
+      "closePrice": 11.83,
+      "changePercent": 10.05,
+      "turnover": 0,
+      "netBuy": 0.69,
+      "buyAmount": 1.26,
+      "sellAmount": 0.58,
+      "reason": "游资接力, 成功率",
+      "isMockSeats": false,
+      "details": {
+        "buys": [
+          {
+            "direction": "buy",
+            "seat": "开源证券股份有限公司西安太华路证券营业部",
+            "buyAmount": 0.39,
+            "sellAmount": 0.0,
+            "netAmount": 0.39
+          },
+          {
+            "direction": "buy",
+            "seat": "中泰证券股份有限公司常州惠国路证券营业部",
+            "buyAmount": 0.16,
+            "sellAmount": 0.0,
+            "netAmount": 0.16
+          },
+          {
+            "direction": "buy",
+            "seat": "华泰证券股份有限公司北京东三环北路证券营业部",
+            "buyAmount": 0.12,
+            "sellAmount": 0.0,
+            "netAmount": 0.12
+          }
+        ],
+        "sells": [
+          {
+            "direction": "sell",
+            "seat": "中信证券股份有限公司上海分公司",
+            "buyAmount": 0.0,
+            "sellAmount": 0.06,
+            "netAmount": -0.06
+          },
+          {
+            "direction": "sell",
+            "seat": "国泰海通证券股份有限公司杭州金华南路证券营业部",
+            "buyAmount": 0.0,
+            "sellAmount": 0.05,
+            "netAmount": -0.05
+          },
+          {
+            "direction": "sell",
+            "seat": "东方财富证券股份有限公司拉萨东城区江苏大道证券营业部",
+            "buyAmount": 0.0,
+            "sellAmount": 0.05,
+            "netAmount": -0.05
+          },
+          {
+            "direction": "sell",
+            "seat": "高盛(中国)证券有限责任公司上海浦东新区世纪大道证券营业部",
+            "buyAmount": 0.15,
+            "sellAmount": 0.14,
+            "netAmount": 0.01
+          },
+          {
+            "direction": "sell",
+            "seat": "沪股通专用",
+            "buyAmount": 0.45,
+            "sellAmount": 0.27,
+            "netAmount": 0.18
+          }
+        ]
+      },
+      "interpreted": {
+        "stock_info": {
+          "code": "600829",
+          "name": "人民同泰",
+          "reason": "游资接力, 成功率"
+        },
+        "tags": [
+          "普通"
+        ],
+        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
+        "structured_buy_list": [
+          {
+            "seat": "开源证券股份有限公司西安太华路证券营业部",
+            "name": "方新侠",
+            "type": "一线游资",
+            "style": "潜伏锁仓",
+            "icon": "🛡",
+            "net_amount": 39000000.0
+          },
+          {
+            "seat": "中泰证券股份有限公司常州惠国路证券营业部",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": 16000000.0
+          },
+          {
+            "seat": "华泰证券股份有限公司北京东三环北路证券营业部",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": 12000000.0
+          }
+        ],
+        "structured_sell_list": [
+          {
+            "seat": "中信证券股份有限公司上海分公司",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": -6000000.0
+          },
+          {
+            "seat": "国泰海通证券股份有限公司杭州金华南路证券营业部",
+            "name": "杭州系",
+            "type": "一线游资",
+            "style": "题材挖掘",
+            "icon": "🌟",
+            "net_amount": -5000000.0
+          },
+          {
+            "seat": "东方财富证券股份有限公司拉萨东城区江苏大道证券营业部",
+            "name": "拉萨天团",
+            "type": "散户集中营",
+            "style": "高频量化",
+            "icon": "👥",
+            "net_amount": -5000000.0
+          },
+          {
+            "seat": "高盛(中国)证券有限责任公司上海浦东新区世纪大道证券营业部",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": 1000000.0
+          },
+          {
+            "seat": "沪股通专用",
+            "name": "北向资金",
+            "type": "外资",
+            "style": "配置型",
+            "icon": "🌐",
+            "net_amount": 18000000.0
+          }
+        ],
+        "force_distribution": {
+          "一线游资": 58.2,
+          "普通营业部": 41.8
         }
       }
     },
@@ -11520,6 +11520,148 @@
       }
     },
     {
+      "code": "920367",
+      "name": "新赣江",
+      "closePrice": 29.39,
+      "changePercent": -5.59,
+      "turnover": 0,
+      "netBuy": 0.39,
+      "buyAmount": 2.84,
+      "sellAmount": 2.45,
+      "reason": "11家机构买卖, 成功率",
+      "isMockSeats": false,
+      "details": {
+        "buys": [
+          {
+            "direction": "buy",
+            "seat": "东莞证券股份有限公司浙江分公司",
+            "buyAmount": 0.04,
+            "sellAmount": 0.0,
+            "netAmount": 0.04
+          },
+          {
+            "direction": "buy",
+            "seat": "东方财富证券股份有限公司拉萨东环路第二证券营业部",
+            "buyAmount": 0.04,
+            "sellAmount": 0.01,
+            "netAmount": 0.03
+          }
+        ],
+        "sells": [
+          {
+            "direction": "sell",
+            "seat": "东方财富证券股份有限公司江苏分公司",
+            "buyAmount": 0.0,
+            "sellAmount": 0.1,
+            "netAmount": -0.09
+          },
+          {
+            "direction": "sell",
+            "seat": "东方财富证券股份有限公司拉萨金融城南环路证券营业部",
+            "buyAmount": 0.03,
+            "sellAmount": 0.1,
+            "netAmount": -0.07
+          },
+          {
+            "direction": "sell",
+            "seat": "机构专用",
+            "buyAmount": 0.12,
+            "sellAmount": 0.18,
+            "netAmount": -0.06
+          },
+          {
+            "direction": "sell",
+            "seat": "国金证券股份有限公司深圳分公司",
+            "buyAmount": 0.15,
+            "sellAmount": 0.18,
+            "netAmount": -0.03
+          },
+          {
+            "direction": "sell",
+            "seat": "国信证券股份有限公司深圳互联网分公司",
+            "buyAmount": 0.28,
+            "sellAmount": 0.22,
+            "netAmount": 0.06
+          }
+        ]
+      },
+      "interpreted": {
+        "stock_info": {
+          "code": "920367",
+          "name": "新赣江",
+          "reason": "11家机构买卖, 成功率"
+        },
+        "tags": [
+          "普通"
+        ],
+        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
+        "structured_buy_list": [
+          {
+            "seat": "东莞证券股份有限公司浙江分公司",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": 4000000.0
+          },
+          {
+            "seat": "东方财富证券股份有限公司拉萨东环路第二证券营业部",
+            "name": "拉萨天团-东环",
+            "type": "散户集中营",
+            "style": "高频量化/抢帽子",
+            "icon": "👥",
+            "net_amount": 3000000.0
+          }
+        ],
+        "structured_sell_list": [
+          {
+            "seat": "东方财富证券股份有限公司江苏分公司",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": -9000000.0
+          },
+          {
+            "seat": "东方财富证券股份有限公司拉萨金融城南环路证券营业部",
+            "name": "拉萨天团-金融城",
+            "type": "散户集中营",
+            "style": "高频量化/抢帽子",
+            "icon": "👥",
+            "net_amount": -7000000.000000001
+          },
+          {
+            "seat": "机构专用",
+            "name": "机构资金",
+            "type": "机构",
+            "style": "中长线价值",
+            "icon": "🏛",
+            "net_amount": -6000000.0
+          },
+          {
+            "seat": "国金证券股份有限公司深圳分公司",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": -3000000.0
+          },
+          {
+            "seat": "国信证券股份有限公司深圳互联网分公司",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": 6000000.0
+          }
+        ],
+        "force_distribution": {
+          "普通营业部": 57.1,
+          "散户集中营": 42.9
+        }
+      }
+    },
+    {
       "code": "002724",
       "name": "海洋王",
       "closePrice": 6.78,
@@ -11688,6 +11830,148 @@
         ],
         "force_distribution": {
           "一线游资": 100.0
+        }
+      }
+    },
+    {
+      "code": "300937",
+      "name": "药易购",
+      "closePrice": 30.7,
+      "changePercent": -3.15,
+      "turnover": 0,
+      "netBuy": 0.35,
+      "buyAmount": 2.21,
+      "sellAmount": 1.86,
+      "reason": "4家机构买卖, 成功率",
+      "isMockSeats": false,
+      "details": {
+        "buys": [
+          {
+            "direction": "buy",
+            "seat": "国信证券股份有限公司福州五一中路证券营业部",
+            "buyAmount": 0.16,
+            "sellAmount": 0.0,
+            "netAmount": 0.16
+          },
+          {
+            "direction": "buy",
+            "seat": "中国国际金融股份有限公司上海分公司",
+            "buyAmount": 0.14,
+            "sellAmount": 0.05,
+            "netAmount": 0.09
+          },
+          {
+            "direction": "buy",
+            "seat": "招商证券股份有限公司成都人民南路证券营业部",
+            "buyAmount": 0.12,
+            "sellAmount": 0.05,
+            "netAmount": 0.07
+          }
+        ],
+        "sells": [
+          {
+            "direction": "sell",
+            "seat": "开源证券股份有限公司西安太华路证券营业部",
+            "buyAmount": 0.0,
+            "sellAmount": 0.31,
+            "netAmount": -0.31
+          },
+          {
+            "direction": "sell",
+            "seat": "国新证券股份有限公司北京中关村大街证券营业部",
+            "buyAmount": 0.0,
+            "sellAmount": 0.24,
+            "netAmount": -0.24
+          },
+          {
+            "direction": "sell",
+            "seat": "国新证券股份有限公司北京分公司",
+            "buyAmount": 0.0,
+            "sellAmount": 0.21,
+            "netAmount": -0.21
+          },
+          {
+            "direction": "sell",
+            "seat": "机构专用",
+            "buyAmount": 0.98,
+            "sellAmount": 1.03,
+            "netAmount": -0.04
+          }
+        ]
+      },
+      "interpreted": {
+        "stock_info": {
+          "code": "300937",
+          "name": "药易购",
+          "reason": "4家机构买卖, 成功率"
+        },
+        "tags": [
+          "普通"
+        ],
+        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
+        "structured_buy_list": [
+          {
+            "seat": "国信证券股份有限公司福州五一中路证券营业部",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": 16000000.0
+          },
+          {
+            "seat": "中国国际金融股份有限公司上海分公司",
+            "name": "中金上海",
+            "type": "一线游资",
+            "style": "机构联动",
+            "icon": "🏦",
+            "net_amount": 9000000.0
+          },
+          {
+            "seat": "招商证券股份有限公司成都人民南路证券营业部",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": 7000000.000000001
+          }
+        ],
+        "structured_sell_list": [
+          {
+            "seat": "开源证券股份有限公司西安太华路证券营业部",
+            "name": "方新侠",
+            "type": "一线游资",
+            "style": "潜伏锁仓",
+            "icon": "🛡",
+            "net_amount": -31000000.0
+          },
+          {
+            "seat": "国新证券股份有限公司北京中关村大街证券营业部",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": -24000000.0
+          },
+          {
+            "seat": "国新证券股份有限公司北京分公司",
+            "name": "普通营业部",
+            "type": "普通营业部",
+            "style": "未知",
+            "icon": "🏢",
+            "net_amount": -21000000.0
+          },
+          {
+            "seat": "机构专用",
+            "name": "机构资金",
+            "type": "机构",
+            "style": "中长线价值",
+            "icon": "🏛",
+            "net_amount": -4000000.0
+          }
+        ],
+        "force_distribution": {
+          "普通营业部": 71.9,
+          "一线游资": 28.1
         }
       }
     },
@@ -11875,148 +12159,6 @@
         "force_distribution": {
           "一线游资": 59.7,
           "普通营业部": 40.3
-        }
-      }
-    },
-    {
-      "code": "920367",
-      "name": "新赣江",
-      "closePrice": 29.39,
-      "changePercent": -5.59,
-      "turnover": 0,
-      "netBuy": 0.34,
-      "buyAmount": 3.05,
-      "sellAmount": 2.72,
-      "reason": "12家机构买卖, 成功率",
-      "isMockSeats": false,
-      "details": {
-        "buys": [
-          {
-            "direction": "buy",
-            "seat": "东莞证券股份有限公司浙江分公司",
-            "buyAmount": 0.04,
-            "sellAmount": 0.0,
-            "netAmount": 0.04
-          },
-          {
-            "direction": "buy",
-            "seat": "东方财富证券股份有限公司拉萨东环路第二证券营业部",
-            "buyAmount": 0.04,
-            "sellAmount": 0.01,
-            "netAmount": 0.03
-          }
-        ],
-        "sells": [
-          {
-            "direction": "sell",
-            "seat": "东方财富证券股份有限公司江苏分公司",
-            "buyAmount": 0.0,
-            "sellAmount": 0.1,
-            "netAmount": -0.09
-          },
-          {
-            "direction": "sell",
-            "seat": "东方财富证券股份有限公司拉萨金融城南环路证券营业部",
-            "buyAmount": 0.03,
-            "sellAmount": 0.1,
-            "netAmount": -0.07
-          },
-          {
-            "direction": "sell",
-            "seat": "机构专用",
-            "buyAmount": 0.12,
-            "sellAmount": 0.18,
-            "netAmount": -0.06
-          },
-          {
-            "direction": "sell",
-            "seat": "国金证券股份有限公司深圳分公司",
-            "buyAmount": 0.15,
-            "sellAmount": 0.18,
-            "netAmount": -0.03
-          },
-          {
-            "direction": "sell",
-            "seat": "国信证券股份有限公司深圳互联网分公司",
-            "buyAmount": 0.28,
-            "sellAmount": 0.22,
-            "netAmount": 0.06
-          }
-        ]
-      },
-      "interpreted": {
-        "stock_info": {
-          "code": "920367",
-          "name": "新赣江",
-          "reason": "12家机构买卖, 成功率"
-        },
-        "tags": [
-          "普通"
-        ],
-        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
-        "structured_buy_list": [
-          {
-            "seat": "东莞证券股份有限公司浙江分公司",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": 4000000.0
-          },
-          {
-            "seat": "东方财富证券股份有限公司拉萨东环路第二证券营业部",
-            "name": "拉萨天团-东环",
-            "type": "散户集中营",
-            "style": "高频量化/抢帽子",
-            "icon": "👥",
-            "net_amount": 3000000.0
-          }
-        ],
-        "structured_sell_list": [
-          {
-            "seat": "东方财富证券股份有限公司江苏分公司",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": -9000000.0
-          },
-          {
-            "seat": "东方财富证券股份有限公司拉萨金融城南环路证券营业部",
-            "name": "拉萨天团-金融城",
-            "type": "散户集中营",
-            "style": "高频量化/抢帽子",
-            "icon": "👥",
-            "net_amount": -7000000.000000001
-          },
-          {
-            "seat": "机构专用",
-            "name": "机构资金",
-            "type": "机构",
-            "style": "中长线价值",
-            "icon": "🏛",
-            "net_amount": -6000000.0
-          },
-          {
-            "seat": "国金证券股份有限公司深圳分公司",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": -3000000.0
-          },
-          {
-            "seat": "国信证券股份有限公司深圳互联网分公司",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": 6000000.0
-          }
-        ],
-        "force_distribution": {
-          "普通营业部": 57.1,
-          "散户集中营": 42.9
         }
       }
     },
@@ -13682,148 +13824,6 @@
         "force_distribution": {
           "普通营业部": 70.0,
           "散户集中营": 30.0
-        }
-      }
-    },
-    {
-      "code": "300937",
-      "name": "药易购",
-      "closePrice": 30.7,
-      "changePercent": -3.15,
-      "turnover": 0,
-      "netBuy": -0.19,
-      "buyAmount": 3.19,
-      "sellAmount": 3.39,
-      "reason": "7家机构买卖, 成功率",
-      "isMockSeats": false,
-      "details": {
-        "buys": [
-          {
-            "direction": "buy",
-            "seat": "国信证券股份有限公司福州五一中路证券营业部",
-            "buyAmount": 0.16,
-            "sellAmount": 0.0,
-            "netAmount": 0.16
-          },
-          {
-            "direction": "buy",
-            "seat": "中国国际金融股份有限公司上海分公司",
-            "buyAmount": 0.14,
-            "sellAmount": 0.05,
-            "netAmount": 0.09
-          },
-          {
-            "direction": "buy",
-            "seat": "招商证券股份有限公司成都人民南路证券营业部",
-            "buyAmount": 0.12,
-            "sellAmount": 0.05,
-            "netAmount": 0.07
-          }
-        ],
-        "sells": [
-          {
-            "direction": "sell",
-            "seat": "开源证券股份有限公司西安太华路证券营业部",
-            "buyAmount": 0.0,
-            "sellAmount": 0.31,
-            "netAmount": -0.31
-          },
-          {
-            "direction": "sell",
-            "seat": "国新证券股份有限公司北京中关村大街证券营业部",
-            "buyAmount": 0.0,
-            "sellAmount": 0.24,
-            "netAmount": -0.24
-          },
-          {
-            "direction": "sell",
-            "seat": "国新证券股份有限公司北京分公司",
-            "buyAmount": 0.0,
-            "sellAmount": 0.21,
-            "netAmount": -0.21
-          },
-          {
-            "direction": "sell",
-            "seat": "机构专用",
-            "buyAmount": 0.98,
-            "sellAmount": 1.03,
-            "netAmount": -0.04
-          }
-        ]
-      },
-      "interpreted": {
-        "stock_info": {
-          "code": "300937",
-          "name": "药易购",
-          "reason": "7家机构买卖, 成功率"
-        },
-        "tags": [
-          "普通"
-        ],
-        "summary_text": "买卖力量分散,缺乏明确主力资金主导,建议观望。",
-        "structured_buy_list": [
-          {
-            "seat": "国信证券股份有限公司福州五一中路证券营业部",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": 16000000.0
-          },
-          {
-            "seat": "中国国际金融股份有限公司上海分公司",
-            "name": "中金上海",
-            "type": "一线游资",
-            "style": "机构联动",
-            "icon": "🏦",
-            "net_amount": 9000000.0
-          },
-          {
-            "seat": "招商证券股份有限公司成都人民南路证券营业部",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": 7000000.000000001
-          }
-        ],
-        "structured_sell_list": [
-          {
-            "seat": "开源证券股份有限公司西安太华路证券营业部",
-            "name": "方新侠",
-            "type": "一线游资",
-            "style": "潜伏锁仓",
-            "icon": "🛡",
-            "net_amount": -31000000.0
-          },
-          {
-            "seat": "国新证券股份有限公司北京中关村大街证券营业部",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": -24000000.0
-          },
-          {
-            "seat": "国新证券股份有限公司北京分公司",
-            "name": "普通营业部",
-            "type": "普通营业部",
-            "style": "未知",
-            "icon": "🏢",
-            "net_amount": -21000000.0
-          },
-          {
-            "seat": "机构专用",
-            "name": "机构资金",
-            "type": "机构",
-            "style": "中长线价值",
-            "icon": "🏛",
-            "net_amount": -4000000.0
-          }
-        ],
-        "force_distribution": {
-          "普通营业部": 71.9,
-          "一线游资": 28.1
         }
       }
     },
@@ -15838,9 +15838,9 @@
       "closePrice": 30.21,
       "changePercent": -7.25,
       "turnover": 0,
-      "netBuy": -2.24,
-      "buyAmount": 27.41,
-      "sellAmount": 29.66,
+      "netBuy": -2.19,
+      "buyAmount": 23.25,
+      "sellAmount": 25.44,
       "reason": "1家机构买卖, 成功率",
       "isMockSeats": false,
       "details": {
@@ -16344,9 +16344,9 @@
       "closePrice": 13.81,
       "changePercent": -4.76,
       "turnover": 0,
-      "netBuy": -5.25,
-      "buyAmount": 51.97,
-      "sellAmount": 57.22,
+      "netBuy": -5.43,
+      "buyAmount": 51.6,
+      "sellAmount": 57.02,
       "reason": "游资接力, 成功率",
       "isMockSeats": false,
       "details": {
@@ -16485,10 +16485,10 @@
       "closePrice": 85.79,
       "changePercent": -3.26,
       "turnover": 0,
-      "netBuy": -6.56,
-      "buyAmount": 84.66,
-      "sellAmount": 91.22,
-      "reason": "32家机构卖出, 成功率",
+      "netBuy": -6.8,
+      "buyAmount": 83.63,
+      "sellAmount": 90.43,
+      "reason": "28家机构卖出, 成功率",
       "isMockSeats": false,
       "details": {
         "buys": [
@@ -16556,7 +16556,7 @@
         "stock_info": {
           "code": "301520",
           "name": "万邦医药",
-          "reason": "32家机构卖出, 成功率"
+          "reason": "28家机构卖出, 成功率"
         },
         "tags": [
           "普通"
@@ -25158,7 +25158,7 @@
   },
   "surgery": {
     "meta": {
-      "generatedAt": "2026-08-15 01:07:09",
+      "generatedAt": "2026-08-15 14:27:25",
       "tradeDate": "20260815",
       "tradeDateSlash": "26/08/15"
     },
