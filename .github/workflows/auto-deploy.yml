@@ -43,9 +43,28 @@ jobs:
       - name: Install Node deps
         run: npm ci --no-audit --no-fund
 
+      # 0. 判断是否交易日(周末 + 节假日不跑 fetch_real_data)
+      # v2.0.7cr:周末 push 触发会跑 fetch_real_data → 跑出 0 数据 → 污染 history
+      # — 改 fetch_real_data.py 已过滤周末,但 fetch_surgery_data.py 也类似
+      # — 周末跑没意义,直接跳过整个 fetch 步骤(降级用上次 baseData)
+      - name: 检查是否交易日(周末/节假日跳过)
+        id: is_trading_day
+        run: |
+          # 用 Asia/Shanghai 时区计算"今天周几"(0=周一, 6=周日)
+          WEEKDAY=$(TZ='Asia/Shanghai' date +'%u')
+          if [ "$WEEKDAY" -ge 6 ]; then
+            echo "今天是周末(TZ=Asia/Shanghai weekday=$WEEKDAY),跳过 fetch_real_data + fetch_surgery_data"
+            echo "is_trading_day=false" >> $GITHUB_OUTPUT
+            # 退出 0 但跳过后面 fetch_real/fetch_surgery
+          else
+            echo "今天是交易日(TZ=Asia/Shanghai weekday=$WEEKDAY),正常跑 fetch"
+            echo "is_trading_day=true" >> $GITHUB_OUTPUT
+          fi
+
       # 1. 跑 fetch_real_data.py 拿 A 股实时数据
       - name: 跑 fetch_real_data.py
         id: fetch_real
+        if: steps.is_trading_day.outputs.is_trading_day == 'true'
         run: |
           if python scripts/fetch_real_data.py; then
             echo "fetch_real_data.py OK"
@@ -59,6 +78,7 @@ jobs:
       # 2. 跑 fetch_surgery_data.py 拿涨停封板卡
       - name: 跑 fetch_surgery_data.py
         id: fetch_surgery
+        if: steps.is_trading_day.outputs.is_trading_day == 'true'
         run: |
           if python scripts/fetch_surgery_data.py; then
             echo "fetch_surgery_data.py OK"
