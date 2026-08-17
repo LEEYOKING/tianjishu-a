@@ -278,9 +278,12 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     next.marketOverview.limitDownCount = 0;
     next.marketOverview.upPercent = 0;
   } else {
-    // v2.0.7e:兜底 — fs 编码错时返回空/总数 < 1000,fallback 到 data.json 静态值
+    // v2.0.7ct:mktValid 阈值 600 → 100 — em 8/17 11:00 限流严,部分数据(100+ 只)也用
+    // — 之前 mktTotal < 600 走 fallback,user 看到 baseData 8/16 stale
+    // — 降低阈值让 user 浏览器 sina 限流拉到的部分数据也能覆盖 baseData
+    // — 风险:半数据可能不准,但至少比 stale 强(数字变化 user 知道是盘中)
     const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
-    const mktValid = live.market && mktTotal >= 600;
+    const mktValid = live.market && mktTotal >= 100;
     if (mktValid) {
       // v2.0.7d:成交量也实时刷新 + turnoverDiff 由 fetch_real_data 5 cron 算(末 1 vs 末 2 收盘对比)
       // v2.0.7bb:em 不覆盖 turnoverDiff(避免 8/13 跑出 25659 - 25673 = -14.46 自减)
@@ -313,15 +316,17 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
   // — fetch_real_data 用 akshare 涨停池算(同花顺一致),em 实时算 9.9% 阈值会偏(70 vs 56)
   // — 让涨停池真值生效(15:35 cron 跑出来,盘后定格)
   // 3. ETF 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
+  // v2.0.7ct:阈值 200 → 30 — em 8/17 11:00 限流严,部分数据(30+ 只)也用
   const etfTotal = live.etfStats ? (live.etfStats.up + live.etfStats.down + live.etfStats.flat) : 0;
-  if (live.etfStats && etfTotal >= 200) {
+  if (live.etfStats && etfTotal >= 30) {
     next.marketOverview.etfUp = live.etfStats.up;
     next.marketOverview.etfDown = live.etfStats.down;
     next.marketOverview.etfFlat = live.etfStats.flat;
   }
   // 4. 可转债 涨跌分布(EM push2 — 10s 实时,fs 错时 fallback)
+  // v2.0.7ct:阈值 100 → 20
   const bondTotal = live.bondStats ? (live.bondStats.up + live.bondStats.down + live.bondStats.flat) : 0;
-  if (live.bondStats && bondTotal >= 100) {
+  if (live.bondStats && bondTotal >= 20) {
     next.marketOverview.bondUp = live.bondStats.up;
     next.marketOverview.bondDown = live.bondStats.down;
     next.marketOverview.bondFlat = live.bondStats.flat;

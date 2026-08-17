@@ -20,8 +20,8 @@ APIS=(
 for api in "${APIS[@]}"; do
   url="https://tianjishu-a-6is.pages.dev${api}"
   echo -n "  $api ... "
-  # 5s timeout,只看 HTTP 状态码 + source 字段
-  body=$(curl -sS --max-time 5 -w "\n__HTTP__%{http_code}" "$url" 2>&1)
+  # v2.0.7ct:5s → 30s timeout — em push2 拉 6000 只 + 6 域名 fallback 要 10-20s
+  body=$(curl -sS --max-time 30 -w "\n__HTTP__%{http_code}" "$url" 2>&1)
   http=$(echo "$body" | grep "__HTTP__" | sed 's/__HTTP__//')
   json=$(echo "$body" | grep -v "__HTTP__")
 
@@ -66,7 +66,7 @@ echo ""
 
 data_url="https://tianjishu-a-6is.pages.dev/data.json"
 echo -n "  GET /data.json ... "
-http=$(curl -sS --max-time 5 -o /tmp/data_check.json -w "%{http_code}" "$data_url" 2>/dev/null)
+http=$(curl -sS --max-time 30 -o /tmp/data_check.json -w "%{http_code}" "$data_url" 2>/dev/null)
 
 if [ "$http" != "200" ]; then
   echo "❌ HTTP $http(data.json 没拿到)"
