@@ -78,15 +78,15 @@ export default function Layout({ data, children }: Props) {
         }}
       >
         {/* 顶部 brand: 水平居中
-            用户 #4 反馈:天机枢上方留白 1.4x + 删除下方浅灰横线
-            用户 #15 反馈:再加 20px 上边距 */}
-        <div style={{ padding: '20px 24px 28px', textAlign: 'center' }}>
-          <div style={{ fontSize: 24, fontWeight: 700, color: '#111827', letterSpacing: 2 }}>
-            天机枢
-          </div>
-          <div style={{ fontSize: 12, color: '#86909C', marginTop: 6, letterSpacing: 0.5 }}>
-            每日复盘 · 数据全解析
-          </div>
+            v2.0.7db:用 user 提供的 png 替换(4 根算筹 + 天机枢 + 每日复盘·数据全解析)
+            路径:public/brand-logo.png(400x325,user 提供)
+            显示:sidebar 168px 宽 + auto 高度,object-fit:contain 保比例 */}
+        <div style={{ padding: '20px 12px 24px', textAlign: 'center' }}>
+          <img
+            src="/brand-logo.png"
+            alt="天机枢 · 每日复盘 数据全解析"
+            style={{ width: 124, height: 'auto', display: 'block', margin: '0 auto', objectFit: 'contain' }}
+          />
         </div>
 
         {/* 用户 #5 反馈:10 个 Tab 整体下移 15px */}

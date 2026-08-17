@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 220" width="280" height="220" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif">
+  <!-- 4 根算筹(横向 4 段 + 细缝)— 第 4 根(右)有红色短线 -->
+  <g transform="translate(60, 0)">
+    <!-- 算筹 1 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="20" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="40" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="60" width="6" height="14" fill="#111827" rx="1"/>
+    </g>
+    <!-- 算筹 2 -->
+    <g transform="translate(20, 0)">
+      <rect x="0" y="0" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="20" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="40" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="60" width="6" height="14" fill="#111827" rx="1"/>
+    </g>
+    <!-- 算筹 3 -->
+    <g transform="translate(40, 0)">
+      <rect x="0" y="0" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="20" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="40" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="60" width="6" height="14" fill="#111827" rx="1"/>
+    </g>
+    <!-- 算筹 4(带红色短线) -->
+    <g transform="translate(60, 0)">
+      <rect x="0" y="0" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="20" width="6" height="14" fill="#111827" rx="1"/>
+      <rect x="0" y="40" width="6" height="14" fill="#F63638" rx="1"/>
+      <rect x="0" y="60" width="6" height="14" fill="#111827" rx="1"/>
+    </g>
+  </g>
+
+  <!-- 天机枢 黑色大字(等线粗体) -->
+  <text x="140" y="148" text-anchor="middle" font-size="42" font-weight="700" fill="#111827" letter-spacing="2">天机枢</text>
+
+  <!-- 每日复盘 · 数据全解析 灰色小字 -->
+  <text x="140" y="180" text-anchor="middle" font-size="14" font-weight="400" fill="#86909C" letter-spacing="1.5">每日复盘 · 数据全解析</text>
+</svg>
