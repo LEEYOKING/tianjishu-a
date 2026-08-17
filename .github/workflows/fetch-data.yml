@@ -38,25 +38,12 @@ jobs:
             echo "fetch_status=ok" >> $GITHUB_OUTPUT
           else
             echo "fetch_real_data.py 失败 — 降级写 data.json(从 git HEAD 复制 + _fetchError 标记)"
-            python << 'PYEOF'
-import json, subprocess, os, sys
-from datetime import datetime, timedelta
-out = 'public/data.json'
-prev = subprocess.run(['git', 'show', f'HEAD:{out}'], capture_output=True, timeout=10)
-if prev.returncode != 0 or not prev.stdout:
-    print("降级失败:git show 拿不到 HEAD data.json")
-    sys.exit(1)
-data = json.loads(prev.stdout.decode('utf-8'))
-now = (datetime.utcnow() + timedelta(hours=8))
-trade_date = now.strftime('%Y%m%d')
-data['_fetchError'] = f"{trade_date} fetch 失败,已降级用上一交易日 + 标记"
-data['_fetchTimeIso'] = now.strftime('%Y-%m-%d %H:%M:%S')
-os.makedirs(os.path.dirname(out), exist_ok=True)
-with open(out, 'w', encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
-print(f"降级 data.json 已写入(带 _fetchError 标记,actions 一定能 commit → 跨日不卡死)")
-PYEOF
-            echo "fetch_status=degraded" >> $GITHUB_OUTPUT
+            # v2.0.7cv: 降级逻辑搬到独立脚本(避免 GitHub Actions yaml 解析 python << 'PYEOF' heredoc)
+            if python scripts/_fetch_fallback.py; then
+              echo "fetch_status=degraded" >> $GITHUB_OUTPUT
+            else
+              echo "fetch_status=failed" >> $GITHUB_OUTPUT
+            fi
           fi
         continue-on-error: true
 
@@ -73,10 +60,7 @@ PYEOF
           if git diff --cached --quiet; then
             echo "无新数据,跳过提交"
           else
-            STATUS=$(cat <<EOF
-          ${{ steps.fetch.outputs.fetch_status }}
-EOF
-            )
+            STATUS="${{ steps.fetch.outputs.fetch_status }}"
             git commit -m "data: 每日抓数 $(date -u +%F) [$STATUS]"
             git push
           fi
