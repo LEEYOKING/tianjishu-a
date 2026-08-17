@@ -266,17 +266,12 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     // 注意:这里不清 0 涨跌停,保留 baseData(0:00-9:30 期间显示昨天收盘值)
     // — 因为 8:00 hook 之后到 9:35 cron 之前,涨跌停应该还是昨天收盘的
   } else if (isPreMarket()) {
-    // v2.0.7bd:preMarket(0:00-9:30 集合竞价前)清 0
-    // 注意:实际 isPreMarket 在 _isCrossDay 之后判断
-    // 0:00-9:30 但不是跨日(罕見) → 可能有 baseData 没同步情况,清 0 兜底
-    next.marketOverview.marketTurnover = 0;
-    next.marketOverview.turnoverDiff = 0;
-    next.marketOverview.upCount = 0;
-    next.marketOverview.downCount = 0;
-    next.marketOverview.flatCount = 0;
-    next.marketOverview.limitUpCount = 0;
-    next.marketOverview.limitDownCount = 0;
-    next.marketOverview.upPercent = 0;
+    // v2.0.7cy:取消 preMarket 清 0 — 0:00-9:30 保留 baseData 上一交易日收盘值
+    // — 之前 v2.0.7p/v2.0.7bd 清 0 → user 看到 30-60 分钟空白
+    // — 现在保留 baseData 8/17 收盘 + Layout 8:00 hook 切日期到 8/18
+    // — 数字跟 tradeDate 一致(user 不困惑"为什么今天跟昨天一样")
+    // — 9:30 之后 em/sina 拉到 8/18 盘中 → 覆盖 baseData
+    // 注:不再清 0,所有字段保留 baseData 值
   } else {
     // v2.0.7cu:live.today 优先覆盖(跟曲线图末点同源)
     // — 根因:fetchEMMarketStats 限流时 catch 返 {0,0,0,0},fetchTodaySnapshot 限流时返 null
