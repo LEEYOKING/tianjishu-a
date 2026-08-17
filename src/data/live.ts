@@ -260,6 +260,12 @@ export async function fetchTodaySnapshot(): Promise<{
     // 拉全市场(同源 fetchEMMarketStats,55 页 hs_a,卡片和曲线图必然一致)
     const summary = await fetchMarketSummary();
     if (!summary) return null;  // 周末/fetch 失败
+    // v2.0.7cu:全 0 数据(限流)→ 返 null(让 useState sticky 保留 prev 成功值)
+    // — 之前返 {0,0,0,0} → setSnap today: todayResult ?? prev.today ?? 不 sticky(0 不是 null)→ 覆盖了 2.4 万亿成功值
+    if (summary.totalTurnover === 0 && summary.upCount === 0 && summary.downCount === 0) {
+      console.warn('[fetchTodaySnapshot] 拉到的全是 0(sina/em 限流),返 null 让 useState sticky 保留 prev 成功值');
+      return null;
+    }
     return {
       date,
       volume: summary.totalTurnover,
@@ -349,10 +355,15 @@ interface EMMarketStats {
 /** 沪深 A 股全市场统计 — v2.0.7h:改用 fetchMarketSummary(55 页 hs_a 全量累加)
  * 跟 fetchTodaySnapshot 同源,卡片和曲线图数据必然一致
  *
- * v2.0.7cs:返回 EMMarketStats | null — 周末/null 时 useLiveData 走 baseData,避免写死 0 */
+ * v2.0.7cs:返回 EMMarketStats | null — 周末/null 时 useLiveData 走 baseData,避免写死 0
+ * v2.0.7cu:全 0(限流)→ 返 null — 跟 fetchTodaySnapshot 一致,让 useState sticky 保留 prev 成功值 */
 export async function fetchEMMarketStats(): Promise<EMMarketStats | null> {
   const r = await fetchMarketSummary();
   if (!r) return null;  // 周末/null
+  // v2.0.7cu:全 0(限流)→ 返 null
+  if (r.totalTurnover === 0 && r.upCount === 0 && r.downCount === 0) {
+    return null;
+  }
   return {
     upCount: r.upCount,
     downCount: r.downCount,

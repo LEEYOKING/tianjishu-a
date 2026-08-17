@@ -68,8 +68,8 @@ export interface LiveSnapshot {
   sinaIndustries: Map<string, { changePercent: number; totalTurnover: number; leaderName: string; leaderChangePercent: number; stockCount: number } | null>;
   // v2.0.7ax:em 申万 90 行业(跟 ths 90 细分类 一一对应,60s 实时)
   emIndustries?: Map<string, { name: string; changePercent: number; leaderName: string; totalTurnover: number; leaderChangePercent: number; stockCount: number }>;
-  /** 今日实时快照(用于把今天数据 push 到 history 末尾) */
-  today: { date: string; volume: number; up: number; down: number } | null;
+  /** 今日实时快照(用于把今天数据 push 到 history 末尾) — v2.0.7cu:加 limitUp/limitDown 字段(同源 sina 9.97% 阈值) */
+  today: { date: string; volume: number; up: number; down: number; limitUp: number; limitDown: number } | null;
   /** 数据源时间戳 */
   fetchedAt: number;
   /** 是否还在首次拉取(初始 false) */
@@ -278,37 +278,53 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     next.marketOverview.limitDownCount = 0;
     next.marketOverview.upPercent = 0;
   } else {
-    // v2.0.7ct:mktValid 阈值 600 → 100 — em 8/17 11:00 限流严,部分数据(100+ 只)也用
-    // — 之前 mktTotal < 600 走 fallback,user 看到 baseData 8/16 stale
-    // — 降低阈值让 user 浏览器 sina 限流拉到的部分数据也能覆盖 baseData
-    // — 风险:半数据可能不准,但至少比 stale 强(数字变化 user 知道是盘中)
-    const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
-    const mktValid = live.market && mktTotal >= 100;
-    if (mktValid) {
-      // v2.0.7d:成交量也实时刷新 + turnoverDiff 由 fetch_real_data 5 cron 算(末 1 vs 末 2 收盘对比)
-      // v2.0.7bb:em 不覆盖 turnoverDiff(避免 8/13 跑出 25659 - 25673 = -14.46 自减)
-      next.marketOverview.marketTurnover = live.market!.totalTurnover;
-      next.marketOverview.upCount = live.market!.upCount;
-      next.marketOverview.downCount = live.market!.downCount;
-      next.marketOverview.flatCount = live.market!.flatCount;
-      // v2.0.7bi:涨跌停 = em 实时 9.99% 阈值 算(盘中 9:30-15:00)
-      // — em 9.99% 阈值 ≈ 当前封板(跟同花顺"当前封板"接近)
-      // — 8/14 14:09 sandbox em 9.99% 阈值算 46(差同花顺 6),14:15 em 算 50-55(跟同花顺 52 接近)
-      // — 之前用 baseData 涨停池 73:9 = "当日封板过"(含已开板),跟同花顺"当前封板 52"差 21
-      // — 改成 em 实时覆盖
-      // — preMarket / 跨日 已清 0
-      if (live.market!.limitUpCount > 0) {
-        next.marketOverview.limitUpCount = live.market!.limitUpCount;
+    // v2.0.7cu:live.today 优先覆盖(跟曲线图末点同源)
+    // — 根因:fetchEMMarketStats 限流时 catch 返 {0,0,0,0},fetchTodaySnapshot 限流时返 null
+    // — useState prev 保留机制:live.today 拉成功的值被 sticky 保留,live.market 被 0 覆盖
+    // — 结果:曲线图末点 = live.today.volume(2.4 万亿 ✓ 8/17 实时),卡片 = next.marketOverview.marketTurnover(21561 ✗ 8/14 baseData)
+    // — 修法:卡片也用 live.today 覆盖,跟曲线图末点同源
+    // — 跟 v2.0.7bi 一样处理 limitUp/limitDown(同花顺"当前封板"近似)
+    if (live.today && (live.today.up > 0 || live.today.down > 0) && live.today.volume > 0) {
+      next.marketOverview.marketTurnover = live.today.volume;
+      next.marketOverview.upCount = live.today.up;
+      next.marketOverview.downCount = live.today.down;
+      // 涨跌停 — fetchTodaySnapshot 也带 limitUp/limitDown(同源 sina 9.97% 阈值)
+      if (live.today.limitUp !== undefined && live.today.limitUp > 0) {
+        next.marketOverview.limitUpCount = live.today.limitUp;
       }
-      if (live.market!.limitDownCount > 0) {
-        next.marketOverview.limitDownCount = live.market!.limitDownCount;
+      if (live.today.limitDown !== undefined && live.today.limitDown > 0) {
+        next.marketOverview.limitDownCount = live.today.limitDown;
       }
-      next.marketOverview.upPercent = mktTotal > 0
-        ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
-        : 0;
-      // v2.0.7ab:涨跌分布分桶也实时刷新
-      if (live.market!.changeDistribution) {
-        next.marketOverview.changeDistribution = live.market!.changeDistribution;
+      const mktTotalToday = live.today.up + live.today.down;
+      if (mktTotalToday > 0) {
+        next.marketOverview.upPercent = Math.round(live.today.up * 10000 / mktTotalToday) / 100;
+      }
+    } else {
+      // v2.0.7ct 兜底:live.today 没值时(live.today 为 null 一直没成功过),用 live.market
+      // mktValid 阈值 600 → 100 — em 8/17 11:00 限流严,部分数据(100+ 只)也用
+      const mktTotal = live.market ? (live.market.upCount + live.market.downCount + live.market.flatCount) : 0;
+      const mktValid = live.market && mktTotal >= 100;
+      if (mktValid) {
+        // v2.0.7d:成交量也实时刷新 + turnoverDiff 由 fetch_real_data 5 cron 算(末 1 vs 末 2 收盘对比)
+        // v2.0.7bb:em 不覆盖 turnoverDiff(避免 8/13 跑出 25659 - 25673 = -14.46 自减)
+        next.marketOverview.marketTurnover = live.market!.totalTurnover;
+        next.marketOverview.upCount = live.market!.upCount;
+        next.marketOverview.downCount = live.market!.downCount;
+        next.marketOverview.flatCount = live.market!.flatCount;
+        // v2.0.7bi:涨跌停 = em 实时 9.99% 阈值 算(盘中 9:30-15:00)
+        if (live.market!.limitUpCount > 0) {
+          next.marketOverview.limitUpCount = live.market!.limitUpCount;
+        }
+        if (live.market!.limitDownCount > 0) {
+          next.marketOverview.limitDownCount = live.market!.limitDownCount;
+        }
+        next.marketOverview.upPercent = mktTotal > 0
+          ? Math.round(live.market!.upCount * 10000 / mktTotal) / 100
+          : 0;
+        // v2.0.7ab:涨跌分布分桶也实时刷新
+        if (live.market!.changeDistribution) {
+          next.marketOverview.changeDistribution = live.market!.changeDistribution;
+        }
       }
     }
   }
