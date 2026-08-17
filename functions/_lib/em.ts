@@ -1,10 +1,15 @@
-// Cloudflare Pages Function 共享工具: em push2 + 3 域名 fallback
+// Cloudflare Pages Function 共享工具: em push2 + 多域名 fallback
 // v2.0.7cs: 跟 emotion-temp 同款架构,出口 IP 走 Cloudflare Workers(绕开 sandbox/user 浏览器直连 IP 限流)
+// v2.0.7ct: em 限流严重(8/17 11:00 返 520),加 5+ 备用域名 + 加重试间隔
 
 export const EM_DOMAINS = [
   'https://push2.eastmoney.com',
   'https://82.push2.eastmoney.com',
   'https://push2his.eastmoney.com',
+  // v2.0.7ct:加备用域名(不同 IP 段 — em push2 不同子域解析到不同 IP)
+  'https://25.push2.eastmoney.com',
+  'https://44.push2.eastmoney.com',
+  'https://hsmarketwg.eastmoney.com',
 ];
 
 export const BROWSER_HEADERS = {
@@ -28,11 +33,14 @@ export async function fetchWithTimeout(url: string, options: any = {}, timeoutMs
 }
 
 // 多域名 fallback fetch JSON + 5xx 换域名重试
-export async function fetchJsonWithFallback(path: string, maxRetries = 2): Promise<any> {
+// v2.0.7ct:加重试间隔(200ms → 1500ms)— em 限流冷却时间更长
+// — 5xx 立即换域名(没必要重试同一个被屏蔽的)
+// — 4xx 抛错(不重试)
+export async function fetchJsonWithFallback(path: string, maxRetries = 1): Promise<any> {
   let lastError: any;
   for (const domain of EM_DOMAINS) {
     const url = `${domain}${path}`;
-    for (let i = 0; i < maxRetries; i++) {
+    for (let i = 0; i <= maxRetries; i++) {
       try {
         const res = await fetchWithTimeout(url, { headers: BROWSER_HEADERS });
         if (res.ok) {
@@ -40,13 +48,13 @@ export async function fetchJsonWithFallback(path: string, maxRetries = 2): Promi
         }
         if (res.status >= 500) {
           lastError = new Error(`HTTP ${res.status} from ${domain}`);
-          continue;
+          break;  // 5xx 换域名,不重试同一个
         }
         throw new Error(`HTTP ${res.status} from ${domain}`);
       } catch (e) {
         lastError = e;
-        if (i < maxRetries - 1) {
-          await new Promise(r => setTimeout(r, 200 * (i + 1)));
+        if (i < maxRetries) {
+          await new Promise(r => setTimeout(r, 1500));  // 1.5s 间隔
         }
       }
     }
