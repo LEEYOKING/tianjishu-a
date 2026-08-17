@@ -31,6 +31,9 @@ print(f"目标日期: {TRADE_DATE} ({TRADE_DATE_DASH})")
 print(f"输出: {OUT}")
 print()
 
+def _subprocess_run(cmd, **kw):
+    return subprocess.run(cmd, capture_output=True, **kw)
+
 # 读 HEAD data.json 保留其他字段(涨停池/龙虎榜/历史/板块等)
 HEAD_DATA = None
 try:
@@ -45,9 +48,6 @@ except Exception as e:
 if HEAD_DATA is None:
     print("❌ 必须先 git clone 这个 repo(从 git HEAD 读 baseData)")
     sys.exit(1)
-
-def _subprocess_run(cmd, **kw):
-    return subprocess.run(cmd, capture_output=True, **kw)
 
 # ============ 1. 拉 sina 55 页全市场累加 ============
 print("\n[1/3] 拉 sina 全市场 55 页...")
