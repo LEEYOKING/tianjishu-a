@@ -56,9 +56,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
-          # v2.0.7cx: push 前先 pull rebase(避免远端有 commit 没 pull 冲突)
-          # 之前 16:05 push de6daaf + 16:04 #50 跑完 push — 冲突 'Updates were rejected'
-          git pull --rebase origin main || (git rebase --abort && echo "pull rebase 失败,继续 push")
+          # v2.0.7cz:fetch_real_data.py 跑后 public/data.json 有 uncommitted 改动
+          # 直接 git pull --rebase 失败 'You have unstaged changes'
+          # 修法:先 git stash 暂存 → pull rebase → stash pop 恢复
+          git stash push -m "fetch-data-yml-temp-stash" public/data.json public/prescan.json public/surgery.json || true
+          # 拉远端更新(如果远端有 commit 没 pull)
+          git pull --rebase origin main || (git rebase --abort && echo "pull rebase 失败,继续")
+          # 恢复 stash(fetch_real_data 写的 data.json)
+          git stash pop || (echo "stash pop 失败 — 可能远端 data.json 冲突" && git checkout --theirs public/data.json && git add public/data.json)
+          # 暂存 + pull + pop 完毕 — 重新 add
           git add public/data.json public/prescan.json public/surgery.json
           if git diff --cached --quiet; then
             echo "无新数据,跳过提交"
