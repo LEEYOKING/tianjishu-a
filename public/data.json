@@ -6,11 +6,11 @@
     "dataSource": "akshare (新浪/腾讯/东方财富)"
   },
   "marketOverview": {
-    "tradeDate": "20260816",
-    "tradeDateSlash": "26/08/16",
+    "tradeDate": "20260817",
+    "tradeDateSlash": "26/08/17",
     "generatedAt": "2026-08-16 16:17",
-    "marketTurnover": 21561.29,
-    "turnoverDiff": -366.7,
+    "marketTurnover": 0.0,
+    "turnoverDiff": -21927.99,
     "marketTemperature": {
       "temperature": 73,
       "status": "高温一致",
@@ -36,28 +36,28 @@
       }
     },
     "changeDistribution": {
-      "down_ge_10": 7,
-      "down_10_to_7": 39,
-      "down_7_to_5": 59,
-      "down_5_to_3": 222,
-      "down_3_to_0": 2642,
-      "flat": 173,
-      "up_0_to_3": 1855,
-      "up_3_to_5": 296,
-      "up_5_to_7": 118,
-      "up_7_to_10": 69,
-      "up_ge_10": 62
+      "down_ge_10": 0,
+      "down_10_to_7": 0,
+      "down_7_to_5": 0,
+      "down_5_to_3": 0,
+      "down_3_to_0": 0,
+      "flat": 0,
+      "up_0_to_3": 0,
+      "up_3_to_5": 0,
+      "up_5_to_7": 0,
+      "up_7_to_10": 0,
+      "up_ge_10": 0
     },
     "shTurnover": 9903.72,
     "szTurnover": 11657.57,
     "bjTurnover": 0.0,
-    "upCount": 2400,
-    "downCount": 2969,
-    "flatCount": 173,
-    "upPercent": 43.31,
+    "upCount": 0,
+    "downCount": 0,
+    "flatCount": 0,
+    "upPercent": 0,
     "stockTotal": 5542,
-    "limitUpCount": 82,
-    "limitDownCount": 17,
+    "limitUpCount": 0,
+    "limitDownCount": 0,
     "brokenLimitCount": 19,
     "indices": [
       {
@@ -103,11 +103,11 @@
         "turnover": 6606.91
       }
     ],
-    "etfUp": 791,
-    "etfDown": 713,
-    "etfFlat": 72,
-    "bondUp": 112,
-    "bondDown": 189,
+    "etfUp": 0,
+    "etfDown": 0,
+    "etfFlat": 0,
+    "bondUp": 0,
+    "bondDown": 0,
     "bondFlat": 0,
     "bondStockUp": 140,
     "bondStockDown": 150,
@@ -839,7 +839,8 @@
         "margin_balance_diff": 10.71,
         "sh_close": 3926.97
       }
-    ]
+    ],
+    "tradeDateDash": "2026-08-17"
   },
   "history": [
     {
