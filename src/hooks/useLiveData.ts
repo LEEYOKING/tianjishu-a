@@ -1,4 +1,8 @@
 // React hook:盘中每 10s 拉全市场 + ETF + 可转债 + 涨跌停;60s 拉指数 + 49 行业
+// v2.0.7cs:em 实时走 Cloudflare Pages Function /api/market-stats 等(同源 CORS,绕开 user 浏览器直连 em IP 限流)
+// — 之前 user 浏览器直连 sina/em push2 经常被限流(看到 stale)
+// — Function 走 Cloudflare Workers 出口 IP(已验证 em 能拉),10s cache
+// — Function 拉失败时,fallback 直连 sina/em(双保险)
 import { useEffect, useState, useRef } from 'react';
 import {
   fetchLiveIndices,
@@ -9,6 +13,10 @@ import {
   fetchEMBondStats,
   fetchEMIndustries,
   SINA_INDUSTRY_LABELS,
+  // v2.0.7cs:Function 优先 + 直连 fallback
+  fetchMarketStatsViaAPI,
+  fetchEtfStatsViaAPI,
+  fetchBondStatsViaAPI,
 } from '../data/live';
 import type { ReportData } from '../data/loader';
 
@@ -89,17 +97,32 @@ export function useLiveData(enabled = true): LiveSnapshot {
   useEffect(() => {
     if (!enabled) return;
     // 10s 拉快:全市场 + ETF + 可转债 + 指数 + today(v2.0.7g:加 today 同步,避免曲线图落后)
-    const safe = async <T,>(p: Promise<T>, fallback: T): Promise<T> => {
-      try { return await p; } catch (e) { console.warn('[useLiveData] sub-fetch fail:', e); return fallback; }
+    // v2.0.7cs:safe 加重试 — em/sina 拉失败时 800ms 后重试 1 次
+    // — 之前拉失败直接 fallback,看起来"上周五收盘"(user 反馈)
+    // — 加重试后:网络抖动/限流 都能 recover,user 看到 8/17 实时
+    const safe = async <T,>(p: Promise<T>, fallback: T, retryMs = 800): Promise<T> => {
+      try { return await p; }
+      catch (e) {
+        console.warn('[useLiveData] sub-fetch fail, retrying in', retryMs, 'ms:', e);
+        await new Promise((r) => setTimeout(r, retryMs));
+        try { return await p; }
+        catch (e2) {
+          console.warn('[useLiveData] sub-fetch retry fail:', e2);
+          return fallback;
+        }
+      }
     };
     const fastTick = async () => {
       if (inflightRef.current) return;
       inflightRef.current = true;
       try {
+        // v2.0.7cs:Function 优先(em 实时走 Cloudflare Pages Function 出口 IP,绕开 user 浏览器/sandbox 直连 IP 限流)
+        // — 内部已 fallback 直连 sina/em(Function 拉失败时)
+        // — Function 10s cache,user 浏览器 20s 拉一次,em 实时准 10s
         const [mkt, etf, bond, idxResult, todayResult] = await Promise.all([
-          safe(fetchEMMarketStats(), null),
-          safe(fetchEMEtfStats(), null),
-          safe(fetchEMBondStats(), null),
+          safe(fetchMarketStatsViaAPI(), null),
+          safe(fetchEtfStatsViaAPI(), null),
+          safe(fetchBondStatsViaAPI(), null),
           safe(fetchLiveIndices(), []),
           safe(fetchTodaySnapshot(), null),
         ]);
@@ -108,6 +131,8 @@ export function useLiveData(enabled = true): LiveSnapshot {
           const hasAny = mkt || etf || bond || (idxResult && idxResult.length > 0) || todayResult;
           return {
             ...prev,
+            // v2.0.7cs:em 拉到 null(周末/失败)→ 保留 prev,不写死 null
+            // — prev 是 React state,em 没拉到时 prev 保持上次成功的值(sticky)
             market: mkt ?? prev.market,
             etfStats: etf ?? prev.etfStats,
             bondStats: bond ?? prev.bondStats,
@@ -329,10 +354,11 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     }
   }
   // 6. 把今日实时数据 push 到 history 末尾(让曲线图含当日点)
+  // v2.0.7cs:todayFallback 用东八区日期(海外 user 浏览器本地时间可能不是北京时间,导致曲线图末点日期错位)
   const todayFallback = {
     date: (() => {
-      const now = new Date();
-      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      const now8 = new Date(Date.now() + 8 * 3600 * 1000);
+      return `${now8.getUTCFullYear()}-${String(now8.getUTCMonth() + 1).padStart(2, '0')}-${String(now8.getUTCDate()).padStart(2, '0')}`;
     })(),
     volume: next.marketOverview.marketTurnover,
     up: next.marketOverview.upCount,

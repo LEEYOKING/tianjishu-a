@@ -24,6 +24,16 @@ TRADE_DATE = TODAY.strftime('%Y%m%d')
 TRADE_DATE_DASH = TODAY.strftime('%Y-%m-%d')
 TRADE_DATE_SLASH = TODAY.strftime('%y/%m/%d')
 
+# v2.0.7cs:周末直接退出(防御性 — 之前 v2.0.7cr 已加 GitHub Actions isTradingDay 判断,
+# 但 manual workflow_dispatch / 本地跑 仍可能周末执行,污染 baseData)
+# — 周末 akshare 接口返回 stale 数据(融资只到 8/13 / 涨停池空)
+# — 写进 data.json 后 user 看到"上周五收盘"stale 1-2 天
+if TODAY.weekday() >= 5:  # 周六(5)/周日(6)
+    print(f"⏸  {TODAY.strftime('%Y-%m-%d %A')} 是周末,跳过 fetch_real_data(避免 stale 污染 baseData)")
+    print("   提示:GitHub Actions cron 配 1-5 已自动跳过,这里再加本地/manual 防御")
+    import sys
+    sys.exit(0)
+
 # 找最近一个有数据的交易日
 def get_recent_zt_date(target_date):
     for d in range(0, 7):

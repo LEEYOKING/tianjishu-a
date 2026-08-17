@@ -26,6 +26,12 @@ TRADE_DATE_DASH = TODAY.strftime('%Y-%m-%d')
 YESTERDAY = (TODAY - timedelta(days=1)).strftime('%Y%m%d')
 YESTERDAY_DASH = (TODAY - timedelta(days=1)).strftime('%Y-%m-%d')
 
+# v2.0.7cs:周末直接退出(跟 fetch_real_data.py 一致,周末不污染 baseData)
+if TODAY.weekday() >= 5:
+    print(f"⏸  {TODAY.strftime('%Y-%m-%d %A')} 是周末,跳过 fetch_surgery_data")
+    import sys
+    sys.exit(0)
+
 def safe_float(v, default=0):
     try:
         if v is None or v == '' or (isinstance(v, float) and str(v) == 'nan'):

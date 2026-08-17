@@ -147,12 +147,22 @@ async function fetchSinaNodeByPageCustom(node: string, num: number, page: number
   }
 }
 
+/** v2.0.7cs:东八区"今天"周几(0=周日,1=周一,...,6=周六)
+ * — 海外 user 浏览器本地时间可能不是北京时间,统一用 UTC+8 算 */
+function _isWeekendCN(): boolean {
+  const d = new Date(Date.now() + 8 * 3600 * 1000);
+  const w = d.getUTCDay();
+  return w === 0 || w === 6;
+}
+
 /** 拉取全市场汇总 — 通过并发拉 50 个 page (按代码排序,每页 100 = 5000 只 ≈ 全市场)
  * sina 限制 num=100 但支持 page=1..50, sort=code 时按代码顺序翻页
  * 并发 10 个 page, 总耗时 ~5s
  *
  * v2.0.7h:同时返回 limitUpCount/limitDownCount(让 fetchEMMarketStats / fetchTodaySnapshot 共享同源)
- * 上/跌/平/成交/涨跌停 一致用 sina 实时累加,卡片和曲线图必然一致 */
+ * 上/跌/平/成交/涨跌停 一致用 sina 实时累加,卡片和曲线图必然一致
+ *
+ * v2.0.7cs:周末直接返 null — sina 周末返空,调它浪费配额,直接让 useLiveData 走 baseData */
 export async function fetchMarketSummary(): Promise<{
   upCount: number; downCount: number; flatCount: number; totalTurnover: number;
   limitUpCount: number; limitDownCount: number;
@@ -163,7 +173,11 @@ export async function fetchMarketSummary(): Promise<{
     up_0_to_3: number; up_3_to_5: number; up_5_to_7: number;
     up_7_to_10: number; up_ge_10: number;
   };
-}> {
+} | null> {
+  // v2.0.7cs:周末 sina 返空,直接 null(避免空数据被当成 stale 实时值)
+  if (_isWeekendCN()) {
+    return null;
+  }
   const TOTAL_PAGES = 55;
   const CONCURRENCY = 10;
   const allStocks: SinaStock[] = [];
@@ -235,17 +249,17 @@ export async function fetchTodaySnapshot(): Promise<{
   limitDown: number;
 } | null> {
   try {
-    // 检查是否为工作日
-    const now = new Date();
-    const day = now.getDay();
-    if (day === 0 || day === 6) return null;  // 周末不返回
-    // 日期格式 yyyy-MM-dd
-    const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    const d = String(now.getDate()).padStart(2, '0');
+    // v2.0.7cs:用东八区判断周末(海外 user 浏览器本地时间可能不是北京时间)
+    if (_isWeekendCN()) return null;
+    // 日期格式 yyyy-MM-dd — 用东八区,跟海外 user 浏览器一致
+    const now8 = new Date(Date.now() + 8 * 3600 * 1000);
+    const y = now8.getUTCFullYear();
+    const m = String(now8.getUTCMonth() + 1).padStart(2, '0');
+    const d = String(now8.getUTCDate()).padStart(2, '0');
     const date = `${y}-${m}-${d}`;
     // 拉全市场(同源 fetchEMMarketStats,55 页 hs_a,卡片和曲线图必然一致)
     const summary = await fetchMarketSummary();
+    if (!summary) return null;  // 周末/fetch 失败
     return {
       date,
       volume: summary.totalTurnover,
@@ -311,6 +325,7 @@ export async function fetchSinaIndustries(labels: string[]): Promise<Map<string,
 // 东方财富 push2 实时全市场接口(浏览器直连,CORS ✓,10s 轮询稳定)
 // =============================================================
 // EMMarketStats 现在由 fetchSinaStatsByNode 填(虽然名字带 EM,但内部已切 sina)
+// v2.0.7cs:接口本身不变,函数返回 | null(周末/null → useLiveData 不覆盖 baseData)
 interface EMMarketStats {
   upCount: number;
   downCount: number;
@@ -332,9 +347,12 @@ interface EMMarketStats {
 // 不再赌东方财富 push2(fs 编码容易失效,且有风控)
 // =============================================================
 /** 沪深 A 股全市场统计 — v2.0.7h:改用 fetchMarketSummary(55 页 hs_a 全量累加)
- * 跟 fetchTodaySnapshot 同源,卡片和曲线图数据必然一致 */
-export async function fetchEMMarketStats(): Promise<EMMarketStats> {
+ * 跟 fetchTodaySnapshot 同源,卡片和曲线图数据必然一致
+ *
+ * v2.0.7cs:返回 EMMarketStats | null — 周末/null 时 useLiveData 走 baseData,避免写死 0 */
+export async function fetchEMMarketStats(): Promise<EMMarketStats | null> {
   const r = await fetchMarketSummary();
+  if (!r) return null;  // 周末/null
   return {
     upCount: r.upCount,
     downCount: r.downCount,
@@ -349,8 +367,12 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats> {
 /** 沪深 ETF 涨跌统计 — v2.0.7ca:用 em push2 + 多域名 fallback
  * — em 拉 ETF:fs=m:0+t:9,m:1+t:9 沪深 ETF(覆盖 700+ 只)
  * — Cloudflare Workers 出口 IP 跟 sandbox 不同,可能能拉到(沙箱拉不到)
- * — 失败返 0 走 baseData(5 cron 跳变,akshare 真值) */
-export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number }> {
+ * — 失败返 0 走 baseData(5 cron 跳变,akshare 真值)
+ *
+ * v2.0.7cs:返回 { up, down, flat } | null — 周末/em 都失败 → null(走 baseData 8/14 stale)
+ * — 之前失败返 0 会被 useLiveData 当作"半数据 0:0"误判,看起来错 */
+export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number } | null> {
+  if (_isWeekendCN()) return null;  // 周末不调 em
   const EM_DOMAINS = [
     'https://push2.eastmoney.com',
     'https://82.push2.eastmoney.com',
@@ -384,16 +406,19 @@ export async function fetchEMEtfStats(): Promise<{ up: number; down: number; fla
       continue;
     }
   }
-  // 都失败返 0 走 baseData
-  return { up: 0, down: 0, flat: 0 };
+  // v2.0.7cs:都失败返 null(走 baseData 8/14 stale)— 之前返 0 会被当成"半数据 0:0"误判
+  return null;
 }
 
 
 /** 沪深可转债涨跌统计 — v2.0.7ca:em push2 + 多域名 fallback
  * — em 可转债:fs=m:128+t:4,m:129+t:4 沪深可转债(akshare bond_zh_hs_cov_spot 同源)
  * — Cloudflare Workers 出口 IP 跟 sandbox 不同,可能能拉到(沙箱拉不到)
- * — 失败返 0 走 baseData(5 cron 跳变)虽然 stale 12-30 分钟,至少不是写死的 100:0 */
-export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number }> {
+ * — 失败返 0 走 baseData(5 cron 跳变)虽然 stale 12-30 分钟,至少不是写死的 100:0
+ *
+ * v2.0.7cs:返回 null 替代 0,周末/em 失败时走 baseData 8/14 stale(显示"上周五收盘"是合理的) */
+export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number } | null> {
+  if (_isWeekendCN()) return null;  // 周末不调 em
   const EM_DOMAINS = [
     'https://push2.eastmoney.com',
     'https://82.push2.eastmoney.com',
@@ -427,8 +452,8 @@ export async function fetchEMBondStats(): Promise<{ up: number; down: number; fl
       continue;
     }
   }
-  // 都失败返 0 走 baseData
-  return { up: 0, down: 0, flat: 0 };
+  // v2.0.7cs:都失败返 null(走 baseData 8/14 stale)— 之前返 0 会被当成"半数据 0:0"误判
+  return null;
 }
 
 
@@ -478,4 +503,78 @@ export async function fetchEMIndustries(): Promise<Map<string, EMIndustryItem>> 
     }
   }
   return result;
+}
+
+// =============================================================
+// v2.0.7cs:Cloudflare Pages Function 优先(em 实时数据走 Function,绕开 user 浏览器直连 IP 限流)
+// Function 拉失败时,fallback 直连 sina/em push2(双保险)
+// =============================================================
+
+interface MarketStatsAPIResponse {
+  source: 'live' | 'cache' | 'fallback' | 'weekend';
+  isWeekend: boolean;
+  data: EMMarketStats | null;
+  fetchedAt: string;
+  latency_ms: number;
+  error?: string;
+}
+
+/** 全市场汇总 — v2.0.7cs:优先 /api/market-stats Function,失败 fallback fetchEMMarketStats(直连 sina) */
+export async function fetchMarketStatsViaAPI(): Promise<EMMarketStats | null> {
+  try {
+    const res = await fetch('/api/market-stats');
+    if (!res.ok) {
+      console.warn('[live] /api/market-stats 失败,fallback 直连 sina:', res.status);
+      return await fetchEMMarketStats();
+    }
+    const json: MarketStatsAPIResponse = await res.json();
+    if (json.isWeekend) {
+      return null;  // 周末走 baseData
+    }
+    if (json.data) {
+      return json.data;
+    }
+    // data 为 null(fallback/拉失败)→ fallback 直连
+    console.warn('[live] /api/market-stats data=null,fallback 直连 sina');
+    return await fetchEMMarketStats();
+  } catch (e) {
+    console.warn('[live] /api/market-stats 异常,fallback 直连 sina:', e);
+    return await fetchEMMarketStats();
+  }
+}
+
+/** ETF 涨跌分布 — 优先 /api/etf-stats,失败 fallback fetchEMEtfStats */
+export async function fetchEtfStatsViaAPI(): Promise<{ up: number; down: number; flat: number } | null> {
+  try {
+    const res = await fetch('/api/etf-stats');
+    if (!res.ok) {
+      console.warn('[live] /api/etf-stats 失败,fallback 直连 em:', res.status);
+      return await fetchEMEtfStats();
+    }
+    const json = await res.json();
+    if (json.isWeekend) return null;
+    if (json.data) return json.data;
+    return await fetchEMEtfStats();
+  } catch (e) {
+    console.warn('[live] /api/etf-stats 异常,fallback 直连 em:', e);
+    return await fetchEMEtfStats();
+  }
+}
+
+/** 可转债 涨跌分布 — 优先 /api/bond-stats,失败 fallback fetchEMBondStats */
+export async function fetchBondStatsViaAPI(): Promise<{ up: number; down: number; flat: number } | null> {
+  try {
+    const res = await fetch('/api/bond-stats');
+    if (!res.ok) {
+      console.warn('[live] /api/bond-stats 失败,fallback 直连 em:', res.status);
+      return await fetchEMBondStats();
+    }
+    const json = await res.json();
+    if (json.isWeekend) return null;
+    if (json.data) return json.data;
+    return await fetchEMBondStats();
+  } catch (e) {
+    console.warn('[live] /api/bond-stats 异常,fallback 直连 em:', e);
+    return await fetchEMBondStats();
+  }
 }
