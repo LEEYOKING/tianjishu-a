@@ -96,6 +96,13 @@ export function useLiveData(enabled = true): LiveSnapshot {
 
   useEffect(() => {
     if (!enabled) return;
+    // v2.0.7dc:非盘中(15:00-次日 9:30 + 周末/节假日)直接 return — 不拉 em/sina
+    // 根因:之前 line 170-171 在非盘中仍然 setInterval(fastTick, 60_000) + (slowTick, 300_000)
+    //      → sina/em 拉到部分数据(stale 或 0)→ setSnap → 覆盖 baseData 8/17 收盘真值(2.4 万亿)
+    //      → user 23:53 盘后看到 2.2 万亿 / 4060 涨(在 2.4 万亿 / 4335 涨 之间变化)
+    // 修法:非 isLiveMarket 时 return,React state 保持空 → 卡片走 baseData 8/17 收盘
+    const isLive = isLiveMarket();
+    if (!isLive) return;
     // 10s 拉快:全市场 + ETF + 可转债 + 指数 + today(v2.0.7g:加 today 同步,避免曲线图落后)
     // v2.0.7cs:safe 加重试 — em/sina 拉失败时 800ms 后重试 1 次
     // — 之前拉失败直接 fallback,看起来"上周五收盘"(user 反馈)
@@ -165,10 +172,10 @@ export function useLiveData(enabled = true): LiveSnapshot {
     fastTick();
     slowTick();
 
-    // 盘中 10s 拉快 + 60s 拉慢,非盘中 5min 拉慢
-    const isLive = isLiveMarket();
-    const fastIntv = setInterval(fastTick, isLive ? 20_000 : 60_000);
-    const slowIntv = setInterval(slowTick, isLive ? 60_000 : 300_000);
+    // 盘中 20s 拉快 + 60s 拉慢
+    // v2.0.7dc:非盘中已在上面 return,这里只设盘中 interval
+    const fastIntv = setInterval(fastTick, 20_000);
+    const slowIntv = setInterval(slowTick, 60_000);
     return () => {
       clearInterval(fastIntv);
       clearInterval(slowIntv);
