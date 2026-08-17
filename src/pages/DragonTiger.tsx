@@ -25,7 +25,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
         <PageHeader
           title="龙虎榜"
           tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
-          generatedAt={idx.generatedAt}
+
           liveTag="智能解读"
           subtitle={`机构/游资买卖席位 · AI 解读(数据截至 ${dtMeta?.tradeDateSlash || idx.tradeDateSlash} 收盘)`}
           lastUpdatedAt={useLive().fetchedAt}
@@ -58,7 +58,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
       <PageHeader
         title="龙虎榜"
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
-        generatedAt={idx.generatedAt}
+
         liveTag="智能解读"
         subtitle={`AI 解读主力意图 · 共 ${sorted.length} 只${hasInterp < sorted.length ? `(${hasInterp} 只已解读)` : ''}（数据截至 ${dtMeta?.tradeDateSlash || idx.tradeDateSlash} 收盘）`}
         lastUpdatedAt={useLive().fetchedAt}

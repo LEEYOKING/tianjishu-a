@@ -28,7 +28,7 @@ export default function LimitDown({ data }: { data: ReportData }) {
       <PageHeader
         title="跌停梯队"
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
-        generatedAt={idx.generatedAt}
+
         liveTag="收盘复盘数据"
         subtitle="跌钱梯队 · 亏钱效应传导"
         lastUpdatedAt={useLive().fetchedAt}

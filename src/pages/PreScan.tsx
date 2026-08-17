@@ -101,7 +101,7 @@ export default function PreScan() {
       <PageHeader
         title="盘前扫描"
         tradeDateSlash={tradeDateSlash} _originalTradeDate={data.meta.tradeDate}
-        generatedAt={data.meta.generatedAt}
+
         liveTag="隔夜数据"
         liveColor="#1890FF"
         // 用户 #19 反馈:背景色改同色系浅蓝色

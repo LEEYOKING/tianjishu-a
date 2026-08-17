@@ -99,7 +99,7 @@ export default function AnomalyStock({ type, data }: Props) {
       <PageHeader
         title={cfg.title}
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
-        generatedAt={idx.generatedAt}
+
         liveTag="收盘复盘数据"
         subtitle="异动选股 · 量价共振信号"
         lastUpdatedAt={useLive().fetchedAt}

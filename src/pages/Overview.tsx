@@ -395,7 +395,7 @@ export default function Overview({ data }: { data: ReportData }) {
       <PageHeader
         title="大盘总览"
         tradeDateSlash={idx.tradeDateSlash} _originalTradeDate={idx.tradeDate}
-        generatedAt={idx.generatedAt}
+
         subtitle="盘后深度复盘 · 大盘快照 + 多日趋势"
         lastUpdatedAt={useLive().fetchedAt}
       />
@@ -578,8 +578,9 @@ export function getMarketSession(now = new Date()): { label: string; color: stri
 }
 
 // ====== 共享组件 ======
-export function PageHeader({ title, tradeDateSlash, generatedAt, subtitle, liveTag, liveColor, liveBg, lastUpdatedAt, _originalTradeDate }: {
-  title: string; tradeDateSlash: string; generatedAt: string; subtitle?: string; liveTag?: string; liveColor?: string; liveBg?: string; lastUpdatedAt?: number;
+// v2.0.7df-fix:盘后用当前时间显示(不用 generatedAt)— 父组件不再传 generatedAt prop
+export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor, liveBg, lastUpdatedAt, _originalTradeDate }: {
+  title: string; tradeDateSlash: string; subtitle?: string; liveTag?: string; liveColor?: string; liveBg?: string; lastUpdatedAt?: number;
   // v2.0.7ar:可选的原始 tradeDate(YYYYMMDD)— 如果传,08:00 之后用 today 覆盖
   _originalTradeDate?: string;
 }) {
@@ -607,12 +608,16 @@ export function PageHeader({ title, tradeDateSlash, generatedAt, subtitle, liveT
   const displayTime = lastUpdatedAt
     ? toShanghaiHM(lastUpdatedAt)
     : (() => {
-        // generatedAt 格式 'YYYY-MM-DD HH:MM:SS' 视为 UTC,转东八区
-        const m = generatedAt?.match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})(?::(\d{2}))?/);
-        if (!m) return '';
-        const utc = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +(m[6] || 0));
-        const d = new Date(utc + 8 * 3600 * 1000);
-        return `${String(d.getUTCDate()).padStart(2, '0')}/${String(d.getUTCMonth() + 1).padStart(2, '0')} ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
+        // v2.0.7df-fix:盘后/无实时数据时显示当前时间(东八区),不是 data.json 的 generatedAt
+        // 因为 generatedAt 是 fetch_real_data.py 跑时的时间(可能几小时前甚至昨天)
+        // — user 期望看到"现在几点"才有用(不然 8/18 00:47 看到 8/17 19:07 感觉很奇怪)
+        const now = new Date(Date.now() + 8 * 3600 * 1000);
+        const yy = String(now.getUTCFullYear()).slice(2);
+        const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+        const dd = String(now.getUTCDate()).padStart(2, '0');
+        const hh = String(now.getUTCHours()).padStart(2, '0');
+        const min = String(now.getUTCMinutes()).padStart(2, '0');
+        return `${yy}/${mm}/${dd} ${hh}:${min}`;
       })();
   // 报告日期:数据是 8.6 → 解析为东八区日期(数据元数据即交易日)
   const parseDate = (s: string) => {
