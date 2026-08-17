@@ -32,7 +32,7 @@ print(f"输出: {OUT}")
 print()
 
 def _subprocess_run(cmd, **kw):
-    return subprocess.run(cmd, capture_output=True, **kw)
+    return subprocess.run(cmd, **kw)
 
 # 读 HEAD data.json 保留其他字段(涨停池/龙虎榜/历史/板块等)
 HEAD_DATA = None
