@@ -117,6 +117,33 @@ last_2 = HEAD_DATA.get('history', [])
 yesterday_vol = last_2[-1].get('volume', 0) if last_2 else 0
 turnover_diff = round(total_turnover - yesterday_vol, 2)
 
+# v2.0.7dw:append history 末点(8/18 当日)— 之前 fallback 没写 history,React 读 history 末点 0:0
+if HEAD_DATA.get('history'):
+    last_date = HEAD_DATA['history'][-1].get('date', '')
+    today_date = TRADE_DATE_DASH
+    if last_date != today_date:
+        # 8/18 当日新点 push
+        HEAD_DATA['history'].append({
+            'date': today_date,
+            'volume': total_turnover,
+            'up': up,
+            'down': down,
+            'flat': flat,
+            'limitUp': lu,
+            'limitDown': ld,
+        })
+    else:
+        # 同一天 — 更新末点(v2.0.7dt 写完整字段)
+        HEAD_DATA['history'][-1] = {
+            **HEAD_DATA['history'][-1],
+            'volume': total_turnover,
+            'up': up,
+            'down': down,
+            'flat': flat,
+            'limitUp': lu,
+            'limitDown': ld,
+        }
+
 mo = HEAD_DATA['marketOverview']
 mo['tradeDate'] = TRADE_DATE
 mo['tradeDateDash'] = TRADE_DATE_DASH
