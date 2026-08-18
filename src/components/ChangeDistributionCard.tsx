@@ -40,10 +40,14 @@ function barColor(type: 'down' | 'flat' | 'up'): string {
 
 export function ChangeDistributionCard({ data }: Props) {
   const dist = data.marketOverview.changeDistribution;
-  // v2.0.7am:涨跌家数从 dist 累加(跟柱状图同源)
-  const upCount = dist ? (dist.up_0_to_3 + dist.up_3_to_5 + dist.up_5_to_7 + dist.up_7_to_10 + dist.up_ge_10) : (data.marketOverview.upCount ?? 0);
-  const downCount = dist ? (dist.down_ge_10 + dist.down_10_to_7 + dist.down_7_to_5 + dist.down_5_to_3 + dist.down_3_to_0) : (data.marketOverview.downCount ?? 0);
-  const flatCount = dist ? dist.flat : (data.marketOverview.flatCount ?? 0);
+  // v2.0.7ds:涨跌家数/涨跌停直接读第一排卡片数字(跟卡片同源)— 不依赖 dist 累加
+  // — 之前:dist 累加(useLiveData 拉的)— 跟卡片数字同源但不是直接读
+  // — 现在:直接读 data.marketOverview.{upCount,downCount,flatCount,limitUpCount,limitDownCount}
+  // — 跟第一排"上涨/下跌/涨跌停比"卡片数字完全一致
+  // — em 限流时 dist 可能是空/部分数据,但卡片走 mergeLiveData 永远有值 — 跟卡片同源更稳定
+  const upCount = data.marketOverview.upCount ?? 0;
+  const downCount = data.marketOverview.downCount ?? 0;
+  const flatCount = data.marketOverview.flatCount ?? 0;
   const limitUp = data.marketOverview.limitUpCount ?? 0;
   const limitDown = data.marketOverview.limitDownCount ?? 0;
   const total = upCount + downCount + flatCount;
