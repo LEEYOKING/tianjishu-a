@@ -476,7 +476,7 @@ def _fetch_margin_history():
       → 仍失败才返 None(降级用 HEAD 旧数据)
     """
     df = None
-    for attempt in range(3):
+    for attempt in range(5):  # v2.0.7dj:retry 3 → 5(早盘限流严,多 retry 提高成功率)
         try:
             df = ak.macro_china_market_margin_sh()
             if df is not None and len(df) > 0:
@@ -1520,8 +1520,11 @@ data = {
         'flatCount': flat_count,
         'upPercent': up_pct,
         'stockTotal': stock_total,
-        'limitUpCount': limit_up_count,
-        'limitDownCount': limit_down_count,
+        # v2.0.7dk:涨跌停改用 sina 9.99% 阈值(跟 useLiveData em 9.99% 同源)— 数字一致
+        # 旧版用 akshare 涨停池(同花顺 已封板+炸板 = 80)— 跟 em 9.99% 阈值 56 不同
+        # user 强刷后 React state 拉 em 限流 null → 走 baseData → 看到 80(不直观)vs useLiveData 拉到 56
+        'limitUpCount': int(_change_dist['up_ge_10']),
+        'limitDownCount': int(_change_dist['down_ge_10']),
         'brokenLimitCount': _broken_count,  # v2.0.7aw:炸板家数(em 实时算"当前封板" + 炸板 = 涨停过总数)
         'indices': indices,
         # 可转债 / ETF 涨/跌/平
