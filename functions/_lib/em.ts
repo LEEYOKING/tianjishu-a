@@ -79,10 +79,23 @@ export function ymdCN(): string {
 }
 
 // 涨跌停阈值(同花顺算法) — v2.0.7ay
-export function isLimitUp(cp: number): boolean {
+// v2.0.7dp:涨跌停改用 f17 首次封板时间字段(同花顺"已封板"算法)
+// — 之前 cp >= 9.97 算涨停(9.97% 阈值)— 包含开板后涨跌幅仍 ≥9.97% 的(8/18 14:50 em 132 vs 同花顺 70)
+// — em f17 字段:"首次封板时间",有值表示已封板(同花顺"已封板" 70)
+// — 改 f17 != null 算涨停 → 跟同花顺/东方财富"已封板" 70 一致
+// — data: { f3, f17 }  — em push2 clist/get 返回
+export function isLimitUp(cp: number, f17?: string | null): boolean {
+  // 优先用 f17(已封板)— 跟同花顺/东方财富 一致
+  if (f17 != null && f17 !== '' && f17 !== '-' && f17 !== '0') {
+    // f17 格式: '093000' (HHMMSS) 或 '0' (未封板)
+    return true;
+  }
+  // 兜底:涨跌幅 9.97% 阈值(em 限流 f17 拿不到时)
   return (cp >= 9.97 && cp < 11) || (cp >= 19.97 && cp < 21);
 }
-export function isLimitDown(cp: number): boolean {
+export function isLimitDown(cp: number, f17?: string | null): boolean {
+  // 跌停用 f18(首次跌停时间)如果能拿到 — em clist/get 字段默认不带 f18
+  // 兜底用涨跌幅 -9.97% 阈值
   return (cp <= -9.97 && cp > -11) || (cp <= -19.97 && cp > -21);
 }
 

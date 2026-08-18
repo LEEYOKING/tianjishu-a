@@ -73,8 +73,8 @@ export async function onRequestGet(context: { request: Request; env: any }): Pro
       else if (cp < 7) dist.up_5_to_7++;
       else if (cp < 10) dist.up_7_to_10++;
       else dist.up_ge_10++;
-      // 涨跌停
-      if (isLimitUp(cp)) lu++;
+      // 涨跌停 v2.0.7dp:用 f17 已封板时间字段(同花顺"已封板"算法)— 跟同花顺 70 接近
+      if (isLimitUp(cp, s.f17)) lu++;
       else if (isLimitDown(cp)) ld++;
       total += amt;
     }
