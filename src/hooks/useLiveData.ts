@@ -396,47 +396,32 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     }
   }
   // 6. 把今日实时数据 push 到 history 末尾(让曲线图含当日点)
-  // v2.0.7cs:todayFallback 用东八区日期(海外 user 浏览器本地时间可能不是北京时间,导致曲线图末点日期错位)
-  const todayFallback = {
-    date: (() => {
-      const now8 = new Date(Date.now() + 8 * 3600 * 1000);
-      return `${now8.getUTCFullYear()}-${String(now8.getUTCMonth() + 1).padStart(2, '0')}-${String(now8.getUTCDate()).padStart(2, '0')}`;
-    })(),
-    volume: next.marketOverview.marketTurnover,
-    up: next.marketOverview.upCount,
-    down: next.marketOverview.downCount,
-  };
-  const todayData = (live.today && (live.today.up > 0 || live.today.down > 0) && live.today.volume > 0)
-    ? live.today
-    : todayFallback;
+  // v2.0.7dr:曲线图末点直接映射卡片数据(next.marketOverview.*)— 不再单独算 todayData
+  // — 之前:曲线图末点用 todayData(快 fastTick 拉 + liveLimits 阈值 600/100)— em 限流时 0:0
+  // — 现在:曲线图末点 = 卡片数字(完全一致)— 永远有值(走 baseData fallback)— 不再 0:0
+  // — 跟卡片同源,实时性靠 fastTick 推 next.marketOverview → history 末点同步
   if (next.history && next.history.length > 0) {
     const lastDate = next.history[next.history.length - 1].date;
-    if (todayData.date !== lastDate) {
-      next.history.push({
-        date: todayData.date,
-        volume: todayData.volume,
-        up: todayData.up,
-        down: todayData.down,
-        limitUp: next.marketOverview.limitUpCount,
-        limitDown: next.marketOverview.limitDownCount,
-      });
+    // 东八区"今天"日期(海外 user 浏览器本地时区不对时统一用 UTC+8)
+    const now8 = new Date(Date.now() + 8 * 3600 * 1000);
+    const todayDate = `${now8.getUTCFullYear()}-${String(now8.getUTCMonth() + 1).padStart(2, '0')}-${String(now8.getUTCDate()).padStart(2, '0')}`;
+    // 末点数据 = 卡片数据(mergeLiveData 已处理优先 live,fallback baseData)
+    const todayPoint = {
+      date: todayDate,
+      volume: next.marketOverview.marketTurnover,
+      up: next.marketOverview.upCount,
+      down: next.marketOverview.downCount,
+      limitUp: next.marketOverview.limitUpCount,
+      limitDown: next.marketOverview.limitDownCount,
+    };
+    if (todayDate !== lastDate) {
+      // 新一天 — push 新点
+      next.history.push(todayPoint);
     } else {
-      // v2.0.7g:date 相同时也更新 limitUp/limitDown(1.3 涨跌停曲线图 bug 修复)
-      // v2.0.7dq:阈值 600 → 100(v2.0.7ct em 限流部分数据)— 但还要检查 limitUp/limitDown > 0
-      // — em 限流返 limitUpCount=0(v2.0.7dp f17 拿不到)— 走 baseData 不然曲线图末点 0:0
-      const liveLimits = (live.market
-        && (live.market.upCount + live.market.downCount + live.market.flatCount) >= 100
-        && live.market.limitUpCount > 0
-        && live.market.limitDownCount > 0)
-        ? { limitUp: live.market.limitUpCount, limitDown: live.market.limitDownCount }
-        : { limitUp: next.marketOverview.limitUpCount, limitDown: next.marketOverview.limitDownCount };
+      // 同一天 — 更新末点(volume/up/down/limitUp/limitDown 都用卡片)
       next.history[next.history.length - 1] = {
         ...next.history[next.history.length - 1],
-        volume: todayData.volume,
-        up: todayData.up,
-        down: todayData.down,
-        limitUp: liveLimits.limitUp,
-        limitDown: liveLimits.limitDown,
+        ...todayPoint,
       };
     }
   }
