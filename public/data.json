@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-18 15:41:45",
+    "generatedAt": "2026-08-18 15:45:07",
     "tradeDate": "20260818",
     "tradeDateSlash": "26/08/18",
     "dataSource": "akshare (新浪/腾讯/东方财富)"
@@ -8,11 +8,11 @@
   "marketOverview": {
     "tradeDate": "20260818",
     "tradeDateSlash": "26/08/18",
-    "generatedAt": "2026-08-18 15:41",
+    "generatedAt": "2026-08-18 15:45",
     "marketTurnover": 24193.74,
     "turnoverDiff": 2465.12,
     "marketTemperature": {
-      "temperature": 65,
+      "temperature": 75,
       "status": "高温一致",
       "statusDesc": "主升浪,赚钱效应强",
       "details": {
@@ -21,17 +21,17 @@
         "max_boards": 4,
         "broken_rate": "23%",
         "broken_count": 23,
-        "yest_perf": "-0.4%",
-        "yest_perf_value": -0.41,
-        "promote_rate": "25%",
-        "promote_rate_value": 0.25,
+        "yest_perf": "+1.2%",
+        "yest_perf_value": 1.16,
+        "promote_rate": "14%",
+        "promote_rate_value": 0.14285714285714285,
         "limit_ratio": "11.3"
       },
       "dimension_scores": {
         "涨跌停对比": 15,
         "连板高度": 5,
         "炸板率": 5,
-        "昨日涨停今日": -5,
+        "昨日涨停今日": 5,
         "晋级率": -5
       }
     },
