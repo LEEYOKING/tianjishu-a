@@ -390,8 +390,14 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
         }
       }
       if (bestMatch) {
-        s.changePercent = bestMatch.changePercent;
-        if (bestMatch.leaderName && bestMatch.leaderName !== '-') s.leaderName = bestMatch.leaderName;
+        // v2.0.7du:em 申万 跟 ths 14:00 数字差 > 3% 时跳过覆盖(走 ths 14:00)
+        // — em 申万是 em 实时,ths 14:00 是 fetch-data 14:00 cron 写
+        // — em 申万 +0.17% vs ths +9.38% 差异大 → em 申万 stale(限流返 8/17)— 跳过
+        // — 数字差 ≤ 3% 时正常覆盖(em 实时比 ths 14:00 更近)
+        if (Math.abs(bestMatch.changePercent - s.changePercent) <= 3) {
+          s.changePercent = bestMatch.changePercent;
+          if (bestMatch.leaderName && bestMatch.leaderName !== '-') s.leaderName = bestMatch.leaderName;
+        }
       }
     }
   }
