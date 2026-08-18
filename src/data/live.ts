@@ -185,7 +185,11 @@ export async function fetchMarketSummary(): Promise<{
   // — user 14:00-14:30 em 限流时 useLiveData 也能拉
   const TOTAL_PAGES = 5;
   const CONCURRENCY = 5;
-  const SCALE = 11;  // 推算比例:5500 / 500
+  // v2.0.7dz:取消 × 11 推算(5 页 sample 直接写)
+  // — 之前 SCALE=11 导致 5 页 500 只 up=200 推算 2,200(实际 5,500 全市场 up 可能 2,200)
+  // — 但 useLiveData 跟 fetch_real_data.py 都 × 11 = 双倍推算,数字大 11 倍
+  // — 修法:SCALE=1,5 页 sample 数字直接用(限流时 5 页 500 只 — 实际值 ± 10% 误差)
+  const SCALE = 1;
   const allStocks: SinaStock[] = [];
   for (let i = 1; i <= TOTAL_PAGES; i += CONCURRENCY) {
     const batch: Promise<SinaStock[]>[] = [];

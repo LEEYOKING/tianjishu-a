@@ -142,16 +142,21 @@ import time as _t
 spot_rows = []
 # v2.0.7ba:翻 60 页拿全市场 5542 只(之前 55 页 = 5500 只,漏 42 只,导致 8/13 估 25145 跟同花顺 25680 差 535)
 # sina 56 页返 42 只(8/13 新增/复牌),57 页返 0 — 改 < 30 才 break,翻 60 页
-# v2.0.7dv:加 retry + 60 页全拉不到时标记 SAMPLE_ONLY=True,后续 spot_df 累加 × 11 推算 5500
-SAMPLE_ONLY = False  # v2.0.7dv:True = 限流时 5 页 sample 推算 11 倍
-SAMPLE_PAGES = 5  # 限流时已拉页数(5 页 = 500 只 × 11 = 5500)
+# v2.0.7dv:加 retry + 60 页全拉不到时标记 SAMPLE_ONLY=True
+# v2.0.7dz:取消 × 11 推算(5 页 504 只直接写)— × 11 是错的(数字大 11 倍)
+# — 之前 v2.0.7dl useLiveData 5 页推算 × 11(单独)— fetch_real_data 也 × 11 = 双倍推算
+# — 修法:_SAMPLE_SCALE = 1(5 页 sample 数字直接写)— 数字不放大
+SAMPLE_ONLY = False
+SAMPLE_PAGES = 5
 for page in range(1, 61):
     url = (
         'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/'
         f'Market_Center.getHQNodeData?num=100&page={page}&sort=changepercent&asc=0&node=hs_a&_={int(_t.time()*1000)}'
     )
     # v2.0.7dv:重试 3 次(限流时大概率能拉到)
+    # v2.0.7dz:用 fetched 标志避免 retry 累加(之前 break 后 page_data 还有数据又 extend 多次)
     page_data = None
+    fetched = False
     for attempt in range(3):
         try:
             req = urllib.request.Request(url, headers={
@@ -161,17 +166,18 @@ for page in range(1, 61):
             with urllib.request.urlopen(req, timeout=8) as resp:
                 page_data = _json.loads(resp.read())
             if page_data and len(page_data) >= 30:
+                fetched = True
                 break
         except Exception:
             if attempt < 2:
                 _t.sleep(0.5)
                 continue
             break
-    if not page_data or len(page_data) < 30:
-        # v2.0.7dv:限流时只拉了 SAMPLE_PAGES 页 — 后续 spot_df 累加 × 11 推算
+    if not fetched or not page_data or len(page_data) < 30:
+        # v2.0.7dv:限流时只拉了 SAMPLE_PAGES 页 — 标记 SAMPLE_ONLY
         if page > SAMPLE_PAGES and len(spot_rows) >= SAMPLE_PAGES * 80:
             SAMPLE_ONLY = True
-            print(f"  sina 限流:已拉 {len(spot_rows)} 只({SAMPLE_PAGES} 页)— 后续 spot_df 累加 × 11 推算 5500")
+            print(f"  sina 限流:已拉 {len(spot_rows)} 只({SAMPLE_PAGES} 页)— sample 模式(不推算)")
             break
         continue
     spot_rows.extend(page_data)
@@ -190,14 +196,16 @@ spot_df['代码'] = spot_df['代码'].astype(str).str.replace(r'^[a-z]+', '', re
 spot_df['涨跌幅'] = spot_df['涨跌幅'].apply(lambda x: safe_float(x))
 spot_df['成交额'] = spot_df['成交额'].apply(lambda x: safe_float(x))
 # v2.0.7dv:限流时 5 页 sample — 推算 11 倍(5500 只 ≈ 11 × 500)
-_SAMPLE_SCALE = 11 if SAMPLE_ONLY else 1
+# v2.0.7dz:取消 × 11 推算 — 5 页 sample 数字直接写(数字不放大)
+# — 之前 _SAMPLE_SCALE=11 推算导致数字大 11 倍(23,320 up 实际应该 2,200)— 错
+_SAMPLE_SCALE = 1  # 永远 × 1(不推算)— 5 页 sample 数字直接用
 total_turnover = round(safe_float(spot_df['成交额'].sum()) / 1e8 * _SAMPLE_SCALE, 2)
 up_count = int((spot_df['涨跌幅'] > 0).sum() * _SAMPLE_SCALE)
 down_count = int((spot_df['涨跌幅'] < 0).sum() * _SAMPLE_SCALE)
 flat_count = int((spot_df['涨跌幅'] == 0).sum() * _SAMPLE_SCALE)
 stock_total = len(spot_df) * _SAMPLE_SCALE
 if SAMPLE_ONLY:
-    print(f"  sina 限流 5 页 sample({len(spot_df)} 只)× 11 推算 5500: ↑{up_count} ↓{down_count} 平{flat_count} 成交 {total_turnover}亿")
+    print(f"  sina 限流 5 页 sample({len(spot_df)} 只): ↑{up_count} ↓{down_count} 平{flat_count} 成交 {total_turnover}亿")
 else:
     print(f"  sina 累加 {stock_total} 只(全市场 A股) ↑{up_count} ↓{down_count} 平{flat_count} 成交 {total_turnover}亿")
 

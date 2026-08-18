@@ -71,7 +71,9 @@ for s in all_stocks:
     if -11 < cp <= -9.97 or -21 < cp <= -19.97: ld += 1
     total += amt
 
-SCALE = TOTAL_PAGES / SAMPLE_PAGES
+SCALE = 1  # v2.0.7dz:取消 × 11 推算 — 5 页 sample 数字直接写
+# — 之前 SCALE = TOTAL_PAGES / SAMPLE_PAGES = 55/5 = 11,推算错 11 倍
+# — 5 页 500 只 up=200 直接写,不推算
 up = round(up * SCALE)
 down = round(down * SCALE)
 flat = round(flat * SCALE)

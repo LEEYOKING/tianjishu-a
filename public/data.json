@@ -9,23 +9,23 @@
     "tradeDate": "20260818",
     "tradeDateSlash": "26/08/18",
     "generatedAt": "2026-08-18 18:43",
-    "marketTurnover": 266131.09,
+    "marketTurnover": 24193.74,
     "turnoverDiff": 243362.76,
     "marketTemperature": {
-      "temperature": 75,
+      "temperature": 85,
       "status": "高温一致",
-      "statusDesc": "主升浪,赚钱效应强",
+      "statusDesc": "主升浪, 赚钱效应强",
       "details": {
         "limit_up": 79,
-        "limit_down": 7,
+        "limit_down": 5,
         "max_boards": 4,
         "broken_rate": "23%",
         "broken_count": 23,
-        "yest_perf": "+1.2%",
+        "yest_perf": "+1.16%",
         "yest_perf_value": 1.16,
         "promote_rate": "14%",
         "promote_rate_value": 0.14285714285714285,
-        "limit_ratio": "11.3"
+        "limit_ratio": "15.8"
       },
       "dimension_scores": {
         "涨跌停对比": 15,
@@ -51,13 +51,13 @@
     "shTurnover": 11351.88,
     "szTurnover": 254779.21,
     "bjTurnover": 0.0,
-    "upCount": 23320,
-    "downCount": 36212,
-    "flatCount": 1452,
+    "upCount": 2120,
+    "downCount": 3292,
+    "flatCount": 132,
     "upPercent": 38.24,
-    "stockTotal": 60984,
-    "limitUpCount": 101,
-    "limitDownCount": 11,
+    "stockTotal": 5544,
+    "limitUpCount": 79,
+    "limitDownCount": 5,
     "brokenLimitCount": 23,
     "indices": [
       {
@@ -927,720 +927,720 @@
       "volume": 22936.25,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 29146,
-      "down": 31637
+      "up": 2650,
+      "down": 2876
     },
     {
       "date": "2026-04-10",
       "volume": 23330.72,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 31189,
-      "down": 29594
+      "up": 2835,
+      "down": 2690
     },
     {
       "date": "2026-04-13",
       "volume": 22452.83,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 44530,
-      "down": 16253
+      "up": 4048,
+      "down": 1478
     },
     {
       "date": "2026-04-14",
       "volume": 24069.81,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 45912,
-      "down": 14871
+      "up": 4174,
+      "down": 1352
     },
     {
       "date": "2026-04-15",
       "volume": 24323.1,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 20095,
-      "down": 40688
+      "up": 1827,
+      "down": 3699
     },
     {
       "date": "2026-04-16",
       "volume": 23660.79,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 48490,
-      "down": 12293
+      "up": 4408,
+      "down": 1118
     },
     {
       "date": "2026-04-17",
       "volume": 23898.35,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 37567,
-      "down": 23216
+      "up": 3415,
+      "down": 2111
     },
     {
       "date": "2026-04-20",
       "volume": 25212.93,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 49697,
-      "down": 11086
+      "up": 4518,
+      "down": 1008
     },
     {
       "date": "2026-04-21",
       "volume": 24534.52,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 38473,
-      "down": 22310
+      "up": 3498,
+      "down": 2028
     },
     {
       "date": "2026-04-22",
       "volume": 24603.3,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 50501,
-      "down": 10282
+      "up": 4591,
+      "down": 935
     },
     {
       "date": "2026-04-23",
       "volume": 27498.03,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 16711,
-      "down": 44072
+      "up": 1519,
+      "down": 4007
     },
     {
       "date": "2026-04-24",
       "volume": 25243.42,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 29479,
-      "down": 31304
+      "up": 2680,
+      "down": 2846
     },
     {
       "date": "2026-04-27",
       "volume": 24957.71,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 40265,
-      "down": 20518
+      "up": 3660,
+      "down": 1865
     },
     {
       "date": "2026-04-28",
       "volume": 25425.31,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 32729,
-      "down": 28054
+      "up": 2975,
+      "down": 2550
     },
     {
       "date": "2026-04-29",
       "volume": 25931.56,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 53270,
-      "down": 7513
+      "up": 4843,
+      "down": 683
     },
     {
       "date": "2026-04-30",
       "volume": 26776.64,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 34776,
-      "down": 26007
+      "up": 3161,
+      "down": 2364
     },
     {
       "date": "2026-05-06",
       "volume": 29326.58,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 47925,
-      "down": 12858
+      "up": 4357,
+      "down": 1169
     },
     {
       "date": "2026-05-07",
       "volume": 29377.23,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 40151,
-      "down": 20632
+      "up": 3650,
+      "down": 1876
     },
     {
       "date": "2026-05-08",
       "volume": 29246.16,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 43241,
-      "down": 17542
+      "up": 3931,
+      "down": 1595
     },
     {
       "date": "2026-05-11",
       "volume": 32147.93,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 47286,
-      "down": 13497
+      "up": 4299,
+      "down": 1227
     },
     {
       "date": "2026-05-12",
       "volume": 30082.58,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 18753,
-      "down": 42030
+      "up": 1705,
+      "down": 3821
     },
     {
       "date": "2026-05-13",
       "volume": 29421.32,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 53583,
-      "down": 7200
+      "up": 4871,
+      "down": 655
     },
     {
       "date": "2026-05-14",
       "volume": 31445.0,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 6294,
-      "down": 54489
+      "up": 572,
+      "down": 4954
     },
     {
       "date": "2026-05-15",
       "volume": 30390.87,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 8927,
-      "down": 51856
+      "up": 812,
+      "down": 4714
     },
     {
       "date": "2026-05-18",
       "volume": 26218.34,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 40064,
-      "down": 20719
+      "up": 3642,
+      "down": 1884
     },
     {
       "date": "2026-05-19",
       "volume": 25897.49,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 53293,
-      "down": 7490
+      "up": 4845,
+      "down": 681
     },
     {
       "date": "2026-05-20",
       "volume": 25927.1,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 38533,
-      "down": 22250
+      "up": 3503,
+      "down": 2023
     },
     {
       "date": "2026-05-21",
       "volume": 30839.1,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 6143,
-      "down": 54640
+      "up": 558,
+      "down": 4967
     },
     {
       "date": "2026-05-22",
       "volume": 25968.52,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 43810,
-      "down": 16973
+      "up": 3983,
+      "down": 1543
     },
     {
       "date": "2026-05-25",
       "volume": 26825.41,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 48576,
-      "down": 12207
+      "up": 4416,
+      "down": 1110
     },
     {
       "date": "2026-05-26",
       "volume": 28378.58,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 37415,
-      "down": 23368
+      "up": 3401,
+      "down": 2124
     },
     {
       "date": "2026-05-27",
       "volume": 28345.7,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 7888,
-      "down": 52895
+      "up": 717,
+      "down": 4809
     },
     {
       "date": "2026-05-28",
       "volume": 26285.36,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 44829,
-      "down": 15954
+      "up": 4075,
+      "down": 1450
     },
     {
       "date": "2026-05-29",
       "volume": 30345.17,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 8280,
-      "down": 52503
+      "up": 753,
+      "down": 4773
     },
     {
       "date": "2026-06-01",
       "volume": 27579.24,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 22342,
-      "down": 38441
+      "up": 2031,
+      "down": 3495
     },
     {
       "date": "2026-06-02",
       "volume": 26488.22,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 41836,
-      "down": 18947
+      "up": 3803,
+      "down": 1722
     },
     {
       "date": "2026-06-03",
       "volume": 28054.86,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 43175,
-      "down": 17608
+      "up": 3925,
+      "down": 1601
     },
     {
       "date": "2026-06-04",
       "volume": 25730.58,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 34173,
-      "down": 26610
+      "up": 3107,
+      "down": 2419
     },
     {
       "date": "2026-06-05",
       "volume": 28438.46,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 16815,
-      "down": 43968
+      "up": 1529,
+      "down": 3997
     },
     {
       "date": "2026-06-08",
       "volume": 27800.34,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 46492,
-      "down": 14291
+      "up": 4227,
+      "down": 1299
     },
     {
       "date": "2026-06-09",
       "volume": 24856.72,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 51011,
-      "down": 9772
+      "up": 4637,
+      "down": 888
     },
     {
       "date": "2026-06-10",
       "volume": 25135.82,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 37715,
-      "down": 23068
+      "up": 3429,
+      "down": 2097
     },
     {
       "date": "2026-06-11",
       "volume": 23776.57,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 37039,
-      "down": 23744
+      "up": 3367,
+      "down": 2159
     },
     {
       "date": "2026-06-12",
       "volume": 29480.98,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 41948,
-      "down": 18835
+      "up": 3813,
+      "down": 1712
     },
     {
       "date": "2026-06-15",
       "volume": 27570.48,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 52926,
-      "down": 7857
+      "up": 4811,
+      "down": 714
     },
     {
       "date": "2026-06-16",
       "volume": 26313.54,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 28423,
-      "down": 32360
+      "up": 2584,
+      "down": 2942
     },
     {
       "date": "2026-06-17",
       "volume": 25996.68,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 51143,
-      "down": 9640
+      "up": 4649,
+      "down": 876
     },
     {
       "date": "2026-06-18",
       "volume": 27323.39,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 27161,
-      "down": 33622
+      "up": 2469,
+      "down": 3057
     },
     {
       "date": "2026-06-22",
       "volume": 31112.99,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 54580,
-      "down": 6203
+      "up": 4962,
+      "down": 564
     },
     {
       "date": "2026-06-23",
       "volume": 29137.02,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 7644,
-      "down": 53139
+      "up": 695,
+      "down": 4831
     },
     {
       "date": "2026-06-24",
       "volume": 27557.48,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 46123,
-      "down": 14660
+      "up": 4193,
+      "down": 1333
     },
     {
       "date": "2026-06-25",
       "volume": 28827.3,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 43835,
-      "down": 16948
+      "up": 3985,
+      "down": 1541
     },
     {
       "date": "2026-06-26",
       "volume": 28745.15,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 6358,
-      "down": 54425
+      "up": 578,
+      "down": 4948
     },
     {
       "date": "2026-06-29",
       "volume": 28179.03,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 53479,
-      "down": 7304
+      "up": 4862,
+      "down": 664
     },
     {
       "date": "2026-06-30",
       "volume": 25796.39,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 51750,
-      "down": 9033
+      "up": 4705,
+      "down": 821
     },
     {
       "date": "2026-07-01",
       "volume": 29682.18,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 46626,
-      "down": 14157
+      "up": 4239,
+      "down": 1287
     },
     {
       "date": "2026-07-02",
       "volume": 29059.26,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 12647,
-      "down": 48136
+      "up": 1150,
+      "down": 4376
     },
     {
       "date": "2026-07-03",
       "volume": 26647.77,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 40936,
-      "down": 19847
+      "up": 3721,
+      "down": 1804
     },
     {
       "date": "2026-07-06",
       "volume": 26083.34,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 16330,
-      "down": 44453
+      "up": 1485,
+      "down": 4041
     },
     {
       "date": "2026-07-07",
       "volume": 22904.25,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 11039,
-      "down": 49744
+      "up": 1004,
+      "down": 4522
     },
     {
       "date": "2026-07-08",
       "volume": 22099.58,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 12194,
-      "down": 48589
+      "up": 1109,
+      "down": 4417
     },
     {
       "date": "2026-07-09",
       "volume": 24376.42,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 54324,
-      "down": 6459
+      "up": 4939,
+      "down": 587
     },
     {
       "date": "2026-07-10",
       "volume": 27960.22,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 9370,
-      "down": 51413
+      "up": 852,
+      "down": 4674
     },
     {
       "date": "2026-07-13",
       "volume": 25435.24,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 7019,
-      "down": 53764
+      "up": 638,
+      "down": 4888
     },
     {
       "date": "2026-07-14",
       "volume": 24092.59,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 54316,
-      "down": 6467
+      "up": 4938,
+      "down": 588
     },
     {
       "date": "2026-07-15",
       "volume": 24291.72,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 23198,
-      "down": 37585
+      "up": 2109,
+      "down": 3417
     },
     {
       "date": "2026-07-16",
       "volume": 23064.01,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 10551,
-      "down": 50232
+      "up": 959,
+      "down": 4567
     },
     {
       "date": "2026-07-17",
       "volume": 27153.05,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 6117,
-      "down": 54666
+      "up": 556,
+      "down": 4970
     },
     {
       "date": "2026-07-20",
       "volume": 28456.56,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 34901,
-      "down": 25882
+      "up": 3173,
+      "down": 2353
     },
     {
       "date": "2026-07-21",
       "volume": 30161.92,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 54097,
-      "down": 6686
+      "up": 4918,
+      "down": 608
     },
     {
       "date": "2026-07-22",
       "volume": 24875.93,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 49739,
-      "down": 11044
+      "up": 4522,
+      "down": 1004
     },
     {
       "date": "2026-07-23",
       "volume": 22803.87,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 38414,
-      "down": 22369
+      "up": 3492,
+      "down": 2034
     },
     {
       "date": "2026-07-24",
       "volume": 20676.76,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 8263,
-      "down": 52520
+      "up": 751,
+      "down": 4775
     },
     {
       "date": "2026-07-27",
       "volume": 20663.82,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 53905,
-      "down": 6878
+      "up": 4900,
+      "down": 625
     },
     {
       "date": "2026-07-28",
       "volume": 20513.45,
       "limitUp": 0,
       "limitDown": 0,
-      "up": 21532,
-      "down": 39251
+      "up": 1957,
+      "down": 3568
     },
     {
       "date": "2026-07-29",
       "volume": 23928.64,
       "limitUp": 81,
       "limitDown": 9,
-      "up": 35382,
-      "down": 25401
+      "up": 3217,
+      "down": 2309
     },
     {
       "date": "2026-07-30",
       "volume": 24562.25,
       "limitUp": 52,
       "limitDown": 74,
-      "up": 23565,
-      "down": 37218
+      "up": 2142,
+      "down": 3383
     },
     {
       "date": "2026-07-31",
       "volume": 25284.97,
       "limitUp": 99,
       "limitDown": 0,
-      "up": 29271,
-      "down": 31512
+      "up": 2661,
+      "down": 2865
     },
     {
       "date": "2026-08-03",
       "volume": 21952.24,
       "limitUp": 75,
       "limitDown": 8,
-      "up": 27673,
-      "down": 33110
+      "up": 2516,
+      "down": 3010
     },
     {
       "date": "2026-08-04",
       "volume": 23139.1,
       "limitUp": 138,
       "limitDown": 0,
-      "up": 36058,
-      "down": 24725
+      "up": 3278,
+      "down": 2248
     },
     {
       "date": "2026-08-05",
       "volume": 25431.63,
       "limitUp": 103,
       "limitDown": 1,
-      "up": 54551,
-      "down": 6232
+      "up": 4959,
+      "down": 567
     },
     {
       "date": "2026-08-06",
       "volume": 25050.76,
       "limitUp": 79,
       "limitDown": 1,
-      "up": 52091,
-      "down": 8692
+      "up": 4736,
+      "down": 790
     },
     {
       "date": "2026-08-07",
       "volume": 24666.09,
       "limitUp": 74,
       "limitDown": 4,
-      "up": 53236,
-      "down": 7547
+      "up": 4840,
+      "down": 686
     },
     {
       "date": "2026-08-10",
       "volume": 23609.32,
       "limitUp": 99,
       "limitDown": 5,
-      "up": 47551,
-      "down": 13232
+      "up": 4323,
+      "down": 1203
     },
     {
       "date": "2026-08-11",
       "volume": 22512.06,
       "limitUp": 58,
       "limitDown": 1,
-      "up": 16861,
-      "down": 43922
+      "up": 1533,
+      "down": 3993
     },
     {
       "date": "2026-08-12",
       "volume": 21670.14,
       "limitUp": 92,
       "limitDown": 0,
-      "up": 41777,
-      "down": 19006
+      "up": 3798,
+      "down": 1728
     },
     {
       "date": "2026-08-13",
       "volume": 25169.35,
       "limitUp": 59,
       "limitDown": 4,
-      "up": 10586,
-      "down": 50197
+      "up": 962,
+      "down": 4563
     },
     {
       "date": "2026-08-14",
       "volume": 21927.99,
       "limitUp": 63,
       "limitDown": 10,
-      "up": 27858,
-      "down": 32925
+      "up": 2533,
+      "down": 2993
     },
     {
       "date": "2026-08-17",
       "volume": 21728.62,
       "limitUp": 106,
       "limitDown": 1,
-      "up": 54017,
-      "down": 6766
+      "up": 4911,
+      "down": 615
     },
     {
       "date": "2026-08-18",
-      "volume": 266131.09,
+      "volume": 24193.74,
       "limitUp": 79,
       "limitDown": 5,
-      "up": 39915,
-      "down": 20868
+      "up": 3629,
+      "down": 1897
     }
   ],
   "limitUpLadders": [
@@ -3712,1466 +3712,1602 @@
   ],
   "sectors": [
     {
-      "name": "种植业与林业",
-      "sinaLabel": "new_nlmy",
-      "changePercent": 9.36,
-      "stockCount": 30,
-      "upCount": 29,
-      "downCount": 1,
-      "totalTurnover": 157.69,
-      "netInflow": 49.87,
-      "leaderName": "秋乐种业",
-      "leaderChangePercent": 29.98,
+      "name": "种子",
+      "sinaLabel": "种子",
+      "changePercent": 0.1455,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.29,
+      "leaderName": "万向德农",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "秋乐种业",
-        "农发种业"
+        "万向德农"
       ],
-      "limitUpCount": 13
+      "limitUpCount": 0
+    },
+    {
+      "name": "种植业",
+      "sinaLabel": "种植业",
+      "changePercent": 0.1183,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.24,
+      "leaderName": "万向德农",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "万向德农"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "食用菌",
+      "sinaLabel": "食用菌",
+      "changePercent": 0.1157,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.23,
+      "leaderName": "华绿生物",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "华绿生物"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "其他养殖",
+      "sinaLabel": "其他养殖",
+      "changePercent": 0.1017,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.2,
+      "leaderName": "天山生物",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "天山生物"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "粮食种植",
+      "sinaLabel": "粮食种植",
+      "changePercent": 0.0997,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.2,
+      "leaderName": "北大荒",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "北大荒"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "其他种植业",
+      "sinaLabel": "其他种植业",
+      "changePercent": 0.0735,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.15,
+      "leaderName": "亚盛集团",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "亚盛集团"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "农业综合Ⅲ",
+      "sinaLabel": "农业综合Ⅲ",
+      "changePercent": 0.0702,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.14,
+      "leaderName": "润农节水",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "润农节水"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "农业综合Ⅱ",
+      "sinaLabel": "农业综合Ⅱ",
+      "changePercent": 0.0702,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.14,
+      "leaderName": "润农节水",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "润农节水"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "农林牧渔",
+      "sinaLabel": "农林牧渔",
+      "changePercent": 0.0481,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.1,
+      "leaderName": "金健米业",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "金健米业"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "粮油加工",
+      "sinaLabel": "粮油加工",
+      "changePercent": 0.0459,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.09,
+      "leaderName": "金健米业",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "金健米业"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "复合肥",
+      "sinaLabel": "复合肥",
+      "changePercent": 0.0453,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.09,
+      "leaderName": "红四方",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "红四方"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "其他农产品加工",
+      "sinaLabel": "其他农产品加工",
+      "changePercent": 0.0391,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.08,
+      "leaderName": "中粮糖业",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "中粮糖业"
+      ],
+      "limitUpCount": 0
     },
     {
       "name": "农产品加工",
-      "sinaLabel": "new_nlmy",
-      "changePercent": 3.51,
-      "stockCount": 43,
-      "upCount": 40,
-      "downCount": 3,
-      "totalTurnover": 100.96,
-      "netInflow": 46.04,
-      "leaderName": "大北农",
-      "leaderChangePercent": 10.1,
+      "sinaLabel": "农产品加工",
+      "changePercent": 0.039,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.08,
+      "leaderName": "金健米业",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "大北农",
-        "京粮控股"
-      ],
-      "limitUpCount": 4
-    },
-    {
-      "name": "养殖业",
-      "sinaLabel": "new_nlmy",
-      "changePercent": 2.95,
-      "stockCount": 36,
-      "upCount": 30,
-      "downCount": 6,
-      "totalTurnover": 103.12,
-      "netInflow": 31.96,
-      "leaderName": "天山生物",
-      "leaderChangePercent": 20.04,
-      "topStocks": [
-        "天山生物",
-        "罗 牛 山"
-      ],
-      "limitUpCount": 3
-    },
-    {
-      "name": "农化制品",
-      "sinaLabel": "new_nyhy",
-      "changePercent": 2.3,
-      "stockCount": 59,
-      "upCount": 51,
-      "downCount": 8,
-      "totalTurnover": 190.17,
-      "netInflow": 51.4,
-      "leaderName": "农大科技",
-      "leaderChangePercent": 12.65,
-      "topStocks": [
-        "农大科技",
-        "红四方"
-      ],
-      "limitUpCount": 2
-    },
-    {
-      "name": "油气开采及服务",
-      "sinaLabel": "new_syhy",
-      "changePercent": 2.06,
-      "stockCount": 19,
-      "upCount": 17,
-      "downCount": 2,
-      "totalTurnover": 87.74,
-      "netInflow": 20.87,
-      "leaderName": "海油工程",
-      "leaderChangePercent": 7.31,
-      "topStocks": [
-        "海油工程"
+        "金健米业"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "燃气",
-      "sinaLabel": "new_gghy1",
-      "changePercent": 1.53,
-      "stockCount": 27,
-      "upCount": 26,
-      "downCount": 1,
-      "totalTurnover": 48.32,
-      "netInflow": 29.03,
-      "leaderName": "洪通燃气",
-      "leaderChangePercent": 6.07,
+      "name": "畜禽饲料",
+      "sinaLabel": "畜禽饲料",
+      "changePercent": 0.0368,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.07,
+      "leaderName": "播恩集团",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "洪通燃气"
+        "播恩集团"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "食品加工制造",
-      "sinaLabel": "new_slhy",
-      "changePercent": 1.5,
-      "stockCount": 64,
-      "upCount": 44,
-      "downCount": 20,
-      "totalTurnover": 153.23,
-      "netInflow": 30.06,
-      "leaderName": "康比特",
-      "leaderChangePercent": 11.6,
+      "name": "肉制品",
+      "sinaLabel": "肉制品",
+      "changePercent": 0.0358,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.07,
+      "leaderName": "金字火腿",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "康比特",
         "金字火腿"
       ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "工程机械",
-      "sinaLabel": "new_jxhy",
-      "changePercent": 1.21,
-      "stockCount": 34,
-      "upCount": 19,
-      "downCount": 15,
-      "totalTurnover": 62.59,
-      "netInflow": 7.67,
-      "leaderName": "万达轴承",
-      "leaderChangePercent": 10.61,
-      "topStocks": [
-        "万达轴承",
-        "南方路机"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "自动化设备",
-      "sinaLabel": "new_jxhy",
-      "changePercent": 1.04,
-      "stockCount": 96,
-      "upCount": 54,
-      "downCount": 42,
-      "totalTurnover": 630.68,
-      "netInflow": 26.69,
-      "leaderName": "频准激光",
-      "leaderChangePercent": 516.44,
-      "topStocks": [
-        "频准激光"
-      ],
       "limitUpCount": 0
     },
     {
-      "name": "电机",
-      "sinaLabel": "new_jxhy",
-      "changePercent": 1.0,
-      "stockCount": 26,
-      "upCount": 15,
-      "downCount": 11,
-      "totalTurnover": 84.35,
-      "netInflow": 7.69,
-      "leaderName": "卧龙电驱",
-      "leaderChangePercent": 7.4,
-      "topStocks": [
-        "卧龙电驱"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "光学光电子",
-      "sinaLabel": "new_dzqj",
-      "changePercent": 0.96,
-      "stockCount": 105,
-      "upCount": 58,
-      "downCount": 47,
-      "totalTurnover": 752.4,
-      "netInflow": 27.97,
-      "leaderName": "骏成科技",
-      "leaderChangePercent": 20.0,
-      "topStocks": [
-        "骏成科技",
-        "深华发Ａ"
-      ],
-      "limitUpCount": 3
-    },
-    {
-      "name": "教育",
-      "sinaLabel": "new_qqhy",
-      "changePercent": 0.92,
-      "stockCount": 15,
-      "upCount": 7,
-      "downCount": 8,
-      "totalTurnover": 28.33,
-      "netInflow": 1.41,
-      "leaderName": "学大教育",
-      "leaderChangePercent": 10.0,
-      "topStocks": [
-        "学大教育"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "港口航运",
-      "sinaLabel": "new_wlys",
-      "changePercent": 0.84,
-      "stockCount": 33,
-      "upCount": 26,
-      "downCount": 7,
-      "totalTurnover": 83.04,
-      "netInflow": 22.34,
-      "leaderName": "国航远洋",
-      "leaderChangePercent": 4.49,
-      "topStocks": [
-        "国航远洋"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "零售",
-      "sinaLabel": "new_sphy",
-      "changePercent": 0.74,
-      "stockCount": 62,
-      "upCount": 37,
-      "downCount": 25,
-      "totalTurnover": 129.82,
-      "netInflow": 16.08,
-      "leaderName": "三江购物",
-      "leaderChangePercent": 10.0,
-      "topStocks": [
-        "三江购物",
-        "全新好"
-      ],
-      "limitUpCount": 4
-    },
-    {
-      "name": "饮料制造",
-      "sinaLabel": "new_xfhy",
-      "changePercent": 0.7,
-      "stockCount": 46,
-      "upCount": 29,
-      "downCount": 17,
-      "totalTurnover": 105.82,
-      "netInflow": 15.52,
-      "leaderName": "一鸣食品",
-      "leaderChangePercent": 10.0,
-      "topStocks": [
-        "一鸣食品"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "橡胶制品",
-      "sinaLabel": "new_snhy",
-      "changePercent": 0.63,
-      "stockCount": 20,
-      "upCount": 9,
-      "downCount": 11,
-      "totalTurnover": 40.73,
+      "name": "光伏加工设备",
+      "sinaLabel": "光伏加工设备",
+      "changePercent": 0.0347,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
       "netInflow": 0.07,
-      "leaderName": "中裕科技",
-      "leaderChangePercent": 5.23,
-      "topStocks": [
-        "中裕科技"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "光伏设备",
-      "sinaLabel": "new_xnyhy",
-      "changePercent": 0.6,
-      "stockCount": 71,
-      "upCount": 34,
-      "downCount": 37,
-      "totalTurnover": 329.84,
-      "netInflow": 4.8,
       "leaderName": "迈为股份",
-      "leaderChangePercent": 13.6,
+      "leaderChangePercent": 0,
       "topStocks": [
         "迈为股份"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "石油加工贸易",
-      "sinaLabel": "new_qqhy",
-      "changePercent": 0.57,
-      "stockCount": 26,
-      "upCount": 18,
-      "downCount": 8,
-      "totalTurnover": 56.0,
-      "netInflow": 12.26,
-      "leaderName": "恒力石化",
-      "leaderChangePercent": 2.86,
+      "name": "超市",
+      "sinaLabel": "超市",
+      "changePercent": 0.0345,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.07,
+      "leaderName": "家家悦",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "恒力石化"
+        "家家悦"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "电子化学品",
-      "sinaLabel": "new_dzxx",
-      "changePercent": 0.46,
-      "stockCount": 43,
-      "upCount": 19,
-      "downCount": 24,
-      "totalTurnover": 681.94,
-      "netInflow": 9.56,
-      "leaderName": "中石科技",
-      "leaderChangePercent": 20.0,
+      "name": "机器人",
+      "sinaLabel": "机器人",
+      "changePercent": 0.0344,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.07,
+      "leaderName": "新睿电子",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "中石科技"
+        "新睿电子"
       ],
-      "limitUpCount": 1
+      "limitUpCount": 0
     },
     {
-      "name": "化学原料",
-      "sinaLabel": "new_hxxgy",
-      "changePercent": 0.45,
-      "stockCount": 55,
-      "upCount": 32,
-      "downCount": 23,
-      "totalTurnover": 149.4,
-      "netInflow": 12.89,
+      "name": "油气及炼化工程",
+      "sinaLabel": "油气及炼化工程",
+      "changePercent": 0.0338,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.07,
+      "leaderName": "海油工程",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "海油工程"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "养殖业",
+      "sinaLabel": "养殖业",
+      "changePercent": 0.0336,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.07,
+      "leaderName": "天山生物",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "天山生物"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "氮肥",
+      "sinaLabel": "氮肥",
+      "changePercent": 0.0304,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.06,
+      "leaderName": "赤天化",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "赤天化"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "水产养殖",
+      "sinaLabel": "水产养殖",
+      "changePercent": 0.0299,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.06,
+      "leaderName": "国联水产",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "国联水产"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "生猪养殖",
+      "sinaLabel": "生猪养殖",
+      "changePercent": 0.0296,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.06,
+      "leaderName": "天邦食品",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "天邦食品"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "果蔬加工",
+      "sinaLabel": "果蔬加工",
+      "changePercent": 0.0284,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.06,
+      "leaderName": "中基健康",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "中基健康"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "渔业",
+      "sinaLabel": "渔业",
+      "changePercent": 0.0266,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.05,
+      "leaderName": "国联水产",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "国联水产"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "饲料",
+      "sinaLabel": "饲料",
+      "changePercent": 0.0264,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.05,
+      "leaderName": "播恩集团",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "播恩集团"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "油服工程",
+      "sinaLabel": "油服工程",
+      "changePercent": 0.0232,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.05,
+      "leaderName": "海油工程",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "海油工程"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "烘焙食品",
+      "sinaLabel": "烘焙食品",
+      "changePercent": 0.0231,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.05,
+      "leaderName": "桂发祥",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "桂发祥"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "动物保健Ⅲ",
+      "sinaLabel": "动物保健Ⅲ",
+      "changePercent": 0.0227,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.05,
+      "leaderName": "大禹生物",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "大禹生物"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "动物保健Ⅱ",
+      "sinaLabel": "动物保健Ⅱ",
+      "changePercent": 0.0227,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.05,
+      "leaderName": "大禹生物",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "大禹生物"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "农化制品",
+      "sinaLabel": "农化制品",
+      "changePercent": 0.0225,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "红四方",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "红四方"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "海洋捕捞",
+      "sinaLabel": "海洋捕捞",
+      "changePercent": 0.0221,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "中水渔业",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "中水渔业"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "磷肥及磷化工",
+      "sinaLabel": "磷肥及磷化工",
+      "changePercent": 0.0204,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "川金诺",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "川金诺"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "半导体材料",
+      "sinaLabel": "半导体材料",
+      "changePercent": 0.0202,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "有研硅",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "有研硅"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "无机盐",
+      "sinaLabel": "无机盐",
+      "changePercent": 0.0201,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
       "leaderName": "红星发展",
-      "leaderChangePercent": 10.01,
+      "leaderChangePercent": 0,
       "topStocks": [
-        "红星发展",
-        "百合花"
-      ],
-      "limitUpCount": 5
-    },
-    {
-      "name": "煤炭开采加工",
-      "sinaLabel": "new_lthy",
-      "changePercent": 0.43,
-      "stockCount": 32,
-      "upCount": 20,
-      "downCount": 12,
-      "totalTurnover": 131.68,
-      "netInflow": 11.49,
-      "leaderName": "宝泰隆",
-      "leaderChangePercent": 3.37,
-      "topStocks": [
-        "宝泰隆"
+        "红星发展"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "通用设备",
-      "sinaLabel": "new_jxhy",
-      "changePercent": 0.41,
-      "stockCount": 249,
-      "upCount": 119,
-      "downCount": 130,
-      "totalTurnover": 748.98,
-      "netInflow": 4.8,
-      "leaderName": "鼎阳科技",
-      "leaderChangePercent": 20.0,
+      "name": "宠物食品",
+      "sinaLabel": "宠物食品",
+      "changePercent": 0.0199,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "路斯股份",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "鼎阳科技",
-        "东方中科"
-      ],
-      "limitUpCount": 4
-    },
-    {
-      "name": "贵金属",
-      "sinaLabel": "new_gthy",
-      "changePercent": 0.4,
-      "stockCount": 14,
-      "upCount": 8,
-      "downCount": 6,
-      "totalTurnover": 231.17,
-      "netInflow": 7.42,
-      "leaderName": "招金黄金",
-      "leaderChangePercent": 4.34,
-      "topStocks": [
-        "招金黄金"
+        "路斯股份"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "塑料制品",
-      "sinaLabel": "new_snhy",
-      "changePercent": 0.38,
-      "stockCount": 77,
-      "upCount": 34,
-      "downCount": 43,
-      "totalTurnover": 268.22,
-      "netInflow": -2.88,
-      "leaderName": "瑞丰高材",
-      "leaderChangePercent": 15.36,
+      "name": "面板",
+      "sinaLabel": "面板",
+      "changePercent": 0.0193,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "骏成科技",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "瑞丰高材",
-        "艾艾精工"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "汽车零部件",
-      "sinaLabel": "new_qczz",
-      "changePercent": 0.33,
-      "stockCount": 263,
-      "upCount": 121,
-      "downCount": 142,
-      "totalTurnover": 478.8,
-      "netInflow": -10.76,
-      "leaderName": "襄阳轴承",
-      "leaderChangePercent": 10.05,
-      "topStocks": [
-        "襄阳轴承",
-        "正裕工业"
-      ],
-      "limitUpCount": 5
-    },
-    {
-      "name": "轨交设备",
-      "sinaLabel": "new_cbzz",
-      "changePercent": 0.3,
-      "stockCount": 29,
-      "upCount": 13,
-      "downCount": 16,
-      "totalTurnover": 26.63,
-      "netInflow": -1.87,
-      "leaderName": "研奥股份",
-      "leaderChangePercent": 6.63,
-      "topStocks": [
-        "研奥股份"
+        "骏成科技"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "非金属材料",
-      "sinaLabel": "new_jzqg",
-      "changePercent": 0.28,
-      "stockCount": 15,
-      "upCount": 10,
-      "downCount": 5,
-      "totalTurnover": 93.35,
-      "netInflow": 7.43,
-      "leaderName": "平安电工",
-      "leaderChangePercent": 4.45,
+      "name": "煤化工",
+      "sinaLabel": "煤化工",
+      "changePercent": 0.0184,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "金牛化工",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "平安电工"
+        "金牛化工"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "金属新材料",
-      "sinaLabel": "new_gthy",
-      "changePercent": 0.26,
-      "stockCount": 33,
-      "upCount": 13,
-      "downCount": 20,
-      "totalTurnover": 94.31,
-      "netInflow": -4.59,
-      "leaderName": "大地熊",
-      "leaderChangePercent": 15.84,
+      "name": "定制家居",
+      "sinaLabel": "定制家居",
+      "changePercent": 0.0179,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.04,
+      "leaderName": "王力安防",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "大地熊"
+        "王力安防"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "白酒",
-      "sinaLabel": "new_xfhy",
-      "changePercent": 0.24,
-      "stockCount": 19,
-      "upCount": 10,
-      "downCount": 9,
-      "totalTurnover": 112.97,
-      "netInflow": 3.74,
-      "leaderName": "顺鑫农业",
-      "leaderChangePercent": 2.57,
+      "name": "休闲食品",
+      "sinaLabel": "休闲食品",
+      "changePercent": 0.0173,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "桂发祥",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "顺鑫农业"
+        "桂发祥"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "银行",
-      "sinaLabel": "new_zqqy",
-      "changePercent": 0.24,
-      "stockCount": 40,
-      "upCount": 23,
-      "downCount": 17,
-      "totalTurnover": 253.66,
-      "netInflow": 11.55,
+      "name": "零食",
+      "sinaLabel": "零食",
+      "changePercent": 0.0172,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "黑芝麻",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "黑芝麻"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "油气开采Ⅲ",
+      "sinaLabel": "油气开采Ⅲ",
+      "changePercent": 0.0166,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "ST洲际",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "ST洲际"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "油气开采Ⅱ",
+      "sinaLabel": "油气开采Ⅱ",
+      "changePercent": 0.0166,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "ST洲际",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "ST洲际"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "农药",
+      "sinaLabel": "农药",
+      "changePercent": 0.0163,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "绿亨科技",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "绿亨科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "食品及饲料添加剂",
+      "sinaLabel": "食品及饲料添加剂",
+      "changePercent": 0.0158,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "蔚蓝生物",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "蔚蓝生物"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "食品加工",
+      "sinaLabel": "食品加工",
+      "changePercent": 0.0157,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "金字火腿",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "金字火腿"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "半导体设备",
+      "sinaLabel": "半导体设备",
+      "changePercent": 0.0156,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "华亚智能",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "华亚智能"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "油田服务",
+      "sinaLabel": "油田服务",
+      "changePercent": 0.0153,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "科力股份",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "科力股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "国有大型银行Ⅲ",
+      "sinaLabel": "国有大型银行Ⅲ",
+      "changePercent": 0.0151,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
       "leaderName": "中国银行",
-      "leaderChangePercent": 2.2,
+      "leaderChangePercent": 0,
       "topStocks": [
         "中国银行"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "半导体",
-      "sinaLabel": "new_dzqj",
-      "changePercent": 0.23,
-      "stockCount": 184,
-      "upCount": 85,
-      "downCount": 99,
-      "totalTurnover": 3864.48,
-      "netInflow": 63.75,
-      "leaderName": "有研硅",
-      "leaderChangePercent": 13.43,
+      "name": "燃气Ⅲ",
+      "sinaLabel": "燃气Ⅲ",
+      "changePercent": 0.0151,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "洪通燃气",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "有研硅",
-        "华亚智能"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "汽车服务及其他",
-      "sinaLabel": "new_qczz",
-      "changePercent": 0.2,
-      "stockCount": 26,
-      "upCount": 10,
-      "downCount": 16,
-      "totalTurnover": 33.49,
-      "netInflow": -4.93,
-      "leaderName": "华洋赛车",
-      "leaderChangePercent": 8.5,
-      "topStocks": [
-        "华洋赛车"
+        "洪通燃气"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "专用设备",
-      "sinaLabel": "new_jxhy",
-      "changePercent": 0.19,
-      "stockCount": 194,
-      "upCount": 85,
-      "downCount": 109,
-      "totalTurnover": 488.96,
-      "netInflow": -13.84,
-      "leaderName": "浩淼科技",
-      "leaderChangePercent": 19.82,
+      "name": "燃气Ⅱ",
+      "sinaLabel": "燃气Ⅱ",
+      "changePercent": 0.0151,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "洪通燃气",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "浩淼科技",
-        "石化机械"
-      ],
-      "limitUpCount": 2
-    },
-    {
-      "name": "其他社会服务",
-      "sinaLabel": "new_qqhy",
-      "changePercent": 0.14,
-      "stockCount": 40,
-      "upCount": 16,
-      "downCount": 24,
-      "totalTurnover": 59.43,
-      "netInflow": -6.53,
-      "leaderName": "天溯计量",
-      "leaderChangePercent": 11.66,
-      "topStocks": [
-        "天溯计量"
+        "洪通燃气"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "服装家纺",
-      "sinaLabel": "new_qqhy",
-      "changePercent": 0.13,
-      "stockCount": 70,
-      "upCount": 32,
-      "downCount": 38,
-      "totalTurnover": 64.73,
-      "netInflow": -4.45,
-      "leaderName": "哈森股份",
-      "leaderChangePercent": 10.01,
+      "name": "合成树脂",
+      "sinaLabel": "合成树脂",
+      "changePercent": 0.015,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "上纬新材",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "哈森股份"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "物流",
-      "sinaLabel": "new_wlys",
-      "changePercent": 0.11,
-      "stockCount": 47,
-      "upCount": 20,
-      "downCount": 27,
-      "totalTurnover": 49.78,
-      "netInflow": -5.78,
-      "leaderName": "原尚股份",
-      "leaderChangePercent": 6.51,
-      "topStocks": [
-        "原尚股份"
+        "上纬新材"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "白色家电",
-      "sinaLabel": "new_jdhy",
-      "changePercent": 0.1,
-      "stockCount": 43,
-      "upCount": 21,
-      "downCount": 22,
-      "totalTurnover": 140.45,
-      "netInflow": 2.01,
-      "leaderName": "华翔股份",
-      "leaderChangePercent": 10.01,
+      "name": "纺织鞋类制造",
+      "sinaLabel": "纺织鞋类制造",
+      "changePercent": 0.0147,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "华利集团",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "华翔股份"
+        "华利集团"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "小家电",
-      "sinaLabel": "new_jdhy",
-      "changePercent": 0.1,
-      "stockCount": 26,
-      "upCount": 11,
-      "downCount": 15,
-      "totalTurnover": 33.62,
-      "netInflow": -3.13,
+      "name": "炼油化工",
+      "sinaLabel": "炼油化工",
+      "changePercent": 0.0143,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "恒逸石化",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "恒逸石化"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "硅料硅片",
+      "sinaLabel": "硅料硅片",
+      "changePercent": 0.0138,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "华民股份",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "华民股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "商业物业经营",
+      "sinaLabel": "商业物业经营",
+      "changePercent": 0.0137,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "全新好",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "全新好"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "清洁小家电",
+      "sinaLabel": "清洁小家电",
+      "changePercent": 0.0137,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
       "leaderName": "石头科技",
-      "leaderChangePercent": 6.68,
+      "leaderChangePercent": 0,
       "topStocks": [
         "石头科技"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "钢铁",
-      "sinaLabel": "new_gthy",
-      "changePercent": 0.04,
-      "stockCount": 38,
-      "upCount": 17,
-      "downCount": 21,
-      "totalTurnover": 70.32,
-      "netInflow": -2.51,
-      "leaderName": "甬金股份",
-      "leaderChangePercent": 6.91,
+      "name": "肉鸡养殖",
+      "sinaLabel": "肉鸡养殖",
+      "changePercent": 0.0137,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "立华股份",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "甬金股份"
+        "立华股份"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "化学纤维",
-      "sinaLabel": "new_hxxgy",
-      "changePercent": 0.01,
-      "stockCount": 29,
-      "upCount": 12,
-      "downCount": 17,
-      "totalTurnover": 65.84,
-      "netInflow": -3.66,
-      "leaderName": "天富龙",
-      "leaderChangePercent": 10.01,
+      "name": "鞋帽及其他",
+      "sinaLabel": "鞋帽及其他",
+      "changePercent": 0.0136,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "哈森股份",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "天富龙"
+        "哈森股份"
       ],
-      "limitUpCount": 1
+      "limitUpCount": 0
     },
     {
-      "name": "化学制品",
-      "sinaLabel": "new_hxxgy",
-      "changePercent": -0.02,
-      "stockCount": 179,
-      "upCount": 76,
-      "downCount": 103,
-      "totalTurnover": 490.47,
-      "netInflow": -17.23,
-      "leaderName": "ST宁科",
-      "leaderChangePercent": 10.11,
+      "name": "培训教育",
+      "sinaLabel": "培训教育",
+      "changePercent": 0.0134,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "学大教育",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "ST宁科",
-        "百合花"
+        "学大教育"
       ],
-      "limitUpCount": 3
+      "limitUpCount": 0
     },
     {
-      "name": "建筑装饰",
-      "sinaLabel": "new_jzzs",
-      "changePercent": -0.09,
-      "stockCount": 137,
-      "upCount": 44,
-      "downCount": 93,
-      "totalTurnover": 320.54,
-      "netInflow": -42.77,
+      "name": "石油石化",
+      "sinaLabel": "石油石化",
+      "changePercent": 0.0129,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "海油工程",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "海油工程"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "仪器仪表",
+      "sinaLabel": "仪器仪表",
+      "changePercent": 0.0129,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.03,
+      "leaderName": "鼎阳科技",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "鼎阳科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "其他专业服务",
+      "sinaLabel": "其他专业服务",
+      "changePercent": 0.0123,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "国义招标",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "国义招标"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "油品石化贸易",
+      "sinaLabel": "油品石化贸易",
+      "changePercent": 0.0121,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "和顺石油",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "和顺石油"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "橡胶助剂",
+      "sinaLabel": "橡胶助剂",
+      "changePercent": 0.0119,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "彤程新材",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "彤程新材"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "光学光电子",
+      "sinaLabel": "光学光电子",
+      "changePercent": 0.0118,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "骏成科技",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "骏成科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "机床工具",
+      "sinaLabel": "机床工具",
+      "changePercent": 0.0116,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "秦川机床",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "秦川机床"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "林业Ⅲ",
+      "sinaLabel": "林业Ⅲ",
+      "changePercent": 0.0113,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "平潭发展",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "平潭发展"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "林业Ⅱ",
+      "sinaLabel": "林业Ⅱ",
+      "changePercent": 0.0113,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "平潭发展",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "平潭发展"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "钾肥",
+      "sinaLabel": "钾肥",
+      "changePercent": 0.0112,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "亚钾国际",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "亚钾国际"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "钢结构",
+      "sinaLabel": "钢结构",
+      "changePercent": 0.011,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
       "leaderName": "富煌钢构",
-      "leaderChangePercent": 10.1,
+      "leaderChangePercent": 0,
       "topStocks": [
         "富煌钢构"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "家居用品",
-      "sinaLabel": "new_jjhy",
-      "changePercent": -0.1,
-      "stockCount": 95,
-      "upCount": 43,
-      "downCount": 52,
-      "totalTurnover": 89.2,
-      "netInflow": -7.42,
-      "leaderName": "爱丽家居",
-      "leaderChangePercent": 10.01,
+      "name": "工程机械器件",
+      "sinaLabel": "工程机械器件",
+      "changePercent": 0.0108,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "万通液压",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "爱丽家居",
-        "王力安防"
-      ],
-      "limitUpCount": 2
-    },
-    {
-      "name": "建筑材料",
-      "sinaLabel": "new_jzqg",
-      "changePercent": -0.1,
-      "stockCount": 69,
-      "upCount": 28,
-      "downCount": 41,
-      "totalTurnover": 285.02,
-      "netInflow": -7.5,
-      "leaderName": "法狮龙",
-      "leaderChangePercent": 4.63,
-      "topStocks": [
-        "法狮龙"
+        "万通液压"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "消费电子",
-      "sinaLabel": "new_xfhy",
-      "changePercent": -0.11,
-      "stockCount": 96,
-      "upCount": 39,
-      "downCount": 57,
-      "totalTurnover": 647.12,
-      "netInflow": -5.28,
-      "leaderName": "共达电声",
-      "leaderChangePercent": 8.38,
+      "name": "乳品",
+      "sinaLabel": "乳品",
+      "changePercent": 0.0107,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "一鸣食品",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "共达电声"
+        "一鸣食品"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "其他电子",
-      "sinaLabel": "new_dzqj",
-      "changePercent": -0.14,
-      "stockCount": 34,
-      "upCount": 11,
-      "downCount": 23,
-      "totalTurnover": 237.7,
-      "netInflow": -7.53,
-      "leaderName": "旭光电子",
-      "leaderChangePercent": 9.99,
-      "topStocks": [
-        "旭光电子"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "旅游及酒店",
-      "sinaLabel": "new_qqhy",
-      "changePercent": -0.15,
-      "stockCount": 33,
-      "upCount": 17,
-      "downCount": 16,
-      "totalTurnover": 25.54,
-      "netInflow": 1.21,
-      "leaderName": "张家界",
-      "leaderChangePercent": 1.81,
-      "topStocks": [
-        "张家界"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "黑色家电",
-      "sinaLabel": "new_jdhy",
-      "changePercent": -0.2,
-      "stockCount": 9,
-      "upCount": 2,
-      "downCount": 7,
-      "totalTurnover": 22.55,
-      "netInflow": -4.95,
-      "leaderName": "海信视像",
-      "leaderChangePercent": 3.56,
-      "topStocks": [
-        "海信视像"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "元件",
-      "sinaLabel": "new_dzqj",
-      "changePercent": -0.23,
-      "stockCount": 61,
-      "upCount": 23,
-      "downCount": 38,
-      "totalTurnover": 1278.78,
-      "netInflow": 10.12,
-      "leaderName": "金禄电子",
-      "leaderChangePercent": 11.06,
-      "topStocks": [
-        "金禄电子",
-        "博敏电子"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "贸易",
-      "sinaLabel": "new_qqhy",
-      "changePercent": -0.27,
-      "stockCount": 14,
-      "upCount": 6,
-      "downCount": 8,
-      "totalTurnover": 10.53,
-      "netInflow": -2.33,
-      "leaderName": "远大控股",
-      "leaderChangePercent": 1.77,
-      "topStocks": [
-        "远大控股",
-        "物产环能"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "美容护理",
-      "sinaLabel": "new_qqhy",
-      "changePercent": -0.27,
-      "stockCount": 32,
-      "upCount": 12,
-      "downCount": 20,
-      "totalTurnover": 33.27,
-      "netInflow": -7.87,
-      "leaderName": "芭薇股份",
-      "leaderChangePercent": 2.57,
-      "topStocks": [
-        "芭薇股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "纺织制造",
-      "sinaLabel": "new_qqhy",
-      "changePercent": -0.29,
-      "stockCount": 31,
-      "upCount": 13,
-      "downCount": 18,
-      "totalTurnover": 39.18,
-      "netInflow": -4.8,
-      "leaderName": "金春股份",
-      "leaderChangePercent": 12.75,
-      "topStocks": [
-        "金春股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "造纸",
-      "sinaLabel": "new_zjhy",
-      "changePercent": -0.32,
-      "stockCount": 23,
-      "upCount": 7,
-      "downCount": 16,
-      "totalTurnover": 32.03,
-      "netInflow": -9.0,
-      "leaderName": "景兴纸业",
-      "leaderChangePercent": 7.75,
-      "topStocks": [
-        "景兴纸业"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "计算机设备",
-      "sinaLabel": "new_dzxx",
-      "changePercent": -0.39,
-      "stockCount": 83,
-      "upCount": 20,
-      "downCount": 63,
-      "totalTurnover": 363.92,
-      "netInflow": -36.5,
-      "leaderName": "飞天诚信",
-      "leaderChangePercent": 10.17,
-      "topStocks": [
-        "飞天诚信",
-        "魅视科技"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "环境治理",
-      "sinaLabel": "new_hbhy",
-      "changePercent": -0.41,
-      "stockCount": 108,
-      "upCount": 32,
-      "downCount": 76,
-      "totalTurnover": 146.43,
-      "netInflow": -41.89,
-      "leaderName": "九州一轨",
-      "leaderChangePercent": 12.32,
-      "topStocks": [
-        "九州一轨"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "公路铁路运输",
-      "sinaLabel": "new_wlys",
-      "changePercent": -0.41,
-      "stockCount": 30,
-      "upCount": 8,
-      "downCount": 22,
-      "totalTurnover": 31.85,
-      "netInflow": -14.18,
-      "leaderName": "大秦铁路",
-      "leaderChangePercent": 0.85,
-      "topStocks": [
-        "大秦铁路"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "房地产",
-      "sinaLabel": "new_fdc",
-      "changePercent": -0.42,
-      "stockCount": 83,
-      "upCount": 22,
-      "downCount": 61,
-      "totalTurnover": 132.73,
-      "netInflow": -37.19,
-      "leaderName": "盈新发展",
-      "leaderChangePercent": 10.0,
-      "topStocks": [
-        "盈新发展"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "医疗器械",
-      "sinaLabel": "new_ylqx",
-      "changePercent": -0.45,
-      "stockCount": 139,
-      "upCount": 44,
-      "downCount": 95,
-      "totalTurnover": 222.72,
-      "netInflow": -47.45,
-      "leaderName": "浩欧博",
-      "leaderChangePercent": 7.91,
-      "topStocks": [
-        "浩欧博"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "工业金属",
-      "sinaLabel": "new_gthy",
-      "changePercent": -0.46,
-      "stockCount": 55,
-      "upCount": 9,
-      "downCount": 46,
-      "totalTurnover": 326.63,
-      "netInflow": -31.39,
-      "leaderName": "华峰铝业",
-      "leaderChangePercent": 10.01,
-      "topStocks": [
-        "华峰铝业"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "医药商业",
-      "sinaLabel": "new_zyyd",
-      "changePercent": -0.52,
-      "stockCount": 31,
-      "upCount": 9,
-      "downCount": 22,
-      "totalTurnover": 70.92,
-      "netInflow": -12.62,
-      "leaderName": "开开实业",
-      "leaderChangePercent": 9.98,
-      "topStocks": [
-        "开开实业"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "厨卫电器",
-      "sinaLabel": "new_jdhy",
-      "changePercent": -0.53,
-      "stockCount": 9,
-      "upCount": 2,
-      "downCount": 7,
-      "totalTurnover": 7.19,
-      "netInflow": -5.92,
-      "leaderName": "火星人",
-      "leaderChangePercent": 1.88,
-      "topStocks": [
-        "火星人"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "包装印刷",
-      "sinaLabel": "new_yysc",
-      "changePercent": -0.58,
-      "stockCount": 46,
-      "upCount": 13,
-      "downCount": 33,
-      "totalTurnover": 50.24,
-      "netInflow": -20.16,
-      "leaderName": "*ST集友",
-      "leaderChangePercent": 3.75,
-      "topStocks": [
-        "*ST集友"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "软件开发",
-      "sinaLabel": "new_dzxx",
-      "changePercent": -0.6,
-      "stockCount": 136,
-      "upCount": 28,
-      "downCount": 108,
-      "totalTurnover": 448.59,
-      "netInflow": -72.23,
-      "leaderName": "诚迈科技",
-      "leaderChangePercent": 20.01,
-      "topStocks": [
-        "诚迈科技",
-        "魅视科技"
-      ],
-      "limitUpCount": 4
-    },
-    {
-      "name": "电网设备",
-      "sinaLabel": "new_fdsb",
-      "changePercent": -0.6,
-      "stockCount": 140,
-      "upCount": 42,
-      "downCount": 98,
-      "totalTurnover": 422.6,
-      "netInflow": -48.75,
-      "leaderName": "日丰股份",
-      "leaderChangePercent": 10.01,
-      "topStocks": [
-        "日丰股份"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "化学制药",
-      "sinaLabel": "new_zyyd",
-      "changePercent": -0.6,
-      "stockCount": 153,
-      "upCount": 45,
-      "downCount": 108,
-      "totalTurnover": 524.91,
-      "netInflow": -53.7,
-      "leaderName": "神奇制药",
-      "leaderChangePercent": 10.07,
-      "topStocks": [
-        "神奇制药",
-        "丰原药业"
-      ],
-      "limitUpCount": 4
-    },
-    {
-      "name": "小金属",
-      "sinaLabel": "new_gthy",
-      "changePercent": -0.65,
-      "stockCount": 29,
-      "upCount": 10,
-      "downCount": 19,
-      "totalTurnover": 475.67,
-      "netInflow": -0.79,
+      "name": "钨",
+      "sinaLabel": "钨",
+      "changePercent": 0.0105,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
       "leaderName": "中钨高新",
-      "leaderChangePercent": 3.48,
+      "leaderChangePercent": 0,
       "topStocks": [
         "中钨高新"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "机场航运",
-      "sinaLabel": "new_wlys",
-      "changePercent": -0.72,
-      "stockCount": 12,
-      "upCount": 1,
-      "downCount": 11,
-      "totalTurnover": 20.1,
-      "netInflow": -11.04,
-      "leaderName": "厦门空港",
-      "leaderChangePercent": 0.48,
-      "topStocks": [
-        "厦门空港"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "汽车整车",
-      "sinaLabel": "new_qczz",
-      "changePercent": -0.73,
-      "stockCount": 22,
-      "upCount": 4,
-      "downCount": 18,
-      "totalTurnover": 81.21,
-      "netInflow": -13.84,
-      "leaderName": "宇通客车",
-      "leaderChangePercent": 2.21,
-      "topStocks": [
-        "宇通客车"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "军工电子",
-      "sinaLabel": "new_zyyd",
-      "changePercent": -0.78,
-      "stockCount": 63,
-      "upCount": 15,
-      "downCount": 48,
-      "totalTurnover": 222.48,
-      "netInflow": -30.11,
-      "leaderName": "航天电器",
-      "leaderChangePercent": 10.01,
-      "topStocks": [
-        "航天电器"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "保险",
-      "sinaLabel": "new_zqqy",
-      "changePercent": -0.85,
-      "stockCount": 4,
+      "name": "航运",
+      "sinaLabel": "航运",
+      "changePercent": 0.0104,
+      "stockCount": 0,
       "upCount": 0,
-      "downCount": 4,
-      "totalTurnover": 58.91,
-      "netInflow": -4.52,
-      "leaderName": "中国太保",
-      "leaderChangePercent": -0.56,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "国航远洋",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "中国太保"
+        "国航远洋"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "电力",
-      "sinaLabel": "new_dlhy",
-      "changePercent": -0.87,
-      "stockCount": 108,
-      "upCount": 25,
-      "downCount": 83,
-      "totalTurnover": 357.39,
-      "netInflow": -52.59,
-      "leaderName": "物产环能",
-      "leaderChangePercent": 10.0,
-      "topStocks": [
-        "物产环能",
-        "日丰股份"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "IT服务",
-      "sinaLabel": "new_dzxx",
-      "changePercent": -0.92,
-      "stockCount": 129,
-      "upCount": 30,
-      "downCount": 99,
-      "totalTurnover": 621.76,
-      "netInflow": -58.4,
-      "leaderName": "托普云农",
-      "leaderChangePercent": 10.76,
-      "topStocks": [
-        "托普云农",
-        "魅视科技"
-      ],
-      "limitUpCount": 4
-    },
-    {
-      "name": "军工装备",
-      "sinaLabel": "new_zyyd",
-      "changePercent": -0.92,
-      "stockCount": 82,
-      "upCount": 22,
-      "downCount": 60,
-      "totalTurnover": 272.17,
-      "netInflow": -34.4,
-      "leaderName": "三瑞智能",
-      "leaderChangePercent": 3.7,
-      "topStocks": [
-        "三瑞智能"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "环保设备",
-      "sinaLabel": "new_hbhy",
-      "changePercent": -0.94,
-      "stockCount": 30,
-      "upCount": 10,
-      "downCount": 20,
-      "totalTurnover": 61.75,
-      "netInflow": -10.64,
-      "leaderName": "恒合股份",
-      "leaderChangePercent": 4.11,
-      "topStocks": [
-        "恒合股份"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "通信设备",
-      "sinaLabel": "new_txfw",
-      "changePercent": -0.95,
-      "stockCount": 91,
-      "upCount": 21,
-      "downCount": 70,
-      "totalTurnover": 1800.17,
-      "netInflow": -14.9,
-      "leaderName": "德科立",
-      "leaderChangePercent": 7.42,
-      "topStocks": [
-        "德科立"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "文化传媒",
-      "sinaLabel": "new_cmyl",
-      "changePercent": -0.95,
-      "stockCount": 84,
-      "upCount": 19,
-      "downCount": 65,
-      "totalTurnover": 219.18,
-      "netInflow": -43.52,
-      "leaderName": "龙版传媒",
-      "leaderChangePercent": 10.02,
-      "topStocks": [
-        "龙版传媒"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "中药",
-      "sinaLabel": "new_zyyd",
-      "changePercent": -1.04,
-      "stockCount": 65,
-      "upCount": 13,
-      "downCount": 52,
-      "totalTurnover": 141.98,
-      "netInflow": -38.24,
-      "leaderName": "粤万年青",
-      "leaderChangePercent": 16.11,
-      "topStocks": [
-        "粤万年青"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "综合",
-      "sinaLabel": "new_qqhy",
-      "changePercent": -1.07,
-      "stockCount": 18,
-      "upCount": 6,
-      "downCount": 12,
-      "totalTurnover": 53.92,
-      "netInflow": -7.06,
-      "leaderName": "ST三木",
-      "leaderChangePercent": 2.18,
-      "topStocks": [
-        "ST三木"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "其他电源设备",
-      "sinaLabel": "new_dlhy",
-      "changePercent": -1.1,
-      "stockCount": 34,
-      "upCount": 7,
-      "downCount": 27,
-      "totalTurnover": 169.42,
-      "netInflow": -18.81,
-      "leaderName": "中远通",
-      "leaderChangePercent": 16.46,
-      "topStocks": [
-        "中远通"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "互联网电商",
-      "sinaLabel": "new_cmyl",
-      "changePercent": -1.14,
-      "stockCount": 20,
-      "upCount": 6,
-      "downCount": 14,
-      "totalTurnover": 72.3,
-      "netInflow": -8.83,
-      "leaderName": "新迅达",
-      "leaderChangePercent": 1.15,
-      "topStocks": [
-        "新迅达",
-        "中国软件"
-      ],
-      "limitUpCount": 1
-    },
-    {
-      "name": "多元金融",
-      "sinaLabel": "new_zqqy",
-      "changePercent": -1.21,
-      "stockCount": 23,
-      "upCount": 3,
-      "downCount": 20,
-      "totalTurnover": 41.83,
-      "netInflow": -18.58,
-      "leaderName": "仁东控股",
-      "leaderChangePercent": 2.4,
-      "topStocks": [
-        "仁东控股"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "电池",
-      "sinaLabel": "new_xnyhy",
-      "changePercent": -1.25,
-      "stockCount": 104,
-      "upCount": 21,
-      "downCount": 83,
-      "totalTurnover": 587.67,
-      "netInflow": -52.75,
-      "leaderName": "杭可科技",
-      "leaderChangePercent": 9.89,
-      "topStocks": [
-        "杭可科技"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "风电设备",
-      "sinaLabel": "new_fdsb",
-      "changePercent": -1.29,
-      "stockCount": 30,
-      "upCount": 3,
-      "downCount": 27,
-      "totalTurnover": 85.3,
-      "netInflow": -24.87,
-      "leaderName": "锡华科技",
-      "leaderChangePercent": 3.43,
-      "topStocks": [
-        "锡华科技"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "通信服务",
-      "sinaLabel": "new_txfw",
-      "changePercent": -1.46,
-      "stockCount": 44,
-      "upCount": 10,
-      "downCount": 34,
-      "totalTurnover": 209.67,
-      "netInflow": -22.73,
-      "leaderName": "世纪鼎利",
-      "leaderChangePercent": 6.77,
-      "topStocks": [
-        "世纪鼎利"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "生物制品",
-      "sinaLabel": "new_zyyd",
-      "changePercent": -1.53,
-      "stockCount": 54,
-      "upCount": 9,
-      "downCount": 45,
-      "totalTurnover": 161.81,
-      "netInflow": -35.82,
-      "leaderName": "康华生物",
-      "leaderChangePercent": 11.31,
-      "topStocks": [
-        "康华生物"
-      ],
-      "limitUpCount": 0
-    },
-    {
-      "name": "证券",
-      "sinaLabel": "new_zqqy",
-      "changePercent": -1.59,
-      "stockCount": 50,
+      "name": "保健品",
+      "sinaLabel": "保健品",
+      "changePercent": 0.0102,
+      "stockCount": 0,
       "upCount": 0,
-      "downCount": 50,
-      "totalTurnover": 236.91,
-      "netInflow": -48.44,
-      "leaderName": "兴业证券",
-      "leaderChangePercent": -0.51,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "康比特",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "兴业证券"
+        "康比特"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "游戏",
-      "sinaLabel": "new_cmyl",
-      "changePercent": -1.75,
-      "stockCount": 24,
-      "upCount": 1,
-      "downCount": 23,
-      "totalTurnover": 106.47,
-      "netInflow": -23.37,
-      "leaderName": "世纪华通",
-      "leaderChangePercent": 1.35,
+      "name": "检测服务",
+      "sinaLabel": "检测服务",
+      "changePercent": 0.01,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "天溯计量",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "世纪华通"
+        "天溯计量"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "医疗服务",
-      "sinaLabel": "new_ylqx",
-      "changePercent": -1.82,
-      "stockCount": 56,
-      "upCount": 12,
-      "downCount": 44,
-      "totalTurnover": 381.48,
-      "netInflow": -28.01,
-      "leaderName": "康龙化成",
-      "leaderChangePercent": 2.08,
+      "name": "饮料乳品",
+      "sinaLabel": "饮料乳品",
+      "changePercent": 0.0097,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "一鸣食品",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "康龙化成"
+        "一鸣食品"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "能源金属",
-      "sinaLabel": "new_gthy",
-      "changePercent": -1.97,
-      "stockCount": 13,
-      "upCount": 2,
-      "downCount": 11,
-      "totalTurnover": 150.65,
-      "netInflow": -9.93,
-      "leaderName": "*ST威领",
-      "leaderChangePercent": 3.22,
+      "name": "一般零售",
+      "sinaLabel": "一般零售",
+      "changePercent": 0.0097,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "家家悦",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "*ST威领"
+        "家家悦"
       ],
       "limitUpCount": 0
     },
     {
-      "name": "影视院线",
-      "sinaLabel": "new_cmyl",
-      "changePercent": -2.21,
-      "stockCount": 20,
-      "upCount": 2,
-      "downCount": 18,
-      "totalTurnover": 59.92,
-      "netInflow": -19.22,
-      "leaderName": "ST华谊",
-      "leaderChangePercent": 1.12,
+      "name": "食品饮料",
+      "sinaLabel": "食品饮料",
+      "changePercent": 0.0096,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "桂发祥",
+      "leaderChangePercent": 0,
       "topStocks": [
-        "ST华谊"
+        "桂发祥"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "自动化设备",
+      "sinaLabel": "自动化设备",
+      "changePercent": 0.0095,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "新睿电子",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "新睿电子"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "水产饲料",
+      "sinaLabel": "水产饲料",
+      "changePercent": 0.0094,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "海大集团",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "海大集团"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "黄金",
+      "sinaLabel": "黄金",
+      "changePercent": 0.0092,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "招金黄金",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "招金黄金"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "电机Ⅲ",
+      "sinaLabel": "电机Ⅲ",
+      "changePercent": 0.0091,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "卧龙电驱",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "卧龙电驱"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "电机Ⅱ",
+      "sinaLabel": "电机Ⅱ",
+      "changePercent": 0.0091,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "卧龙电驱",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "卧龙电驱"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "快递",
+      "sinaLabel": "快递",
+      "changePercent": 0.0091,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "圆通速递",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "圆通速递"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "工程机械",
+      "sinaLabel": "工程机械",
+      "changePercent": 0.0084,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "南方路机",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "南方路机"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "动力煤",
+      "sinaLabel": "动力煤",
+      "changePercent": 0.0084,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "广汇能源",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "广汇能源"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "磁性材料",
+      "sinaLabel": "磁性材料",
+      "changePercent": 0.0083,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "大地熊",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "大地熊"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "家纺",
+      "sinaLabel": "家纺",
+      "changePercent": 0.0083,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "众望布艺",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "众望布艺"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "光学元件",
+      "sinaLabel": "光学元件",
+      "changePercent": 0.0082,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "腾景科技",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "腾景科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "电子化学品Ⅲ",
+      "sinaLabel": "电子化学品Ⅲ",
+      "changePercent": 0.0082,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "中石科技",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "中石科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "电子化学品Ⅱ",
+      "sinaLabel": "电子化学品Ⅱ",
+      "changePercent": 0.0082,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "中石科技",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "中石科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "航运港口",
+      "sinaLabel": "航运港口",
+      "changePercent": 0.0081,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "国航远洋",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "国航远洋"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "改性塑料",
+      "sinaLabel": "改性塑料",
+      "changePercent": 0.0081,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "金发科技",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "金发科技"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "瓷砖地板",
+      "sinaLabel": "瓷砖地板",
+      "changePercent": 0.0076,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "爱丽家居",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "爱丽家居"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "软饮料",
+      "sinaLabel": "软饮料",
+      "changePercent": 0.0076,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.02,
+      "leaderName": "承德露露",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "承德露露"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "炼化及贸易",
+      "sinaLabel": "炼化及贸易",
+      "changePercent": 0.0075,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.01,
+      "leaderName": "恒逸石化",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "恒逸石化"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "农用机械",
+      "sinaLabel": "农用机械",
+      "changePercent": 0.0075,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.01,
+      "leaderName": "丰安股份",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "丰安股份"
+      ],
+      "limitUpCount": 0
+    },
+    {
+      "name": "预加工食品",
+      "sinaLabel": "预加工食品",
+      "changePercent": 0.0075,
+      "stockCount": 0,
+      "upCount": 0,
+      "downCount": 0,
+      "totalTurnover": 0,
+      "netInflow": 0.01,
+      "leaderName": "克明食品",
+      "leaderChangePercent": 0,
+      "topStocks": [
+        "克明食品"
       ],
       "limitUpCount": 0
     }
