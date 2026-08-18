@@ -371,9 +371,15 @@ for i, row in hist_df.iterrows():
 # 8/13 跑出 25673,append 到 history 末尾(8/14 跑时 history[-1] = 8/13 收盘)
 # v2.0.7cq:周末 cron 不会跑(UTC 7:35/10:30 北京时间,周一到周五),但防御性再过滤一次
 if TODAY.weekday() < 5:  # 周一到周五才 append
+    # v2.0.7dt:写完整字段(之前只写 volume — up/down/limitUp/limitDown 都 undefined,React 组件读 history 末点时 0:0)
     history.append({
         'date': TODAY.strftime('%Y-%m-%d'),
         'volume': round(total_turnover, 2),  # 当日收盘成交额(8/13 实际 25673 准)
+        'up': up_count,
+        'down': down_count,
+        'flat': flat_count,
+        'limitUp': int(_change_dist['up_ge_10']),
+        'limitDown': int(_change_dist['down_ge_10']),
     })
 print(f"  历史 {len(history)} 个交易日(末 1 用今日 marketTurnover 准)")
 
