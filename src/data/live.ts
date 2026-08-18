@@ -178,8 +178,14 @@ export async function fetchMarketSummary(): Promise<{
   if (_isWeekendCN()) {
     return null;
   }
-  const TOTAL_PAGES = 55;
-  const CONCURRENCY = 10;
+  // v2.0.7dl:5 页推算 55 页(限流时 5 页大概率能拉到)
+  // — 之前 55 页并发 10,sina 限流时全部返空 → allStocks 0 → 返 0 → React 走 baseData 11:30
+  // — 改 5 页 500 只 + ×11 推算 5500 只,sina 限流时 5 页也能拉 1-3 页 → 推算数字
+  // — 推算误差 ~10%,比 baseData stale 11:30 好(差 1-2 小时)
+  // — user 14:00-14:30 em 限流时 useLiveData 也能拉
+  const TOTAL_PAGES = 5;
+  const CONCURRENCY = 5;
+  const SCALE = 11;  // 推算比例:5500 / 500
   const allStocks: SinaStock[] = [];
   for (let i = 1; i <= TOTAL_PAGES; i += CONCURRENCY) {
     const batch: Promise<SinaStock[]>[] = [];
@@ -191,8 +197,11 @@ export async function fetchMarketSummary(): Promise<{
       allStocks.push(...arr);
     }
     if (results.every((r) => r.length < 100)) break;
-    // 10 并发,sina 容易限流,加 50ms 间隔
     if (i + CONCURRENCY < TOTAL_PAGES + 1) await new Promise((r) => setTimeout(r, 50));
+  }
+  // v2.0.7dl:5 页拉不到任何数据 → 返 null
+  if (allStocks.length === 0) {
+    return null;
   }
   let up = 0, down = 0, flat = 0, total = 0, lu = 0, ld = 0;
   // v2.0.7ab:涨跌分布 11 档分桶
@@ -230,10 +239,15 @@ export async function fetchMarketSummary(): Promise<{
     else if (cp <= -19.97 && cp > -21) ld++;
     total += amt;
   }
+  // v2.0.7dl:5 页推算 55 页 — 5 页 sample 乘 11 倍
+  // (limitUp/limitDown 推算用 lu*11/ld*11 — 误差大但比 0:0 强)
   return {
-    upCount: up, downCount: down, flatCount: flat,
-    totalTurnover: Math.round(total / 1e8),
-    limitUpCount: lu, limitDownCount: ld,
+    upCount: Math.round(up * SCALE),
+    downCount: Math.round(down * SCALE),
+    flatCount: Math.round(flat * SCALE),
+    totalTurnover: Math.round(total / 1e8 * SCALE),
+    limitUpCount: Math.round(lu * SCALE),
+    limitDownCount: Math.round(ld * SCALE),
     changeDistribution: dist,
   };
 }
