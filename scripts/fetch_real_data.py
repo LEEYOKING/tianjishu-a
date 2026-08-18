@@ -183,9 +183,13 @@ print(f"  sina 累加 {stock_total} 只(全市场 A股) ↑{up_count} ↓{down_c
 # v2.0.7aa:涨跌分布分桶(11 档,跟 user 截图一致)
 # 跌:>10% / 10~7 / 7~5 / 5~3 / 3~0   平:0   涨:0~3 / 3~5 / 5~7 / 7~10 / >10%
 # 颜色:红涨绿跌 — 涨是红,跌是绿
+# v2.0.7do:涨跌分布 11 档阈值跟 useLiveData fetchMarketSummary 一致(9.97%)
+# — 之前 _change >= 10 算涨停 — 漏 9.97-10% 之间的涨停(8/18 14:50 em 132 vs sina 73)
+# — 改 _change >= 9.97 — 跟 em 9.99% 阈值 + sina 9.97-11% 阈值 一致
+# — baseData 涨停数 = 132(跟 useLiveData em 实时一致)— 不再用户困惑'76:5 → 132:22'跳变
 _change = spot_df['涨跌幅'].astype(float)
 _change_dist = {
-    'down_ge_10':    int((_change < -10).sum()),
+    'down_ge_10':    int((_change <= -9.97).sum()),  # v2.0.7do:-9.97 对齐 9.97%
     'down_10_to_7':  int(((_change >= -10) & (_change < -7)).sum()),
     'down_7_to_5':   int(((_change >= -7)  & (_change < -5)).sum()),
     'down_5_to_3':   int(((_change >= -5)  & (_change < -3)).sum()),
@@ -195,7 +199,7 @@ _change_dist = {
     'up_3_to_5':     int(((_change >= 3)   & (_change < 5)).sum()),
     'up_5_to_7':     int(((_change >= 5)   & (_change < 7)).sum()),
     'up_7_to_10':    int(((_change >= 7)   & (_change < 10)).sum()),
-    'up_ge_10':      int((_change >= 10).sum()),
+    'up_ge_10':      int((_change >= 9.97).sum()),  # v2.0.7do:9.97 对齐 9.99% 阈值
 }
 print(f"  涨跌分布: 跌 {_change_dist['down_3_to_0']} 涨 {_change_dist['up_0_to_3']} 涨停 {_change_dist['up_ge_10']} 跌停 {_change_dist['down_ge_10']}")
 
