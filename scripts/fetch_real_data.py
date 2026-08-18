@@ -471,13 +471,20 @@ def _fetch_margin_history():
     """返回 list[dict{date, margin_balance, margin_balance_diff}],失败返 None
     v2.0.7ab:只用 sh 一份(akshare sh + sz 实际都返回"沪深两市合计",不能相加)
     验证:5/22 sh=14688.01亿,同花顺=14688.01亿 ✓ 一致
+    v2.0.7dg:ak.macro_china_market_margin_sh 限流严(8/17 19:07 跑时返到 8/14,实际能拉到 8/17)
+      → 加 retry 3 次,2s 间隔,大概率能拉到最新数据
+      → 仍失败才返 None(降级用 HEAD 旧数据)
     """
     df = None
-    try:
-        df = ak.macro_china_market_margin_sh()
-    except Exception as e:
-        print(f"    沪深融资融券 失败: {e}")
-        return None
+    for attempt in range(3):
+        try:
+            df = ak.macro_china_market_margin_sh()
+            if df is not None and len(df) > 0:
+                break
+            print(f"    沪深融资融券 第 {attempt+1} 次:返空,重试...")
+        except Exception as e:
+            print(f"    沪深融资融券 第 {attempt+1} 次 失败: {e}")
+        time.sleep(2)
     if df is None or len(df) == 0:
         return None
     # 取最近 60 个交易日
@@ -506,6 +513,7 @@ def _fetch_margin_history():
     # 计算每日净流入
     for i in range(1, len(out)):
         out[i]['margin_balance_diff'] = round(out[i]['margin_balance'] - out[i-1]['margin_balance'], 2)
+    print(f"    沪深融资融券 OK,最后日期:{out[-1]['date'] if out else 'N/A'},{len(out)} 天")
     return out
 
 _main_capital_flow = _fetch_main_capital_flow_20d()
