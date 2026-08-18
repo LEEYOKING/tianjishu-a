@@ -422,7 +422,12 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       });
     } else {
       // v2.0.7g:date 相同时也更新 limitUp/limitDown(1.3 涨跌停曲线图 bug 修复)
-      const liveLimits = (live.market && (live.market.upCount + live.market.downCount + live.market.flatCount) >= 600)
+      // v2.0.7dq:阈值 600 → 100(v2.0.7ct em 限流部分数据)— 但还要检查 limitUp/limitDown > 0
+      // — em 限流返 limitUpCount=0(v2.0.7dp f17 拿不到)— 走 baseData 不然曲线图末点 0:0
+      const liveLimits = (live.market
+        && (live.market.upCount + live.market.downCount + live.market.flatCount) >= 100
+        && live.market.limitUpCount > 0
+        && live.market.limitDownCount > 0)
         ? { limitUp: live.market.limitUpCount, limitDown: live.market.limitDownCount }
         : { limitUp: next.marketOverview.limitUpCount, limitDown: next.marketOverview.limitDownCount };
       next.history[next.history.length - 1] = {
