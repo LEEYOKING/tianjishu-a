@@ -392,9 +392,14 @@ for i, row in hist_df.iterrows():
 # 8/13 跑出 25673,append 到 history 末尾(8/14 跑时 history[-1] = 8/13 收盘)
 # v2.0.7cq:周末 cron 不会跑(UTC 7:35/10:30 北京时间,周一到周五),但防御性再过滤一次
 if TODAY.weekday() < 5:  # 周一到周五才 append
+    # v2.0.7dy:append 前先删除 8/18 旧末点(避免 6 次 cron 累加变成 6 倍)
+    # 之前 fetch-data 多次跑(18:18-18:43)— 每次 append 8/18 末点 — 6 次累加 = 6× 5 页推算 = 异常大
+    # 修法:append 前先 removeIf 8/18 末点 — 8/18 当日只保留最新 1 个末点
+    today_date = TODAY.strftime('%Y-%m-%d')
+    history[:] = [h for h in history if h.get('date') != today_date]
     # v2.0.7dt:写完整字段(之前只写 volume — up/down/limitUp/limitDown 都 undefined,React 组件读 history 末点时 0:0)
     history.append({
-        'date': TODAY.strftime('%Y-%m-%d'),
+        'date': today_date,
         'volume': round(total_turnover, 2),  # 当日收盘成交额(8/13 实际 25673 准)
         'up': up_count,
         'down': down_count,

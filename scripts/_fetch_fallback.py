@@ -121,28 +121,18 @@ turnover_diff = round(total_turnover - yesterday_vol, 2)
 if HEAD_DATA.get('history'):
     last_date = HEAD_DATA['history'][-1].get('date', '')
     today_date = TRADE_DATE_DASH
-    if last_date != today_date:
-        # 8/18 当日新点 push
-        HEAD_DATA['history'].append({
-            'date': today_date,
-            'volume': total_turnover,
-            'up': up,
-            'down': down,
-            'flat': flat,
-            'limitUp': lu,
-            'limitDown': ld,
-        })
-    else:
-        # 同一天 — 更新末点(v2.0.7dt 写完整字段)
-        HEAD_DATA['history'][-1] = {
-            **HEAD_DATA['history'][-1],
-            'volume': total_turnover,
-            'up': up,
-            'down': down,
-            'flat': flat,
-            'limitUp': lu,
-            'limitDown': ld,
-        }
+    # v2.0.7dy:append 前先删除 8/18 旧末点(避免多次 cron 累加)
+    HEAD_DATA['history'][:] = [h for h in HEAD_DATA['history'] if h.get('date') != today_date]
+    # 8/18 当日新点 push
+    HEAD_DATA['history'].append({
+        'date': today_date,
+        'volume': total_turnover,
+        'up': up,
+        'down': down,
+        'flat': flat,
+        'limitUp': lu,
+        'limitDown': ld,
+    })
 
 mo = HEAD_DATA['marketOverview']
 mo['tradeDate'] = TRADE_DATE
