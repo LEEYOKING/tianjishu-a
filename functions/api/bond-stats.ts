@@ -4,7 +4,7 @@
 
 import { fetchJsonWithFallback, isWeekendCN, jsonResponse, handleOptions } from '../_lib/em';
 
-const CACHE_TTL = 10;
+const CACHE_TTL = 0;//v2.0.7di 不写 cache,避免 stale 8/17 残留
 
 export async function onRequestGet(context: { request: Request; env: any }): Promise<Response> {
   const startTime = Date.now();
@@ -21,15 +21,18 @@ export async function onRequestGet(context: { request: Request; env: any }): Pro
     });
   }
 
+  // v2.0.7di:cache 检查 — CACHE_TTL=0 时跳过
   const cacheKey = 'https://tianjishu-api/bond-stats';
   const cache = caches.default;
-  const cached = await cache.match(cacheKey);
-  if (cached) {
-    const ageHeader = cached.headers.get('X-Cache-Age');
-    const age = ageHeader ? parseInt(ageHeader) : 999;
-    if (age < CACHE_TTL) {
-      const data = await cached.json();
-      return jsonResponse({ ...data, source: 'cache', latency_ms: Date.now() - startTime });
+  if (CACHE_TTL > 0) {
+    const cached = await cache.match(cacheKey);
+    if (cached) {
+      const ageHeader = cached.headers.get('X-Cache-Age');
+      const age = ageHeader ? parseInt(ageHeader) : 999;
+      if (age < CACHE_TTL) {
+        const data = await cached.json();
+        return jsonResponse({ ...data, source: 'cache', latency_ms: Date.now() - startTime });
+      }
     }
   }
 
@@ -61,9 +64,14 @@ export async function onRequestGet(context: { request: Request; env: any }): Pro
         'X-Cache-Age': '0',
       },
     });
-    context.executionCtx?.waitUntil(cache.put(cacheKey, resp.clone()));
+    if (CACHE_TTL > 0) {
+      context.executionCtx?.waitUntil(cache.put(cacheKey, resp.clone()));
+    }
     return resp;
   } catch (e: any) {
+    if (CACHE_TTL > 0) {
+      context.executionCtx?.waitUntil(cache.delete(cacheKey));
+    }
     return jsonResponse({
       source: 'fallback',
       isWeekend: false,

@@ -4,7 +4,10 @@
 
 import { fetchJsonWithFallback, isLimitUp, isLimitDown, isWeekendCN, jsonResponse, handleOptions } from '../_lib/em';
 
-const CACHE_TTL = 10;  // 10s cache(盘中 10s 实时)
+// v2.0.7di:CACHE_TTL 0(不写 cache)— 之前 10s cache 在 em 限流时残留 stale 8/17 数据
+// React useLiveData 20s 拉一次,每次命中 8/17 cache → user 一直看到 8/17 收盘数字
+// 修法:不写 cache,em 拉失败时直接返 null(React 走 baseData)
+const CACHE_TTL = 0;  // 0 = 不 cache(盘中 10s 实时改用每次 fetch)
 
 export async function onRequestGet(context: { request: Request; env: any }): Promise<Response> {
   const startTime = Date.now();
@@ -23,16 +26,18 @@ export async function onRequestGet(context: { request: Request; env: any }): Pro
     });
   }
 
-  // 1. cache 检查(走 Cloudflare Cache API)
+  // v2.0.7di:cache 检查 — CACHE_TTL=0 时跳过(不命中任何 cache,避免 stale 残留)
   const cacheKey = 'https://tianjishu-api/market-stats';
   const cache = caches.default;
-  const cached = await cache.match(cacheKey);
-  if (cached) {
-    const ageHeader = cached.headers.get('X-Cache-Age');
-    const age = ageHeader ? parseInt(ageHeader) : 999;
-    if (age < CACHE_TTL) {
-      const data = await cached.json();
-      return jsonResponse({ ...data, source: 'cache', latency_ms: Date.now() - startTime });
+  if (CACHE_TTL > 0) {
+    const cached = await cache.match(cacheKey);
+    if (cached) {
+      const ageHeader = cached.headers.get('X-Cache-Age');
+      const age = ageHeader ? parseInt(ageHeader) : 999;
+      if (age < CACHE_TTL) {
+        const data = await cached.json();
+        return jsonResponse({ ...data, source: 'cache', latency_ms: Date.now() - startTime });
+      }
     }
   }
 
@@ -94,7 +99,7 @@ export async function onRequestGet(context: { request: Request; env: any }): Pro
       latency_ms: Date.now() - startTime,
     };
 
-    // 写 cache
+    // 写 cache — v2.0.7di:CACHE_TTL=0 时不写(避免 em 限流后 cache 残留 stale 8/17)
     const resp = new Response(JSON.stringify(result), {
       headers: {
         'Content-Type': 'application/json',
@@ -102,9 +107,15 @@ export async function onRequestGet(context: { request: Request; env: any }): Pro
         'X-Cache-Age': '0',
       },
     });
-    context.executionCtx?.waitUntil(cache.put(cacheKey, resp.clone()));
+    if (CACHE_TTL > 0) {
+      context.executionCtx?.waitUntil(cache.put(cacheKey, resp.clone()));
+    }
     return resp;
   } catch (e: any) {
+    // v2.0.7di:em 拉失败时删 cache(防止 stale 8/17 cache 残留)
+    if (CACHE_TTL > 0) {
+      context.executionCtx?.waitUntil(cache.delete(cacheKey));
+    }
     return jsonResponse({
       source: 'fallback',
       isWeekend: false,
