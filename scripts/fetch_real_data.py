@@ -557,7 +557,15 @@ def _fetch_margin_history():
     # 计算每日净流入
     for i in range(1, len(out)):
         out[i]['margin_balance_diff'] = round(out[i]['margin_balance'] - out[i-1]['margin_balance'], 2)
-    print(f"    沪深融资融券 OK,最后日期:{out[-1]['date'] if out else 'N/A'},{len(out)} 天")
+    # v2.0.7eb:akshare 数据源延迟 1 天(8/18 收盘后只到 8/17)— 末行日期 != today 时不返
+    # — 避免 8/18 18:10 cron 跑时拉到 stale 8/17 末点覆盖 baseData 已有 8/17 末点(看起来没更新)
+    # — 等 8/19 9:35 cron 跑时,akshare 末行 = 8/18 → 写 8/18 末点
+    last_date = out[-1]['date'] if out else ''
+    today_str = TODAY.strftime('%Y-%m-%d')
+    if last_date and last_date < today_str:
+        print(f"    沪深融资融券 末行 {last_date} < today {today_str} (akshare 延迟),不覆盖 baseData")
+        return None
+    print(f"    沪深融资融券 OK,最后日期:{last_date},{len(out)} 天")
     return out
 
 _main_capital_flow = _fetch_main_capital_flow_20d()
@@ -1074,6 +1082,46 @@ for _, row in ths_ind_df.iterrows():
         'limitUpCount': cnt,
     })
 sectors.sort(key=lambda s: s['changePercent'], reverse=True)
+
+# v2.0.7ed:概念 / 地域 fallback 函数 — ths 限流时用 em 申万概念 / 申万地域
+def _fetch_em_sector_fallback(fs, limit=30, label='概念'):
+    """用 em m:90+t:3 / m:90+t:1 拉概念 / 地域 — 限流时 fallback em push2delay
+    fs: m:90+t:3 (申万概念) / m:90+t:1 (申万地域)
+    """
+    out = []
+    for domain in ['https://push2.eastmoney.com', 'https://82.push2.eastmoney.com', 'https://push2his.eastmoney.com', 'https://push2delay.eastmoney.com']:
+        try:
+            url = f'{domain}/api/qt/clist/get?pn=1&pz={limit}&po=1&np=1&fltt=2&invt=2&fs={fs}&fields=f3,f12,f14,f128&fid=f3'
+            req = urllib.request.Request(url, headers={
+                'User-Agent': 'Mozilla/5.0',
+                'Referer': 'https://quote.eastmoney.com/',
+            })
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                data = _json.loads(resp.read())
+                diff = data.get('data', {}).get('diff', [])
+                if diff:
+                    for s in diff:
+                        name = s.get('f14', '')
+                        pct = s.get('f3', 0) / 100
+                        leader = s.get('f128', '') or '-'
+                        out.append({
+                            'name': name,
+                            'sinaLabel': name,
+                            'changePercent': round(pct, 4),
+                            'stockCount': 0,
+                            'upCount': 0,
+                            'downCount': 0,
+                            'totalTurnover': 0,
+                            'netInflow': 0,
+                            'leaderName': leader if leader and leader != '--' else '-',
+                            'leaderChangePercent': 0,
+                            'topStocks': [leader] if leader and leader != '--' else ['-', '-'],
+                            'limitUpCount': 0,
+                        })
+                    return out[:limit]
+        except Exception:
+            continue
+    return out
 print(f"  行业板块 {len(sectors)} 个")
 
 # ========== 概念板块(同花顺 30 个) ==========
@@ -1180,10 +1228,15 @@ try:
         except Exception as e:
             continue
     concept_sectors.sort(key=lambda s: s['changePercent'], reverse=True)
-    print(f"  概念板块 {len(concept_sectors)} 个")
+    print(f"  概念板块(ths) {len(concept_sectors)} 个")
 except Exception as e:
-    print(f"  概念板块 失败: {e}")
-    concept_sectors = []
+    print(f"  概念板块(ths) 失败: {e}")
+    # v2.0.7ed:ths 限流时 fallback 到 em m:90+t:3 申万概念(em 限流时用 em push2delay + 标 stale 注释)
+    concept_sectors = _fetch_em_sector_fallback('m:90+t:3', limit=30, label='概念')
+    if concept_sectors:
+        print(f"  概念板块(em fallback) {len(concept_sectors)} 个")
+    else:
+        print(f"  概念板块: 无数据,留空 — 等下个 cron em 限流恢复再拉")
 
 # ========== 地域板块(15 个同花顺省份/地域概念) ==========
 print("  地域板块(15 个同花顺省份/地域概念)...")
@@ -1284,10 +1337,15 @@ try:
         except Exception as e:
             continue
     region_sectors.sort(key=lambda s: s['changePercent'], reverse=True)
-    print(f"  地域板块 {len(region_sectors)} 个")
+    print(f"  地域板块(ths) {len(region_sectors)} 个")
 except Exception as e:
-    print(f"  地域板块 失败: {e}")
-    region_sectors = []
+    print(f"  地域板块(ths) 失败: {e}")
+    # v2.0.7ed:ths 限流时 fallback 到 em m:90+t:1 申万地域
+    region_sectors = _fetch_em_sector_fallback('m:90+t:1', limit=20, label='地域')
+    if region_sectors:
+        print(f"  地域板块(em fallback) {len(region_sectors)} 个")
+    else:
+        print(f"  地域板块: 无数据,留空 — 等下个 cron em 限流恢复再拉")
 
 # 龙虎榜 + 情绪温度 — v2.0.7ad 真接数据(不 mock)
 import sys
