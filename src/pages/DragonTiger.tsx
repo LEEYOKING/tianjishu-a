@@ -85,7 +85,7 @@ export default function DragonTiger({ data }: { data: ReportData }) {
           grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 12px;
         }
-        @media (max-width: 1600px) {
+        @media (max-width: 1700px) {
           .dt-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
           }
