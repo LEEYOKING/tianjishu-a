@@ -560,20 +560,30 @@ export default function Overview({ data }: { data: ReportData }) {
 }
 
 // ====== 时间判断(盘中/收盘)— v1.9.1:只保留 2 个状态 ======
-export function getMarketSession(now = new Date()): { label: string; color: string; bg: string } {
-  const day = now.getDay();
-  const h = now.getHours();
-  const m = now.getMinutes();
+// v2.0.7dh:用东八区时间(跟 isLiveMarket 一致)— 海外 user 浏览器(UTC)判断错
+// v2.0.7dj:加 9:30-10:00 早盘限流期 → 显示 "盘中实时数据将在10:00后逐步更新"
+//  — 之前 9:30-10:00 显示"盘中实时数据",但 em/akshare 限流严,user 看到 baseData 困惑
+//  — 改后:明确告知 user 限流期 + 等 10:00 cron 跑
+export function getMarketSession(): { label: string; color: string; bg: string } {
+  // v2.0.7dh:用东八区时间
+  const d = new Date(Date.now() + 8 * 3600 * 1000);
+  const day = d.getUTCDay();
+  const h = d.getUTCHours();
+  const m = d.getUTCMinutes();
   const mins = h * 60 + m;
   // 周末 → 收盘复盘
   if (day === 0 || day === 6) {
     return { label: '收盘复盘数据', color: '#4b5563', bg: '#F0F1F2' };
   }
-  // 交易时段 9:30 ~ 15:00 → 盘中实时
-  if (mins >= 9 * 60 + 30 && mins < 15 * 60) {
+  // v2.0.7dj:早盘限流期 9:30-10:00 → 限流提示(等 10:00 cron 跑 + em 限流恢复)
+  if (mins >= 9 * 60 + 30 && mins < 10 * 60) {
+    return { label: '盘中实时数据将在10:00后逐步更新', color: '#ff4d4f', bg: 'rgba(255, 77, 79, 0.1)' };
+  }
+  // 交易时段 10:00 ~ 15:00 → 盘中实时(em 限流恢复)
+  if (mins >= 10 * 60 && mins < 15 * 60) {
     return { label: '盘中实时数据', color: '#ff4d4f', bg: 'rgba(255, 77, 79, 0.1)' };
   }
-  // 其他时间(9:30 前 / 15:00 后 / 中午) → 收盘复盘
+  // 其他时间(10:00 前 / 15:00 后 / 中午) → 收盘复盘
   return { label: '收盘复盘数据', color: '#4b5563', bg: '#F0F1F2' };
 }
 

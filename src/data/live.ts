@@ -364,6 +364,14 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats | null> {
   if (r.totalTurnover === 0 && r.upCount === 0 && r.downCount === 0) {
     return null;
   }
+  // v2.0.7dj:涨跌停 = 0 但 mktTotal > 0(em/sina 限流返部分数据)— 返 null
+  // — 8/18 11:30 早盘限流 → sina 55 页只前 5 页返 → upCount 500 但 limitUpCount=0
+  // — 走 baseData 80:7(错,user 期望 sticky em 实时算的 56:4)
+  // — 修法:涨跌停 0 + 涨/跌 > 0 → 限流信号 → 返 null → React state sticky prev
+  if (r.limitUpCount === 0 && r.limitDownCount === 0 && (r.upCount > 0 || r.downCount > 0)) {
+    console.warn('[fetchEMMarketStats] 涨跌停=0 但涨/跌>0(em/sina 限流部分数据),返 null 让 useState sticky 保留 prev 涨跌停');
+    return null;
+  }
   return {
     upCount: r.upCount,
     downCount: r.downCount,

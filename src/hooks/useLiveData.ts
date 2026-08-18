@@ -34,6 +34,20 @@ export function isLiveMarket(): boolean {
   return mins >= 9 * 60 + 30 && mins < 15 * 60;
 }
 
+// v2.0.7dj:早盘限流期 9:30-10:00(北京)— 跟 isLiveMarket 区别:
+//  isLiveMarket 9:30-10:00 返 true(用 useLiveData 拉实时)
+//  isEarlyTradingHours 9:30-10:00 返 true(显示限流提示)
+// 用途:PageHeader 红色标签文案切换
+//  - 9:30-10:00 + useLiveData 没拉到数据(限流)→ "盘中实时数据将在10:00后逐步更新"
+//  - 10:00 后(限流大概率恢复)+ useLiveData 拉到数据 → "盘中实时数据"
+export function isEarlyTradingHours(): boolean {
+  const now = new Date(Date.now() + 8 * 3600 * 1000);
+  const day = now.getUTCDay();
+  if (day === 0 || day === 6) return false;
+  const mins = now.getUTCHours() * 60 + now.getUTCMinutes();
+  return mins >= 9 * 60 + 30 && mins < 10 * 60;
+}
+
 // v2.0.7p:9:30 集合竞价前(交易日)— 9:15 集合竞价开始,但 sina 在 9:05 也能拉到少量"集合竞价预报价"
 // 看着像"半数据"(如 1 涨 / 5499 平盘)。这段时间清零 A 股统计(避免显示半数据),
 // v2.0.7bc:用东八区时间判断(海外 user 浏览器本地时间 < 9:30 会被误判为 preMarket)
