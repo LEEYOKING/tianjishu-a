@@ -21,11 +21,16 @@ import {
 import type { ReportData } from '../data/loader';
 
 // 判断是否在 A 股交易时段(供组件 UI 用)
+// v2.0.7dh:用东八区时间(跟 isPreMarket 一致)— 之前用 new Date() 本地时间
+//  → 海外 user 浏览器(UTC)11:30 北京 = 03:30 UTC,isLiveMarket 返 false
+//  → useLiveData 不跑 fastTick,卡片走 baseData 8/17 收盘
+//  → 跟"盘中应该看实时"矛盾
+// 修法:用 Date.now() + 8h 算东八区时间,getUTCDay/getUTCHours 取东八区时间
 export function isLiveMarket(): boolean {
-  const now = new Date();
-  const day = now.getDay();
+  const now = new Date(Date.now() + 8 * 3600 * 1000);
+  const day = now.getUTCDay();
   if (day === 0 || day === 6) return false;
-  const mins = now.getHours() * 60 + now.getMinutes();
+  const mins = now.getUTCHours() * 60 + now.getUTCMinutes();
   return mins >= 9 * 60 + 30 && mins < 15 * 60;
 }
 
