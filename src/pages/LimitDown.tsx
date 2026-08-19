@@ -64,23 +64,26 @@ export default function LimitDown({ data }: { data: ReportData }) {
       }}>
         {/* 用户 #4 反馈:删除左上角股票名列表(重复) */}
         <div style={{ overflowX: 'auto' }}>
-          {/* 用户 #12 反馈:列宽均衡 — 8 列均分 */}
-          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 960, tableLayout: 'fixed' }}>
+          {/* v2.0.7es:9 列(加"当前价"在"所属行业"和"涨跌幅"之间) */}
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 1020, tableLayout: 'fixed' }}>
             <colgroup>
-              <col style={{ width: '11%' }} />    {/* 代码 */}
-              <col style={{ width: '11%' }} />    {/* 名称 */}
-              <col style={{ width: '14%' }} />    {/* 所属行业 */}
-              <col style={{ width: '12%' }} />    {/* 涨跌幅 */}
-              <col style={{ width: '12%' }} />    {/* 连续跌停 */}
-              <col style={{ width: '12%' }} />    {/* 换手率 */}
+              <col style={{ width: '9%' }} />     {/* 代码 */}
+              <col style={{ width: '9%' }} />     {/* 名称 */}
+              <col style={{ width: '12%' }} />    {/* 所属行业 */}
+              <col style={{ width: '10%' }} />    {/* 当前价(v2.0.7es 新增) */}
+              <col style={{ width: '11%' }} />    {/* 涨跌幅 */}
+              <col style={{ width: '10%' }} />    {/* 连续跌停 */}
+              <col style={{ width: '10%' }} />    {/* 换手率 */}
               <col style={{ width: '13%' }} />    {/* 成交额 */}
-              <col style={{ width: '15%' }} />    {/* 封单资金 */}
+              <col style={{ width: '16%' }} />    {/* 封单资金 */}
             </colgroup>
             <thead>
               <tr>
                 <th style={HEAD_STYLE}>代码</th>
                 <th style={HEAD_STYLE}>名称</th>
                 <th style={HEAD_STYLE}>所属行业</th>
+                {/* v2.0.7es:新增"当前价"列(所属行业和涨跌幅之间)— 读取 closePrice 字段 */}
+                <th style={HEAD_STYLE}>当前价</th>
                 <th style={HEAD_STYLE}>涨跌幅</th>
                 <th style={HEAD_STYLE}>连续跌停</th>
                 <th style={HEAD_STYLE}>换手率</th>
@@ -93,7 +96,7 @@ export default function LimitDown({ data }: { data: ReportData }) {
               {/* v2.0.7af:data 为空时友好提示(避免 user 看到空表格) */}
               {data.limitDownStocks.length === 0 && (
                 <tr>
-                  <td colSpan={8} style={{ ...CELL_STYLE, textAlign: 'center', padding: '40px 0', color: '#86909C' }}>
+                  <td colSpan={9} style={{ ...CELL_STYLE, textAlign: 'center', padding: '40px 0', color: '#86909C' }}>
                     今日暂无跌停股票(全天 <strong style={{ color: '#0ecd70' }}>0</strong> 只)
                   </td>
                 </tr>
@@ -103,6 +106,8 @@ export default function LimitDown({ data }: { data: ReportData }) {
                   <td style={CELL_STYLE}>{s.code}</td>
                   <td style={{ ...CELL_STYLE, color: '#1890FF' }}>{s.name}</td>
                   <td style={CELL_STYLE}>{s.industry}</td>
+                  {/* v2.0.7es:显示 closePrice(从 akshare 跌停池 em 取最新价)— 保留 2 位小数 */}
+                  <td style={CELL_STYLE}>{s.closePrice ? s.closePrice.toFixed(2) : '-'}</td>
                   <td style={CELL_STYLE}>
                     <ColorText value={s.changePercent} mode="percent" withSign />
                   </td>
