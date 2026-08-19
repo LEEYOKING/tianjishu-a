@@ -140,7 +140,7 @@ export function ChangeDistributionCard({ data }: Props) {
       <div style={{ height: 24 }} />
 
       {/* 底部块 — 左右 30px 统一 */}
-      <div style={{ paddingBottom: 25 }}>
+      <div style={{ paddingBottom: 20 }}>
         <div style={{ display: 'flex', gap: 16, padding: '0 30px 4px', fontSize: 13, color: '#4b5563' }}>
           <span>
             <span style={{ color: '#111827', fontWeight: 600 }}>涨跌</span>{' '}
