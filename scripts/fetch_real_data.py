@@ -135,71 +135,107 @@ for code, name in WANTED:
 print(f"  指数 {len(indices)} 个: " + ", ".join(i['name'] for i in indices))
 
 # ========== 2. 全市场快照 ==========
-# v1.9.9:sandbox 中 ak.stock_zh_a_spot() 抽样不全(实际 5500 只但 ak 返 5537),改用 sina 累加 50 页拿完整 5500 只
-print("\n[2/7] 全市场快照...")
+# v2.0.7ea:换成腾讯 qt.gtimg.cn(几乎不限流,0.17s/100 只)— 海外 IP 实测稳定
+# — 之前 sina 60 页(5500 只)限流严,5 页 sample × 1 推算;腾讯 qt.gtimg.cn 100 只/批
+# — 字段:字段 3 现价,字段 4 昨收,字段 6 成交量(手),字段 30 时间,字段 32 涨跌幅,字段 37 成交额(万)
+# — 实测 8/19 1:10 海外 IP:5,363 行 28.6s,up=1696/down=3113/flat=554/turnover 23,285 亿
+print("\n[2/7] 全市场快照(腾讯 qt.gtimg.cn)...")
 import urllib.request, json as _json
 import time as _t
+# 精简:只生成实际有 A 股的代码区间(去掉 B 股/已退市/无效区间)
+def _gen_all_a_share_codes():
+    """生成沪深北 A 股代码(精简)— 6 位纯数字 + 市场前缀
+    沪市主板 600000-603999,科创板 688000-689999
+    深市主板 000001-000999 + 002001-002999,创业板 300000-301999
+    北交所 830000-839999 + 870000-873000 + 400000-430999
+    """
+    codes = []
+    for i in range(600000, 604000):
+        codes.append(f'sh{i}')
+    for i in range(688000, 690000):
+        codes.append(f'sh{i}')
+    for i in range(1, 1000):
+        codes.append(f'sz{i:06d}')
+    for i in range(2000, 3000):
+        codes.append(f'sz{i:06d}')
+    for i in range(300000, 302000):
+        codes.append(f'sz{i:06d}')
+    for i in range(830000, 840000):
+        codes.append(f'bj{i}')
+    for i in range(870000, 873000):
+        codes.append(f'bj{i}')
+    for i in range(400000, 431000):
+        codes.append(f'bj{i}')
+    return codes
+
+all_codes = _gen_all_a_share_codes()
+# 限流批量 100 只/批(URL 长度限制:实测 100 只不超 414)
+BATCH_SIZE = 100
 spot_rows = []
-# v2.0.7ba:翻 60 页拿全市场 5542 只(之前 55 页 = 5500 只,漏 42 只,导致 8/13 估 25145 跟同花顺 25680 差 535)
-# sina 56 页返 42 只(8/13 新增/复牌),57 页返 0 — 改 < 30 才 break,翻 60 页
-# v2.0.7dv:加 retry + 60 页全拉不到时标记 SAMPLE_ONLY=True
-# v2.0.7dz:取消 × 11 推算(5 页 504 只直接写)— × 11 是错的(数字大 11 倍)
-# — 之前 v2.0.7dl useLiveData 5 页推算 × 11(单独)— fetch_real_data 也 × 11 = 双倍推算
-# — 修法:_SAMPLE_SCALE = 1(5 页 sample 数字直接写)— 数字不放大
-SAMPLE_ONLY = False
-SAMPLE_PAGES = 5
-for page in range(1, 61):
-    url = (
-        'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/'
-        f'Market_Center.getHQNodeData?num=100&page={page}&sort=changepercent&asc=0&node=hs_a&_={int(_t.time()*1000)}'
-    )
-    # v2.0.7dv:重试 3 次(限流时大概率能拉到)
-    # v2.0.7dz:用 fetched 标志避免 retry 累加(之前 break 后 page_data 还有数据又 extend 多次)
-    page_data = None
-    fetched = False
-    for attempt in range(3):
-        try:
-            req = urllib.request.Request(url, headers={
-                'User-Agent': 'Mozilla/5.0',
-                'Referer': 'https://finance.sina.com.cn/',
-            })
-            with urllib.request.urlopen(req, timeout=8) as resp:
-                page_data = _json.loads(resp.read())
-            if page_data and len(page_data) >= 30:
-                fetched = True
-                break
-        except Exception:
-            if attempt < 2:
-                _t.sleep(0.5)
-                continue
-            break
-    if not fetched or not page_data or len(page_data) < 30:
-        # v2.0.7dv:限流时只拉了 SAMPLE_PAGES 页 — 标记 SAMPLE_ONLY
-        if page > SAMPLE_PAGES and len(spot_rows) >= SAMPLE_PAGES * 80:
-            SAMPLE_ONLY = True
-            print(f"  sina 限流:已拉 {len(spot_rows)} 只({SAMPLE_PAGES} 页)— sample 模式(不推算)")
-            break
+def _parse_tencent_line(line):
+    """解析腾讯 qt.gtimg.cn 一行:v_sh600519="1~贵州茅台~600519~1297.99~..."
+    返回 dict: {代码, 名称, 现价, 昨收, 成交量, 涨跌幅, 成交额, 时间}
+    """
+    parts = line.split('=')
+    if len(parts) < 2:
+        return None
+    raw = parts[1].strip().strip('";\n\r')
+    fields = raw.split('~')
+    if len(fields) < 50:
+        return None
+    try:
+        code_raw = fields[2]
+        if not code_raw or not code_raw.isdigit():
+            return None
+        name = fields[1]
+        # 跳过退市股(名称含"退")
+        if '退' in name:
+            return None
+        return {
+            '代码': code_raw,
+            '名称': name,
+            '现价': safe_float(fields[3]),
+            '昨收': safe_float(fields[4]),
+            '成交量': safe_float(fields[6]),  # 手
+            '涨跌幅': safe_float(fields[32]),  # %
+            '成交额': safe_float(fields[37]),  # 万
+            '时间': fields[30],
+        }
+    except (ValueError, IndexError):
+        return None
+
+_t0 = _t.time()
+ok_count = 0
+for batch_start in range(0, len(all_codes), BATCH_SIZE):
+    batch_codes = all_codes[batch_start:batch_start + BATCH_SIZE]
+    url = 'http://qt.gtimg.cn/q=' + ','.join(batch_codes)
+    try:
+        req = urllib.request.Request(url, headers={
+            'User-Agent': 'Mozilla/5.0',
+            'Referer': 'https://stockapp.finance.qq.com/',
+        })
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            text = resp.read().decode('gbk', errors='ignore')
+        for line in text.split(';'):
+            d = _parse_tencent_line(line)
+            if d is not None:
+                spot_rows.append(d)
+                ok_count += 1
+    except Exception as e:
+        print(f"  腾讯拉第 {batch_start//BATCH_SIZE + 1} 批失败: {e}")
         continue
-    spot_rows.extend(page_data)
-    _t.sleep(0.05)
-# 转成 DataFrame 用原 spot_df 字段名
+_t1 = _t.time()
+print(f"  腾讯全市场拉完: {ok_count} 只有效 (耗时 {_t1 - _t0:.1f}s)")
+
+# 转成 DataFrame 用原 spot_df 字段名(下游用 spot_df['代码' / '涨跌幅' / '成交额'])
 import pandas as _pd
 spot_df = _pd.DataFrame(spot_rows)
-# sina 字段: changepercent / amount / volume / symbol(代码) / name / open / high / low / trade(现价)
-# 转成原 ak 字段名: 涨跌幅 / 成交额 / 成交量 / 代码 / 名称 / 最新价
-spot_df = spot_df.rename(columns={
-    'changepercent': '涨跌幅', 'amount': '成交额', 'volume': '成交量',
-    'symbol': '代码', 'name': '名称', 'trade': '最新价',
-})
-# sina 代码格式 'sz301707' / 'sh600519',6 位纯数字要 strip 前缀
-spot_df['代码'] = spot_df['代码'].astype(str).str.replace(r'^[a-z]+', '', regex=True)
 spot_df['涨跌幅'] = spot_df['涨跌幅'].apply(lambda x: safe_float(x))
 spot_df['成交额'] = spot_df['成交额'].apply(lambda x: safe_float(x))
-# v2.0.7dv:限流时 5 页 sample — 推算 11 倍(5500 只 ≈ 11 × 500)
-# v2.0.7dz:取消 × 11 推算 — 5 页 sample 数字直接写(数字不放大)
-# — 之前 _SAMPLE_SCALE=11 推算导致数字大 11 倍(23,320 up 实际应该 2,200)— 错
-_SAMPLE_SCALE = 1  # 永远 × 1(不推算)— 5 页 sample 数字直接用
-total_turnover = round(safe_float(spot_df['成交额'].sum()) / 1e8 * _SAMPLE_SCALE, 2)
+# v2.0.7ea:腾讯全市场拉到 5,363 只,不再用 SAMPLE_ONLY(不需要推算)
+SAMPLE_ONLY = False
+_SAMPLE_SCALE = 1
+total_turnover = round(safe_float(spot_df['成交额'].sum()) / 1e4 * _SAMPLE_SCALE, 2)  # 万 → 亿 ÷ 1e4
 up_count = int((spot_df['涨跌幅'] > 0).sum() * _SAMPLE_SCALE)
 down_count = int((spot_df['涨跌幅'] < 0).sum() * _SAMPLE_SCALE)
 flat_count = int((spot_df['涨跌幅'] == 0).sum() * _SAMPLE_SCALE)

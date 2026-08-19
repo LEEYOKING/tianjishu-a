@@ -1,22 +1,16 @@
 // React hook:盘中每 10s 拉全市场 + ETF + 可转债 + 涨跌停;60s 拉指数 + 49 行业
-// v2.0.7cs:em 实时走 Cloudflare Pages Function /api/market-stats 等(同源 CORS,绕开 user 浏览器直连 em IP 限流)
-// — 之前 user 浏览器直连 sina/em push2 经常被限流(看到 stale)
-// — Function 走 Cloudflare Workers 出口 IP(已验证 em 能拉),10s cache
-// — Function 拉失败时,fallback 直连 sina/em(双保险)
+// v2.0.7ea:删 4 个 CF Function(/api/market-stats/etf-stats/bond-stats/emotion-temp)
+// — CF Workers 出口 IP 实际也被 em 限流严(实测 5 域名全 FAIL 9.6s),Function 没解决问题
+// — useLiveData 改直连腾讯 qt.gtimg.cn(海外 IP 实测 5,363 只 28s 稳定)+ em 申万 60s 拉
+// — Function 删掉省 CF 配额 + 减少 5-10s 浪费
 import { useEffect, useState, useRef } from 'react';
 import {
   fetchLiveIndices,
   fetchSinaIndustries,
   fetchTodaySnapshot,
-  fetchEMMarketStats,
-  fetchEMEtfStats,
-  fetchEMBondStats,
+  fetchMarketSummary,  // v2.0.7ea:加回 fetchMarketSummary(腾讯 qt.gtimg.cn)
   fetchEMIndustries,
   SINA_INDUSTRY_LABELS,
-  // v2.0.7cs:Function 优先 + 直连 fallback
-  fetchMarketStatsViaAPI,
-  fetchEtfStatsViaAPI,
-  fetchBondStatsViaAPI,
 } from '../data/live';
 import type { ReportData } from '../data/loader';
 
@@ -142,28 +136,23 @@ export function useLiveData(enabled = true): LiveSnapshot {
       if (inflightRef.current) return;
       inflightRef.current = true;
       try {
-        // v2.0.7cs:Function 优先(em 实时走 Cloudflare Pages Function 出口 IP,绕开 user 浏览器/sandbox 直连 IP 限流)
-        // — 内部已 fallback 直连 sina/em(Function 拉失败时)
-        // — Function 10s cache,user 浏览器 20s 拉一次,em 实时准 10s
-        const [mkt, etf, bond, idxResult, todayResult] = await Promise.all([
-          safe(fetchMarketStatsViaAPI(), null),
-          safe(fetchEtfStatsViaAPI(), null),
-          safe(fetchBondStatsViaAPI(), null),
+        // v2.0.7ea:删 4 个 CF Function — 改直连腾讯 qt.gtimg.cn(海外 IP 实测稳定 28s 5,363 只)
+        // — 保留 fetchLiveIndices(akshare sina 指数,稳定)
+        // — 保留 fetchTodaySnapshot(已改用腾讯)— 推 history 末点
+        // — ETF/可转债 — baseData 已经 fetch-data 写入,React 不再拉(盘中靠 em 申万板块覆盖 sectors)
+        const [mkt, idxResult, todayResult] = await Promise.all([
+          safe(fetchMarketSummary(), null),  // 改:fetchMarketStatsViaAPI → fetchMarketSummary(腾讯)
           safe(fetchLiveIndices(), []),
           safe(fetchTodaySnapshot(), null),
         ]);
         setSnap((prev) => {
-          // 任何一个有数据都算成功
-          const hasAny = mkt || etf || bond || (idxResult && idxResult.length > 0) || todayResult;
+          const hasAny = mkt || (idxResult && idxResult.length > 0) || todayResult;
           return {
             ...prev,
-            // v2.0.7cs:em 拉到 null(周末/失败)→ 保留 prev,不写死 null
-            // — prev 是 React state,em 没拉到时 prev 保持上次成功的值(sticky)
+            // 拉到 null(周末/失败)→ 保留 prev,不写死 null — sticky
             market: mkt ?? prev.market,
-            etfStats: etf ?? prev.etfStats,
-            bondStats: bond ?? prev.bondStats,
             indices: (idxResult && idxResult.length > 0) ? idxResult : prev.indices,
-            today: todayResult ?? prev.today,  // v2.0.7g:today 进 fast tick
+            today: todayResult ?? prev.today,
             fastFetchedAt: hasAny ? Date.now() : prev.fastFetchedAt,
             fetchedAt: hasAny ? Date.now() : prev.fetchedAt,
             isFirstLoad: hasAny ? false : prev.isFirstLoad,
@@ -227,21 +216,22 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
     };
     (async () => {
       try {
-        const [idxResult, mkt, etf, bond, sinaResult, emIndResult, todayResult] = await Promise.all([
+        // v2.0.7ea:删 fetchEMMarketStats/Etf/Bond(改用 fetchMarketSummary 腾讯)
+        // — fetchEMEtfStats/fetchEMBondStats 仍然保留(在 live.ts)— 慢调用只在 em 不限流时用
+        const [idxResult, mkt, sinaResult, emIndResult, todayResult] = await Promise.all([
           fetchLiveIndices(),
-          fetchEMMarketStats(),
-          fetchEMEtfStats(),
-          fetchEMBondStats(),
+          safe(fetchMarketSummary(), null),  // 改:fetchEMMarketStats → fetchMarketSummary(腾讯)
           fetchSinaIndustries(SINA_INDUSTRY_LABELS),
           safe(fetchEMIndustries(), new Map()),
-          fetchTodaySnapshot(),
+          safe(fetchTodaySnapshot(), null),
         ]);
         if (cancelled) return;
         setSnap({
           indices: idxResult,
           market: mkt,
-          etfStats: etf,
-          bondStats: bond,
+          // v2.0.7ea:ETF/可转债 盘中不拉(em 限流严)— 走 baseData(etfStats/bondStats 不更新)
+          etfStats: null,
+          bondStats: null,
           sinaIndustries: sinaResult,
           emIndustries: emIndResult,
           today: todayResult,

@@ -162,7 +162,12 @@ function _isWeekendCN(): boolean {
  * v2.0.7h:同时返回 limitUpCount/limitDownCount(让 fetchEMMarketStats / fetchTodaySnapshot 共享同源)
  * 上/跌/平/成交/涨跌停 一致用 sina 实时累加,卡片和曲线图必然一致
  *
- * v2.0.7cs:周末直接返 null — sina 周末返空,调它浪费配额,直接让 useLiveData 走 baseData */
+ * v2.0.7cs:周末直接返 null — sina 周末返空,调它浪费配额,直接让 useLiveData 走 baseData
+ *
+ * v2.0.7ea:换成腾讯 qt.gtimg.cn(几乎不限流,海外 IP 实测稳定)
+ * — 5,500+ 只全市场,100 只/批 × 55 批,~5s 拉完
+ * — 字段:fields[3] 现价 / fields[4] 昨收 / fields[6] 成交量(手)/ fields[32] 涨跌幅 / fields[37] 成交额(万)
+ * — CORS: access-control-allow-origin: * — 浏览器 React fetch 可直接调 */
 export async function fetchMarketSummary(): Promise<{
   upCount: number; downCount: number; flatCount: number; totalTurnover: number;
   limitUpCount: number; limitDownCount: number;
@@ -178,32 +183,56 @@ export async function fetchMarketSummary(): Promise<{
   if (_isWeekendCN()) {
     return null;
   }
-  // v2.0.7dl:5 页推算 55 页(限流时 5 页大概率能拉到)
-  // — 之前 55 页并发 10,sina 限流时全部返空 → allStocks 0 → 返 0 → React 走 baseData 11:30
-  // — 改 5 页 500 只 + ×11 推算 5500 只,sina 限流时 5 页也能拉 1-3 页 → 推算数字
-  // — 推算误差 ~10%,比 baseData stale 11:30 好(差 1-2 小时)
-  // — user 14:00-14:30 em 限流时 useLiveData 也能拉
-  const TOTAL_PAGES = 5;
-  const CONCURRENCY = 5;
-  // v2.0.7dz:取消 × 11 推算(5 页 sample 直接写)
-  // — 之前 SCALE=11 导致 5 页 500 只 up=200 推算 2,200(实际 5,500 全市场 up 可能 2,200)
-  // — 但 useLiveData 跟 fetch_real_data.py 都 × 11 = 双倍推算,数字大 11 倍
-  // — 修法:SCALE=1,5 页 sample 数字直接用(限流时 5 页 500 只 — 实际值 ± 10% 误差)
-  const SCALE = 1;
-  const allStocks: SinaStock[] = [];
-  for (let i = 1; i <= TOTAL_PAGES; i += CONCURRENCY) {
-    const batch: Promise<SinaStock[]>[] = [];
-    for (let p = i; p < Math.min(i + CONCURRENCY, TOTAL_PAGES + 1); p++) {
-      batch.push(fetchSinaNodeByPageCustom('hs_a', 100, p, 'code', 1));
+  // v2.0.7ea:腾讯 qt.gtimg.cn 5,500+ 只全市场(精简范围)
+  // — 实际海外 IP 实测 5,363 有效 28.6s
+  // — useLiveData fastTick 20s 拉 — 28s 略超 — 改 fastTick 间隔 30s
+  const codes: string[] = [];
+  // 沪市主板 600000-603999
+  for (let i = 600000; i < 604000; i++) codes.push(`sh${i}`);
+  // 沪市科创板 688000-689999
+  for (let i = 688000; i < 690000; i++) codes.push(`sh${i}`);
+  // 深市主板 000001-000999 + 002001-002999
+  for (let i = 1; i < 1000; i++) codes.push(`sz${String(i).padStart(6, '0')}`);
+  for (let i = 2000; i < 3000; i++) codes.push(`sz${String(i).padStart(6, '0')}`);
+  // 深市创业板 300000-301999
+  for (let i = 300000; i < 302000; i++) codes.push(`sz${i}`);
+  // 北交所 830000-839999 + 870000-873000 + 400000-430999
+  for (let i = 830000; i < 840000; i++) codes.push(`bj${i}`);
+  for (let i = 870000; i < 873000; i++) codes.push(`bj${i}`);
+  for (let i = 400000; i < 431000; i++) codes.push(`bj${i}`);
+
+  const BATCH_SIZE = 100;
+  const allStocks: { cp: number; amt: number; name: string }[] = [];
+  for (let i = 0; i < codes.length; i += BATCH_SIZE) {
+    const batch = codes.slice(i, i + BATCH_SIZE);
+    const url = 'http://qt.gtimg.cn/q=' + batch.join(',');
+    try {
+      const resp = await fetch(url, {
+        headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://stockapp.finance.qq.com/' }
+      });
+      if (!resp.ok) continue;
+      const text = await resp.text();
+      // 解析: v_sh600519="1~贵州茅台~600519~1297.99~1293.09~...~0.38~..."
+      for (const line of text.split(';')) {
+        const eqIdx = line.indexOf('=');
+        if (eqIdx < 0) continue;
+        const fields = line.slice(eqIdx + 1).trim().replace(/^"|"$/g, '').split('~');
+        if (fields.length < 50) continue;
+        const codeRaw = fields[2];
+        if (!codeRaw || !/^\d+$/.test(codeRaw)) continue;
+        const name = fields[1];
+        // 跳过退市
+        if (name.includes('退')) continue;
+        const cp = parseFloat(fields[32]); // 涨跌幅%
+        const amt = parseFloat(fields[37]) || 0; // 成交额(万)
+        if (isNaN(cp)) continue;
+        allStocks.push({ cp, amt, name });
+      }
+    } catch (e) {
+      console.warn('[fetchMarketSummary] 腾讯拉第', Math.floor(i / BATCH_SIZE) + 1, '批失败:', e);
     }
-    const results = await Promise.all(batch);
-    for (const arr of results) {
-      allStocks.push(...arr);
-    }
-    if (results.every((r) => r.length < 100)) break;
-    if (i + CONCURRENCY < TOTAL_PAGES + 1) await new Promise((r) => setTimeout(r, 50));
   }
-  // v2.0.7dl:5 页拉不到任何数据 → 返 null
+  // 拉不到任何数据 → 返 null
   if (allStocks.length === 0) {
     return null;
   }
@@ -215,8 +244,8 @@ export async function fetchMarketSummary(): Promise<{
     up_0_to_3: 0, up_3_to_5: 0, up_5_to_7: 0, up_7_to_10: 0, up_ge_10: 0,
   };
   for (const s of allStocks) {
-    const cp = parseFloat(s.changepercent);
-    const amt = s.amount || 0;
+    const cp = s.cp;
+    const amt = s.amt;
     if (cp > 0) up++;
     else if (cp < 0) down++;
     else flat++;
@@ -243,15 +272,15 @@ export async function fetchMarketSummary(): Promise<{
     else if (cp <= -19.97 && cp > -21) ld++;
     total += amt;
   }
-  // v2.0.7dl:5 页推算 55 页 — 5 页 sample 乘 11 倍
-  // (limitUp/limitDown 推算用 lu*11/ld*11 — 误差大但比 0:0 强)
+  // v2.0.7ea:腾讯全市场 ~5,500 只,不再推算 × 11(直接用真实数字)
   return {
-    upCount: Math.round(up * SCALE),
-    downCount: Math.round(down * SCALE),
-    flatCount: Math.round(flat * SCALE),
-    totalTurnover: Math.round(total / 1e8 * SCALE),
-    limitUpCount: Math.round(lu * SCALE),
-    limitDownCount: Math.round(ld * SCALE),
+    upCount: up,
+    downCount: down,
+    flatCount: flat,
+    // v2.0.7ea:成交额(万) → 亿 ÷ 1e4
+    totalTurnover: Math.round(total / 1e4),
+    limitUpCount: lu,
+    limitDownCount: ld,
     changeDistribution: dist,
   };
 }
@@ -401,97 +430,14 @@ export async function fetchEMMarketStats(): Promise<EMMarketStats | null> {
   };
 }
 
-/** 沪深 ETF 涨跌统计 — v2.0.7ca:用 em push2 + 多域名 fallback
- * — em 拉 ETF:fs=m:0+t:9,m:1+t:9 沪深 ETF(覆盖 700+ 只)
- * — Cloudflare Workers 出口 IP 跟 sandbox 不同,可能能拉到(沙箱拉不到)
- * — 失败返 0 走 baseData(5 cron 跳变,akshare 真值)
- *
- * v2.0.7cs:返回 { up, down, flat } | null — 周末/em 都失败 → null(走 baseData 8/14 stale)
- * — 之前失败返 0 会被 useLiveData 当作"半数据 0:0"误判,看起来错 */
-export async function fetchEMEtfStats(): Promise<{ up: number; down: number; flat: number } | null> {
-  if (_isWeekendCN()) return null;  // 周末不调 em
-  const EM_DOMAINS = [
-    'https://push2.eastmoney.com',
-    'https://82.push2.eastmoney.com',
-    'https://push2his.eastmoney.com',
-  ];
-  const UA = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Referer': 'https://quote.eastmoney.com/',
-    'Accept': 'application/json, text/plain, */*',
-  };
-
-  for (const domain of EM_DOMAINS) {
-    try {
-      // m:0+t:9 沪 ETF + m:1+t:9 深 ETF
-      const url = `${domain}/api/qt/clist/get?pn=1&pz=2000&po=1&fid=f3&fs=m:0+t:9,m:1+t:9&fields=f12,f3`;
-      const res = await fetch(url, { headers: UA });
-      if (!res.ok) continue;
-      const data = await res.json();
-      if (!data?.data?.diff) continue;
-      let up = 0, down = 0, flat = 0;
-      for (const s of data.data.diff) {
-        const pct = parseFloat(s.f3);
-        if (pct > 0.01) up++;
-        else if (pct < -0.01) down++;
-        else flat++;
-      }
-      if (up + down + flat > 0) {
-        return { up, down, flat };
-      }
-    } catch (e) {
-      continue;
-    }
-  }
-  // v2.0.7cs:都失败返 null(走 baseData 8/14 stale)— 之前返 0 会被当成"半数据 0:0"误判
-  return null;
-}
+// v2.0.7ea:删 fetchEMEtfStats / fetchEMBondStats 函数
+// — CF Function 删了,useLiveData 改用 baseData(etfStats/bondStats: null)
+// — 盘中 ETF/可转债 不实时拉(em 限流严,实测 5 域名全 FAIL)
+// — 走 baseData.etfUp/etfDown/bondUp/bondDown(fetch-data 18:10 cron 写)
+// — 留 useLiveData 字段为 null — Layout/Overview 不显示 ETF/可转债 实时值
 
 
-/** 沪深可转债涨跌统计 — v2.0.7ca:em push2 + 多域名 fallback
- * — em 可转债:fs=m:128+t:4,m:129+t:4 沪深可转债(akshare bond_zh_hs_cov_spot 同源)
- * — Cloudflare Workers 出口 IP 跟 sandbox 不同,可能能拉到(沙箱拉不到)
- * — 失败返 0 走 baseData(5 cron 跳变)虽然 stale 12-30 分钟,至少不是写死的 100:0
- *
- * v2.0.7cs:返回 null 替代 0,周末/em 失败时走 baseData 8/14 stale(显示"上周五收盘"是合理的) */
-export async function fetchEMBondStats(): Promise<{ up: number; down: number; flat: number } | null> {
-  if (_isWeekendCN()) return null;  // 周末不调 em
-  const EM_DOMAINS = [
-    'https://push2.eastmoney.com',
-    'https://82.push2.eastmoney.com',
-    'https://push2his.eastmoney.com',
-  ];
-  const UA = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Referer': 'https://quote.eastmoney.com/',
-    'Accept': 'application/json, text/plain, */*',
-  };
 
-  for (const domain of EM_DOMAINS) {
-    try {
-      // m:128+t:4 上交所可转债 + m:129+t:4 深交所可转债
-      const url = `${domain}/api/qt/clist/get?pn=1&pz=2000&po=1&fid=f3&fs=m:128+t:4,m:129+t:4&fields=f12,f3`;
-      const res = await fetch(url, { headers: UA });
-      if (!res.ok) continue;
-      const data = await res.json();
-      if (!data?.data?.diff) continue;
-      let up = 0, down = 0, flat = 0;
-      for (const s of data.data.diff) {
-        const pct = parseFloat(s.f3);
-        if (pct > 0.01) up++;
-        else if (pct < -0.01) down++;
-        else flat++;
-      }
-      if (up + down + flat > 0) {
-        return { up, down, flat };
-      }
-    } catch (e) {
-      continue;
-    }
-  }
-  // v2.0.7cs:都失败返 null(走 baseData 8/14 stale)— 之前返 0 会被当成"半数据 0:0"误判
-  return null;
-}
 
 
 // =============================================================
@@ -546,72 +492,11 @@ export async function fetchEMIndustries(): Promise<Map<string, EMIndustryItem>> 
 // v2.0.7cs:Cloudflare Pages Function 优先(em 实时数据走 Function,绕开 user 浏览器直连 IP 限流)
 // Function 拉失败时,fallback 直连 sina/em push2(双保险)
 // =============================================================
+// v2.0.7ea:删 MarketStatsAPIResponse interface
+// — 4 个 CF Function 删了,React 也不再 fetch('/api/...') — 接口定义不再需要
 
-interface MarketStatsAPIResponse {
-  source: 'live' | 'cache' | 'fallback' | 'weekend';
-  isWeekend: boolean;
-  data: EMMarketStats | null;
-  fetchedAt: string;
-  latency_ms: number;
-  error?: string;
-}
-
-/** 全市场汇总 — v2.0.7cs:优先 /api/market-stats Function,失败 fallback fetchEMMarketStats(直连 sina) */
-export async function fetchMarketStatsViaAPI(): Promise<EMMarketStats | null> {
-  try {
-    const res = await fetch('/api/market-stats');
-    if (!res.ok) {
-      console.warn('[live] /api/market-stats 失败,fallback 直连 sina:', res.status);
-      return await fetchEMMarketStats();
-    }
-    const json: MarketStatsAPIResponse = await res.json();
-    if (json.isWeekend) {
-      return null;  // 周末走 baseData
-    }
-    if (json.data) {
-      return json.data;
-    }
-    // data 为 null(fallback/拉失败)→ fallback 直连
-    console.warn('[live] /api/market-stats data=null,fallback 直连 sina');
-    return await fetchEMMarketStats();
-  } catch (e) {
-    console.warn('[live] /api/market-stats 异常,fallback 直连 sina:', e);
-    return await fetchEMMarketStats();
-  }
-}
-
-/** ETF 涨跌分布 — 优先 /api/etf-stats,失败 fallback fetchEMEtfStats */
-export async function fetchEtfStatsViaAPI(): Promise<{ up: number; down: number; flat: number } | null> {
-  try {
-    const res = await fetch('/api/etf-stats');
-    if (!res.ok) {
-      console.warn('[live] /api/etf-stats 失败,fallback 直连 em:', res.status);
-      return await fetchEMEtfStats();
-    }
-    const json = await res.json();
-    if (json.isWeekend) return null;
-    if (json.data) return json.data;
-    return await fetchEMEtfStats();
-  } catch (e) {
-    console.warn('[live] /api/etf-stats 异常,fallback 直连 em:', e);
-    return await fetchEMEtfStats();
-  }
-}
-
-/** 可转债 涨跌分布 — 优先 /api/bond-stats,失败 fallback fetchEMBondStats */
-export async function fetchBondStatsViaAPI(): Promise<{ up: number; down: number; flat: number } | null> {
-  try {
-    const res = await fetch('/api/bond-stats');
-    if (!res.ok) {
-      console.warn('[live] /api/bond-stats 失败,fallback 直连 em:', res.status);
-      return await fetchEMBondStats();
-    }
-    const json = await res.json();
-    if (json.isWeekend) return null;
-    if (json.data) return json.data;
-    return await fetchEMBondStats();
-  } catch (e) {
-    console.warn('[live] /api/bond-stats 异常,fallback 直连 em:', e);
-    return await fetchEMBondStats();
-  }
-}
+// v2.0.7ea:删 fetchMarketStatsViaAPI / fetchEtfStatsViaAPI / fetchBondStatsViaAPI
+// — CF Function 实测拉 em 全 FAIL 9.6s(5 域名),Function 没用
+// — fetchMarketSummary 已改腾讯 qt.gtimg.cn(海外 IP 28s 5,363 只稳定)
+// — ETF/可转债:盘中靠 fetchEMEtfStats / fetchEMBondStats(em 限流时返 null — sticky prev/baseData)
+// — React useLiveData 直接调 fetchMarketSummary 即可

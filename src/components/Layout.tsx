@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useLiveEmotionTemp } from '../hooks/useLiveEmotionTemp';
 import { EmotionThermometer } from './EmotionThermometer';
 import type { ReportData } from '../data/loader';
 
@@ -29,7 +28,9 @@ const Icons = {
 };
 
 export default function Layout({ data, children }: Props) {
-  const liveEmotion = useLiveEmotionTemp(true);
+  // v2.0.7ea:删 useLiveEmotionTemp(CF Function /api/emotion-temp 已删)
+  // — 改用 data.marketOverview.marketTemperature(fetch-data 写入的 8 维算法)
+  // — 盘中不实时(每 10 分钟调 Function)— 改用 baseData,收盘 cron 跑时更新
   const location = useLocation();
 
   const counts = {
@@ -140,10 +141,10 @@ export default function Layout({ data, children }: Props) {
           })}
         </nav>
 
-        {/* v2.0.7bv:情绪温度计 — 优先用 liveEmotion(1 min 实时),fallback 到 baseData */}
+        {/* v2.0.7ea:情绪温度计 — 改用 baseData.marketOverview.marketTemperature(fetch-data 写入) */}
         <div style={{ padding: '0 8px 12px' }}>
-          {(liveEmotion.data || data.marketOverview?.marketTemperature) && (() => {
-            const temp = liveEmotion.data || data.marketOverview!.marketTemperature!;
+          {data.marketOverview?.marketTemperature && (() => {
+            const temp = data.marketOverview.marketTemperature;
             return (
               <EmotionThermometer
                 temperature={temp.temperature}
