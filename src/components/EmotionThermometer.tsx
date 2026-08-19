@@ -29,12 +29,13 @@ export interface EmotionThermometerProps {
 }
 
 // 颜色(0-100 渐变)— 5 档:蓝 → 青 → 暖黄 → 橙 → 红
+// v2.0.7eh:色值升级(更鲜亮:青蓝 → 亮绿 → 亮黄 → 亮橙 → 亮红)
 function getColor(t: number): string {
-  if (t <= 20) return '#3b82f6';
-  if (t <= 40) return '#06b6d4';
-  if (t <= 60) return '#f59e0b';
-  if (t <= 80) return '#f97316';
-  return '#dc2626';
+  if (t <= 20) return '#07d4ec';  // 0-20° 蓝青 极冷/低迷
+  if (t <= 40) return '#0ecd70';  // 20-40° 亮绿 偏冷/谨慎
+  if (t <= 60) return '#ffc11b';  // 40-60° 暖黄 中性/平稳
+  if (t <= 80) return '#ff832d';  // 60-80° 橙 偏热/活跃
+  return '#ff4d4f';                // 80-100° 红 极热/亢奋
 }
 
 function getValuationTag(limitUp: number, upCount: number, downCount: number): { text: string; color: string } {
