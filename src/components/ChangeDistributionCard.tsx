@@ -125,9 +125,9 @@ export function ChangeDistributionCard({ data }: Props) {
   }
 
   return (
-    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column' }}>
-      {/* 柱状图 — 固定 227px */}
-      <div style={{ height: 227 }}>
+    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* v2.0.7ek:柱状图撑到 300px(原来 227)— 配合 Card 360 整体高度 */}
+      <div style={{ height: 300 }}>
         <ReactECharts
           option={option}
           style={{ height: '100%', width: '100%' }}

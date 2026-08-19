@@ -75,7 +75,7 @@ const overviewStyle = `
   .overview-charts-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; width: 100%; }
   /* v2.0.7ej:6 图表合并 1 个 grid 容器(成交量/涨/跌家数/涨/跌停家数/热力图/涨跌分布/融资流向) */
   .overview-charts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; width: 100%; }
-  .overview-chart-card { min-width: 0; overflow: hidden; }
+  .overview-chart-card { min-width: 0; overflow: hidden; min-height: 360px; }
   .stat-card, .index-card {
     background: #fff;
     border-radius: 14px;
@@ -510,13 +510,13 @@ export default function Overview({ data }: { data: ReportData }) {
         {/* 1. 成交量 */}
         <div className="overview-chart-card">
           <Card title="成交量(亿)" right={<RangeTabs value={volRange} onChange={setVolRange} options={RANGE_OPTIONS_3} />}>
-            <ReactECharts key={volRange} option={volChart} style={{ height: 280, width: '100%' }} notMerge={true} lazyUpdate={true} />
+            <ReactECharts key={volRange} option={volChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
           </Card>
         </div>
         {/* 2. 涨/跌家数 */}
         <div className="overview-chart-card">
           <Card title="涨/跌家数" right={<RangeTabs value={udRange} onChange={setUdRange} options={RANGE_OPTIONS_3} />}>
-            <ReactECharts key={udRange} option={udChart} style={{ height: 280, width: '100%' }} notMerge={true} lazyUpdate={true} />
+            <ReactECharts key={udRange} option={udChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
           </Card>
         </div>
         {/* 3. 涨/跌停家数 */}

@@ -167,7 +167,8 @@ export function MarginHistoryCard({ data }: Props) {
       <div style={{ flex: 1, minHeight: 0 }}>
         <ReactECharts
           option={option}
-          style={{ height: '100%', minHeight: 260, width: '100%' }}
+          // v2.0.7ek:配合 Card 360 整体高度
+          style={{ height: '100%', minHeight: 300, width: '100%' }}
           notMerge={true}
           lazyUpdate={true}
         />
