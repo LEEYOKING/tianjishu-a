@@ -127,7 +127,7 @@ export function ChangeDistributionCard({ data }: Props) {
   return (
     <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {/* v2.0.7ek:柱状图撑到 300px(原来 227)— 配合 Card 360 整体高度 */}
-      <div style={{ height: 300 }}>
+      <div style={{ height: 280 }}>
         <ReactECharts
           option={option}
           style={{ height: '100%', width: '100%' }}
@@ -137,7 +137,7 @@ export function ChangeDistributionCard({ data }: Props) {
       </div>
 
       {/* 柱状图和底部内容之间 30px 间距 */}
-      <div style={{ height: 30 }} />
+      <div style={{ height: 24 }} />
 
       {/* 底部块 — 左右 30px 统一 */}
       <div style={{ paddingBottom: 25 }}>

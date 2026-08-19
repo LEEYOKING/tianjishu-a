@@ -1,7 +1,7 @@
 {
   "name": "tianjishu",
   "private": true,
-  "version": "v2.0.7ek",
+  "version": "v2.0.7eq",
   "type": "module",
   "engines": {
     "node": ">=20.0.0"
