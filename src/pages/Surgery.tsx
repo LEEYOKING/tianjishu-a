@@ -289,8 +289,10 @@ function SealCardItem({ card, onClick }: { card: SealCard; onClick: () => void }
           e.currentTarget.style.boxShadow = '';
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-          <span style={{ fontSize: 14, fontWeight: 600, color: COLOR_TEXT }}>{card.name}</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4, gap: 6 }}>
+          {/* v2.0.7ei:股票名 14→16 + 右侧加股票代码(小字、灰色) */}
+          <span style={{ fontSize: 16, fontWeight: 600, color: COLOR_TEXT }}>{card.name}</span>
+          <span style={{ fontSize: 11, color: '#86909C', fontVariantNumeric: 'tabular-nums' }}>{card.code}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>

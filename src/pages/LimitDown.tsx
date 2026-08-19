@@ -9,7 +9,8 @@ import { useLive } from '../App';
 export default function LimitDown({ data }: { data: ReportData }) {
   const [activeLevel, setActiveLevel] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const pageSize = 50;
+  // v2.0.7ei:分页器交互 — 10/20/50/100/page 可切换
+  const [pageSize, setPageSize] = useState(50);
   const idx = data.marketOverview;
 
   const filtered = useMemo(() => {
@@ -119,7 +120,16 @@ export default function LimitDown({ data }: { data: ReportData }) {
 
       {filtered.length > pageSize && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-          <Pagination current={page} pageSize={pageSize} total={filtered.length} onChange={setPage} />
+          <Pagination
+            current={page}
+            pageSize={pageSize}
+            total={filtered.length}
+            // v2.0.7ei:onChange 接 (page, pageSize)— 同时更新 page 和 pageSize
+            onChange={(p, s) => { setPage(p); setPageSize(s); }}
+            showSizeChanger
+            pageSizeOptions={['10', '20', '50', '100']}
+            showTotal={(t) => `第 ${page} / ${Math.ceil(t / pageSize)} 页 · 共 ${filtered.length} 条`}
+          />
         </div>
       )}
     </div>

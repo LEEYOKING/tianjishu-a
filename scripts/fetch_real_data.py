@@ -437,8 +437,12 @@ for i, row in hist_df.iterrows():
     _dt = datetime.strptime(date_str, '%Y-%m-%d')
     if _dt.weekday() >= 5:  # 周六(5)/周日(6)跳过
         continue
-    amount_sh = safe_float(row['amount'])
-    amount_sz = safe_float(hist_sz_df.iloc[i]['amount']) if i < len(hist_sz_df) else 0
+    # v2.0.7ei:兼容 sina 和 em 两种 K 线源
+    # — sina tx 列:date/amount/...
+    # — em fallback 列:date/open/close/high/low/volume/...
+    # — 优先 amount(sina),fallback volume(em) — em volume 单位是手(sina amount 也是手)— 公式不变
+    amount_sh = safe_float(row.get('amount', row.get('volume', 0)))
+    amount_sz = safe_float(hist_sz_df.iloc[i].get('amount', hist_sz_df.iloc[i].get('volume', 0))) if i < len(hist_sz_df) else 0
     # v2.0.7ba:× 100 × 19.2 / 1e8 估算(沪深 8/12 估算 21696,差 1%)
     # 之前 × 100 × 20 / 1e8 = 22573(高估 4% 跟同花顺差 901)
     # 实际 sina amount 字段单位 = em volume / 100(差 100 倍)
@@ -678,28 +682,20 @@ if '涨跌幅' in spot_df.columns:
             'sealedAmount': 0,
         })
 
-# v2.0.7ag:关键修复 — 用 sina 数据覆盖(akshare 经常返空,导致 limitDownCount=2 但列表 0 的矛盾)
-# 合并:akshare 数据优先(有行业等),但 count 用 sina 算
-if _dt_from_sina:
-    # 用 sina 数据为主,字段(industry/sealedAmount)从 akshare 补
-    _sina_code = {s['code']: s for s in _dt_from_sina}
-    _merged = []
-    for s in _dt_from_sina:
-        # 找 akshare 里的同 code
-        ak_match = next((a for a in limit_down_stocks if a['code'] == s['code']), None)
-        if ak_match:
-            s['industry'] = ak_match.get('industry', '-')
-            s['sealedAmount'] = ak_match.get('sealedAmount', 0)
-            s['turnoverRate'] = ak_match.get('turnoverRate', 0)
-        _merged.append(s)
-    limit_down_stocks = _merged
-    limit_down_stocks.sort(key=lambda s: -s['turnover'])
-    print(f"  跌停兜底(从 sina 5500 只取 ≤ -9.9%): {len(limit_down_stocks)} 只(覆盖 akshare 空数据)")
-    # v2.0.7ag:关键 — count 用 sina 算
-    limit_down_count = len(_dt_from_sina)
-elif limit_down_stocks:
-    print(f"  跌停(akshare): {len(limit_down_stocks)} 只")
+# v2.0.7ei:删 sina -9.9% 兜底,直接用 em 跌停池 dt_df 真值
+# — 之前 v2.0.7ag 兜底 sina 5500 只 ≤-9.9%(235 只)→ user 看到跌停梯队 235 家
+# — em 跌停池 stock_zt_pool_dtgc_em 真值 119 家 → 跟 limitDownCount/涨跌停比卡片一致
+# — 风险:em 跌停池可能返空(非交易日/限流)— 加 fallback:dt_df 为空时再用 sina 兜底
+if limit_down_stocks:
+    # em 跌停池有数据(119)— 用 em 真值
+    print(f"  跌停(em 跌停池): {len(limit_down_stocks)} 只")
     limit_down_count = len(limit_down_stocks)
+elif _dt_from_sina:
+    # em 返空时,fallback sina 兜底(只在 em 返空时用,避免覆盖真值)
+    limit_down_stocks = _dt_from_sina
+    limit_down_stocks.sort(key=lambda s: -s['turnover'])
+    print(f"  跌停兜底(em 返空,sina 5500 只 ≤-9.9%): {len(limit_down_stocks)} 只")
+    limit_down_count = len(_dt_from_sina)
 else:
     print(f"  跌停: 0 只")
     limit_down_count = 0

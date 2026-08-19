@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Empty, InputNumber } from 'antd';
+import { Empty, InputNumber, Pagination } from 'antd';
 import { PageHeader } from './Overview';
 import ColorText from '../components/ColorText';
 import { formatPrice } from '../utils/format';
@@ -80,6 +80,9 @@ export default function AnomalyStock({ type, data }: Props) {
   const [applied, setApplied] = useState<{ volMin: number; pctMin: number; pctMax: number }>({
     volMin: cfg.defaults.volMin, pctMin: cfg.defaults.pctMin, pctMax: cfg.defaults.pctMax,
   });
+  // v2.0.7ei:分页器交互 — 10/20/50/100/page 可切换(放量突破/突破前高/低位放量)
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
 
   const list = useMemo(() => {
     return candidates
@@ -87,9 +90,12 @@ export default function AnomalyStock({ type, data }: Props) {
       .filter((s) => s.changePercent >= applied.pctMin && s.changePercent <= applied.pctMax)
       .filter((s) => !cfg.defaults.needNewHigh || s.isNewHigh)
       .filter((s) => !cfg.defaults.excludeLimitUp || !s.isLimitUp)
-      .map((s) => ({ ...s, breakoutPercent: s.breakoutPercent ?? s.changePercent }))
-      .slice(0, 20);
+      .map((s) => ({ ...s, breakoutPercent: s.breakoutPercent ?? s.changePercent }));
+    // v2.0.7ei:删 .slice(0, 20) — 让分页器控制
   }, [candidates, applied, cfg.defaults.needNewHigh, cfg.defaults.excludeLimitUp]);
+
+  // v2.0.7ei:分页后 list
+  const paged = useMemo(() => list.slice((page - 1) * pageSize, page * pageSize), [list, page, pageSize]);
 
   const hasPendingChange =
     volMinInput !== applied.volMin || pctMinInput !== applied.pctMin || pctMaxInput !== applied.pctMax;
@@ -199,7 +205,8 @@ export default function AnomalyStock({ type, data }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {list.map((row: BreakoutStock) => (
+                {/* v2.0.7ei:用 paged(分页后)代替 list */}
+                {paged.map((row: BreakoutStock) => (
                   <tr key={row.code}>
                     {cfg.columns.map((c) => {
                       const v = (row as any)[c.key];
@@ -220,6 +227,21 @@ export default function AnomalyStock({ type, data }: Props) {
               </tbody>
             </table>
           </div>
+        </div>
+      )}
+
+      {/* v2.0.7ei:分页器(放量突破/突破前高/低位放量) */}
+      {list.length > 0 && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+          <Pagination
+            current={page}
+            pageSize={pageSize}
+            total={list.length}
+            onChange={(p, s) => { setPage(p); setPageSize(s); }}
+            showSizeChanger
+            pageSizeOptions={['10', '20', '50', '100']}
+            showTotal={(t) => `第 ${page} / ${Math.ceil(t / pageSize)} 页 · 共 ${t} 条`}
+          />
         </div>
       )}
     </div>

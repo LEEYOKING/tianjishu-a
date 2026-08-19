@@ -71,8 +71,8 @@ const overviewStyle = `
   /* 间距 16px(原 12px + 4px) */
   .overview-stats-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; }
   .overview-indices-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
-  /* 用户 #1 反馈:前 2 个图表卡 width 100% 自适应,不能溢出 — 关键:容器用 minmax(0, 1fr) 防溢出 */
-  .overview-charts-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-bottom: 16px; width: 100%; }
+  /* v2.0.7ei:6 图表响应式 — 1800px+ 3 列 / ≤1800 2 列 / ≤1200 1 列 */
+  .overview-charts-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; width: 100%; }
   .overview-chart-card { min-width: 0; overflow: hidden; }
   .stat-card, .index-card {
     background: #fff;
@@ -83,12 +83,17 @@ const overviewStyle = `
     box-sizing: border-box;
     min-width: 0;
   }
+  @media (max-width: 1800px) {
+    .overview-charts-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  }
   @media (max-width: 1400px) {
     .overview-indices-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
   }
+  @media (max-width: 1200px) {
+    .overview-charts-row { grid-template-columns: minmax(0, 1fr) !important; }
+  }
   @media (max-width: 1100px) {
     .overview-stats-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-    .overview-charts-row { grid-template-columns: minmax(0, 1fr) !important; }
   }
   @media (max-width: 700px) {
     .overview-stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
@@ -508,13 +513,13 @@ export default function Overview({ data }: { data: ReportData }) {
       </div>
 
       {/* 第四行:涨/跌停家数 + 市场涨跌幅热力图(用户 #1 + #2 + #4 反馈) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
-        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+      <div className="overview-charts-row">
+        <div className="overview-chart-card">
           <Card title="涨/跌停家数" right={<RangeTabs value={ldRange} onChange={setLdRange} options={RANGE_OPTIONS_LIMIT} />}>
             <ReactECharts key={ldRange} option={ldChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
           </Card>
         </div>
-        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+        <div className="overview-chart-card">
           <Card
             title="市场行情热力图(按行业成交量排序)"
             right={
@@ -548,13 +553,13 @@ export default function Overview({ data }: { data: ReportData }) {
       </div>
 
       {/* v2.0.7ad:删主力资金流卡片 — 只剩涨跌分布 + 融资流向(2 列) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16, marginBottom: 16, width: '100%' }}>
-        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+      <div className="overview-charts-row">
+        <div className="overview-chart-card">
           <Card title="涨跌分布">
             <ChangeDistributionCard data={data} />
           </Card>
         </div>
-        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+        <div className="overview-chart-card">
           <Card
             title="融资流向"
             right={<MarginBadge data={data} />}
