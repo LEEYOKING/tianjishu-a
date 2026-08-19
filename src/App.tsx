@@ -20,7 +20,8 @@ export const useLive = () => useContext(LiveContext);
 export default function App() {
   const [baseData, setBaseData] = useState<ReportData | null>(null);
   const [baseErr, setBaseErr] = useState<string | null>(null);
-  const live = useLiveData(true);
+  // v2.0.7ee:传 baseData.meta.stockCodes 给 useLiveData — 拉真实 5,547 只 A 股腾讯 qt.gtimg.cn
+  const live = useLiveData(true, baseData?.meta?.stockCodes);
 
   useEffect(() => {
     // v2.0.7o:fetch 失败时如果已有 baseData(后台标签页被节流),静默不显示错误页

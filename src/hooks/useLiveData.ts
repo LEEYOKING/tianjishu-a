@@ -93,7 +93,9 @@ export interface LiveSnapshot {
 
 /** 实时数据 hook — 盘中(9:30-15:00)10s 拉全市场/ETF/可转债,60s 拉指数+行业;非盘中 5min
  * 默认 enabled=true */
-export function useLiveData(enabled = true): LiveSnapshot {
+export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot {
+  // v2.0.7ee:接 stockCodes 参数(从 baseData.meta.stockCodes 传) — React 端用真实 5,547 只拉腾讯
+
   const [snap, setSnap] = useState<LiveSnapshot>({
     indices: [],
     market: null,
@@ -106,6 +108,9 @@ export function useLiveData(enabled = true): LiveSnapshot {
     fastFetchedAt: 0,
   });
   const inflightRef = useRef(false);
+  // v2.0.7ee:useRef 缓存最新 codes(让 fastTick setInterval 闭包能读到)
+  const codesRef = useRef<string[] | undefined>(stockCodes);
+  useEffect(() => { codesRef.current = stockCodes; }, [stockCodes]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -141,9 +146,9 @@ export function useLiveData(enabled = true): LiveSnapshot {
         // — 保留 fetchTodaySnapshot(已改用腾讯)— 推 history 末点
         // — ETF/可转债 — baseData 已经 fetch-data 写入,React 不再拉(盘中靠 em 申万板块覆盖 sectors)
         const [mkt, idxResult, todayResult] = await Promise.all([
-          safe(fetchMarketSummary(), null),  // 改:fetchMarketStatsViaAPI → fetchMarketSummary(腾讯)
+          safe(fetchMarketSummary(codesRef.current), null),  // 改:fetchMarketStatsViaAPI → fetchMarketSummary(腾讯)
           safe(fetchLiveIndices(), []),
-          safe(fetchTodaySnapshot(), null),
+          safe(fetchTodaySnapshot(codesRef.current), null),
         ]);
         setSnap((prev) => {
           const hasAny = mkt || (idxResult && idxResult.length > 0) || todayResult;
@@ -218,6 +223,7 @@ export function useLiveDataOnce(enabled = true): LiveSnapshot {
       try {
         // v2.0.7ea:删 fetchEMMarketStats/Etf/Bond(改用 fetchMarketSummary 腾讯)
         // — fetchEMEtfStats/fetchEMBondStats 仍然保留(在 live.ts)— 慢调用只在 em 不限流时用
+        // v2.0.7ee:传 codes(从 baseData.meta.stockCodes 读) — 拉真实 5,547 只
         const [idxResult, mkt, sinaResult, emIndResult, todayResult] = await Promise.all([
           fetchLiveIndices(),
           safe(fetchMarketSummary(), null),  // 改:fetchEMMarketStats → fetchMarketSummary(腾讯)

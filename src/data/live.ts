@@ -168,7 +168,7 @@ function _isWeekendCN(): boolean {
  * — 5,500+ 只全市场,100 只/批 × 55 批,~5s 拉完
  * — 字段:fields[3] 现价 / fields[4] 昨收 / fields[6] 成交量(手)/ fields[32] 涨跌幅 / fields[37] 成交额(万)
  * — CORS: access-control-allow-origin: * — 浏览器 React fetch 可直接调 */
-export async function fetchMarketSummary(): Promise<{
+export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
   upCount: number; downCount: number; flatCount: number; totalTurnover: number;
   limitUpCount: number; limitDownCount: number;
   // v2.0.7ab:涨跌分布 11 档分桶
@@ -183,23 +183,20 @@ export async function fetchMarketSummary(): Promise<{
   if (_isWeekendCN()) {
     return null;
   }
-  // v2.0.7ea:腾讯 qt.gtimg.cn 5,500+ 只全市场(精简范围)
-  // — 实际海外 IP 实测 5,363 有效 28.6s
-  // — useLiveData fastTick 20s 拉 — 28s 略超 — 改 fastTick 间隔 30s
-  const codes: string[] = [];
-  // 沪市主板 600000-603999
-  for (let i = 600000; i < 604000; i++) codes.push(`sh${i}`);
-  // 沪市科创板 688000-689999
-  for (let i = 688000; i < 690000; i++) codes.push(`sh${i}`);
-  // 深市主板 000001-000999 + 002001-002999
-  for (let i = 1; i < 1000; i++) codes.push(`sz${String(i).padStart(6, '0')}`);
-  for (let i = 2000; i < 3000; i++) codes.push(`sz${String(i).padStart(6, '0')}`);
-  // 深市创业板 300000-301999
-  for (let i = 300000; i < 302000; i++) codes.push(`sz${i}`);
-  // 北交所 830000-839999 + 870000-873000 + 400000-430999
-  for (let i = 830000; i < 840000; i++) codes.push(`bj${i}`);
-  for (let i = 870000; i < 873000; i++) codes.push(`bj${i}`);
-  for (let i = 400000; i < 431000; i++) codes.push(`bj${i}`);
+  // v2.0.7ee:腾讯 qt.gtimg.cn 全市场 — 接收 stockCodes 参数
+  // — 传空 → fallback 硬编码区间(应急)
+  // — 传实际代码 list(从 data.json.meta.stockCodes 读)→ 拉真实 5,547 只
+  let codes: string[];
+  if (stockCodes && stockCodes.length > 0) {
+    codes = stockCodes;
+  } else {
+    // fallback 硬编码区间
+    codes = [];
+    for (let i = 600000; i < 606000; i++) codes.push(`sh${i}`);
+    for (let i = 688000; i < 690000; i++) codes.push(`sh${i}`);
+    for (let i = 1; i < 4000; i++) codes.push(`sz${String(i).padStart(6, '0')}`);
+    for (let i = 300000; i < 302000; i++) codes.push(`sz${i}`);
+  }
 
   const BATCH_SIZE = 100;
   const allStocks: { cp: number; amt: number; name: string }[] = [];
@@ -287,7 +284,7 @@ export async function fetchMarketSummary(): Promise<{
 
 /** 拉取今日实时数据(用于把 8.6 当日数据 push 到 history 末尾)
  * 返回: { date, volume, up, down, limitUp, limitDown } */
-export async function fetchTodaySnapshot(): Promise<{
+export async function fetchTodaySnapshot(stockCodes?: string[]): Promise<{
   date: string;
   volume: number;
   up: number;
@@ -304,8 +301,8 @@ export async function fetchTodaySnapshot(): Promise<{
     const m = String(now8.getUTCMonth() + 1).padStart(2, '0');
     const d = String(now8.getUTCDate()).padStart(2, '0');
     const date = `${y}-${m}-${d}`;
-    // 拉全市场(同源 fetchEMMarketStats,55 页 hs_a,卡片和曲线图必然一致)
-    const summary = await fetchMarketSummary();
+    // v2.0.7ee:传 stockCodes 给 fetchMarketSummary
+    const summary = await fetchMarketSummary(stockCodes);
     if (!summary) return null;  // 周末/fetch 失败
     // v2.0.7cu:全 0 数据(限流)→ 返 null(让 useState sticky 保留 prev 成功值)
     // — 之前返 {0,0,0,0} → setSnap today: todayResult ?? prev.today ?? 不 sticky(0 不是 null)→ 覆盖了 2.4 万亿成功值

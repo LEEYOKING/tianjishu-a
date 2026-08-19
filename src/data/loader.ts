@@ -19,6 +19,8 @@ export interface ReportData {
     tradeDate: string;
     tradeDateSlash: string;
     dataSource: string;
+    // v2.0.7ee:股票代码列表(akshare 真实 5,547 只)— React useLiveData 拿这个拉腾讯
+    stockCodes?: string[];
   };
   marketOverview: MarketOverview;
   history: HistoryPoint[];

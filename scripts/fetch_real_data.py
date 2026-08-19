@@ -135,40 +135,42 @@ for code, name in WANTED:
 print(f"  指数 {len(indices)} 个: " + ", ".join(i['name'] for i in indices))
 
 # ========== 2. 全市场快照 ==========
-# v2.0.7ea:换成腾讯 qt.gtimg.cn(几乎不限流,0.17s/100 只)— 海外 IP 实测稳定
-# — 之前 sina 60 页(5500 只)限流严,5 页 sample × 1 推算;腾讯 qt.gtimg.cn 100 只/批
-# — 字段:字段 3 现价,字段 4 昨收,字段 6 成交量(手),字段 30 时间,字段 32 涨跌幅,字段 37 成交额(万)
-# — 实测 8/19 1:10 海外 IP:5,363 行 28.6s,up=1696/down=3113/flat=554/turnover 23,285 亿
-print("\n[2/7] 全市场快照(腾讯 qt.gtimg.cn)...")
+# v2.0.7ee:用 akshare 拉实际 A 股代码 5,547 只(不靠硬编码区间,避免漏 184 只)
+# — 之前 v2.0.7ea 硬编码区间漏了 沪市 605000-605999(112)/深市 1201+3000-3999/北交所 302132-920992(338)
+# — 实测 8/19 akshare 拉到 5,547 只 — 5,363 vs 5,547 — 漏 184
+# — 用 akshare stock_info_a_code_name() 拿真实代码,fetch-data + React 都用同一份
+print("\n[2/7] 全市场快照(腾讯 qt.gtimg.cn + akshare 真实代码)...")
 import urllib.request, json as _json
 import time as _t
-# 精简:只生成实际有 A 股的代码区间(去掉 B 股/已退市/无效区间)
-def _gen_all_a_share_codes():
-    """生成沪深北 A 股代码(精简)— 6 位纯数字 + 市场前缀
-    沪市主板 600000-603999,科创板 688000-689999
-    深市主板 000001-000999 + 002001-002999,创业板 300000-301999
-    北交所 830000-839999 + 870000-873000 + 400000-430999
-    """
-    codes = []
-    for i in range(600000, 604000):
-        codes.append(f'sh{i}')
-    for i in range(688000, 690000):
-        codes.append(f'sh{i}')
-    for i in range(1, 1000):
-        codes.append(f'sz{i:06d}')
-    for i in range(2000, 3000):
-        codes.append(f'sz{i:06d}')
-    for i in range(300000, 302000):
-        codes.append(f'sz{i:06d}')
-    for i in range(830000, 840000):
-        codes.append(f'bj{i}')
-    for i in range(870000, 873000):
-        codes.append(f'bj{i}')
-    for i in range(400000, 431000):
-        codes.append(f'bj{i}')
-    return codes
+# v2.0.7ee:用 akshare 拉真实 A 股代码 5,547 只(不靠硬编码)
+# — 失败时 fallback 到硬编码区间(应急)
+try:
+    import akshare as _ak
+    _code_df = _ak.stock_info_a_code_name()
+    if _code_df is not None and len(_code_df) > 0:
+        _all_codes_real = _code_df['code'].astype(str).tolist()
+        _all_codes_real = [c for c in _all_codes_real if c.isdigit() and len(c) == 6]
+        print(f"  akshare 真实 A 股代码: {len(_all_codes_real)} 只")
+    else:
+        raise Exception("akshare 拉空")
+except Exception as _e:
+    print(f"  akshare 失败({_e}),fallback 硬编码区间")
+    _all_codes_real = []
+    for i in range(600000, 606000): _all_codes_real.append(f'{i:06d}')
+    for i in range(688000, 690000): _all_codes_real.append(f'{i:06d}')
+    for i in range(1, 4000): _all_codes_real.append(f'{i:06d}')
+    for i in range(300000, 302000): _all_codes_real.append(f'{i:06d}')
 
-all_codes = _gen_all_a_share_codes()
+# 转成 sh/sz/bj 前缀
+all_codes = []
+for c in _all_codes_real:
+    cn = int(c)
+    if 600000 <= cn <= 605999 or 688000 <= cn <= 689999:
+        all_codes.append(f'sh{cn}')
+    elif cn < 400000:  # 0/3 开头
+        all_codes.append(f'sz{cn:06d}')
+    else:  # 4/8/9 北交所
+        all_codes.append(f'bj{cn}')
 # 限流批量 100 只/批(URL 长度限制:实测 100 只不超 414)
 BATCH_SIZE = 100
 spot_rows = []
@@ -1631,6 +1633,9 @@ data = {
         'tradeDate': TRADE_DATE,
         'tradeDateSlash': TRADE_DATE_SLASH,
         'dataSource': 'akshare (新浪/腾讯/东方财富)',
+        # v2.0.7ee:股票代码列表 — React useLiveData 读这个拉腾讯 qt.gtimg.cn
+        # — fetch-data 跑时 akshare 拿真实 5,547 只,React 不靠硬编码
+        'stockCodes': all_codes,
     },
     'marketOverview': {
         'tradeDate': TRADE_DATE,
