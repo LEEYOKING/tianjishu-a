@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-19 15:17:41",
+    "generatedAt": "2026-08-19 15:47:17",
     "tradeDate": "20260819",
     "tradeDateSlash": "26/08/19",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
@@ -5557,7 +5557,7 @@
   "marketOverview": {
     "tradeDate": "20260819",
     "tradeDateSlash": "26/08/19",
-    "generatedAt": "2026-08-19 15:17",
+    "generatedAt": "2026-08-19 15:47",
     "marketTurnover": 25300.1,
     "turnoverDiff": 2531.77,
     "marketTemperature": {
@@ -5605,8 +5605,8 @@
     "flatCount": 29,
     "upPercent": 8.09,
     "stockTotal": 5547,
-    "limitUpCount": 40,
-    "limitDownCount": 338,
+    "limitUpCount": 36,
+    "limitDownCount": 118,
     "brokenLimitCount": 12,
     "indices": [
       {
@@ -6027,7 +6027,368 @@
         }
       ]
     },
-    "marginHistory": null
+    "marginHistory": [
+      {
+        "date": "2026-05-26",
+        "margin_balance": 14846.78,
+        "margin_balance_diff": 0,
+        "sh_close": 4145.37
+      },
+      {
+        "date": "2026-05-27",
+        "margin_balance": 14860.06,
+        "margin_balance_diff": 13.28,
+        "sh_close": 4093.73
+      },
+      {
+        "date": "2026-05-28",
+        "margin_balance": 14895.53,
+        "margin_balance_diff": 35.47,
+        "sh_close": 4098.64
+      },
+      {
+        "date": "2026-05-29",
+        "margin_balance": 14722.46,
+        "margin_balance_diff": -173.07,
+        "sh_close": 4068.57
+      },
+      {
+        "date": "2026-06-01",
+        "margin_balance": 14681.89,
+        "margin_balance_diff": -40.57,
+        "sh_close": 4057.74
+      },
+      {
+        "date": "2026-06-02",
+        "margin_balance": 14690.25,
+        "margin_balance_diff": 8.36,
+        "sh_close": 4075.1
+      },
+      {
+        "date": "2026-06-03",
+        "margin_balance": 14742.44,
+        "margin_balance_diff": 52.19,
+        "sh_close": 4083.97
+      },
+      {
+        "date": "2026-06-04",
+        "margin_balance": 14767.43,
+        "margin_balance_diff": 24.99,
+        "sh_close": 4057.78
+      },
+      {
+        "date": "2026-06-05",
+        "margin_balance": 14654.47,
+        "margin_balance_diff": -112.96,
+        "sh_close": 4027.74
+      },
+      {
+        "date": "2026-06-08",
+        "margin_balance": 14537.04,
+        "margin_balance_diff": -117.43,
+        "sh_close": 3959.34
+      },
+      {
+        "date": "2026-06-09",
+        "margin_balance": 14522.22,
+        "margin_balance_diff": -14.82,
+        "sh_close": 4010.03
+      },
+      {
+        "date": "2026-06-10",
+        "margin_balance": 14478.58,
+        "margin_balance_diff": -43.64,
+        "sh_close": 3993.23
+      },
+      {
+        "date": "2026-06-11",
+        "margin_balance": 14482.47,
+        "margin_balance_diff": 3.89,
+        "sh_close": 3987.01
+      },
+      {
+        "date": "2026-06-12",
+        "margin_balance": 14488.96,
+        "margin_balance_diff": 6.49,
+        "sh_close": 4031.51
+      },
+      {
+        "date": "2026-06-15",
+        "margin_balance": 14617.67,
+        "margin_balance_diff": 128.71,
+        "sh_close": 4096.47
+      },
+      {
+        "date": "2026-06-16",
+        "margin_balance": 14736.89,
+        "margin_balance_diff": 119.22,
+        "sh_close": 4091.89
+      },
+      {
+        "date": "2026-06-17",
+        "margin_balance": 14882.12,
+        "margin_balance_diff": 145.23,
+        "sh_close": 4108.08
+      },
+      {
+        "date": "2026-06-18",
+        "margin_balance": 14951.86,
+        "margin_balance_diff": 69.74,
+        "sh_close": 4090.48
+      },
+      {
+        "date": "2026-06-22",
+        "margin_balance": 15055.58,
+        "margin_balance_diff": 103.72,
+        "sh_close": 4163.1
+      },
+      {
+        "date": "2026-06-23",
+        "margin_balance": 15045.65,
+        "margin_balance_diff": -9.93,
+        "sh_close": 4106.25
+      },
+      {
+        "date": "2026-06-24",
+        "margin_balance": 15102.74,
+        "margin_balance_diff": 57.09,
+        "sh_close": 4110.81
+      },
+      {
+        "date": "2026-06-25",
+        "margin_balance": 15211.14,
+        "margin_balance_diff": 108.4,
+        "sh_close": 4120.28
+      },
+      {
+        "date": "2026-06-26",
+        "margin_balance": 15130.64,
+        "margin_balance_diff": -80.5,
+        "sh_close": 4027.26
+      },
+      {
+        "date": "2026-06-29",
+        "margin_balance": 15052.22,
+        "margin_balance_diff": -78.42,
+        "sh_close": 4073.9
+      },
+      {
+        "date": "2026-06-30",
+        "margin_balance": 15169.08,
+        "margin_balance_diff": 116.86,
+        "sh_close": 4094.4
+      },
+      {
+        "date": "2026-07-01",
+        "margin_balance": 15196.88,
+        "margin_balance_diff": 27.8,
+        "sh_close": 4112.44
+      },
+      {
+        "date": "2026-07-02",
+        "margin_balance": 15149.64,
+        "margin_balance_diff": -47.24,
+        "sh_close": 4028.9
+      },
+      {
+        "date": "2026-07-03",
+        "margin_balance": 15017.64,
+        "margin_balance_diff": -132.0,
+        "sh_close": 4043.64
+      },
+      {
+        "date": "2026-07-06",
+        "margin_balance": 14941.17,
+        "margin_balance_diff": -76.47,
+        "sh_close": 4041.24
+      },
+      {
+        "date": "2026-07-07",
+        "margin_balance": 14882.28,
+        "margin_balance_diff": -58.89,
+        "sh_close": 3990.24
+      },
+      {
+        "date": "2026-07-08",
+        "margin_balance": 14804.49,
+        "margin_balance_diff": -77.79,
+        "sh_close": 3970.88
+      },
+      {
+        "date": "2026-07-09",
+        "margin_balance": 14792.47,
+        "margin_balance_diff": -12.02,
+        "sh_close": 4036.59
+      },
+      {
+        "date": "2026-07-10",
+        "margin_balance": 14712.72,
+        "margin_balance_diff": -79.75,
+        "sh_close": 3996.16
+      },
+      {
+        "date": "2026-07-13",
+        "margin_balance": 14575.17,
+        "margin_balance_diff": -137.55,
+        "sh_close": 3913.79
+      },
+      {
+        "date": "2026-07-14",
+        "margin_balance": 14520.14,
+        "margin_balance_diff": -55.03,
+        "sh_close": 3967.13
+      },
+      {
+        "date": "2026-07-15",
+        "margin_balance": 14447.83,
+        "margin_balance_diff": -72.31,
+        "sh_close": 3955.58
+      },
+      {
+        "date": "2026-07-16",
+        "margin_balance": 14308.21,
+        "margin_balance_diff": -139.62,
+        "sh_close": 3882.41
+      },
+      {
+        "date": "2026-07-17",
+        "margin_balance": 13928.33,
+        "margin_balance_diff": -379.88,
+        "sh_close": 3764.16
+      },
+      {
+        "date": "2026-07-20",
+        "margin_balance": 13627.47,
+        "margin_balance_diff": -300.86,
+        "sh_close": 3796.28
+      },
+      {
+        "date": "2026-07-21",
+        "margin_balance": 13635.97,
+        "margin_balance_diff": 8.5,
+        "sh_close": 3864.37
+      },
+      {
+        "date": "2026-07-22",
+        "margin_balance": 13632.31,
+        "margin_balance_diff": -3.66,
+        "sh_close": 3867.03
+      },
+      {
+        "date": "2026-07-23",
+        "margin_balance": 13586.43,
+        "margin_balance_diff": -45.88,
+        "sh_close": 3876.78
+      },
+      {
+        "date": "2026-07-24",
+        "margin_balance": 13506.44,
+        "margin_balance_diff": -79.99,
+        "sh_close": 3814.2
+      },
+      {
+        "date": "2026-07-27",
+        "margin_balance": 13643.15,
+        "margin_balance_diff": 136.71,
+        "sh_close": 3858.24
+      },
+      {
+        "date": "2026-07-28",
+        "margin_balance": 13490.12,
+        "margin_balance_diff": -153.03,
+        "sh_close": 3813.32
+      },
+      {
+        "date": "2026-07-29",
+        "margin_balance": 13366.95,
+        "margin_balance_diff": -123.17,
+        "sh_close": 3828.47
+      },
+      {
+        "date": "2026-07-30",
+        "margin_balance": 13222.12,
+        "margin_balance_diff": -144.83,
+        "sh_close": 3804.69
+      },
+      {
+        "date": "2026-07-31",
+        "margin_balance": 13273.98,
+        "margin_balance_diff": 51.86,
+        "sh_close": 3832.26
+      },
+      {
+        "date": "2026-08-03",
+        "margin_balance": 13232.58,
+        "margin_balance_diff": -41.4,
+        "sh_close": 3809.66
+      },
+      {
+        "date": "2026-08-04",
+        "margin_balance": 13294.07,
+        "margin_balance_diff": 61.49,
+        "sh_close": 3822.28
+      },
+      {
+        "date": "2026-08-05",
+        "margin_balance": 13353.89,
+        "margin_balance_diff": 59.82,
+        "sh_close": 3878.43
+      },
+      {
+        "date": "2026-08-06",
+        "margin_balance": 13402.77,
+        "margin_balance_diff": 48.88,
+        "sh_close": 3900.35
+      },
+      {
+        "date": "2026-08-07",
+        "margin_balance": 13446.18,
+        "margin_balance_diff": 43.41,
+        "sh_close": 3940.04
+      },
+      {
+        "date": "2026-08-10",
+        "margin_balance": 13500.88,
+        "margin_balance_diff": 54.7,
+        "sh_close": 3966.59
+      },
+      {
+        "date": "2026-08-11",
+        "margin_balance": 13504.24,
+        "margin_balance_diff": 3.36,
+        "sh_close": 3934.09
+      },
+      {
+        "date": "2026-08-12",
+        "margin_balance": 13552.37,
+        "margin_balance_diff": 48.13,
+        "sh_close": 3946.68
+      },
+      {
+        "date": "2026-08-13",
+        "margin_balance": 13563.08,
+        "margin_balance_diff": 10.71,
+        "sh_close": 3926.97
+      },
+      {
+        "date": "2026-08-14",
+        "margin_balance": 13549.98,
+        "margin_balance_diff": -13.1,
+        "sh_close": 3927.18
+      },
+      {
+        "date": "2026-08-17",
+        "margin_balance": 13648.5,
+        "margin_balance_diff": 98.52,
+        "sh_close": 3982.65
+      },
+      {
+        "date": "2026-08-18",
+        "margin_balance": 13672.67,
+        "margin_balance_diff": 24.17,
+        "sh_close": 3990.3
+      }
+    ]
   },
   "history": [
     {
@@ -6833,10 +7194,10 @@
     {
       "date": "2026-08-19",
       "volume": 25300.1,
-      "limitUp": 0,
-      "limitDown": 0,
-      "up": 0,
-      "down": 0
+      "limitUp": 36,
+      "limitDown": 118,
+      "up": 449,
+      "down": 5069
     }
   ],
   "limitUpLadders": [
@@ -6878,7 +7239,7 @@
       "changePercent": 9.99,
       "turnover": 2.29,
       "turnoverRate": 4.56,
-      "sealedAmount": 0.27,
+      "sealedAmount": 4.34,
       "bombedCount": 0,
       "firstSealTime": "09:25:02"
     },
@@ -6892,7 +7253,7 @@
       "changePercent": 10.02,
       "turnover": 3.41,
       "turnoverRate": 18.11,
-      "sealedAmount": 0.07,
+      "sealedAmount": 1.21,
       "bombedCount": 1,
       "firstSealTime": "09:25:02"
     },
@@ -6948,7 +7309,7 @@
       "changePercent": 9.95,
       "turnover": 4.68,
       "turnoverRate": 18.17,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.09,
       "bombedCount": 5,
       "firstSealTime": "09:31:18"
     },
@@ -7200,7 +7561,7 @@
       "changePercent": 10.0,
       "turnover": 8.26,
       "turnoverRate": 5.2,
-      "sealedAmount": 0.08,
+      "sealedAmount": 1.92,
       "bombedCount": 0,
       "firstSealTime": "09:48:29"
     },
@@ -7214,7 +7575,7 @@
       "changePercent": 10.01,
       "turnover": 3.61,
       "turnoverRate": 6.71,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.52,
       "bombedCount": 2,
       "firstSealTime": "10:24:35"
     },
@@ -7228,7 +7589,7 @@
       "changePercent": 10.03,
       "turnover": 8.97,
       "turnoverRate": 5.97,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.69,
       "bombedCount": 1,
       "firstSealTime": "09:25:02"
     },
@@ -7242,7 +7603,7 @@
       "changePercent": 10.14,
       "turnover": 2.21,
       "turnoverRate": 3.8,
-      "sealedAmount": 0.12,
+      "sealedAmount": 1.42,
       "bombedCount": 0,
       "firstSealTime": "09:30:02"
     },
@@ -7256,7 +7617,7 @@
       "changePercent": 10.09,
       "turnover": 5.66,
       "turnoverRate": 7.68,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.41,
       "bombedCount": 1,
       "firstSealTime": "10:15:31"
     },
@@ -7270,7 +7631,7 @@
       "changePercent": 10.0,
       "turnover": 3.33,
       "turnoverRate": 11.48,
-      "sealedAmount": 0.05,
+      "sealedAmount": 1.15,
       "bombedCount": 0,
       "firstSealTime": "09:32:33"
     },
@@ -7284,7 +7645,7 @@
       "changePercent": 10.04,
       "turnover": 1.87,
       "turnoverRate": 4.47,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.36,
       "bombedCount": 0,
       "firstSealTime": "14:12:02"
     },
@@ -7298,7 +7659,7 @@
       "changePercent": 10.0,
       "turnover": 20.56,
       "turnoverRate": 8.76,
-      "sealedAmount": 0.19,
+      "sealedAmount": 0.85,
       "bombedCount": 2,
       "firstSealTime": "09:53:13"
     },
@@ -7312,7 +7673,7 @@
       "changePercent": 9.94,
       "turnover": 2.97,
       "turnoverRate": 4.94,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.52,
       "bombedCount": 0,
       "firstSealTime": "11:01:13"
     },
@@ -7326,7 +7687,7 @@
       "changePercent": 10.0,
       "turnover": 0.89,
       "turnoverRate": 4.0,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.24,
       "bombedCount": 1,
       "firstSealTime": "09:30:14"
     },
@@ -7340,7 +7701,7 @@
       "changePercent": 10.05,
       "turnover": 0.88,
       "turnoverRate": 3.12,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.31,
       "bombedCount": 1,
       "firstSealTime": "09:32:38"
     },
@@ -7354,7 +7715,7 @@
       "changePercent": 9.98,
       "turnover": 1.29,
       "turnoverRate": 2.22,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.31,
       "bombedCount": 2,
       "firstSealTime": "09:36:16"
     }
@@ -7608,7 +7969,7 @@
       "changePercent": 10.0,
       "turnover": 8.26,
       "turnoverRate": 5.2,
-      "sealedAmount": 0.08,
+      "sealedAmount": 1.92,
       "bombedCount": 0,
       "firstSealTime": "09:48:29"
     },
@@ -7622,7 +7983,7 @@
       "changePercent": 10.01,
       "turnover": 3.61,
       "turnoverRate": 6.71,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.52,
       "bombedCount": 2,
       "firstSealTime": "10:24:35"
     },
@@ -7636,7 +7997,7 @@
       "changePercent": 10.03,
       "turnover": 8.97,
       "turnoverRate": 5.97,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.69,
       "bombedCount": 1,
       "firstSealTime": "09:25:02"
     },
@@ -7650,7 +8011,7 @@
       "changePercent": 10.14,
       "turnover": 2.21,
       "turnoverRate": 3.8,
-      "sealedAmount": 0.12,
+      "sealedAmount": 1.42,
       "bombedCount": 0,
       "firstSealTime": "09:30:02"
     },
@@ -7664,7 +8025,7 @@
       "changePercent": 10.09,
       "turnover": 5.66,
       "turnoverRate": 7.68,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.41,
       "bombedCount": 1,
       "firstSealTime": "10:15:31"
     },
@@ -7678,7 +8039,7 @@
       "changePercent": 10.0,
       "turnover": 3.33,
       "turnoverRate": 11.48,
-      "sealedAmount": 0.05,
+      "sealedAmount": 1.15,
       "bombedCount": 0,
       "firstSealTime": "09:32:33"
     },
@@ -7692,7 +8053,7 @@
       "changePercent": 10.04,
       "turnover": 1.87,
       "turnoverRate": 4.47,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.36,
       "bombedCount": 0,
       "firstSealTime": "14:12:02"
     },
@@ -7706,7 +8067,7 @@
       "changePercent": 10.0,
       "turnover": 20.56,
       "turnoverRate": 8.76,
-      "sealedAmount": 0.19,
+      "sealedAmount": 0.85,
       "bombedCount": 2,
       "firstSealTime": "09:53:13"
     },
@@ -7720,7 +8081,7 @@
       "changePercent": 9.94,
       "turnover": 2.97,
       "turnoverRate": 4.94,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.52,
       "bombedCount": 0,
       "firstSealTime": "11:01:13"
     },
@@ -7734,7 +8095,7 @@
       "changePercent": 10.0,
       "turnover": 0.89,
       "turnoverRate": 4.0,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.24,
       "bombedCount": 1,
       "firstSealTime": "09:30:14"
     },
@@ -7748,7 +8109,7 @@
       "changePercent": 10.05,
       "turnover": 0.88,
       "turnoverRate": 3.12,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.31,
       "bombedCount": 1,
       "firstSealTime": "09:32:38"
     },
@@ -7762,7 +8123,7 @@
       "changePercent": 9.98,
       "turnover": 1.29,
       "turnoverRate": 2.22,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.31,
       "bombedCount": 2,
       "firstSealTime": "09:36:16"
     }
@@ -7882,7 +8243,7 @@
       "turnover": 0.01,
       "turnoverRate": 10.07,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.26
     },
     {
       "code": "600183",
@@ -7893,7 +8254,7 @@
       "turnover": 0.01,
       "turnoverRate": 3.25,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.44
     },
     {
       "code": "600487",
@@ -9229,13 +9590,13 @@
     {
       "code": "600113",
       "name": "浙江东日",
-      "industry": "-",
+      "industry": "一般零售",
       "closePrice": 0.0,
       "changePercent": -10.0,
       "turnover": 0.0,
-      "turnoverRate": 0,
+      "turnoverRate": 4.02,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0
+      "sealedAmount": 0.02
     },
     {
       "code": "600143",
@@ -9257,7 +9618,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.86,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.09
     },
     {
       "code": "600186",
@@ -9268,7 +9629,7 @@
       "turnover": 0.0,
       "turnoverRate": 13.58,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.06
+      "sealedAmount": 2.57
     },
     {
       "code": "600246",
@@ -9279,7 +9640,7 @@
       "turnover": 0.0,
       "turnoverRate": 5.09,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 1.02
     },
     {
       "code": "600353",
@@ -9290,7 +9651,7 @@
       "turnover": 0.0,
       "turnoverRate": 12.85,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 1.67
     },
     {
       "code": "600376",
@@ -9301,7 +9662,7 @@
       "turnover": 0.0,
       "turnoverRate": 5.33,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.53
     },
     {
       "code": "600397",
@@ -9312,7 +9673,7 @@
       "turnover": 0.0,
       "turnoverRate": 9.87,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.77
     },
     {
       "code": "600580",
@@ -9323,7 +9684,7 @@
       "turnover": 0.0,
       "turnoverRate": 5.0,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.04
+      "sealedAmount": 1.55
     },
     {
       "code": "600683",
@@ -9334,7 +9695,7 @@
       "turnover": 0.0,
       "turnoverRate": 7.04,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.18
     },
     {
       "code": "600829",
@@ -9345,7 +9706,7 @@
       "turnover": 0.0,
       "turnoverRate": 6.65,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.68
     },
     {
       "code": "600869",
@@ -9367,7 +9728,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.2,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.07
+      "sealedAmount": 2.54
     },
     {
       "code": "603009",
@@ -9378,7 +9739,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.34,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.07
     },
     {
       "code": "603031",
@@ -9389,7 +9750,7 @@
       "turnover": 0.0,
       "turnoverRate": 4.57,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.4
     },
     {
       "code": "603052",
@@ -9400,7 +9761,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.2,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.02
     },
     {
       "code": "603061",
@@ -9411,7 +9772,7 @@
       "turnover": 0.0,
       "turnoverRate": 4.07,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.04
     },
     {
       "code": "603065",
@@ -9422,7 +9783,7 @@
       "turnover": 0.0,
       "turnoverRate": 11.29,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.25
     },
     {
       "code": "603079",
@@ -9433,7 +9794,7 @@
       "turnover": 0.0,
       "turnoverRate": 5.63,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.91
     },
     {
       "code": "603083",
@@ -9444,7 +9805,7 @@
       "turnover": 0.0,
       "turnoverRate": 9.08,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.28
     },
     {
       "code": "603089",
@@ -9455,18 +9816,18 @@
       "turnover": 0.0,
       "turnoverRate": 3.58,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.54
     },
     {
       "code": "603115",
       "name": "海星股份",
-      "industry": "元件",
+      "industry": "-",
       "closePrice": 0.0,
       "changePercent": -10.0,
       "turnover": 0.0,
-      "turnoverRate": 4.09,
+      "turnoverRate": 0,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0
     },
     {
       "code": "603118",
@@ -9477,7 +9838,7 @@
       "turnover": 0.0,
       "turnoverRate": 16.3,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.35
     },
     {
       "code": "603119",
@@ -9488,7 +9849,7 @@
       "turnover": 0.0,
       "turnoverRate": 2.48,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.14
     },
     {
       "code": "603124",
@@ -9499,7 +9860,7 @@
       "turnover": 0.0,
       "turnoverRate": 5.01,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.64
     },
     {
       "code": "603137",
@@ -9510,18 +9871,18 @@
       "turnover": 0.0,
       "turnoverRate": 9.44,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.03
+      "sealedAmount": 0.61
     },
     {
       "code": "603166",
       "name": "福达股份",
-      "industry": "-",
+      "industry": "汽车零部",
       "closePrice": 0.0,
       "changePercent": -9.99,
       "turnover": 0.0,
-      "turnoverRate": 0,
+      "turnoverRate": 2.69,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0
+      "sealedAmount": 0.03
     },
     {
       "code": "603179",
@@ -9532,7 +9893,7 @@
       "turnover": 0.0,
       "turnoverRate": 4.2,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.11
     },
     {
       "code": "603211",
@@ -9543,7 +9904,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.05,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.24
     },
     {
       "code": "603221",
@@ -9554,7 +9915,7 @@
       "turnover": 0.0,
       "turnoverRate": 0.61,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.08
+      "sealedAmount": 3.58
     },
     {
       "code": "603226",
@@ -9576,7 +9937,7 @@
       "turnover": 0.0,
       "turnoverRate": 4.23,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.07
+      "sealedAmount": 1.79
     },
     {
       "code": "603256",
@@ -9587,7 +9948,7 @@
       "turnover": 0.0,
       "turnoverRate": 2.09,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.03
+      "sealedAmount": 1.57
     },
     {
       "code": "603283",
@@ -9609,7 +9970,7 @@
       "turnover": 0.0,
       "turnoverRate": 13.23,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.06
     },
     {
       "code": "603286",
@@ -9631,7 +9992,7 @@
       "turnover": 0.0,
       "turnoverRate": 4.72,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.13
     },
     {
       "code": "603330",
@@ -9642,7 +10003,7 @@
       "turnover": 0.0,
       "turnoverRate": 14.97,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.07
+      "sealedAmount": 1.61
     },
     {
       "code": "603601",
@@ -9653,7 +10014,7 @@
       "turnover": 0.0,
       "turnoverRate": 7.94,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.12
     },
     {
       "code": "603608",
@@ -9664,7 +10025,7 @@
       "turnover": 0.0,
       "turnoverRate": 4.11,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.16
     },
     {
       "code": "603618",
@@ -9675,18 +10036,18 @@
       "turnover": 0.0,
       "turnoverRate": 9.71,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.13
     },
     {
       "code": "603662",
       "name": "柯力传感",
-      "industry": "通用设备",
+      "industry": "-",
       "closePrice": 0.0,
       "changePercent": -10.0,
       "turnover": 0.0,
-      "turnoverRate": 3.58,
+      "turnoverRate": 0,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0
     },
     {
       "code": "603663",
@@ -9697,7 +10058,7 @@
       "turnover": 0.0,
       "turnoverRate": 5.9,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.61
     },
     {
       "code": "603666",
@@ -9719,7 +10080,7 @@
       "turnover": 0.0,
       "turnoverRate": 4.98,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.57
     },
     {
       "code": "603678",
@@ -9730,18 +10091,18 @@
       "turnover": 0.0,
       "turnoverRate": 5.33,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.76
     },
     {
       "code": "603728",
       "name": "鸣志电器",
-      "industry": "-",
+      "industry": "电机Ⅱ",
       "closePrice": 0.0,
       "changePercent": -10.0,
       "turnover": 0.0,
-      "turnoverRate": 0,
+      "turnoverRate": 2.24,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0
+      "sealedAmount": 0.13
     },
     {
       "code": "603738",
@@ -9752,7 +10113,7 @@
       "turnover": 0.0,
       "turnoverRate": 10.44,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 1.19
     },
     {
       "code": "603739",
@@ -9763,18 +10124,18 @@
       "turnover": 0.0,
       "turnoverRate": 5.02,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.07
     },
     {
       "code": "603757",
       "name": "大元泵业",
-      "industry": "-",
+      "industry": "通用设备",
       "closePrice": 0.0,
       "changePercent": -10.01,
       "turnover": 0.0,
-      "turnoverRate": 0,
+      "turnoverRate": 4.98,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0
+      "sealedAmount": 0.02
     },
     {
       "code": "603758",
@@ -9785,7 +10146,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.76,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.02
+      "sealedAmount": 0.57
     },
     {
       "code": "603767",
@@ -9796,7 +10157,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.99,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.05
     },
     {
       "code": "603790",
@@ -9807,7 +10168,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.53,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.1
     },
     {
       "code": "603880",
@@ -9818,7 +10179,7 @@
       "turnover": 0.0,
       "turnoverRate": 7.24,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.11
     },
     {
       "code": "603887",
@@ -9829,7 +10190,7 @@
       "turnover": 0.0,
       "turnoverRate": 8.97,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.25
     },
     {
       "code": "603897",
@@ -9840,7 +10201,7 @@
       "turnover": 0.0,
       "turnoverRate": 7.86,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.15
     },
     {
       "code": "603989",
@@ -9851,7 +10212,7 @@
       "turnover": 0.0,
       "turnoverRate": 6.86,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.01
+      "sealedAmount": 0.15
     },
     {
       "code": "605179",
@@ -9862,7 +10223,7 @@
       "turnover": 0.0,
       "turnoverRate": 0.75,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.05
+      "sealedAmount": 4.66
     },
     {
       "code": "605189",
@@ -9873,7 +10234,7 @@
       "turnover": 0.0,
       "turnoverRate": 6.85,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.06
     },
     {
       "code": "605288",
@@ -9884,7 +10245,7 @@
       "turnover": 0.0,
       "turnoverRate": 2.19,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.04
     },
     {
       "code": "605289",
@@ -9895,7 +10256,7 @@
       "turnover": 0.0,
       "turnoverRate": 3.02,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.1
     },
     {
       "code": "605318",
@@ -9917,18 +10278,18 @@
       "turnover": 0.0,
       "turnoverRate": 4.87,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.04
+      "sealedAmount": 1.45
     },
     {
       "code": "605488",
       "name": "福莱新材",
-      "industry": "-",
+      "industry": "塑料",
       "closePrice": 0.0,
       "changePercent": -10.01,
       "turnover": 0.0,
-      "turnoverRate": 0,
+      "turnoverRate": 3.45,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0
+      "sealedAmount": 0.0
     },
     {
       "code": "605589",
@@ -9939,18 +10300,18 @@
       "turnover": 0.0,
       "turnoverRate": 6.33,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0.0
+      "sealedAmount": 0.06
     },
     {
       "code": "605598",
       "name": "上海港湾",
-      "industry": "-",
+      "industry": "专业工程",
       "closePrice": 0.0,
       "changePercent": -9.99,
       "turnover": 0.0,
-      "turnoverRate": 0,
+      "turnoverRate": 2.97,
       "consecutiveDownDays": 1,
-      "sealedAmount": 0
+      "sealedAmount": 0.03
     },
     {
       "code": "688028",
@@ -32301,113 +32662,278 @@
   },
   "surgery": {
     "meta": {
-      "generatedAt": "2026-08-18 15:54:28",
-      "tradeDate": "20260818",
-      "tradeDateSlash": "26/08/18"
+      "generatedAt": "2026-08-19 13:57:43",
+      "tradeDate": "20260819",
+      "tradeDateSlash": "26/08/19"
     },
     "sealCards": [
       {
-        "code": "603958",
-        "name": "哈森股份",
-        "industry": "服装家纺",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:25:01",
+        "code": "600127",
+        "name": "金健米业",
+        "industry": "农产品加",
+        "consecutiveDays": 3,
+        "firstSealTime": "09:25:02",
         "bombedCount": 0,
-        "sealedAmount": 0.66,
-        "turnover": 0.2,
-        "changePercent": 10.01,
-        "closePrice": 18.46,
-        "ratio": 3.27,
+        "sealedAmount": 6.16,
+        "turnover": 1.92,
+        "changePercent": 9.99,
+        "closePrice": 7.82,
+        "ratio": 3.21,
         "grade": "S",
         "isLateSeal": false
       },
       {
-        "code": "002820",
-        "name": "桂发祥",
-        "industry": "休闲食品",
-        "consecutiveDays": 3,
-        "firstSealTime": "09:25:00",
+        "code": "001277",
+        "name": "速达股份",
+        "industry": "专用设备",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:42:27",
         "bombedCount": 0,
-        "sealedAmount": 1.51,
-        "turnover": 0.51,
-        "changePercent": 10.04,
-        "closePrice": 12.27,
-        "ratio": 2.99,
+        "sealedAmount": 1.12,
+        "turnover": 0.76,
+        "changePercent": 10.01,
+        "closePrice": 32.97,
+        "ratio": 1.48,
         "grade": "A",
         "isLateSeal": false
       },
       {
-        "code": "000526",
-        "name": "学大教育",
-        "industry": "教育",
+        "code": "002333",
+        "name": "罗普斯金",
+        "industry": "装修建材",
         "consecutiveDays": 1,
         "firstSealTime": "09:25:00",
         "bombedCount": 0,
-        "sealedAmount": 3.29,
-        "turnover": 1.14,
-        "changePercent": 10.0,
-        "closePrice": 35.54,
-        "ratio": 2.89,
+        "sealedAmount": 1.09,
+        "turnover": 0.84,
+        "changePercent": 10.07,
+        "closePrice": 6.34,
+        "ratio": 1.29,
         "grade": "A",
+        "isLateSeal": false
+      },
+      {
+        "code": "601011",
+        "name": "宝泰隆",
+        "industry": "焦炭Ⅱ",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:30:02",
+        "bombedCount": 0,
+        "sealedAmount": 2.09,
+        "turnover": 1.94,
+        "changePercent": 10.14,
+        "closePrice": 3.04,
+        "ratio": 1.08,
+        "grade": "A",
+        "isLateSeal": false
+      },
+      {
+        "code": "002543",
+        "name": "万和电气",
+        "industry": "厨卫电器",
+        "consecutiveDays": 1,
+        "firstSealTime": "13:51:57",
+        "bombedCount": 0,
+        "sealedAmount": 2.39,
+        "turnover": 2.33,
+        "changePercent": 10.03,
+        "closePrice": 7.57,
+        "ratio": 1.03,
+        "grade": "A",
+        "isLateSeal": false
+      },
+      {
+        "code": "000736",
+        "name": "中交发展",
+        "industry": "房地产服",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:33:48",
+        "bombedCount": 0,
+        "sealedAmount": 1.32,
+        "turnover": 1.42,
+        "changePercent": 10.11,
+        "closePrice": 4.9,
+        "ratio": 0.93,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "002900",
+        "name": "哈三联",
+        "industry": "化学制药",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:31:27",
+        "bombedCount": 1,
+        "sealedAmount": 2.3,
+        "turnover": 3.06,
+        "changePercent": 9.99,
+        "closePrice": 15.63,
+        "ratio": 0.75,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "603506",
+        "name": "南都物业",
+        "industry": "房地产服",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:30:14",
+        "bombedCount": 1,
+        "sealedAmount": 0.54,
+        "turnover": 0.83,
+        "changePercent": 10.0,
+        "closePrice": 11.88,
+        "ratio": 0.64,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "603801",
+        "name": "志邦家居",
+        "industry": "家居用品",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:32:38",
+        "bombedCount": 1,
+        "sealedAmount": 0.49,
+        "turnover": 0.79,
+        "changePercent": 10.05,
+        "closePrice": 6.57,
+        "ratio": 0.62,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "002412",
+        "name": "汉森制药",
+        "industry": "中药Ⅱ",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:33:42",
+        "bombedCount": 1,
+        "sealedAmount": 1.4,
+        "turnover": 2.51,
+        "changePercent": 10.07,
+        "closePrice": 8.42,
+        "ratio": 0.56,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "600403",
+        "name": "大有能源",
+        "industry": "煤炭开采",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:48:29",
+        "bombedCount": 0,
+        "sealedAmount": 4.21,
+        "turnover": 7.96,
+        "changePercent": 10.0,
+        "closePrice": 6.82,
+        "ratio": 0.53,
+        "grade": "B",
         "isLateSeal": false
       },
       {
         "code": "002953",
         "name": "日丰股份",
         "industry": "电网设备",
-        "consecutiveDays": 1,
+        "consecutiveDays": 2,
         "firstSealTime": "09:25:00",
-        "bombedCount": 0,
-        "sealedAmount": 1.12,
-        "turnover": 0.63,
-        "changePercent": 10.01,
-        "closePrice": 10.66,
-        "ratio": 1.78,
-        "grade": "A",
-        "isLateSeal": false
-      },
-      {
-        "code": "000153",
-        "name": "丰原药业",
-        "industry": "化学制药",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:25:00",
-        "bombedCount": 0,
-        "sealedAmount": 1.1,
-        "turnover": 0.71,
-        "changePercent": 10.05,
-        "closePrice": 6.68,
-        "ratio": 1.55,
-        "grade": "A",
-        "isLateSeal": false
-      },
-      {
-        "code": "000020",
-        "name": "深华发Ａ",
-        "industry": "光学光电",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:17:39",
-        "bombedCount": 0,
-        "sealedAmount": 1.04,
-        "turnover": 0.81,
+        "bombedCount": 1,
+        "sealedAmount": 1.22,
+        "turnover": 2.62,
         "changePercent": 10.04,
-        "closePrice": 12.49,
-        "ratio": 1.28,
-        "grade": "A",
+        "closePrice": 11.73,
+        "ratio": 0.47,
+        "grade": "B",
         "isLateSeal": false
       },
       {
-        "code": "603089",
-        "name": "正裕工业",
-        "industry": "汽车零部",
-        "consecutiveDays": 3,
-        "firstSealTime": "09:25:00",
+        "code": "603102",
+        "name": "百合股份",
+        "industry": "食品加工",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:32:33",
         "bombedCount": 0,
+        "sealedAmount": 1.42,
+        "turnover": 3.18,
+        "changePercent": 10.0,
+        "closePrice": 45.76,
+        "ratio": 0.45,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "603848",
+        "name": "好太太",
+        "industry": "家居用品",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:36:16",
+        "bombedCount": 2,
         "sealedAmount": 0.54,
-        "turnover": 0.57,
-        "changePercent": 9.97,
-        "closePrice": 11.8,
-        "ratio": 0.96,
+        "turnover": 1.25,
+        "changePercent": 9.98,
+        "closePrice": 14.66,
+        "ratio": 0.43,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "300911",
+        "name": "亿田智能",
+        "industry": "厨卫电器",
+        "consecutiveDays": 1,
+        "firstSealTime": "13:07:54",
+        "bombedCount": 0,
+        "sealedAmount": 3.35,
+        "turnover": 8.0,
+        "changePercent": 19.98,
+        "closePrice": 26.66,
+        "ratio": 0.42,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "600610",
+        "name": "中毅达",
+        "industry": "化学原料",
+        "consecutiveDays": 1,
+        "firstSealTime": "10:24:35",
+        "bombedCount": 2,
+        "sealedAmount": 1.34,
+        "turnover": 3.42,
+        "changePercent": 10.01,
+        "closePrice": 7.8,
+        "ratio": 0.39,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "000526",
+        "name": "学大教育",
+        "industry": "教育",
+        "consecutiveDays": 2,
+        "firstSealTime": "09:33:24",
+        "bombedCount": 1,
+        "sealedAmount": 1.29,
+        "turnover": 3.37,
+        "changePercent": 9.99,
+        "closePrice": 39.09,
+        "ratio": 0.38,
+        "grade": "B",
+        "isLateSeal": false
+      },
+      {
+        "code": "603366",
+        "name": "日出东方",
+        "industry": "厨卫电器",
+        "consecutiveDays": 1,
+        "firstSealTime": "11:01:13",
+        "bombedCount": 0,
+        "sealedAmount": 0.91,
+        "turnover": 2.78,
+        "changePercent": 9.94,
+        "closePrice": 7.63,
+        "ratio": 0.33,
         "grade": "B",
         "isLateSeal": false
       },
@@ -32415,764 +32941,59 @@
         "code": "603395",
         "name": "红四方",
         "industry": "农化制品",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:30:11",
-        "bombedCount": 0,
-        "sealedAmount": 1.06,
-        "turnover": 1.28,
-        "changePercent": 10.02,
-        "closePrice": 26.36,
-        "ratio": 0.83,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "301106",
-        "name": "骏成科技",
-        "industry": "光学光电",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:33:30",
-        "bombedCount": 0,
-        "sealedAmount": 0.94,
-        "turnover": 1.16,
-        "changePercent": 20.0,
-        "closePrice": 21.18,
-        "ratio": 0.81,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "001366",
-        "name": "播恩集团",
-        "industry": "饲料",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:54:48",
-        "bombedCount": 0,
-        "sealedAmount": 0.48,
-        "turnover": 0.6,
-        "changePercent": 10.03,
-        "closePrice": 13.49,
-        "ratio": 0.79,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "600127",
-        "name": "金健米业",
-        "industry": "农产品加",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:30:57",
-        "bombedCount": 0,
-        "sealedAmount": 2.25,
-        "turnover": 3.83,
-        "changePercent": 10.06,
-        "closePrice": 7.11,
-        "ratio": 0.59,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "605268",
-        "name": "王力安防",
-        "industry": "家居用品",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:31:09",
-        "bombedCount": 2,
-        "sealedAmount": 0.43,
-        "turnover": 0.81,
-        "changePercent": 9.96,
-        "closePrice": 10.16,
-        "ratio": 0.53,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "300313",
-        "name": "天山生物",
-        "industry": "养殖业",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:31:30",
-        "bombedCount": 0,
-        "sealedAmount": 0.98,
-        "turnover": 1.88,
-        "changePercent": 20.04,
-        "closePrice": 12.88,
-        "ratio": 0.52,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "002365",
-        "name": "永安药业",
-        "industry": "化学制药",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:32:21",
-        "bombedCount": 0,
-        "sealedAmount": 1.65,
-        "turnover": 3.4,
-        "changePercent": 9.97,
-        "closePrice": 15.55,
-        "ratio": 0.48,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "002638",
-        "name": "勤上股份",
-        "industry": "照明设备",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:41:18",
-        "bombedCount": 0,
-        "sealedAmount": 0.42,
-        "turnover": 0.92,
-        "changePercent": 10.0,
-        "closePrice": 3.85,
-        "ratio": 0.46,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "600108",
-        "name": "亚盛集团",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:36:22",
-        "bombedCount": 1,
-        "sealedAmount": 1.33,
-        "turnover": 2.96,
-        "changePercent": 9.88,
-        "closePrice": 3.56,
-        "ratio": 0.45,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "603071",
-        "name": "物产环能",
-        "industry": "贸易Ⅱ",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:35:26",
-        "bombedCount": 1,
-        "sealedAmount": 0.61,
-        "turnover": 1.4,
-        "changePercent": 10.0,
-        "closePrice": 13.2,
-        "ratio": 0.44,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "002819",
-        "name": "东方中科",
-        "industry": "通用设备",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:39:18",
-        "bombedCount": 0,
-        "sealedAmount": 0.76,
-        "turnover": 1.85,
-        "changePercent": 10.0,
-        "closePrice": 22.78,
-        "ratio": 0.41,
-        "grade": "B",
-        "isLateSeal": true
-      },
-      {
-        "code": "601116",
-        "name": "三江购物",
-        "industry": "一般零售",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:48:30",
-        "bombedCount": 0,
-        "sealedAmount": 1.06,
-        "turnover": 2.79,
-        "changePercent": 10.0,
-        "closePrice": 11.77,
-        "ratio": 0.38,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "605577",
-        "name": "龙版传媒",
-        "industry": "出版",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:47:13",
-        "bombedCount": 1,
-        "sealedAmount": 0.44,
-        "turnover": 1.19,
-        "changePercent": 10.02,
-        "closePrice": 10.76,
-        "ratio": 0.37,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "603406",
-        "name": "天富龙",
-        "industry": "化学纤维",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:40:34",
-        "bombedCount": 1,
-        "sealedAmount": 0.46,
-        "turnover": 1.33,
-        "changePercent": 10.01,
-        "closePrice": 29.56,
-        "ratio": 0.35,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "002743",
-        "name": "富煌钢构",
-        "industry": "专业工程",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:31:42",
-        "bombedCount": 0,
-        "sealedAmount": 0.19,
-        "turnover": 0.63,
-        "changePercent": 10.1,
-        "closePrice": 4.47,
-        "ratio": 0.31,
-        "grade": "B",
-        "isLateSeal": false
-      },
-      {
-        "code": "600113",
-        "name": "浙江东日",
-        "industry": "一般零售",
-        "consecutiveDays": 1,
-        "firstSealTime": "13:36:18",
-        "bombedCount": 0,
-        "sealedAmount": 0.92,
-        "turnover": 3.59,
-        "changePercent": 10.0,
-        "closePrice": 35.2,
-        "ratio": 0.26,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "000852",
-        "name": "石化机械",
-        "industry": "专用设备",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:48:06",
-        "bombedCount": 0,
-        "sealedAmount": 0.4,
-        "turnover": 1.63,
-        "changePercent": 10.08,
-        "closePrice": 5.79,
-        "ratio": 0.25,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "603739",
-        "name": "蔚蓝生物",
-        "industry": "化学制品",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:53:55",
-        "bombedCount": 1,
-        "sealedAmount": 0.31,
-        "turnover": 1.3,
-        "changePercent": 10.04,
-        "closePrice": 13.81,
-        "ratio": 0.24,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "688152",
-        "name": "麒麟信安",
-        "industry": "软件开发",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:26:50",
-        "bombedCount": 0,
-        "sealedAmount": 0.55,
-        "turnover": 2.26,
-        "changePercent": 20.0,
-        "closePrice": 34.98,
-        "ratio": 0.24,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "002553",
-        "name": "南方精工",
-        "industry": "汽车零部",
-        "consecutiveDays": 1,
-        "firstSealTime": "11:06:00",
-        "bombedCount": 0,
-        "sealedAmount": 0.92,
-        "turnover": 4.25,
-        "changePercent": 9.99,
-        "closePrice": 17.51,
-        "ratio": 0.22,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "603112",
-        "name": "华翔股份",
-        "industry": "家电零部",
-        "consecutiveDays": 1,
-        "firstSealTime": "13:12:31",
-        "bombedCount": 0,
-        "sealedAmount": 0.67,
-        "turnover": 3.2,
-        "changePercent": 10.01,
-        "closePrice": 16.59,
-        "ratio": 0.21,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "605333",
-        "name": "沪光股份",
-        "industry": "汽车零部",
-        "consecutiveDays": 1,
-        "firstSealTime": "13:41:52",
-        "bombedCount": 0,
-        "sealedAmount": 0.21,
-        "turnover": 1.01,
-        "changePercent": 10.02,
-        "closePrice": 18.66,
-        "ratio": 0.21,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "002124",
-        "name": "天邦食品",
-        "industry": "养殖业",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:35:36",
-        "bombedCount": 0,
-        "sealedAmount": 0.51,
-        "turnover": 2.58,
-        "changePercent": 10.13,
-        "closePrice": 2.5,
-        "ratio": 0.2,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "601702",
-        "name": "华峰铝业",
-        "industry": "工业金属",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:30:01",
-        "bombedCount": 0,
-        "sealedAmount": 0.84,
-        "turnover": 4.1,
-        "changePercent": 10.01,
-        "closePrice": 16.7,
-        "ratio": 0.2,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "000998",
-        "name": "隆平高科",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:40:27",
-        "bombedCount": 0,
-        "sealedAmount": 1.81,
-        "turnover": 10.22,
-        "changePercent": 10.02,
-        "closePrice": 9.22,
-        "ratio": 0.18,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "600613",
-        "name": "神奇制药",
-        "industry": "化学制药",
-        "consecutiveDays": 4,
+        "consecutiveDays": 3,
         "firstSealTime": "09:25:02",
         "bombedCount": 1,
-        "sealedAmount": 0.93,
-        "turnover": 5.61,
-        "changePercent": 10.07,
-        "closePrice": 7.76,
-        "ratio": 0.17,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600371",
-        "name": "万向德农",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:32:12",
-        "bombedCount": 2,
-        "sealedAmount": 0.15,
-        "turnover": 0.87,
-        "changePercent": 10.0,
-        "closePrice": 8.14,
-        "ratio": 0.17,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "601952",
-        "name": "苏垦农发",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:44:28",
-        "bombedCount": 0,
-        "sealedAmount": 0.97,
-        "turnover": 5.58,
-        "changePercent": 9.96,
-        "closePrice": 9.38,
-        "ratio": 0.17,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "002515",
-        "name": "金字火腿",
-        "industry": "食品加工",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:30:03",
-        "bombedCount": 1,
-        "sealedAmount": 2.04,
-        "turnover": 12.35,
-        "changePercent": 9.97,
-        "closePrice": 8.71,
-        "ratio": 0.16,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "002284",
-        "name": "亚太股份",
-        "industry": "汽车零部",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:30:09",
-        "bombedCount": 1,
-        "sealedAmount": 0.84,
-        "turnover": 5.27,
-        "changePercent": 10.01,
-        "closePrice": 10.22,
-        "ratio": 0.16,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600313",
-        "name": "农发种业",
-        "industry": "种植业",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:38:08",
-        "bombedCount": 1,
-        "sealedAmount": 1.0,
-        "turnover": 6.28,
-        "changePercent": 10.06,
-        "closePrice": 6.78,
-        "ratio": 0.16,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "688112",
-        "name": "鼎阳科技",
-        "industry": "通用设备",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:42:14",
-        "bombedCount": 0,
-        "sealedAmount": 0.53,
-        "turnover": 3.32,
-        "changePercent": 20.0,
-        "closePrice": 69.83,
-        "ratio": 0.16,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "000620",
-        "name": "盈新发展",
-        "industry": "房地产开",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:25:00",
-        "bombedCount": 1,
-        "sealedAmount": 1.85,
-        "turnover": 12.13,
-        "changePercent": 10.0,
-        "closePrice": 3.41,
-        "ratio": 0.15,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "000735",
-        "name": "罗 牛 山",
-        "industry": "养殖业",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:45:21",
-        "bombedCount": 0,
-        "sealedAmount": 1.06,
-        "turnover": 7.07,
-        "changePercent": 9.96,
-        "closePrice": 6.18,
-        "ratio": 0.15,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "000007",
-        "name": "全新好",
-        "industry": "一般零售",
-        "consecutiveDays": 1,
-        "firstSealTime": "13:00:45",
-        "bombedCount": 0,
-        "sealedAmount": 0.2,
-        "turnover": 1.27,
-        "changePercent": 9.97,
-        "closePrice": 11.69,
-        "ratio": 0.15,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "603280",
-        "name": "南方路机",
-        "industry": "工程机械",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:49:54",
-        "bombedCount": 1,
-        "sealedAmount": 0.23,
-        "turnover": 1.6,
+        "sealedAmount": 1.05,
+        "turnover": 3.34,
         "changePercent": 10.02,
-        "closePrice": 29.22,
-        "ratio": 0.14,
-        "grade": "C",
+        "closePrice": 29.0,
+        "ratio": 0.32,
+        "grade": "B",
         "isLateSeal": false
       },
       {
-        "code": "000597",
-        "name": "东北制药",
-        "industry": "化学制药",
+        "code": "000059",
+        "name": "华锦股份",
+        "industry": "炼化及贸",
         "consecutiveDays": 1,
-        "firstSealTime": "11:24:18",
-        "bombedCount": 0,
-        "sealedAmount": 0.62,
-        "turnover": 4.41,
+        "firstSealTime": "13:05:51",
+        "bombedCount": 1,
+        "sealedAmount": 1.12,
+        "turnover": 3.82,
         "changePercent": 9.98,
-        "closePrice": 5.51,
-        "ratio": 0.14,
+        "closePrice": 5.07,
+        "ratio": 0.29,
         "grade": "C",
         "isLateSeal": false
       },
       {
-        "code": "002041",
-        "name": "登海种业",
-        "industry": "种植业",
+        "code": "002040",
+        "name": "南 京 港",
+        "industry": "航运港口",
         "consecutiveDays": 1,
-        "firstSealTime": "09:54:06",
-        "bombedCount": 1,
-        "sealedAmount": 0.6,
-        "turnover": 4.48,
-        "changePercent": 9.99,
-        "closePrice": 9.8,
-        "ratio": 0.13,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "300970",
-        "name": "华绿生物",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:48:42",
-        "bombedCount": 1,
-        "sealedAmount": 0.27,
-        "turnover": 2.31,
-        "changePercent": 20.0,
-        "closePrice": 21.66,
-        "ratio": 0.12,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "001229",
-        "name": "魅视科技",
-        "industry": "计算机设",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:31:09",
-        "bombedCount": 6,
-        "sealedAmount": 0.31,
-        "turnover": 2.66,
-        "changePercent": 9.99,
-        "closePrice": 50.19,
-        "ratio": 0.11,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "003043",
-        "name": "华亚智能",
-        "industry": "半导体",
-        "consecutiveDays": 1,
-        "firstSealTime": "13:48:57",
-        "bombedCount": 0,
-        "sealedAmount": 0.7,
-        "turnover": 6.51,
-        "changePercent": 10.0,
-        "closePrice": 79.53,
-        "ratio": 0.11,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600536",
-        "name": "中国软件",
-        "industry": "IT服务Ⅱ",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:06:01",
-        "bombedCount": 1,
-        "sealedAmount": 1.91,
-        "turnover": 16.65,
-        "changePercent": 9.99,
-        "closePrice": 34.45,
-        "ratio": 0.11,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "603400",
-        "name": "华之杰",
-        "industry": "通用设备",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:11:14",
-        "bombedCount": 2,
-        "sealedAmount": 0.34,
-        "turnover": 3.4,
-        "changePercent": 10.01,
-        "closePrice": 48.14,
-        "ratio": 0.1,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600598",
-        "name": "北大荒",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:22:25",
+        "firstSealTime": "11:22:09",
         "bombedCount": 3,
-        "sealedAmount": 1.02,
-        "turnover": 13.49,
-        "changePercent": 9.97,
-        "closePrice": 13.46,
-        "ratio": 0.08,
+        "sealedAmount": 0.71,
+        "turnover": 2.62,
+        "changePercent": 9.95,
+        "closePrice": 9.06,
+        "ratio": 0.27,
         "grade": "C",
         "isLateSeal": false
       },
       {
-        "code": "000678",
-        "name": "襄阳轴承",
-        "industry": "汽车零部",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:38:57",
-        "bombedCount": 1,
-        "sealedAmount": 0.36,
-        "turnover": 4.54,
-        "changePercent": 10.05,
-        "closePrice": 10.51,
-        "ratio": 0.08,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "300598",
-        "name": "诚迈科技",
-        "industry": "软件开发",
-        "consecutiveDays": 1,
-        "firstSealTime": "13:52:48",
-        "bombedCount": 2,
-        "sealedAmount": 0.63,
-        "turnover": 7.69,
-        "changePercent": 20.01,
-        "closePrice": 34.6,
-        "ratio": 0.08,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600354",
-        "name": "敦煌种业",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:25:32",
-        "bombedCount": 0,
-        "sealedAmount": 0.65,
-        "turnover": 8.31,
-        "changePercent": 10.08,
-        "closePrice": 6.99,
-        "ratio": 0.08,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "002025",
-        "name": "航天电器",
-        "industry": "军工电子",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:35:00",
-        "bombedCount": 0,
-        "sealedAmount": 1.52,
-        "turnover": 19.65,
-        "changePercent": 10.01,
-        "closePrice": 71.68,
-        "ratio": 0.08,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "603708",
-        "name": "家家悦",
-        "industry": "一般零售",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:32:59",
-        "bombedCount": 3,
-        "sealedAmount": 0.14,
-        "turnover": 2.09,
-        "changePercent": 9.96,
-        "closePrice": 10.27,
-        "ratio": 0.07,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "603823",
-        "name": "百合花",
-        "industry": "化学制品",
+        "code": "000020",
+        "name": "深华发Ａ",
+        "industry": "光学光电",
         "consecutiveDays": 2,
-        "firstSealTime": "09:35:52",
-        "bombedCount": 17,
-        "sealedAmount": 0.75,
-        "turnover": 11.21,
-        "changePercent": 10.0,
-        "closePrice": 85.9,
-        "ratio": 0.07,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600227",
-        "name": "赤天化",
-        "industry": "农化制品",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:37:55",
-        "bombedCount": 0,
-        "sealedAmount": 0.42,
-        "turnover": 6.92,
-        "changePercent": 9.97,
-        "closePrice": 3.75,
-        "ratio": 0.06,
+        "firstSealTime": "09:30:00",
+        "bombedCount": 1,
+        "sealedAmount": 0.56,
+        "turnover": 2.57,
+        "changePercent": 10.01,
+        "closePrice": 13.74,
+        "ratio": 0.22,
         "grade": "C",
         "isLateSeal": false
       },
@@ -33180,322 +33001,187 @@
         "code": "000505",
         "name": "京粮控股",
         "industry": "农产品加",
-        "consecutiveDays": 2,
-        "firstSealTime": "10:19:33",
-        "bombedCount": 1,
-        "sealedAmount": 0.3,
-        "turnover": 5.08,
-        "changePercent": 10.05,
-        "closePrice": 6.79,
-        "ratio": 0.06,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600353",
-        "name": "旭光电子",
-        "industry": "其他电子",
         "consecutiveDays": 3,
-        "firstSealTime": "09:33:05",
-        "bombedCount": 10,
-        "sealedAmount": 1.3,
-        "turnover": 24.27,
-        "changePercent": 9.99,
-        "closePrice": 37.54,
-        "ratio": 0.05,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "603580",
-        "name": "艾艾精工",
-        "industry": "塑料",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:35:35",
-        "bombedCount": 3,
-        "sealedAmount": 0.23,
-        "turnover": 4.76,
-        "changePercent": 10.0,
-        "closePrice": 64.02,
-        "ratio": 0.05,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "000716",
-        "name": "黑芝麻",
-        "industry": "休闲食品",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:17:33",
+        "firstSealTime": "09:31:33",
         "bombedCount": 0,
-        "sealedAmount": 0.27,
-        "turnover": 5.76,
-        "changePercent": 10.04,
-        "closePrice": 5.81,
-        "ratio": 0.05,
+        "sealedAmount": 0.97,
+        "turnover": 4.73,
+        "changePercent": 10.01,
+        "closePrice": 7.47,
+        "ratio": 0.21,
         "grade": "C",
         "isLateSeal": false
       },
       {
-        "code": "600737",
-        "name": "中粮糖业",
+        "code": "001400",
+        "name": "江顺科技",
+        "industry": "专用设备",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:54:45",
+        "bombedCount": 2,
+        "sealedAmount": 0.99,
+        "turnover": 5.01,
+        "changePercent": 10.0,
+        "closePrice": 85.94,
+        "ratio": 0.2,
+        "grade": "C",
+        "isLateSeal": false
+      },
+      {
+        "code": "300069",
+        "name": "金利华电",
+        "industry": "电网设备",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:59:27",
+        "bombedCount": 1,
+        "sealedAmount": 1.21,
+        "turnover": 6.06,
+        "changePercent": 20.01,
+        "closePrice": 34.66,
+        "ratio": 0.2,
+        "grade": "C",
+        "isLateSeal": false
+      },
+      {
+        "code": "000723",
+        "name": "美锦能源",
+        "industry": "焦炭Ⅱ",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:35:36",
+        "bombedCount": 2,
+        "sealedAmount": 1.27,
+        "turnover": 6.64,
+        "changePercent": 9.89,
+        "closePrice": 3.89,
+        "ratio": 0.19,
+        "grade": "C",
+        "isLateSeal": false
+      },
+      {
+        "code": "603290",
+        "name": "斯达半导",
+        "industry": "半导体",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:53:13",
+        "bombedCount": 2,
+        "sealedAmount": 3.31,
+        "turnover": 19.27,
+        "changePercent": 10.0,
+        "closePrice": 100.31,
+        "ratio": 0.17,
+        "grade": "C",
+        "isLateSeal": false
+      },
+      {
+        "code": "001338",
+        "name": "永顺泰",
         "industry": "农产品加",
         "consecutiveDays": 1,
-        "firstSealTime": "13:04:59",
-        "bombedCount": 2,
-        "sealedAmount": 0.73,
-        "turnover": 16.11,
-        "changePercent": 9.99,
-        "closePrice": 15.08,
-        "ratio": 0.05,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600359",
-        "name": "新农开发",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:26:58",
-        "bombedCount": 0,
-        "sealedAmount": 0.13,
-        "turnover": 2.47,
-        "changePercent": 10.0,
-        "closePrice": 6.93,
-        "ratio": 0.05,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "600367",
-        "name": "红星发展",
-        "industry": "化学原料",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:33:02",
+        "firstSealTime": "09:45:15",
         "bombedCount": 5,
-        "sealedAmount": 0.93,
-        "turnover": 21.09,
-        "changePercent": 10.01,
-        "closePrice": 38.23,
-        "ratio": 0.04,
+        "sealedAmount": 0.41,
+        "turnover": 2.57,
+        "changePercent": 10.06,
+        "closePrice": 9.63,
+        "ratio": 0.16,
         "grade": "C",
         "isLateSeal": false
       },
       {
-        "code": "301129",
-        "name": "瑞纳智能",
+        "code": "600783",
+        "name": "鲁信创投",
         "industry": "通用设备",
         "consecutiveDays": 1,
-        "firstSealTime": "09:44:12",
+        "firstSealTime": "09:25:02",
         "bombedCount": 1,
-        "sealedAmount": 0.12,
-        "turnover": 2.79,
-        "changePercent": 20.0,
-        "closePrice": 26.46,
-        "ratio": 0.04,
+        "sealedAmount": 1.22,
+        "turnover": 8.47,
+        "changePercent": 10.03,
+        "closePrice": 20.19,
+        "ratio": 0.14,
         "grade": "C",
         "isLateSeal": false
       },
       {
-        "code": "600722",
-        "name": "金牛化工",
-        "industry": "化学原料",
+        "code": "000703",
+        "name": "恒逸石化",
+        "industry": "炼化及贸",
         "consecutiveDays": 1,
-        "firstSealTime": "10:00:31",
-        "bombedCount": 0,
-        "sealedAmount": 0.63,
-        "turnover": 15.98,
-        "changePercent": 9.97,
-        "closePrice": 13.02,
-        "ratio": 0.04,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "920087",
-        "name": "秋乐种业",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:19:47",
-        "bombedCount": 3,
-        "sealedAmount": 0.18,
-        "turnover": 4.69,
-        "changePercent": 29.98,
-        "closePrice": 15.61,
-        "ratio": 0.04,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "300189",
-        "name": "神农种业",
-        "industry": "种植业",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:21:03",
+        "firstSealTime": "11:09:39",
         "bombedCount": 1,
-        "sealedAmount": 1.0,
-        "turnover": 22.91,
-        "changePercent": 20.04,
-        "closePrice": 6.23,
-        "ratio": 0.04,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "603221",
-        "name": "爱丽家居",
-        "industry": "家居用品",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:44:49",
-        "bombedCount": 7,
-        "sealedAmount": 0.26,
-        "turnover": 9.4,
-        "changePercent": 10.01,
-        "closePrice": 30.0,
-        "ratio": 0.03,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "000019",
-        "name": "深粮控股",
-        "industry": "农产品加",
-        "consecutiveDays": 1,
-        "firstSealTime": "10:04:06",
-        "bombedCount": 2,
-        "sealedAmount": 0.12,
-        "turnover": 3.7,
-        "changePercent": 9.95,
-        "closePrice": 6.96,
-        "ratio": 0.03,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "002385",
-        "name": "大北农",
-        "industry": "饲料",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:50:48",
-        "bombedCount": 0,
-        "sealedAmount": 0.27,
-        "turnover": 10.49,
-        "changePercent": 10.1,
-        "closePrice": 3.38,
-        "ratio": 0.03,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "603936",
-        "name": "博敏电子",
-        "industry": "元件",
-        "consecutiveDays": 2,
-        "firstSealTime": "09:31:04",
-        "bombedCount": 16,
-        "sealedAmount": 0.38,
-        "turnover": 18.72,
-        "changePercent": 10.01,
-        "closePrice": 19.12,
-        "ratio": 0.02,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "300684",
-        "name": "中石科技",
-        "industry": "电子化学",
-        "consecutiveDays": 3,
-        "firstSealTime": "09:33:12",
-        "bombedCount": 7,
-        "sealedAmount": 0.89,
-        "turnover": 48.48,
-        "changePercent": 20.0,
-        "closePrice": 97.0,
-        "ratio": 0.02,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600707",
-        "name": "彩虹股份",
-        "industry": "光学光电",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:36:27",
-        "bombedCount": 6,
-        "sealedAmount": 0.74,
-        "turnover": 35.53,
-        "changePercent": 9.98,
-        "closePrice": 10.8,
-        "ratio": 0.02,
-        "grade": "C",
-        "isLateSeal": false
-      },
-      {
-        "code": "600272",
-        "name": "开开实业",
-        "industry": "医药商业",
-        "consecutiveDays": 1,
-        "firstSealTime": "14:48:13",
-        "bombedCount": 1,
-        "sealedAmount": 0.22,
-        "turnover": 11.32,
-        "changePercent": 9.98,
-        "closePrice": 20.93,
-        "ratio": 0.02,
-        "grade": "C",
-        "isLateSeal": true
-      },
-      {
-        "code": "603065",
-        "name": "宿迁联盛",
-        "industry": "化学制品",
-        "consecutiveDays": 1,
-        "firstSealTime": "09:38:53",
-        "bombedCount": 2,
-        "sealedAmount": 0.08,
-        "turnover": 11.2,
+        "sealedAmount": 3.31,
+        "turnover": 24.55,
         "changePercent": 10.02,
-        "closePrice": 18.11,
-        "ratio": 0.01,
+        "closePrice": 19.22,
+        "ratio": 0.13,
         "grade": "C",
         "isLateSeal": false
       },
       {
-        "code": "000713",
-        "name": "国投丰乐",
-        "industry": "种植业",
+        "code": "001301",
+        "name": "尚太科技",
+        "industry": "电池",
         "consecutiveDays": 1,
-        "firstSealTime": "14:56:00",
-        "bombedCount": 0,
-        "sealedAmount": 0.04,
-        "turnover": 2.97,
-        "changePercent": 9.98,
-        "closePrice": 6.5,
-        "ratio": 0.01,
+        "firstSealTime": "09:31:21",
+        "bombedCount": 3,
+        "sealedAmount": 0.67,
+        "turnover": 6.0,
+        "changePercent": 10.01,
+        "closePrice": 62.33,
+        "ratio": 0.11,
         "grade": "C",
-        "isLateSeal": true
+        "isLateSeal": false
       },
       {
-        "code": "605179",
-        "name": "一鸣食品",
-        "industry": "饮料乳品",
-        "consecutiveDays": 2,
-        "firstSealTime": "14:56:59",
-        "bombedCount": 1,
-        "sealedAmount": 0.01,
-        "turnover": 15.45,
-        "changePercent": 10.0,
-        "closePrice": 38.61,
-        "ratio": 0.0,
+        "code": "000560",
+        "name": "我爱我家",
+        "industry": "房地产服",
+        "consecutiveDays": 1,
+        "firstSealTime": "09:33:27",
+        "bombedCount": 4,
+        "sealedAmount": 1.03,
+        "turnover": 9.72,
+        "changePercent": 10.19,
+        "closePrice": 2.38,
+        "ratio": 0.11,
         "grade": "C",
-        "isLateSeal": true
+        "isLateSeal": false
+      },
+      {
+        "code": "601015",
+        "name": "陕西黑猫",
+        "industry": "焦炭Ⅱ",
+        "consecutiveDays": 1,
+        "firstSealTime": "10:15:31",
+        "bombedCount": 1,
+        "sealedAmount": 0.55,
+        "turnover": 5.47,
+        "changePercent": 10.09,
+        "closePrice": 3.71,
+        "ratio": 0.1,
+        "grade": "C",
+        "isLateSeal": false
+      },
+      {
+        "code": "601609",
+        "name": "金田股份",
+        "industry": "工业金属",
+        "consecutiveDays": 1,
+        "firstSealTime": "10:49:26",
+        "bombedCount": 3,
+        "sealedAmount": 1.34,
+        "turnover": 20.07,
+        "changePercent": 10.04,
+        "closePrice": 13.15,
+        "ratio": 0.07,
+        "grade": "C",
+        "isLateSeal": false
       }
     ],
     "bigLoser": [],
     "loserChain": [],
     "loserIntersection": [],
-    "prevLimitUpCount": 106,
+    "prevLimitUpCount": 79,
     "systemWarning": false,
     "north": [
       {
@@ -33503,14 +33189,14 @@
         "netBuy": 0.0,
         "netInflow": 0.0,
         "index": "上证指数",
-        "indexChange": 0.19
+        "indexChange": -2.33
       },
       {
         "type": "深港通",
         "netBuy": 0.0,
         "netInflow": 0.0,
         "index": "深证成指",
-        "indexChange": -0.56
+        "indexChange": -4.5
       }
     ],
     "northTotal": 0.0

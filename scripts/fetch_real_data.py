@@ -10,6 +10,7 @@ import os
 import math
 import re
 import urllib.request
+import time
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -397,8 +398,22 @@ print(f"  上涨 {up_count} 下跌 {down_count} 平 {flat_count} 总成交 {tota
 
 # ========== 3. 历史 90 日数据(用于折线图) ==========
 print("\n[3/7] 历史 K 线(用于折线图)...")
-hist_df = ak.stock_zh_index_daily_tx("sh000001").tail(100).reset_index(drop=True)
-hist_sz_df = ak.stock_zh_index_daily_tx("sz399001").tail(100).reset_index(drop=True)
+# v2.0.7ef:retry 3 次 + sina 限流 fallback em
+hist_df = None
+hist_sz_df = None
+for attempt in range(3):
+    try:
+        hist_df = ak.stock_zh_index_daily_tx("sh000001").tail(100).reset_index(drop=True)
+        hist_sz_df = ak.stock_zh_index_daily_tx("sz399001").tail(100).reset_index(drop=True)
+        break
+    except Exception as e:
+        print(f"  sina K 线第 {attempt+1} 次失败: {e}")
+        time.sleep(3)
+if hist_df is None or hist_sz_df is None:
+    # fallback em
+    print("  sina 限流,fallback em stock_zh_index_daily")
+    hist_df = ak.stock_zh_index_daily(symbol="sh000001").tail(100).reset_index(drop=True)
+    hist_sz_df = ak.stock_zh_index_daily(symbol="sz399001").tail(100).reset_index(drop=True)
 
 # 全市场成交量 = 上证 amount + 深证 amount (amount 单位是手)
 # 转成交额: 估算 平均成交价 × 成交量。简化用"手"作为相对活跃度
@@ -595,15 +610,22 @@ def _fetch_margin_history():
     # 计算每日净流入
     for i in range(1, len(out)):
         out[i]['margin_balance_diff'] = round(out[i]['margin_balance'] - out[i-1]['margin_balance'], 2)
-    # v2.0.7eb:akshare 数据源延迟 1 天(8/18 收盘后只到 8/17)— 末行日期 != today 时不返
-    # — 避免 8/18 18:10 cron 跑时拉到 stale 8/17 末点覆盖 baseData 已有 8/17 末点(看起来没更新)
-    # — 等 8/19 9:35 cron 跑时,akshare 末行 = 8/18 → 写 8/18 末点
+    # v2.0.7ef:akshare 数据源延迟 1 天(8/19 收盘后只到 8/18)→ 直接写入 8/18 末行
+    # — 之前 v2.0.7eb 加 "if last_date < today_str: return None" 检查
+    # — 导致 8/19 15:18 跑时 last_date=8/18 < today=8/19 → 返 None → marginHistory=None
+    # — React 端读到 None → 显示"融资融券数据暂未拉到"
+    # — user 反馈:8/18 还能看到 8/17 数据,为什么 8/19 拉不到
+    # — 实际 8/18 那次跑时(8/18 18:10 cron),akshare 末行 = 8/18 → 通过检查写入
+    # — 8/19 15:18 跑(8/19 cron 没跑成功,沙箱手动跑)akshare 末行 = 8/18 < today 8/19 → 返 None
+    # — 修法:删 `< today_str` 检查,让 fetch-data 写入 akshare 末行(8/18)+ React 端加 "数据延迟 1 天" 提示
     last_date = out[-1]['date'] if out else ''
     today_str = TODAY.strftime('%Y-%m-%d')
+    # v2.0.7ef:删 `< today_str` 检查 — 即使 stale 1 天也写入
+    # — 标记:如果 last_date < today_str,print stale 信息(供 debug + 前端展示)
     if last_date and last_date < today_str:
-        print(f"    沪深融资融券 末行 {last_date} < today {today_str} (akshare 延迟),不覆盖 baseData")
-        return None
-    print(f"    沪深融资融券 OK,最后日期:{last_date},{len(out)} 天")
+        print(f"    沪深融资融券 末行 {last_date} < today {today_str} (akshare 延迟 1 天),仍写入(前端显示'昨值'提示)")
+    else:
+        print(f"    沪深融资融券 OK,最后日期:{last_date},{len(out)} 天")
     return out
 
 _main_capital_flow = _fetch_main_capital_flow_20d()
@@ -757,6 +779,11 @@ for date_str, vol in vol_dict.items():
         'up': ud_dict.get(date_str, {}).get('up', 0),
         'down': ud_dict.get(date_str, {}).get('down', 0),
     })
+
+# v2.0.7ef:combined_history 末点 today(8/19) 4 个字段占位 — line 1669 之后会覆盖为 today 真值
+# — 之前 90 天 hist_df 不含 today → ud_dict/zt_dict/dt_dict 都没 today → 末点 0
+# — user 反馈:"涨/跌家数曲线图 8/19 = 0"/"涨/跌停家数曲线图 8/19 = 0"
+# — 修法:combined_history 末点(8/19)的 4 个字段在 line 1669 之后(limitUpCount 定义后)覆盖
 
 # 49 个新浪行业板块的 label/name 映射(从 akshare sector_spot('新浪行业') 拿)
 # 用于:ths 90 个细分类 → 映射到一个 sina 实时查询的 label
@@ -1663,11 +1690,22 @@ data = {
         'flatCount': flat_count,
         'upPercent': up_pct,
         'stockTotal': stock_total,
-        # v2.0.7dk:涨跌停改用 sina 9.99% 阈值(跟 useLiveData em 9.99% 同源)— 数字一致
-        # 旧版用 akshare 涨停池(同花顺 已封板+炸板 = 80)— 跟 em 9.99% 阈值 56 不同
-        # user 强刷后 React state 拉 em 限流 null → 走 baseData → 看到 80(不直观)vs useLiveData 拉到 56
-        'limitUpCount': int(_change_dist['up_ge_10']),
-        'limitDownCount': int(_change_dist['down_ge_10']),
+        # v2.0.7ef:涨跌停改用 akshare 涨停池/跌停池真实 count(不是 sina 9.99% 阈值)
+        # — 旧版用 _change_dist['up_ge_10']=40(8/19)/down_ge_10=338(8/19)
+        # — user 反馈:真实数据 37:119 跟我数据 40:338 差巨大
+        # — sina 9.99% 阈值包含了:
+        #   - ST 股 ±5% 触限(不该算真涨停)
+        #   - 上市首日不限涨跌幅(可能 44% 但没涨停)
+        #   - 复牌首日
+        #   - 北交所 30% 涨停
+        # — akshare 涨停池 stock_zt_pool_em 只算真涨停(沪深 10%/创 20%/科 20% 已封板)— 更准
+        # — akshare 跌停池 stock_zt_pool_dtgc_em 同理
+        # v2.0.7eg:limitDownCount 用 em 跌停池 dt_df 真值(不 + sina 兜底)
+        # — 之前 limit_down_stocks = sina 兜底(235 只) → user 看到 235
+        # — em 跌停池 dt_df 跑出 119(user 真实值)— 算 limitDownCount
+        # — limit_down_stocks 列表仍用 sina 兜底(避免空)— 但 count 用 em
+        'limitUpCount': len(limit_up_stocks) if limit_up_stocks else 0,  # 涨停池(已封板)— 8/19 = 36
+        'limitDownCount': len(dt_df) if dt_df is not None and len(dt_df) > 0 else 0,  # em 跌停池 — 8/19 = 119
         'brokenLimitCount': _broken_count,  # v2.0.7aw:炸板家数(em 实时算"当前封板" + 炸板 = 涨停过总数)
         'indices': indices,
         # 可转债 / ETF 涨/跌/平
@@ -1685,7 +1723,19 @@ data = {
         # v2.0.7aa:融资融券历史(沪+深合并) — 失败返 None
         'marginHistory': _margin_history,
     },
-    'history': combined_history,
+    # v2.0.7ef:combined_history 末点 today 4 个字段覆盖为 fetch-data 当日真值
+    # — 上方 combined_history 循环在 line 745,90 天 hist_df 不含 today → 末点 0
+    # — 现在 limitUpCount/limitDownCount 已用 akshare 涨停池/跌停池真值定义(line 1669),覆盖末点
+    'history': (lambda h: (
+        h[:-1] + [{
+            **h[-1],
+            'up': up_count,
+            'down': down_count,
+            'limitUp': len(limit_up_stocks) if limit_up_stocks else 0,
+            # v2.0.7eg:用 em 跌停池 dt_df 真值(不是 sina 兜底)— user 真实 119
+            'limitDown': len(dt_df) if dt_df is not None and len(dt_df) > 0 else 0,
+        }] if h and h[-1]['date'] == TODAY.strftime('%Y-%m-%d') else h
+    ))(combined_history),
     'limitUpLadders': ladders_arr,
     'limitUpStocks': limit_up_stocks,
     'firstBoardStocks': first_board,
