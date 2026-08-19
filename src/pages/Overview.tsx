@@ -73,6 +73,8 @@ const overviewStyle = `
   .overview-indices-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
   /* v2.0.7ei:6 图表响应式 — 1800px+ 3 列 / ≤1800 2 列 / ≤1200 1 列 */
   .overview-charts-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; width: 100%; }
+  /* v2.0.7ej:6 图表合并 1 个 grid 容器(成交量/涨/跌家数/涨/跌停家数/热力图/涨跌分布/融资流向) */
+  .overview-charts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; width: 100%; }
   .overview-chart-card { min-width: 0; overflow: hidden; }
   .stat-card, .index-card {
     background: #fff;
@@ -85,12 +87,14 @@ const overviewStyle = `
   }
   @media (max-width: 1800px) {
     .overview-charts-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .overview-charts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   }
   @media (max-width: 1400px) {
     .overview-indices-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
   }
   @media (max-width: 1200px) {
     .overview-charts-row { grid-template-columns: minmax(0, 1fr) !important; }
+    .overview-charts-grid { grid-template-columns: minmax(0, 1fr) !important; }
   }
   @media (max-width: 1100px) {
     .overview-stats-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
@@ -498,27 +502,30 @@ export default function Overview({ data }: { data: ReportData }) {
         ))}
       </div>
 
-      {/* 第三行:成交量 + 涨跌家数(7/15/30 日) — v2.0.2:与热力图同高 360px,4 个图卡片一致 */}
-      <div className="overview-charts-row">
+      {/* v2.0.7ej:6 图表合并到 1 个 grid 容器 — 响应式 3/2/1 列
+          — 1800+ 时 1 行 3 列(2 行 × 3 列 = 6 图)
+          — ≤1800 时 1 行 2 列(3 行 × 2 列 = 6 图)
+          — ≤1200 时 1 行 1 列(6 行 × 1 列) */}
+      <div className="overview-charts-grid">
+        {/* 1. 成交量 */}
         <div className="overview-chart-card">
           <Card title="成交量(亿)" right={<RangeTabs value={volRange} onChange={setVolRange} options={RANGE_OPTIONS_3} />}>
             <ReactECharts key={volRange} option={volChart} style={{ height: 280, width: '100%' }} notMerge={true} lazyUpdate={true} />
           </Card>
         </div>
+        {/* 2. 涨/跌家数 */}
         <div className="overview-chart-card">
           <Card title="涨/跌家数" right={<RangeTabs value={udRange} onChange={setUdRange} options={RANGE_OPTIONS_3} />}>
             <ReactECharts key={udRange} option={udChart} style={{ height: 280, width: '100%' }} notMerge={true} lazyUpdate={true} />
           </Card>
         </div>
-      </div>
-
-      {/* 第四行:涨/跌停家数 + 市场涨跌幅热力图(用户 #1 + #2 + #4 反馈) */}
-      <div className="overview-charts-row">
+        {/* 3. 涨/跌停家数 */}
         <div className="overview-chart-card">
           <Card title="涨/跌停家数" right={<RangeTabs value={ldRange} onChange={setLdRange} options={RANGE_OPTIONS_LIMIT} />}>
             <ReactECharts key={ldRange} option={ldChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
           </Card>
         </div>
+        {/* 4. 市场行情热力图 */}
         <div className="overview-chart-card">
           <Card
             title="市场行情热力图(按行业成交量排序)"
@@ -550,15 +557,13 @@ export default function Overview({ data }: { data: ReportData }) {
             <ReactECharts option={treemapChart} style={{ height: 360, width: '100%' }} notMerge={true} lazyUpdate={true} />
           </Card>
         </div>
-      </div>
-
-      {/* v2.0.7ad:删主力资金流卡片 — 只剩涨跌分布 + 融资流向(2 列) */}
-      <div className="overview-charts-row">
+        {/* 5. 涨跌分布 */}
         <div className="overview-chart-card">
           <Card title="涨跌分布">
             <ChangeDistributionCard data={data} />
           </Card>
         </div>
+        {/* 6. 融资流向 */}
         <div className="overview-chart-card">
           <Card
             title="融资流向"

@@ -157,8 +157,9 @@ export function EmotionThermometer({
           </span>
           <span style={{ color: '#d1d5db' }}>|</span>
           <span>
+            {/* v2.0.7ej:情绪文案颜色改用温度色值(跟温度计弧线同色)— 不再用 sentiment.color */}
             <span style={{ color: '#6b7280' }}>情绪</span>{' '}
-            <strong style={{ color: sentiment.color, fontWeight: 700 }}>{sentiment.text}</strong>
+            <strong style={{ color, fontWeight: 700 }}>{sentiment.text}</strong>
           </span>
         </div>
       </div>
