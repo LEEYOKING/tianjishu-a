@@ -9,7 +9,7 @@ import AnomalyStock from './pages/AnomalyStock';
 import DragonTiger from './pages/DragonTiger';
 import Surgery from './pages/Surgery';
 import { loadReportData, type ReportData } from './data/loader';
-import { useLiveData, mergeLiveData, isLiveMarket, type LiveSnapshot } from './hooks/useLiveData';
+import { useLiveData, mergeLiveData, type LiveSnapshot } from './hooks/useLiveData';
 
 // 全局 live context — PageHeader 通过它读 lastUpdatedAt
 const LiveContext = createContext<LiveSnapshot>({
@@ -72,7 +72,10 @@ export default function App() {
   // v1.9.1 启动页文案 + loading 动画 + v2.0 粒子背景
   // v2.0.7dc-fix:盘后 useLiveData 不拉实时数据,isFirstLoad 永远 true → 加 isLiveMarket() 检查
   // 实际:盘后不卡启动页(因为本来就不应该等实时数据 — 走 baseData)
-  if (!merged || (live.isFirstLoad && isLiveMarket())) {
+  // v2.0.7eb-fix:有 baseData 就显示主页面 — 不等 useLiveData 拉腾讯(28s)
+  // — 之前 useLiveData 拉 fetchMarketSummary 28s 期间 splash 不消失,user 看到"卡在启动页"
+  // — 修法:merged 有数据(从 baseData 来)就直接显示,实时数据后台拉
+  if (!merged) {
     return (
       <div style={{
         position: 'relative',
