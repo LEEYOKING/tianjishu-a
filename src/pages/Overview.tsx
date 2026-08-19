@@ -193,8 +193,19 @@ export default function Overview({ data }: { data: ReportData }) {
       const d = new Date(h.date);
       return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     });
-    const upData = hist.map((h: HistoryPoint) => h.up);
-    const downData = hist.map((h: HistoryPoint) => h.down);
+    // v2.0.7eg:末点 0 时 fallback marketOverview 真值
+    // — 之前 fetch-data history 末点(8/19)up=0, down=0 → 曲线图最右点掉到 0
+    // — 用 idx.upCount / idx.downCount(第一排卡片值)覆盖
+    const lastUp = data.marketOverview.upCount || 0;
+    const lastDown = data.marketOverview.downCount || 0;
+    const upData = hist.map((h: HistoryPoint, i: number) => {
+      if (i === hist.length - 1 && (h.up === 0 || h.up == null) && lastUp > 0) return lastUp;
+      return h.up;
+    });
+    const downData = hist.map((h: HistoryPoint, i: number) => {
+      if (i === hist.length - 1 && (h.down === 0 || h.down == null) && lastDown > 0) return lastDown;
+      return h.down;
+    });
     return {
       ...animCfg,
       grid: { top: 40, right: 20, left: 50, bottom: 30 },
@@ -219,7 +230,7 @@ export default function Overview({ data }: { data: ReportData }) {
         { name: '下跌家数', type: 'line', data: downData, symbol: 'circle', symbolSize: 9, smooth: true, lineStyle: { color: COLOR_DOWN, width: 3 }, itemStyle: { color: COLOR_DOWN, borderColor: '#fff', borderWidth: 2 } },
       ],
     };
-  }, [udRange, history]);
+  }, [udRange, history, data.marketOverview.upCount, data.marketOverview.downCount]);
 
   // 4. 申万一级行业涨跌幅(v2.0.4:照抄用户附件 — treemap 不同面积 + 7 档色)
   // ths 90 个 → sw 28 一级映射
@@ -360,8 +371,17 @@ export default function Overview({ data }: { data: ReportData }) {
       const d = new Date(h.date);
       return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     });
-    const upData = hist.map((h: HistoryPoint) => h.limitUp);
-    const downData = hist.map((h: HistoryPoint) => h.limitDown);
+    // v2.0.7eg:末点 0 时 fallback marketOverview 真值(跟第一排卡片一致)
+    const lastUp = data.marketOverview.limitUpCount || 0;
+    const lastDown = data.marketOverview.limitDownCount || 0;
+    const upData = hist.map((h: HistoryPoint, i: number) => {
+      if (i === hist.length - 1 && (h.limitUp === 0 || h.limitUp == null) && lastUp > 0) return lastUp;
+      return h.limitUp;
+    });
+    const downData = hist.map((h: HistoryPoint, i: number) => {
+      if (i === hist.length - 1 && (h.limitDown === 0 || h.limitDown == null) && lastDown > 0) return lastDown;
+      return h.limitDown;
+    });
     return {
       ...animCfg,
       grid: { top: 40, right: 20, left: 50, bottom: 30 },
@@ -386,7 +406,7 @@ export default function Overview({ data }: { data: ReportData }) {
         { name: '跌停家数', type: 'line', data: downData, symbol: 'circle', symbolSize: 9, smooth: true, lineStyle: { color: COLOR_DOWN, width: 3 }, itemStyle: { color: COLOR_DOWN, borderColor: '#fff', borderWidth: 2 } },
       ],
     };
-  }, [ldRange, history]);
+  }, [ldRange, history, data.marketOverview.limitUpCount, data.marketOverview.limitDownCount]);
 
 
   return (
@@ -816,6 +836,10 @@ function MarginBadge({ data }: { data: ReportData }) {
   const last = list[list.length - 1];
   const diff = last.margin_balance_diff;
   const md = last.date.slice(5);
+  // v2.0.7eg:akshare 数据延迟 1 天(8/19 跑时末行 8/18)— 显示"昨值"提示
+  const today = new Date(Date.now() + 8 * 3600 * 1000);
+  const todayStr = `${today.getUTCFullYear()}-${String(today.getUTCMonth() + 1).padStart(2, '0')}-${String(today.getUTCDate()).padStart(2, '0')}`;
+  const isStale = last.date < todayStr;
   return (
     <div style={{
       display: 'inline-flex', alignItems: 'center', gap: 4,
@@ -826,7 +850,7 @@ function MarginBadge({ data }: { data: ReportData }) {
       fontSize: 12, fontWeight: 500, fontVariantNumeric: 'tabular-nums',
       lineHeight: 1.4,
     }}>
-      <span>{md}</span>
+      <span>{md}{isStale ? ' 昨值' : ''}</span>
       <span>净流入</span>
       <span>{diff > 0 ? '+' : ''}{diff.toFixed(2)}亿元</span>
       <span style={{ fontSize: 14, lineHeight: 1 }}>↑</span>
