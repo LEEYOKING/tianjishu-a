@@ -449,17 +449,11 @@ for i, row in hist_df.iterrows():
     # — 优先 amount(sina),fallback volume(em) — em volume 单位是手(sina amount 也是手)— 公式不变
     amount_sh = safe_float(row.get('amount', row.get('volume', 0)))
     amount_sz = safe_float(hist_sz_df.iloc[i].get('amount', hist_sz_df.iloc[i].get('volume', 0))) if i < len(hist_sz_df) else 0
-    # v2.0.7ey:history.volume 统一用"亿元"单位(跟 line 474 当日末点 totalTurnover 一致)
-    # — sina K 线 amount 字段单位"手"(注释 line 396),1 手 = 100 股
-    # — 公式 amount(手) × 100 × 19.2(元) = 估算元(单只) / 1e6 = 亿元
-    # — 8/12 实际 amount = 1.13e7 手 → 1.13e7 × 100 × 19.2 / 1e6 = 21,696 亿 ≈ 8/12 同花顺 21,672(差 0.1%)
-    # — 之前 / 1e8 算 = 217 亿(差 100 倍),× 100 后写入 21,696 但代码里没 × 100 → 实际写 217
-    # — 8/20 末点 line 474 totalTurnover 单位"亿"一致,chart h.volume / 10000 当"万亿"算就对
     # v2.0.7ez:history.volume 公式统一用 (amount * 19.2) / 1e8(去掉 × 100 加权)
-# — em 接口 amount 字段单位"元"(sina 失败 fallback),8/12 sh+sz=1.13e11 元
-# — 1.13e11 × 19.2 / 1e8 = 21,696(亿) ≈ 8/12 同花顺 21,700(差 0.1%)✓
-# — 之前 * 100 × 19.2 / 1e6 = 216,701,352(差 1e4 倍,翻 100 倍)— 错
-volume_yi = round((amount_sh + amount_sz) * 19.2 / 1e8, 2)  # / 1e8 = 元 → 亿元
+    # — em 接口 amount 字段单位"元"(sina 失败 fallback),8/12 sh+sz=1.13e11 元
+    # — 1.13e11 × 19.2 / 1e8 = 21,696(亿) ≈ 8/12 同花顺 21,700(差 0.1%)✓
+    # — 之前 * 100 × 19.2 / 1e6 = 216,701,352(差 1e4 倍,翻 100 倍)— 错
+    volume_yi = round((amount_sh + amount_sz) * 19.2 / 1e8, 2)  # / 1e8 = 元 → 亿元
     history.append({
         'date': date_str,
         'volume': volume_yi,  # 估算的成交额(亿元)— 跟同花顺差 1%
