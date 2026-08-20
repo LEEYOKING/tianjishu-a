@@ -51,10 +51,11 @@ function getValuationTag(limitUp: number, upCount: number, downCount: number): {
   return { text: '低位', color: '#06b6d4' };
 }
 
-function getSentimentTag(temperature: number, limitUp: number, limitDown: number): { text: string; color: string } {
+function getSentimentTag(temperature: number, _limitUp: number, _limitDown: number): { text: string; color: string } {
   // v2.0.7ev:跟 5 档温度范围一致(0-20 低迷 / 20-40 谨慎 / 40-60 平稳 / 60-80 活跃 / 80-100 亢奋)
   // — 之前只用涨跌停比例算(8/20 74:4 比值 18.5 → "亢奋" — 但 60° 应是"平稳")
   // — 修法:用温度档位,色值跟 getColor 保持一致(弧线同色)
+  // — 参数前 _ 表示"故意未用"(TS noUnusedParameters 不报错,保留参数是为了未来扩展)
   const t = Math.max(0, Math.min(100, temperature));
   if (t <= 20) return { text: '低迷', color: getColor(t) };
   if (t <= 40) return { text: '谨慎', color: getColor(t) };
