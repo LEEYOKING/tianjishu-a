@@ -104,8 +104,26 @@ function SurgeryInner({ data }: { data?: ReportData }) {
   const surgery = data?.surgery;
   const [selectedCard, setSelectedCard] = useState<SealCard | null>(null);
 
+  // v2.0.7fc:debug — 临时显示 data 状态,排查"加载中"问题
   if (!surgery) {
-    return <div style={{ padding: 24, color: '#86909C' }}>加载中...</div>;
+    return (
+      <div style={{ padding: 24, color: '#86909C' }}>
+        <div style={{ marginBottom: 12, fontSize: 13, fontWeight: 600 }}>加载中...</div>
+        <div style={{ fontSize: 11, color: '#999', fontFamily: 'monospace', lineHeight: 1.6 }}>
+          [Debug v2.0.7fc]<br />
+          hasData: {String(!!data)}<br />
+          hasSurgery: {String(!!surgery)}<br />
+          surgeryType: {typeof surgery}<br />
+          data?.surgery: {String(data?.surgery === undefined ? 'undefined' : data?.surgery === null ? 'null' : typeof data?.surgery)}<br />
+          {data && (
+            <>
+              dataKeys: {Object.keys(data).slice(0, 8).join(',')}...<br />
+              data.surgery: {data.surgery ? `Object(${data.surgery.sealCards?.length || 0} sealCards)` : 'missing'}
+            </>
+          )}
+        </div>
+      </div>
+    );
   }
 
   const { sealCards, loserChain, systemWarning, prevLimitUpCount, meta } = surgery as SurgeryData;
