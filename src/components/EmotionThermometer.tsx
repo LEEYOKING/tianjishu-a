@@ -51,15 +51,16 @@ function getValuationTag(limitUp: number, upCount: number, downCount: number): {
   return { text: '低位', color: '#06b6d4' };
 }
 
-function getSentimentTag(limitUp: number, limitDown: number): { text: string; color: string } {
-  const ratio = limitUp / Math.max(limitDown, 1);
-  if (limitDown >= 30) return { text: '恐慌', color: '#06b6d4' };
-  if (ratio > 10) return { text: '亢奋', color: '#dc2626' };
-  if (ratio > 5) return { text: '活跃', color: '#f97316' };
-  if (ratio > 2) return { text: '乐观', color: '#f59e0b' };
-  if (ratio > 1) return { text: '平稳', color: '#84cc16' };
-  if (ratio > 0.5) return { text: '谨慎', color: '#06b6d4' };
-  return { text: '低迷', color: '#3b82f6' };
+function getSentimentTag(temperature: number, limitUp: number, limitDown: number): { text: string; color: string } {
+  // v2.0.7ev:跟 5 档温度范围一致(0-20 低迷 / 20-40 谨慎 / 40-60 平稳 / 60-80 活跃 / 80-100 亢奋)
+  // — 之前只用涨跌停比例算(8/20 74:4 比值 18.5 → "亢奋" — 但 60° 应是"平稳")
+  // — 修法:用温度档位,色值跟 getColor 保持一致(弧线同色)
+  const t = Math.max(0, Math.min(100, temperature));
+  if (t <= 20) return { text: '低迷', color: getColor(t) };
+  if (t <= 40) return { text: '谨慎', color: getColor(t) };
+  if (t <= 60) return { text: '平稳', color: getColor(t) };
+  if (t <= 80) return { text: '活跃', color: getColor(t) };
+  return { text: '亢奋', color: getColor(t) };
 }
 
 export function EmotionThermometer({
@@ -76,7 +77,7 @@ export function EmotionThermometer({
   const lu = limitUpCount ?? details.limit_up;
   const ld = details.limit_down;
   const valuation = getValuationTag(lu, upCount ?? 0, downCount ?? 0);
-  const sentiment = getSentimentTag(lu, ld);
+  const sentiment = getSentimentTag(safeT, lu, ld);
 
   // v2.0.7ac:半圆弧半径 80%(原 r=70 → r=56)
   const cx = 100;
