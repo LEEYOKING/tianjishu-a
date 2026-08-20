@@ -756,14 +756,22 @@ dt_dict = {x['date']: x['count'] for x in dt_history}
 ud_dict = {x['date']: x for x in up_down_history}
 vol_dict = {x['date']: x['volume'] for x in history}
 
-for date_str, vol in vol_dict.items():
+# v2.0.7ez:combined_history 循环用 zt_history 90 天(不再用 vol_dict,vol_dict 只 8/20 末点)
+# — 旧:vol_dict.items() 循环,history 只 line 462-480 末点(8/20)→ combined_history 只有 8/20
+# — 8/12-8/19 chart 显示 0/0/0(没 up/down/limitUp/limitDown 数据)— user 反馈
+# — 新:zt_history 90 天循环,8/12-8/19 也有 up/down/limitUp/limitDown(zt_history/dt_history/up_down_history 都有)
+# — volume 末点 8/20 = 20,939(从 vol_dict 取,line 462-480 末点)— 8/12-8/19 = 0(删 line 440-461 后不估算)
+# — 末点 today(8/20)用 up_count/down_count/limitUp/limitDown 真值覆盖(不是 up_down_history 估算)
+for i in range(len(zt_history)):
+    date_str = zt_history[i]['date']
+    is_today = (date_str == TODAY.strftime('%Y-%m-%d'))
     combined_history.append({
         'date': date_str,
-        'volume': vol,
-        'limitUp': zt_dict.get(date_str, 0),
-        'limitDown': dt_dict.get(date_str, 0),
-        'up': ud_dict.get(date_str, {}).get('up', 0),
-        'down': ud_dict.get(date_str, {}).get('down', 0),
+        'volume': vol_dict.get(date_str, 0),  # 末点 8/20 = 20,939(其他 = 0)
+        'limitUp': (len(limit_up_stocks) if limit_up_stocks else 0) if is_today else zt_dict.get(date_str, 0),
+        'limitDown': (len(dt_df) if dt_df is not None and len(dt_df) > 0 else 0) if is_today else dt_dict.get(date_str, 0),
+        'up': up_count if is_today else ud_dict.get(date_str, {}).get('up', 0),
+        'down': down_count if is_today else ud_dict.get(date_str, {}).get('down', 0),
     })
 
 # v2.0.7ef:combined_history 末点 today(8/19) 4 个字段占位 — line 1669 之后会覆盖为 today 真值
@@ -1709,19 +1717,10 @@ data = {
         # v2.0.7aa:融资融券历史(沪+深合并) — 失败返 None
         'marginHistory': _margin_history,
     },
-    # v2.0.7ef:combined_history 末点 today 4 个字段覆盖为 fetch-data 当日真值
-    # — 上方 combined_history 循环在 line 745,90 天 hist_df 不含 today → 末点 0
-    # — 现在 limitUpCount/limitDownCount 已用 akshare 涨停池/跌停池真值定义(line 1669),覆盖末点
-    'history': (lambda h: (
-        h[:-1] + [{
-            **h[-1],
-            'up': up_count,
-            'down': down_count,
-            'limitUp': len(limit_up_stocks) if limit_up_stocks else 0,
-            # v2.0.7eg:用 em 跌停池 dt_df 真值(不是 sina 兜底)— user 真实 119
-            'limitDown': len(dt_df) if dt_df is not None and len(dt_df) > 0 else 0,
-        }] if h and h[-1]['date'] == TODAY.strftime('%Y-%m-%d') else h
-    ))(combined_history),
+    # v2.0.7ez:combined_history 末点 today 4 个字段在 line 759-774 循环内已用真值覆盖
+    # — line 759 循环 is_today 判断:up=up_count 真值/down=down_count 真值/limitUp/limitDown 用 akshare 涨停池/跌停池
+    # — 不再需要 lambda 覆盖
+    'history': combined_history,
     'limitUpLadders': ladders_arr,
     'limitUpStocks': limit_up_stocks,
     'firstBoardStocks': first_board,
