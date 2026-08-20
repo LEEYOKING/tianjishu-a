@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-08-21 01:11:36",
-    "tradeDate": "20260821",
-    "tradeDateSlash": "26/08/21",
+    "generatedAt": "2026-08-20 18:47:54",
+    "tradeDate": "20260820",
+    "tradeDateSlash": "26/08/20",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
     "stockCodes": [
       "sz000001",
@@ -5556,9 +5556,9 @@
     ]
   },
   "marketOverview": {
-    "tradeDate": "20260821",
-    "tradeDateSlash": "26/08/21",
-    "generatedAt": "2026-08-21 01:11",
+    "tradeDate": "20260820",
+    "tradeDateSlash": "26/08/20",
+    "generatedAt": "2026-08-20 18:47",
     "marketTurnover": 20939.15,
     "turnoverDiff": 20939.15,
     "marketTemperature": {
@@ -5604,7 +5604,7 @@
     "upCount": 4096,
     "downCount": 1347,
     "flatCount": 105,
-    "upPercent": 73.83,
+    "upPercent": 75.74,
     "stockTotal": 5548,
     "limitUpCount": 79,
     "limitDownCount": 12,
@@ -6506,14 +6506,6 @@
     },
     {
       "date": "2026-08-20",
-      "volume": 20939.15,
-      "limitUp": 79,
-      "limitDown": 12,
-      "up": 4096,
-      "down": 1347
-    },
-    {
-      "date": "2026-08-21",
       "volume": 20939.15,
       "limitUp": 79,
       "limitDown": 12,
