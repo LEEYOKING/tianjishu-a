@@ -200,9 +200,15 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
 
   const BATCH_SIZE = 100;
   const allStocks: { cp: number; amt: number; name: string }[] = [];
+  // v2.0.7eu:fetchMarketSummary 改 https://qt.gtimg.cn(跟 fetchLiveIndices 一致)
+  // — 之前 line 205 写 http://qt.gtimg.cn 在 CF Pages (https) React 页面 fetch 时
+  //   被浏览器 mixed content 拦截 → allStocks 永远是空 → 返 null → mergeLiveData 走 baseData
+  // — 表现:user 早盘 9:30 后看到 baseData 上一交易日收盘数字(8/19 → 看不到 8/20 实时)
+  // — fetchLiveIndices 用 TENCENT_BASE (https://) 一直能通,所以指数点位是新的,
+  //   只有全市场家数/成交额/涨跌停/涨跌分布显示 baseData 旧值
   for (let i = 0; i < codes.length; i += BATCH_SIZE) {
     const batch = codes.slice(i, i + BATCH_SIZE);
-    const url = 'http://qt.gtimg.cn/q=' + batch.join(',');
+    const url = 'https://qt.gtimg.cn/q=' + batch.join(',');
     try {
       const resp = await fetch(url, {
         headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://stockapp.finance.qq.com/' }
