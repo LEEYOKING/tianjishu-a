@@ -437,27 +437,12 @@ history = []
 # — 19 元均价估算:1.13e9 × 19 / 1e8 = 21444 亿(差 1%)
 # — history 用 sina amount × 19 / 1e8 估算(老数据没 em 全市场 amount)
 # — history.append 末尾加当日 marketTurnover(8/13 实际 25673 准) — 下次 8/14 算 turnoverDiff 用
-for i, row in hist_df.iterrows():
-    date_str = str(row['date'])
-    # v2.0.7cq:过滤周末(akshare stock_zh_index_daily_tx 会返回周末空数据)
-    _dt = datetime.strptime(date_str, '%Y-%m-%d')
-    if _dt.weekday() >= 5:  # 周六(5)/周日(6)跳过
-        continue
-    # v2.0.7ei:兼容 sina 和 em 两种 K 线源
-    # — sina tx 列:date/amount/...
-    # — em fallback 列:date/open/close/high/low/volume/...
-    # — 优先 amount(sina),fallback volume(em) — em volume 单位是手(sina amount 也是手)— 公式不变
-    amount_sh = safe_float(row.get('amount', row.get('volume', 0)))
-    amount_sz = safe_float(hist_sz_df.iloc[i].get('amount', hist_sz_df.iloc[i].get('volume', 0))) if i < len(hist_sz_df) else 0
-    # v2.0.7ez:history.volume 公式统一用 (amount * 19.2) / 1e8(去掉 × 100 加权)
-    # — em 接口 amount 字段单位"元"(sina 失败 fallback),8/12 sh+sz=1.13e11 元
-    # — 1.13e11 × 19.2 / 1e8 = 21,696(亿) ≈ 8/12 同花顺 21,700(差 0.1%)✓
-    # — 之前 * 100 × 19.2 / 1e6 = 216,701,352(差 1e4 倍,翻 100 倍)— 错
-    volume_yi = round((amount_sh + amount_sz) * 19.2 / 1e8, 2)  # / 1e8 = 元 → 亿元
-    history.append({
-        'date': date_str,
-        'volume': volume_yi,  # 估算的成交额(亿元)— 跟同花顺差 1%
-    })
+# v2.0.7ez:history 前 90 天 volume 不再估算(原公式 amount * 19.2 单位混乱,差 1e4 倍)
+# — 旧: (sh+sz amount(手) * 100 * 19.2 / 1e8) = 216(亿,差 100 倍)— 翻 100 倍 bug
+# — 旧: (sh+sz amount(元) * 100 * 19.2 / 1e6) = 216,701,352(差 1e4 倍)— 翻 100 倍 bug
+# — 新:不写 history 前 90 天 volume,只留 line 474 末点 totalTurnover(8/20 = 20,939 正确)
+# — 8/12-8/19 chart 看不到(总比翻 100 倍好) — 之后可优化,拉历史 em K 线 + 用类似 line 474 末点逻辑
+
 # v2.0.7ba:追加当日收盘成交额(下次算 turnoverDiff 用)
 # 8/13 跑出 25673,append 到 history 末尾(8/14 跑时 history[-1] = 8/13 收盘)
 # v2.0.7cq:周末 cron 不会跑(UTC 7:35/10:30 北京时间,周一到周五),但防御性再过滤一次
