@@ -239,9 +239,15 @@ spot_df['成交额'] = spot_df['成交额'].apply(lambda x: safe_float(x))
 SAMPLE_ONLY = False
 _SAMPLE_SCALE = 1
 total_turnover = round(safe_float(spot_df['成交额'].sum()) / 1e4 * _SAMPLE_SCALE, 2)  # 万 → 亿 ÷ 1e4
-up_count = int((spot_df['涨跌幅'] > 0).sum() * _SAMPLE_SCALE)
-down_count = int((spot_df['涨跌幅'] < 0).sum() * _SAMPLE_SCALE)
-flat_count = int((spot_df['涨跌幅'] == 0).sum() * _SAMPLE_SCALE)
+# v2.0.7ex:用 现价/昨收 算涨跌幅(精度 0.001%,不会 fields[32] 四舍五入误判)
+# — 之前 fields[32] === 0 算"平",错算 ±0.005% 范围 179 只涨/跌为"平"
+# — 8/20 实际:涨 4096 跌 1347 平 98(同花顺),baseData 错算 3983/1153/277
+# — 修法:用 spot_df 现价 昨收 重新算 涨跌幅
+import pandas as _pd
+_cp_calc = ((spot_df['现价'].astype(float) - spot_df['昨收'].astype(float)) / spot_df['昨收'].astype(float) * 100)
+up_count = int((_cp_calc > 0).sum() * _SAMPLE_SCALE)
+down_count = int((_cp_calc < 0).sum() * _SAMPLE_SCALE)
+flat_count = int((_cp_calc == 0).sum() * _SAMPLE_SCALE)
 stock_total = len(spot_df) * _SAMPLE_SCALE
 if SAMPLE_ONLY:
     print(f"  sina 限流 5 页 sample({len(spot_df)} 只): ↑{up_count} ↓{down_count} 平{flat_count} 成交 {total_turnover}亿")
