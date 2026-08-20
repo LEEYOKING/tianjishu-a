@@ -85,7 +85,7 @@ export interface LiveSnapshot {
   // v2.0.7ax:em 申万 90 行业(跟 ths 90 细分类 一一对应,60s 实时)
   emIndustries?: Map<string, { name: string; changePercent: number; leaderName: string; totalTurnover: number; leaderChangePercent: number; stockCount: number }>;
   /** 今日实时快照(用于把今天数据 push 到 history 末尾) — v2.0.7cu:加 limitUp/limitDown 字段(同源 sina 9.97% 阈值) */
-  today: { date: string; volume: number; up: number; down: number; limitUp: number; limitDown: number } | null;
+  today: { date: string; volume: number; up: number; down: number; flat?: number; limitUp: number; limitDown: number } | null;
   /** 数据源时间戳 */
   fetchedAt: number;
   /** 是否还在首次拉取(初始 false) */
@@ -308,6 +308,13 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
       next.marketOverview.marketTurnover = live.today.volume;
       next.marketOverview.upCount = live.today.up;
       next.marketOverview.downCount = live.today.down;
+      // v2.0.7ex:fetchTodaySnapshot 也加 flatCount 字段(用现价/昨收算涨跌幅,精度 0.001%)
+      // — 之前 baseData flatCount=277(14:00 cron 用 fields[32]===0 算的,错算 179 只涨/跌为"平")
+      // — 8/20 实际:涨 4096 跌 1347 平 98 总 5541,baseData 算成 3983+1153+277=5413
+      // — 修法:fetchTodaySnapshot 返 flatCount,mergeLiveData 覆盖 baseData
+      if (live.today.flat !== undefined && live.today.flat >= 0) {
+        next.marketOverview.flatCount = live.today.flat;
+      }
       // 涨跌停 — fetchTodaySnapshot 也带 limitUp/limitDown(同源 sina 9.97% 阈值)
       if (live.today.limitUp !== undefined && live.today.limitUp > 0) {
         next.marketOverview.limitUpCount = live.today.limitUp;

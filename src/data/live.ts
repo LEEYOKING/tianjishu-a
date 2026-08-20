@@ -228,9 +228,15 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
         const name = fields[1];
         // 跳过退市
         if (name.includes('退')) continue;
-        const cp = parseFloat(fields[32]); // 涨跌幅%
+        // v2.0.7ex:用 fields[3] 现价 / fields[4] 昨收 算涨跌幅,不用 fields[32]
+        // — fields[32] 是四舍五入到 0.01% 的涨跌幅,涨跌幅 < 0.005% 的股票被算成 cp=0 → 错算成"平"
+        // — 8/20 user 反馈:算出来 3983+1153+277=5413,实际 4096+1347+98=5541,差 179 只错算成"平"
+        // — 现价/昨收算精度高(0.001%),不会被四舍五入误判
+        const close = parseFloat(fields[3]);
+        const prevClose = parseFloat(fields[4]);
         const amt = parseFloat(fields[37]) || 0; // 成交额(万)
-        if (isNaN(cp)) continue;
+        if (isNaN(close) || isNaN(prevClose) || prevClose === 0) continue;
+        const cp = ((close - prevClose) / prevClose) * 100;
         allStocks.push({ cp, amt, name });
       }
     } catch (e) {
@@ -291,12 +297,13 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
 }
 
 /** 拉取今日实时数据(用于把 8.6 当日数据 push 到 history 末尾)
- * 返回: { date, volume, up, down, limitUp, limitDown } */
+ * 返回: { date, volume, up, down, flat, limitUp, limitDown } */
 export async function fetchTodaySnapshot(stockCodes?: string[]): Promise<{
   date: string;
   volume: number;
   up: number;
   down: number;
+  flat: number;  // v2.0.7ex:用现价/昨收算的精确平盘数(baseData 277 错算成 98 才对)
   limitUp: number;
   limitDown: number;
 } | null> {
@@ -323,6 +330,7 @@ export async function fetchTodaySnapshot(stockCodes?: string[]): Promise<{
       volume: summary.totalTurnover,
       up: summary.upCount,
       down: summary.downCount,
+      flat: summary.flatCount,  // v2.0.7ex
       limitUp: summary.limitUpCount,
       limitDown: summary.limitDownCount,
     };
