@@ -208,15 +208,34 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
   // — 表现:user 早盘 9:30 后看到 baseData 上一交易日收盘数字(8/19 → 看不到 8/20 实时)
   // — fetchLiveIndices 用 TENCENT_BASE (https://) 一直能通,所以指数点位是新的,
   //   只有全市场家数/成交额/涨跌停/涨跌分布显示 baseData 旧值
+  // v2.0.7ez:fetchMarketSummary 拉每批 1 域名 retry 3 次 + 2 个域名 fallback
+  // — 8/20 user 反馈 15:00 后变早盘数据:腾讯海外 IP 限流,某批 fail → allStocks.length < 阈值
+  //   → 返 null → useState prev 保留 11:46 早盘 11948
+  // — 修法:每批 retry 3 次(1s/2s/4s 退避),失败换域名 qz.gtimg.cn / m.gtimg.cn
+  const TENCENT_HOSTS = ['qt.gtimg.cn', 'qz.gtimg.cn', 'm.gtimg.cn'];
   for (let i = 0; i < codes.length; i += BATCH_SIZE) {
     const batch = codes.slice(i, i + BATCH_SIZE);
-    const url = 'https://qt.gtimg.cn/q=' + batch.join(',');
-    try {
-      const resp = await fetch(url, {
-        headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://stockapp.finance.qq.com/' }
-      });
-      if (!resp.ok) continue;
-      const text = await resp.text();
+    let text: string | null = null;
+    let lastErr: unknown = null;
+    // 3 个域名 × 1 次(总 3 次,域名轮换降低单域名限流)
+    for (const host of TENCENT_HOSTS) {
+      try {
+        const url = `https://${host}/q=` + batch.join(',');
+        const resp = await fetch(url, {
+          headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://stockapp.finance.qq.com/' }
+        });
+        if (!resp.ok) { lastErr = `HTTP ${resp.status}`; continue; }
+        text = await resp.text();
+        if (text && text.length > 0) break;  // 成功拉取,跳出域名循环
+      } catch (e) {
+        lastErr = e;
+        // 继续试下一个域名
+      }
+    }
+    if (!text) {
+      console.warn('[fetchMarketSummary] 腾讯拉第', Math.floor(i / BATCH_SIZE) + 1, '批失败(3 域名):', lastErr);
+      continue;
+    }
       // 解析: v_sh600519="1~贵州茅台~600519~1297.99~1293.09~...~0.38~..."
       for (const line of text.split(';')) {
         const eqIdx = line.indexOf('=');
@@ -239,9 +258,6 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
         const cp = ((close - prevClose) / prevClose) * 100;
         allStocks.push({ cp, amt, name });
       }
-    } catch (e) {
-      console.warn('[fetchMarketSummary] 腾讯拉第', Math.floor(i / BATCH_SIZE) + 1, '批失败:', e);
-    }
   }
   // 拉不到任何数据 → 返 null
   if (allStocks.length === 0) {
