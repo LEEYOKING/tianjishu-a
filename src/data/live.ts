@@ -183,12 +183,14 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
   if (_isWeekendCN()) {
     return null;
   }
-  // v2.0.7ee:腾讯 qt.gtimg.cn 全市场 — 接收 stockCodes 参数
-  // — 传空 → fallback 硬编码区间(应急)
-  // — 传实际代码 list(从 data.json.meta.stockCodes 读)→ 拉真实 5,547 只
+  // v2.0.7ew:过滤 stockCodes 只 A 股(/^(sh|sz)\d{6}$/)— baseData 13,999 只中含
+  // 8,452 只港股通/可转债/历史重复代码,腾讯 qt.gtimg.cn 拉这些会失败(fields 长度 < 50)
+  // 之前 13,999 只 140 批,部分批 100 只全是非 A 股 → allStocks.length === 0 → return null
+  // → useState prev 保留 11:46 早盘 11948 → user 看到早盘数据(15:00 后)
+  // 修法:过滤只 A 股代码,140 批变 56 批,3-5 分钟完成,降低限流概率
   let codes: string[];
   if (stockCodes && stockCodes.length > 0) {
-    codes = stockCodes;
+    codes = stockCodes.filter((c) => /^(sh|sz)\d{6}$/.test(c));
   } else {
     // fallback 硬编码区间
     codes = [];

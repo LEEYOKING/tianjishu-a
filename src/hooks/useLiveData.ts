@@ -25,7 +25,10 @@ export function isLiveMarket(): boolean {
   const day = now.getUTCDay();
   if (day === 0 || day === 6) return false;
   const mins = now.getUTCHours() * 60 + now.getUTCMinutes();
-  return mins >= 9 * 60 + 30 && mins < 15 * 60;
+  // v2.0.7ew:边界 9:30-15:30(原 15:00)— 15:00 收盘后 30 分钟继续拉数据,
+  // 让 fastTick 拉到 14:59 收盘定格值(腾讯全市场 sum ~1.93 万亿稳定),useState prev 不会回到 11:46 早盘
+  // 修前 bug:15:00 后 fetchMarketSummary 限流拉空,prev 保留 11:46 早盘 11948 → user 看到早盘数据
+  return mins >= 9 * 60 + 30 && mins < 15 * 60 + 30;
 }
 
 // v2.0.7dj:早盘限流期 9:30-10:00(北京)— 跟 isLiveMarket 区别:
