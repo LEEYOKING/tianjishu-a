@@ -431,6 +431,26 @@ if hist_df is None or hist_sz_df is None:
 # 简化: volume = amount / 1e4 作为 "千亿手" 单位的相对活跃度
 # 实际上原图的"成交量"是成交额(亿元),所以我用 7日均量来计算今日较均值的差
 history = []
+# v2.0.7fb:从 git HEAD data.json 读 history 末点(上一交易日真值)— 防止真值丢失
+# — 之前 line 433 history = [] 初始化,删了 git HEAD 8/20 末点 4,096 真值
+# — 8/21 跑时 line 779 循环 zt_history 末点 8/20 用 ud_dict 估算 2,478 — 8/20 末点 up 真值 4,096 永久丢
+# — 修法:从 git HEAD data.json 读 history 末点(上一交易日) + 用作 line 779 循环 ud_dict 覆盖
+# — fetch-data cron 跑时(另一台服务器)git checkout 后,public/data.json = git HEAD(8/20 末点 4,096 真值)
+# — line 462-480 删 today_date + append today_date 末点 — history 末点 = today_date
+# — 但 line 462-480 之前 history 列表应该有 8/20 末点 4,096 真值(被删会被 line 462-480 删 today_date 跳过)
+# — 修法:line 433 history = [] 后,先从 public/data.json 读 history 末点(8/20 末点)— 暂存到 _prev_history
+# — 然后 line 462-480 line 758 用 _prev_history 覆盖 ud_dict[8/20] = 4,096 真值
+_prev_history = []
+try:
+    with open(OUT, 'r', encoding='utf-8') as f:
+        _prev_data = json.load(f)
+    _prev_history = _prev_data.get('history', [])
+    if _prev_history:
+        print(f"  读 git HEAD data.json history 末 {len(_prev_history)} 行(保留上一交易日真值)")
+except Exception as e:
+    print(f"  读 git HEAD data.json history 失败(忽略): {e}")
+    _prev_history = []
+
 # v2.0.7ba:history.volume 用 sina amount × 19 / 1e8 估算(沪深 8/12 估算 21444,差 1%)
 # — em sh000001 + sz399001 volume 字段单位"手",50+500 成分股加权
 # — 实际沪深 8/12 21672(同花顺) → 加权均价 19.2 元
@@ -756,22 +776,61 @@ dt_dict = {x['date']: x['count'] for x in dt_history}
 ud_dict = {x['date']: x for x in up_down_history}
 vol_dict = {x['date']: x['volume'] for x in history}
 
+# v2.0.7fb:用 _prev_history(git HEAD 末点)+ history 列表(line 462-480 当日末点)覆盖 ud_dict/zt_dict/dt_dict/vol_dict
+# — fetch-data cron 跑时(另一台服务器)git pull 后,_prev_history = git HEAD history(8/20 末点 4,096 真值)
+# — line 462-480 line 458-464 append 8/21 末点 — history[-1] = 8/21 末点
+# — _prev_history 末点 8/20 = 4,096 真值 → 覆盖 ud_dict[8/20] = 4,096 真值
+# — 防止 8/21 跑时 8/20 末点 up 从 4,096 真值被 ud_dict 估算 2,478 覆盖
+# — 8/12-8/19 末点不在 _prev_history(只有 8/20 末点)— 用 ud_dict/zt_dict/dt_dict 估算(已可接受)
+for _h_list in (_prev_history, history):
+    for _h in _h_list:
+        _d = _h.get('date')
+        if _d:
+            # 用 _prev_history 末点 + line 462-480 末点真值覆盖
+            vol_dict[_d] = _h.get('volume', 0)
+            zt_dict[_d] = _h.get('limitUp', 0)
+            dt_dict[_d] = _h.get('limitDown', 0)
+            # ud_dict 是 dict-of-dict(每项 {'date','up','down'})— 覆盖整个项
+            ud_dict[_d] = {
+                'date': _d,
+                'up': _h.get('up', 0),
+                'down': _h.get('down', 0),
+            }
+
 # v2.0.7ez:combined_history 循环用 zt_history 90 天(不再用 vol_dict,vol_dict 只 8/20 末点)
 # — 旧:vol_dict.items() 循环,history 只 line 462-480 末点(8/20)→ combined_history 只有 8/20
 # — 8/12-8/19 chart 显示 0/0/0(没 up/down/limitUp/limitDown 数据)— user 反馈
 # — 新:zt_history 90 天循环,8/12-8/19 也有 up/down/limitUp/limitDown(zt_history/dt_history/up_down_history 都有)
 # — volume 末点 8/20 = 20,939(从 vol_dict 取,line 462-480 末点)— 8/12-8/19 = 0(删 line 440-461 后不估算)
-# — 末点 today(8/20)用 up_count/down_count/limitUp/limitDown 真值覆盖(不是 up_down_history 估算)
+# — 8/20 末点 up 真值 4,096 永久保留(被 line 462-480 末点覆盖到 ud_dict)
+# — 8/12-8/19 末点 up/down 用 up_down_history 估算(指数涨跌 + sigmoid 映射)— 视觉参考,非真实
 for i in range(len(zt_history)):
     date_str = zt_history[i]['date']
-    is_today = (date_str == TODAY.strftime('%Y-%m-%d'))
+    # v2.0.7fb:不再需要 is_today 判断(line 462-480 末点已覆盖 ud_dict)
     combined_history.append({
         'date': date_str,
         'volume': vol_dict.get(date_str, 0),  # 末点 8/20 = 20,939(其他 = 0)
-        'limitUp': (len(limit_up_stocks) if limit_up_stocks else 0) if is_today else zt_dict.get(date_str, 0),
-        'limitDown': (len(dt_df) if dt_df is not None and len(dt_df) > 0 else 0) if is_today else dt_dict.get(date_str, 0),
-        'up': up_count if is_today else ud_dict.get(date_str, {}).get('up', 0),
-        'down': down_count if is_today else ud_dict.get(date_str, {}).get('down', 0),
+        'limitUp': zt_dict.get(date_str, 0),
+        'limitDown': dt_dict.get(date_str, 0),
+        'up': ud_dict.get(date_str, {}).get('up', 0),
+        'down': ud_dict.get(date_str, {}).get('down', 0),
+    })
+
+# v2.0.7fb:combined_history 循环后,append line 462-480 末点(当日实时)— 跟卡片"成交量"实时值一致
+# — 早盘跑(8/21 9:35)zt_history 不含 8/21(还没收盘 hist_df 没 8/21)— line 759 循环没 8/21 末点
+# — 收盘跑(8/21 15:35)zt_history 含 8/21(line 462-480 末点 date 已在 combined_history)— 不重复 append
+# — 重复 append 检查:8/21 末点 date=8/21 已在 combined_history(zt_history 末点)— 跳过
+# — 8/21 9:35 跑:append line 462-480 末点 8/21(早盘 5 分钟 100-500 亿)— combined_history 末点=8/21 ✓
+# — user 反馈:"曲线图末点=当日当前实时成交量(等于卡片数据即可)"
+_today_date = TODAY.strftime('%Y-%m-%d')
+if not any(h.get('date') == _today_date for h in combined_history):
+    combined_history.append({
+        'date': _today_date,
+        'volume': round(total_turnover, 2),  # 当日实时成交额(8/21 9:35 = 100-500 亿)
+        'limitUp': len(limit_up_stocks) if limit_up_stocks else 0,
+        'limitDown': len(dt_df) if dt_df is not None and len(dt_df) > 0 else 0,
+        'up': up_count,  # line 248 真值
+        'down': down_count,  # line 249 真值
     })
 
 # v2.0.7ef:combined_history 末点 today(8/19) 4 个字段占位 — line 1669 之后会覆盖为 today 真值
