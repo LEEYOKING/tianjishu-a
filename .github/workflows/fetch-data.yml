@@ -73,5 +73,17 @@ jobs:
           else
             STATUS="${{ steps.fetch.outputs.fetch_status }}"
             git commit -m "data: 每日抓数 $(date -u +%F) [$STATUS]"
-            git push
+            # v2.0.7ff:加 push 失败重试 3 次(防止 GH Actions runner 网络抖动)— 失败时 issue 告警
+            for i in 1 2 3; do
+              if git push; then
+                echo "push 成功 (attempt $i)"
+                break
+              else
+                echo "push 失败 (attempt $i/3) — 等待 30s 重试"
+                sleep 30
+              fi
+            done
+            if ! git status --porcelain=vcs 1>/dev/null 2>&1; then
+              echo "::warning::git push 最终失败 — 需要手动检查"
+            fi
           fi
