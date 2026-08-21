@@ -146,11 +146,7 @@ export default function Layout({ data, children }: Props) {
               boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
             }}
           >
-            <img
-              src="/brand-logo.png"
-              alt="天机枢"
-              style={{ height: 32, width: 'auto', objectFit: 'contain' }}
-            />
+            {/* v2.0.7fe:汉堡按钮挪最左(放最常用)— logo 居中靠右 */}
             <button
               aria-label="打开菜单"
               onClick={() => setDrawerOpen(true)}
@@ -158,6 +154,7 @@ export default function Layout({ data, children }: Props) {
                 background: 'transparent', border: 'none', padding: 8,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', color: '#111827', borderRadius: 6,
+                marginLeft: -4, flexShrink: 0,
               }}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -166,6 +163,13 @@ export default function Layout({ data, children }: Props) {
                 <line x1="3" y1="18" x2="21" y2="18" />
               </svg>
             </button>
+            <img
+              src="/brand-logo.png"
+              alt="天机枢"
+              style={{ height: 32, width: 'auto', objectFit: 'contain' }}
+            />
+            {/* 占位让 logo 视觉居中(透明按钮) */}
+            <div style={{ width: 40, flexShrink: 0 }} aria-hidden />
           </header>
 
           {/* 抽屉 — 遮罩 */}
@@ -180,10 +184,10 @@ export default function Layout({ data, children }: Props) {
             />
           )}
 
-          {/* 抽屉 — 右侧滑入(80% 宽) */}
+          {/* 抽屉 — 右侧滑入(80% 宽) — v2.0.7fe:从 header 下面开始(top: 56)避免跟 header 重叠 */}
           <div
             style={{
-              position: 'fixed', top: 0, right: 0, bottom: 0,
+              position: 'fixed', top: 56, right: 0, bottom: 0,
               width: '80vw', maxWidth: 320,
               background: '#FFFFFF',
               zIndex: 100,
