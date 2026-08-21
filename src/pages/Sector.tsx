@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import { PageHeader, Card } from './Overview';
 import { COLOR_UP, COLOR_DOWN, COLOR_TEXT, COLOR_FLAT } from '../utils/format';
@@ -12,6 +12,22 @@ export default function Sector({ data }: { data: ReportData }) {
   const concepts = data.conceptSectors || [];
   const regions = data.regionSectors || [];
   const idx = data.marketOverview;
+
+  // v2.0.7ff:行业 K 线(110KB)从 data.json 拆到独立 sectorKlines.json — 进入 Sector 页面时按需 fetch
+  const [sectorKlines, setSectorKlines] = useState<ReportData['sectorKlines']>(data.sectorKlines);
+  useEffect(() => {
+    if (data.sectorKlines) {
+      // 老 data.json 仍有 sectorKlines 字段(过渡期)— 直接用,不重新 fetch
+      setSectorKlines(data.sectorKlines);
+      return;
+    }
+    let cancelled = false;
+    fetch(import.meta.env.BASE_URL + 'sectorKlines.json?cb=' + Date.now(), { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (!cancelled && d) setSectorKlines(d as any); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [data.sectorKlines]);
 
   // 涨幅前 10 / 跌幅前 10
   // v2.0.7v:涨幅前 10 — 过滤负数 + 次级键(成交额 / 涨停数)
@@ -91,14 +107,14 @@ export default function Sector({ data }: { data: ReportData }) {
           data={sectorTopGain}
           defaultSort="desc"
           showNetInflow={false}
-          sectorKlines={data.sectorKlines}
+          sectorKlines={sectorKlines}
         />
         <DetailTableCard
           title="行业主力净流入 TOP15"
           data={sectorTopNetIn}
           defaultSort="netInflow"
           showNetInflow={true}
-          sectorKlines={data.sectorKlines}
+          sectorKlines={sectorKlines}
         />
       </div>
 
@@ -108,13 +124,13 @@ export default function Sector({ data }: { data: ReportData }) {
           title="概念板块 TOP15"
           data={conceptTopGain}
           defaultSort="desc"
-          sectorKlines={data.sectorKlines}
+          sectorKlines={sectorKlines}
         />
         <DetailTableCard
           title="地域板块 TOP15"
           data={regionTopGain}
           defaultSort="desc"
-          sectorKlines={data.sectorKlines}
+          sectorKlines={sectorKlines}
         />
       </div>
     </div>

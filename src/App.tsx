@@ -1,13 +1,16 @@
-import { useEffect, useState, useMemo, createContext, useContext } from 'react';
+import { useEffect, useState, useMemo, createContext, useContext, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Overview from './pages/Overview';
-import LimitUp from './pages/LimitUp';
-import LimitDown from './pages/LimitDown';
-import Sector from './pages/Sector';
-import AnomalyStock from './pages/AnomalyStock';
-import DragonTiger from './pages/DragonTiger';
-import Surgery from './pages/Surgery';
+// v2.0.7ff:按页面代码分割 — 首屏只 load Overview,其他页面 React.lazy 按路由 fetch
+const Sector = lazy(() => import('./pages/Sector'));
+const LimitUp = lazy(() => import('./pages/LimitUp'));
+const LimitDown = lazy(() => import('./pages/LimitDown'));
+const AnomalyStock = lazy(() => import('./pages/AnomalyStock'));
+const DragonTiger = lazy(() => import('./pages/DragonTiger'));
+const Surgery = lazy(() => import('./pages/Surgery'));
+const PreScan = lazy(() => import('./pages/PreScan'));
+const FirstBoard = lazy(() => import('./pages/FirstBoard'));
 import { loadReportData, type ReportData } from './data/loader';
 import { useLiveData, mergeLiveData, type LiveSnapshot } from './hooks/useLiveData';
 
@@ -120,18 +123,23 @@ export default function App() {
     <LiveContext.Provider value={live}>
       <BrowserRouter>
         <Layout data={merged}>
-          <Routes>
-            <Route path="/" element={<Navigate to="/overview" replace />} />
-            <Route path="/overview" element={<Overview data={merged} />} />
-            <Route path="/sector" element={<Sector data={merged} />} />
-            <Route path="/limit-up" element={<LimitUp data={merged} />} />
-            <Route path="/limit-down" element={<LimitDown data={merged} />} />
-            <Route path="/breakout" element={<AnomalyStock type="breakout" data={merged} />} />
-            <Route path="/high-break" element={<AnomalyStock type="high-break" data={merged} />} />
-            <Route path="/low-position" element={<AnomalyStock type="low-position" data={merged} />} />
-            <Route path="/dragon-tiger" element={<DragonTiger data={merged} />} />
-            <Route path="/surgery" element={<Surgery data={merged} />} />
-          </Routes>
+          {/* v2.0.7ff:lazy 加载页面 fallback — 显示简单 loading,避免白屏 */}
+          <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#86909C' }}>页面加载中…</div>}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/overview" replace />} />
+              <Route path="/overview" element={<Overview data={merged} />} />
+              <Route path="/sector" element={<Sector data={merged} />} />
+              <Route path="/limit-up" element={<LimitUp data={merged} />} />
+              <Route path="/limit-down" element={<LimitDown data={merged} />} />
+              <Route path="/breakout" element={<AnomalyStock type="breakout" data={merged} />} />
+              <Route path="/high-break" element={<AnomalyStock type="high-break" data={merged} />} />
+              <Route path="/low-position" element={<AnomalyStock type="low-position" data={merged} />} />
+              <Route path="/dragon-tiger" element={<DragonTiger data={merged} />} />
+              <Route path="/surgery" element={<Surgery data={merged} />} />
+              <Route path="/prescan" element={<PreScan />} />
+              <Route path="/firstboard" element={<FirstBoard data={merged} />} />
+            </Routes>
+          </Suspense>
         </Layout>
       </BrowserRouter>
     </LiveContext.Provider>

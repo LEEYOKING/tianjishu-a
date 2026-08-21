@@ -1674,6 +1674,13 @@ for i, (sw, ths_name) in enumerate(SW_TO_THS_LEADERS.items()):
     if (i + 1) % 7 == 0:
         _t.sleep(0.3)
 print(f"  行业 K 线: {sum(1 for v in sector_klines.values() if v.get('kline'))}/{len(sector_klines)} 个有数据")
+
+# v2.0.7ff:行业 K 线单独输出到 sectorKlines.json — Sector 页面进入时按需 fetch,首页 data.json 砍 110KB
+import json as _json
+SKL_PATH = os.path.join(os.path.dirname(OUT), 'sectorKlines.json')
+with open(SKL_PATH, 'w', encoding='utf-8') as f:
+    _json.dump(sector_klines, f, ensure_ascii=False, indent=2)
+print(f"  ✓ 行业 K 线单独输出: {SKL_PATH} ({os.path.getsize(SKL_PATH) / 1024:.1f} KB)")
 for _, row in strong_df.iterrows():
     code = safe_str(row['代码'])
     change = safe_float(row.get('涨跌幅', 0))
@@ -1800,7 +1807,7 @@ data = {
         'publishedAt': '18:00',  # A 股龙虎榜披露时间
         'count': len(dragon_tiger),
     },
-    'sectorKlines': sector_klines,  # v1.9.3:行业领涨股 K 线(用 leader 代理)
+    # v2.0.7ff:sectorKlines 拆到独立 sectorKlines.json(Sector 页面按需 fetch)— data.json 砍 110KB
 }
 
 # 合并 surgery.json(若有)— 同一个数据快照,避免前端的 stale 数据
