@@ -17,7 +17,7 @@ on:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40  # v2.0.7fk:龙虎榜 retry 机制最多 30min sleep(2×15min),扩到 40min 留余量
 
     steps:
       - name: Checkout
