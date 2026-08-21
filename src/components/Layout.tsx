@@ -163,8 +163,9 @@ export default function Layout({ data, children }: Props) {
                 <line x1="3" y1="18" x2="21" y2="18" />
               </svg>
             </button>
+            {/* v2.0.7ff:移动端用 brand-logo-mobile.png(红色版) — PC 端用 brand-logo.png(原版) */}
             <img
-              src="/brand-logo.png"
+              src="/brand-logo-mobile.png"
               alt="天机枢"
               style={{ height: 32, width: 'auto', objectFit: 'contain' }}
             />
@@ -184,17 +185,17 @@ export default function Layout({ data, children }: Props) {
             />
           )}
 
-          {/* 抽屉 — 右侧滑入(80% 宽) — v2.0.7fe:从 header 下面开始(top: 56)避免跟 header 重叠 */}
+          {/* 抽屉 — 右侧滑入(85% 宽) — v2.0.7ff:抽屉覆盖整个屏幕(top: 0 + zIndex 200)— 抽屉打开时 header 被盖住 */}
           <div
             style={{
-              position: 'fixed', top: 56, right: 0, bottom: 0,
-              width: '80vw', maxWidth: 320,
+              position: 'fixed', top: 0, right: 0, bottom: 0,
+              width: '85vw', maxWidth: 360,
               background: '#FFFFFF',
-              zIndex: 100,
+              zIndex: 200,
               transform: drawerOpen ? 'translateX(0)' : 'translateX(100%)',
               transition: 'transform .25s ease',
               display: 'flex', flexDirection: 'column',
-              boxShadow: '-2px 0 12px rgba(0,0,0,0.08)',
+              boxShadow: '-2px 0 16px rgba(0,0,0,0.12)',
             }}
           >
             <div
