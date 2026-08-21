@@ -395,7 +395,17 @@ def code_prefix(code):
     return ''
 
 bj_amt = round(safe_float(spot_df[spot_df['代码'].str.lower().str.startswith('bj')]['成交额'].sum()) / 1e8, 2)
-sz_amt = round(total_turnover - sh_amt - bj_amt, 2)
+# v2.0.7fo:从 sz399001 指数成交额直接拿(改 line 398 反推算法)
+# — 之前 line 398 sz_amt = total_turnover - sh_amt - bj_amt(从 spot_df 累加反推),腾讯海外 IP 18:30 跑时
+#   部分股票成交额字段返 0/缺失,spot_df sum 偏小,反推的 sz_amt 也不准
+# — 8/21 实际 18,923 亿(同花顺)vs baseData 18,788 亿(差 135 亿 / 0.7%)
+# — 8/20 实际 2.09 万亿 vs baseData 2.04 万亿(差 500 亿 / 2.4%)— 8/20 限流严漏拉更多
+# — 修法:sz_amt 直接从 sz399001 指数成交额拿(同花顺/同花顺/同花顺金融终端都用指数成交额)
+# — 北交所成交额小(bj_amt 通常 50-100 亿),spot_df 累加误差可忽略
+sz_amt = round(safe_float(idx_dict['sz399001']['成交额']) / 1e8, 2) if 'sz399001' in idx_dict else round(total_turnover - sh_amt - bj_amt, 2)
+# v2.0.7fo:total_turnover 改用 sh + sz + bj 指数成交额之和(同花顺口径)— 不再用 spot_df 累加
+total_turnover = round(sh_amt + sz_amt + bj_amt, 2)
+print(f"  全市场成交额: 上证 {sh_amt} + 深证 {sz_amt} + 北交 {bj_amt} = {total_turnover} 亿(同花顺口径)")
 
 # 较上一日增量: 用历史 K 线(取近 8 天,今天 vs 昨天)
 # 优先用 stock_zh_index_daily_tx 的 amount 字段(单位是手,不是元)

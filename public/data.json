@@ -14010,8 +14010,8 @@
     "tradeDate": "20260821",
     "tradeDateSlash": "26/08/21",
     "generatedAt": "2026-08-21 18:44",
-    "marketTurnover": 18788.97,
-    "turnoverDiff": -1617.03,
+    "marketTurnover": 18923,
+    "turnoverDiff": -1483,
     "marketTemperature": {
       "temperature": 50,
       "status": "常温震荡",
@@ -14042,7 +14042,7 @@
       "down_7_to_5": 115,
       "down_5_to_3": 272,
       "down_3_to_0": 2154,
-      "flat": 380,
+      "flat": 46,
       "up_0_to_3": 1966,
       "up_3_to_5": 229,
       "up_5_to_7": 104,
@@ -14052,10 +14052,10 @@
     "shTurnover": 8834.23,
     "szTurnover": 9954.74,
     "bjTurnover": 0.0,
-    "upCount": 2407,
-    "downCount": 2626,
-    "flatCount": 375,
-    "upPercent": 44.47,
+    "upCount": 2505,
+    "downCount": 2862,
+    "flatCount": 46,
+    "upPercent": 46.28,
     "stockTotal": 5413,
     "limitUpCount": 54,
     "limitDownCount": 13,
@@ -14957,11 +14957,12 @@
     },
     {
       "date": "2026-08-21",
-      "volume": 18788.97,
+      "volume": 18923,
       "limitUp": 65,
       "limitDown": 23,
-      "up": 2407,
-      "down": 2626
+      "up": 2505,
+      "down": 2862,
+      "flat": 46
     }
   ],
   "limitUpLadders": [

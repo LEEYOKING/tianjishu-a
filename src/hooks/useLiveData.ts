@@ -122,8 +122,13 @@ export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot
     //      → sina/em 拉到部分数据(stale 或 0)→ setSnap → 覆盖 baseData 8/17 收盘真值(2.4 万亿)
     //      → user 23:53 盘后看到 2.2 万亿 / 4060 涨(在 2.4 万亿 / 4335 涨 之间变化)
     // 修法:非 isLiveMarket 时 return,React state 保持空 → 卡片走 baseData 8/17 收盘
+    // v2.0.7fo:0:00-9:30 也进入 useEffect(慢 5min)— 8/22 0:30 user 反馈 baseData 算错(cp===0 算平 375),
+    //         等 18:30 cron 自动跑之前,React 慢拉腾讯 8/21 收盘定格值用 live 覆盖 baseData
+    // — 8/22 0:47 user 报告 v2.0.7fo-fix 没生效:line 126 `if (!isLive) return;` 阻止 0:00-9:30 进入
+    // — 改为 `if (!isLive && !isPreMkt) return;` — 9:30-15:30 走快,0:00-9:30 走慢,15:30-24:00 + 周末 + 节假日 不跑
     const isLive = isLiveMarket();
-    if (!isLive) return;
+    const _isPreMktEarly = isPreMarket();
+    if (!isLive && !_isPreMktEarly) return;
     // 10s 拉快:全市场 + ETF + 可转债 + 指数 + today(v2.0.7g:加 today 同步,避免曲线图落后)
     // v2.0.7cs:safe 加重试 — em/sina 拉失败时 800ms 后重试 1 次
     // — 之前拉失败直接 fallback,看起来"上周五收盘"(user 反馈)
