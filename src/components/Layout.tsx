@@ -150,10 +150,13 @@ export default function Layout({ data, children }: Props) {
       {isMobile ? (
         <>
           {/* v2.0.7fd:移动端 — 顶部 header + 左抽屉 */}
-          {/* v2.0.7fh:header 改 static + 不设 zIndex(创建自然文档流)— 蒙层 fixed inset 0 自然盖住 header(蒙层 zIndex 99 > 默认 0) */}
+          {/* v2.0.7fj:header 改 relative + zIndex 1 显式创建 stacking context(蒙层 zIndex 99 > 1 自然盖住) */}
+          {/* — v2.0.7fh 改 static 但 static 不接受 zIndex,inline style 写了也无效,user 反馈没修好 */}
+          {/* — 现在 relative + zIndex 1 显式声明,蒙层 fixed zIndex 99 实际盖住 header */}
           <header
             style={{
-              position: 'static',
+              position: 'relative',
+              zIndex: 1,
               height: 56, flexShrink: 0,
               background: '#FFFFFF',
               borderBottom: '1px solid #E5E7EB',
@@ -180,10 +183,11 @@ export default function Layout({ data, children }: Props) {
               </svg>
             </button>
             {/* v2.0.7ff:移动端用 brand-logo-mobile.png(红色版) — PC 端用 brand-logo.png(原版) */}
+            {/* v2.0.7fj:user 反馈 logo 偏大 — 高度 32→26(宽度 auto 等比例) */}
             <img
               src="/brand-logo-mobile.png"
               alt="天机枢"
-              style={{ height: 32, width: 'auto', objectFit: 'contain' }}
+              style={{ height: 26, width: 'auto', objectFit: 'contain' }}
             />
             {/* 占位让 logo 视觉居中(透明按钮) */}
             <div style={{ width: 40, flexShrink: 0 }} aria-hidden />
@@ -221,7 +225,12 @@ export default function Layout({ data, children }: Props) {
                 padding: '0 16px', borderBottom: '1px solid #E5E7EB',
               }}
             >
-              <span style={{ fontSize: 15, fontWeight: 600, color: '#111827' }}>导航</span>
+              {/* v2.0.7fj:user 反馈 — 抽屉左上"导航"文字改成移动端 logo 图片 */}
+              <img
+                src="/brand-logo-mobile.png"
+                alt="天机枢"
+                style={{ height: 22, width: 'auto', objectFit: 'contain' }}
+              />
               <button
                 aria-label="关闭"
                 onClick={() => setDrawerOpen(false)}
@@ -241,7 +250,8 @@ export default function Layout({ data, children }: Props) {
               {renderMenu(() => setDrawerOpen(false))}
             </nav>
             {thermometer && (
-              <div style={{ padding: '0 12px 16px', borderTop: '1px solid #E5E7EB', paddingTop: 12, transform: 'scale(0.92)', transformOrigin: 'top left' }}>
+              // v2.0.7fj:user 反馈 — 抽屉"情绪温度计"上方浅灰色横线删除(去掉 borderTop)
+              <div style={{ padding: '0 12px 16px', paddingTop: 12, transform: 'scale(0.92)', transformOrigin: 'top left' }}>
                 {thermometer}
               </div>
             )}
@@ -277,11 +287,12 @@ export default function Layout({ data, children }: Props) {
               padding: '20px 0',
             }}
           >
-            <div style={{ padding: '20px 12px 24px', textAlign: 'center' }}>
+            {/* v2.0.7fj:user 反馈 — PC 端 logo padding 改成 "10px 10px 0px", 宽度 124→108 */}
+            <div style={{ padding: '10px 10px 0px', textAlign: 'center' }}>
               <img
                 src="/brand-logo.png"
                 alt="天机枢 · 每日复盘 数据全解析"
-                style={{ width: 124, height: 'auto', display: 'block', margin: '0 auto', objectFit: 'contain' }}
+                style={{ width: 108, height: 'auto', display: 'block', margin: '0 auto', objectFit: 'contain' }}
               />
             </div>
 
