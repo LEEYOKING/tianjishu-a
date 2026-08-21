@@ -151,12 +151,13 @@ export default function Layout({ data, children }: Props) {
         <>
           {/* v2.0.7fd:移动端 — 顶部 header + 左抽屉 */}
           {/* v2.0.7fl:user 反馈 header 黏在主区顶部没生效(sticky 在 flex column 容器内被滚动行为干扰)— 改 fixed 全屏固定 */}
+          {/* v2.0.7fm:user 反馈 板块涨跌表格上滑时名称列穿透 site header — zIndex 1→10(> 表格 header zIndex 2 + 名称列 zIndex 1),site header 实际盖住表格 */}
           {/* — main 加 paddingTop: 56 让内容从 header 下面开始,不被 header 盖住 */}
           <header
             style={{
               position: 'fixed',
               top: 0, left: 0, right: 0,
-              zIndex: 1,
+              zIndex: 10,
               height: 56, flexShrink: 0,
               background: '#FFFFFF',
               borderBottom: '1px solid #E5E7EB',

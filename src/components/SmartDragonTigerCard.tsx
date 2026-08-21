@@ -1,6 +1,7 @@
 // 龙虎榜智能解读卡片 — v2.0.7q
 // 接收 Python DragonTigerInterpreter.analyze_stock() 输出的结构化 JSON
 // UI 极简:L1 结论 + L2 买卖对比 + L3 资金性质分布
+import { useIsMobile } from '../hooks/useIsMobile';
 
 // ============================================================
 // 类型定义
@@ -77,6 +78,8 @@ function makeChipStyle(bg: string, text?: string) {
 // 组件
 // ============================================================
 export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
+  // v2.0.7fm:user 反馈 龙虎榜卡片内容溢出 — 移动端 grid 1 列(原 1fr 1fr 强制 2 列窄屏挤)— PC 端保持 1fr 1fr
+  const _isMobile = useIsMobile();
   // 按金额排序(买方降序,卖方按绝对值降序)— v2.0.7ai:只取前 5 条
   const buys = [...data.structured_buy_list].sort((a, b) => b.net_amount - a.net_amount).slice(0, 5);
   const sells = [...data.structured_sell_list].sort((a, b) => Math.abs(b.net_amount) - Math.abs(a.net_amount)).slice(0, 5);
@@ -166,7 +169,8 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
       </div>
 
       {/* v2.0.7ag:L3 资金性质分布 — 移到卡片底部,距离卡片底 20px */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 'auto', paddingBottom: 20 }}>
+      {/* v2.0.7fm:user 反馈 龙虎榜卡片内容溢出 — 移动端 grid 1 列(原 1fr 1fr 强制 2 列窄屏挤)— PC 端保持 1fr 1fr */}
+      <div style={{ display: 'grid', gridTemplateColumns: _isMobile ? '1fr' : '1fr 1fr', gap: _isMobile ? 10 : 16, marginTop: 'auto', paddingBottom: 20 }}>
         {/* 买入 */}
         {Object.keys(data.force_distribution).length > 0 && (
           <div>

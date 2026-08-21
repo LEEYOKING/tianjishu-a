@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { useIsMobile } from '../hooks/useIsMobile';
 import ReactECharts from 'echarts-for-react';
 import ColorText from '../components/ColorText';
 import { loadReportData } from '../data/loader';
@@ -637,6 +638,9 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
   // v2.0.7ar:可选的原始 tradeDate(YYYYMMDD)— 如果传,08:00 之后用 today 覆盖
   _originalTradeDate?: string;
 }) {
+  // v2.0.7fl:user 反馈 移动端顶部标题栏文字挤在一起 — 用 isMobile 改 column 布局(标题+tag 上,date+time 下)
+  // — PC 端保持 flex row space-between(零变化)
+  const _isMobile = useIsMobile();
   // 用户 #3 反馈:6 个表格"收盘复盘数据"标签文字色 #4b5563(原 #86909C)
   // 用户 #17 反馈:6 个表格复用大盘总览盘后灰色样式
   // 用户 #19 反馈:PreScan "隔夜数据" 背景用同色系浅蓝色
@@ -705,21 +709,22 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
       paddingBottom: 12,
       marginBottom: 16,
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, color: '#111827', margin: 0 }}>{title}</h2>
+      {/* v2.0.7fl:user 反馈 移动端顶部标题栏文字挤在一起 — 移动端 flex column(标题+tag 上,实时+日期下)— PC 端 flex row space-between */}
+      <div style={{ display: 'flex', alignItems: _isMobile ? 'flex-start' : 'center', flexDirection: _isMobile ? 'column' : 'row', justifyContent: 'space-between', marginBottom: 4, gap: _isMobile ? 6 : 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <h2 style={{ fontSize: _isMobile ? 16 : 20, fontWeight: 600, color: '#111827', margin: 0, whiteSpace: 'nowrap' }}>{title}</h2>
           {finalTag && (
             <span style={{
               display: 'inline-flex', alignItems: 'center', gap: 4,
-              fontSize: 11, color: finalColor, background: finalBg,
-              padding: '3px 8px', borderRadius: 10,
+              fontSize: _isMobile ? 10 : 11, color: finalColor, background: finalBg,
+              padding: _isMobile ? '2px 6px' : '3px 8px', borderRadius: 10,
             }}>
               <span style={{ width: 5, height: 5, borderRadius: '50%', background: finalColor }} />
               {finalTag}
             </span>
           )}
         </div>
-        <div style={{ fontSize: 12, color: '#86909C', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ fontSize: _isMobile ? 11 : 12, color: '#86909C', display: 'flex', alignItems: 'center', gap: _isMobile ? 6 : 12, flexWrap: 'wrap' }}>
           {/* v1.9.8:实时状态指示 — 蓝点 + "X 秒前更新" 让用户感知数据在刷新 */}
           {isLive ? (
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, color: '#0ecd70' }}>
