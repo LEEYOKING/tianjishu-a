@@ -587,12 +587,15 @@ export default function Overview({ data }: { data: ReportData }) {
   // — baseData 周末没刷新,history 末 1/2 条会是周六/周日的 0 数据(或 weekend 量)
   // — 8/15 周六(2026)被 user 反馈:图表显示 0:0 tooltip,看起来是 "数据缺失"
   // — 过滤后图表只显示真实交易日,周末/节假日自动跳过
-  function isTradingDay(date: string): boolean {
-    const d = new Date(date);
-    return d.getDay() !== 0 && d.getDay() !== 6;  // 排除周日(0)、周六(6)
-  }
+  // v2.0.7ff:按"自然日"切片(user 反馈 "30日" 应是近 30 个日历日,允许跨月 + 周末断点)
+  // — 之前 slice(-range) 是取最后 N 个交易日,history 只有 19 天时 "30日" 实际只显示 19 天
+  // — 现在取 (today - range 天) ~ today 所有 history 记录,周末/缺失自然断点
   function sliceHistory(range: number) {
-    return history.filter((h: HistoryPoint) => isTradingDay(h.date)).slice(-range);
+    const today = new Date();
+    const cutoff = new Date(today);
+    cutoff.setDate(today.getDate() - range);
+    const cutoffStr = cutoff.toISOString().slice(0, 10);
+    return history.filter((h: HistoryPoint) => h.date >= cutoffStr);
   }
 }
 

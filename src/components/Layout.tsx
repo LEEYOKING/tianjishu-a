@@ -134,10 +134,11 @@ export default function Layout({ data, children }: Props) {
     <div style={{ display: 'flex', minHeight: '100vh', background: '#F7F9FC', flexDirection: isMobile ? 'column' : 'row' }}>
       {isMobile ? (
         <>
-          {/* v2.0.7fd:移动端 — 顶部 header + 右抽屉 */}
+          {/* v2.0.7fd:移动端 — 顶部 header + 左抽屉 */}
+          {/* v2.0.7fg:header zIndex 1(蒙层 99 / 抽屉 200 之下)— 抽屉打开时 header 被半透明蒙层盖住 */}
           <header
             style={{
-              position: 'sticky', top: 0, zIndex: 50,
+              position: 'sticky', top: 0, zIndex: 1,
               height: 56, flexShrink: 0,
               background: '#FFFFFF',
               borderBottom: '1px solid #E5E7EB',
@@ -185,17 +186,17 @@ export default function Layout({ data, children }: Props) {
             />
           )}
 
-          {/* 抽屉 — 右侧滑入(85% 宽) — v2.0.7ff:抽屉覆盖整个屏幕(top: 0 + zIndex 200)— 抽屉打开时 header 被盖住 */}
+          {/* 抽屉 — 左侧滑入(85% 宽) — v2.0.7fg:抽屉从页面左侧滑入(top: 0 + zIndex 200)— 抽屉打开时覆盖整个屏幕,header 在蒙层下 */}
           <div
             style={{
-              position: 'fixed', top: 0, right: 0, bottom: 0,
+              position: 'fixed', top: 0, left: 0, bottom: 0,
               width: '85vw', maxWidth: 360,
               background: '#FFFFFF',
               zIndex: 200,
-              transform: drawerOpen ? 'translateX(0)' : 'translateX(100%)',
+              transform: drawerOpen ? 'translateX(0)' : 'translateX(-100%)',
               transition: 'transform .25s ease',
               display: 'flex', flexDirection: 'column',
-              boxShadow: '-2px 0 16px rgba(0,0,0,0.12)',
+              boxShadow: '2px 0 16px rgba(0,0,0,0.12)',
             }}
           >
             <div
