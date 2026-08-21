@@ -190,8 +190,13 @@ export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot
 
     // 盘中 20s 拉快 + 60s 拉慢
     // v2.0.7dc:非盘中已在上面 return,这里只设盘中 interval
-    const fastIntv = setInterval(fastTick, 20_000);
-    const slowIntv = setInterval(slowTick, 60_000);
+    // v2.0.7fo:0:00-9:30 也跑(慢 5min)— 等 fetch-data 18:30 cron 写盘前兜底,React 拉腾讯 8/21 收盘定格
+    // — 之前 v2.0.7dc return → 0:00-9:30 完全不拉 → baseData 算法错(8/21 cp===0 算平 375 vs 实际 ~46)user 看到错值
+    // — 现在 0:00-9:30 慢 5min 拉,mergeLiveData 跨日/盘前分支用 live.today 覆盖 baseData(v2.0.7fo 改)
+    // — 拉不到(null)就保留 baseData(避免 0)— 跟 v2.0.7ci/v2.0.7cy 设计意图一致
+    const _isPreMkt = isPreMarket();
+    const fastIntv = setInterval(fastTick, _isPreMkt ? 300_000 : 20_000);  // 盘前 5min,盘中 20s
+    const slowIntv = setInterval(slowTick, _isPreMkt ? 600_000 : 60_000);  // 盘前 10min,盘中 60s
     return () => {
       clearInterval(fastIntv);
       clearInterval(slowIntv);
@@ -290,6 +295,28 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     // — 9:30 后 em 实时(fast tick)覆盖
     // 注意:这里不清 0 涨跌停,保留 baseData(0:00-9:30 期间显示昨天收盘值)
     // — 因为 8:00 hook 之后到 9:35 cron 之前,涨跌停应该还是昨天收盘的
+    // v2.0.7fo:但 8/22 0:30 user 反馈 baseData 8/21 用旧算法 cp===0 算错(平 375 vs 实际 ~46)
+    // — useLiveData 0:00-9:30 跑(fetchTodaySnapshot 拉腾讯 qt.gtimg.cn 8/21 收盘定格,新算法 abs<0.005 算)
+    // — 拉到了就用 live.today 覆盖,跟盘中一样(v2.0.7cu 逻辑)— baseData 算法错的话用 live 兜底
+    // — 拉不到(live.today 为 null)就保留 baseData(避免 0)
+    if (live.today && (live.today.up > 0 || live.today.down > 0) && live.today.volume > 0) {
+      next.marketOverview.marketTurnover = live.today.volume;
+      next.marketOverview.upCount = live.today.up;
+      next.marketOverview.downCount = live.today.down;
+      if (live.today.flat !== undefined && live.today.flat >= 0) {
+        next.marketOverview.flatCount = live.today.flat;
+      }
+      if (live.today.limitUp !== undefined && live.today.limitUp > 0) {
+        next.marketOverview.limitUpCount = live.today.limitUp;
+      }
+      if (live.today.limitDown !== undefined && live.today.limitDown > 0) {
+        next.marketOverview.limitDownCount = live.today.limitDown;
+      }
+      const mktTotalToday = live.today.up + live.today.down;
+      if (mktTotalToday > 0) {
+        next.marketOverview.upPercent = Math.round(live.today.up * 10000 / mktTotalToday) / 100;
+      }
+    }
   } else if (isPreMarket()) {
     // v2.0.7cy:取消 preMarket 清 0 — 0:00-9:30 保留 baseData 上一交易日收盘值
     // — 之前 v2.0.7p/v2.0.7bd 清 0 → user 看到 30-60 分钟空白
