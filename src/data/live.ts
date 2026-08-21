@@ -273,16 +273,17 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
   for (const s of allStocks) {
     const cp = s.cp;
     const amt = s.amt;
-    if (cp > 0) up++;
-    else if (cp < 0) down++;
+    // v2.0.7fo:平盘判定 0 → abs < 0.005(同花顺 0.01% 精度口径)— 8/21 baseData 严格 cp===0 算 375 平,实际 ~133
+    if (cp > 0.005) up++;
+    else if (cp < -0.005) down++;
     else flat++;
-    // v2.0.7ab:涨跌分布分桶
+    // v2.0.7ab:涨跌分布分桶 — v2.0.7fo:同步改 cp === 0 → abs < 0.005
     if (cp < -10) dist.down_ge_10++;
     else if (cp < -7) dist.down_10_to_7++;
-    else if (cp < -5) dist.down_7_to_5++;
+    else if (cp < -5) dist.down_5_to_3++;
     else if (cp < -3) dist.down_5_to_3++;
     else if (cp < 0) dist.down_3_to_0++;
-    else if (cp === 0) dist.flat++;
+    else if (Math.abs(cp) < 0.005) dist.flat++;
     else if (cp < 3) dist.up_0_to_3++;
     else if (cp < 5) dist.up_3_to_5++;
     else if (cp < 7) dist.up_5_to_7++;

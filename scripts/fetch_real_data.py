@@ -243,11 +243,16 @@ total_turnover = round(safe_float(spot_df['成交额'].sum()) / 1e4 * _SAMPLE_SC
 # — 之前 fields[32] === 0 算"平",错算 ±0.005% 范围 179 只涨/跌为"平"
 # — 8/20 实际:涨 4096 跌 1347 平 98(同花顺),baseData 错算 3983/1153/277
 # — 修法:用 spot_df 现价 昨收 重新算 涨跌幅
+# v2.0.7fo:平盘判定从 `cp == 0`(严格等于 0)改成 `abs(cp) < 0.005`(同花顺 0.01% 精度的 0.00% 口径)
+# — 8/21 baseData 跑出涨 2407 / 跌 2626 / 平 375(总和 5408),同花顺 8/21 实际 涨 2505 / 跌 2862(总和 5367)
+# — 差 98 涨 + 236 跌 ≈ 334 全跑进"平 375" — 腾讯 18:30 cron 拉部分股票现价=昨收(缓存/未刷新),
+#   涨跌幅严格 0.000% 算"平"过严,跟同花顺 0.01% 精度口径不一致
+# — 修法:abs(cp) < 0.005 算平 — 跟同花顺 "0.00%" 口径完全一致(同花顺精度 0.01%,< 0.005% 显示 0.00%)
 import pandas as _pd
 _cp_calc = ((spot_df['现价'].astype(float) - spot_df['昨收'].astype(float)) / spot_df['昨收'].astype(float) * 100)
-up_count = int((_cp_calc > 0).sum() * _SAMPLE_SCALE)
-down_count = int((_cp_calc < 0).sum() * _SAMPLE_SCALE)
-flat_count = int((_cp_calc == 0).sum() * _SAMPLE_SCALE)
+up_count = int((_cp_calc > 0.005).sum() * _SAMPLE_SCALE)  # v2.0.7fo:涨跌幅 > 0.005% 算涨
+down_count = int((_cp_calc < -0.005).sum() * _SAMPLE_SCALE)  # v2.0.7fo:涨跌幅 < -0.005% 算跌
+flat_count = int((_cp_calc.abs() < 0.005).sum() * _SAMPLE_SCALE)  # v2.0.7fo:abs < 0.005% 算平(同花顺口径)
 stock_total = len(spot_df) * _SAMPLE_SCALE
 if SAMPLE_ONLY:
     print(f"  sina 限流 5 页 sample({len(spot_df)} 只): ↑{up_count} ↓{down_count} 平{flat_count} 成交 {total_turnover}亿")
