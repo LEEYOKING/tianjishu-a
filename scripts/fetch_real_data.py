@@ -1482,36 +1482,47 @@ from market_temperature import calculate_market_temperature
 _LHB_INTERP = DragonTigerInterpreter()
 
 # v2.0.7fj:em stock_lhb_stock_statistic_em 海外 IP 限流严(尤其 18:10 cron)— 包 try/except + fallback
+# v2.0.7fk:user 反馈 — 加 2 次 retry(失败后等 15min 再试),最多 3 次拉取,任一成功即停
 # — 失败时用 _prev_data(已 line 446 读 git HEAD data.json)的 dragonTigerStocks 作为 fallback
 # — 标记 _lhbFallback = True 写入 data.json.meta,前端可显示"龙虎榜为上一次数据"提示
 import pandas as _pd
+import time as _time
 lhb_df = None
 _lhbFallback = False
-try:
-    lhb_df = ak.stock_lhb_stock_statistic_em("近一月")
-    if lhb_df is None or len(lhb_df) == 0:
-        raise ValueError("lhb_df 空")
-    print(f"  em 龙虎榜接口: {len(lhb_df)} 行(真接)")
-except Exception as _lhb_err:
-    _err_msg = f"{type(_lhb_err).__name__}: {str(_lhb_err)[:80]}"
-    _prev_dt = _prev_data.get('dragonTigerStocks', []) if '_prev_data' in dir() and _prev_data else []
-    if _prev_dt:
-        print(f"  em 龙虎榜接口失败({_err_msg})")
-        print(f"  fallback 到 git HEAD dragonTigerStocks {len(_prev_dt)} 条 — 海外 IP 限流(常见 18:10 cron)")
-        lhb_df = _pd.DataFrame([{
-            '代码': s['code'], '名称': s['name'], '最近上榜日': TRADE_DATE_DASH,
-            '龙虎榜净买额': s.get('netBuy', 0) * 1e8,
-            '龙虎榜买入额': s.get('buyAmount', 0) * 1e8,
-            '龙虎榜卖出额': s.get('sellAmount', 0) * 1e8,
-            '买方机构次数': 0, '卖方机构次数': 0,
-            '收盘价': s.get('closePrice', 0),
-            '涨跌幅': s.get('changePercent', 0),
-        } for s in _prev_dt])
-        _lhbFallback = True
-    else:
-        print(f"  em 龙虎榜接口失败 + 无 git HEAD fallback({_err_msg}) — 跳过龙虎榜,写空")
-        lhb_df = _pd.DataFrame()
-        _lhbFallback = True
+for _lhb_attempt in range(1, 4):  # 3 次:首次 + retry 2 次
+    try:
+        lhb_df = ak.stock_lhb_stock_statistic_em("近一月")
+        if lhb_df is None or len(lhb_df) == 0:
+            raise ValueError("lhb_df 空")
+        print(f"  em 龙虎榜接口: {len(lhb_df)} 行(真接,attempt {_lhb_attempt}/3)")
+        break  # 成功,跳出 retry 循环
+    except Exception as _lhb_err:
+        _err_msg = f"{type(_lhb_err).__name__}: {str(_lhb_err)[:80]}"
+        if _lhb_attempt < 3:
+            _wait_sec = 15 * 60  # 15 分钟
+            print(f"  em 龙虎榜接口 attempt {_lhb_attempt}/3 失败({_err_msg})")
+            print(f"  等 15 分钟后 retry(总等待 {_wait_sec}s)...")
+            _time.sleep(_wait_sec)
+        else:
+            # 3 次都失败 — 走 git HEAD fallback
+            _prev_dt = _prev_data.get('dragonTigerStocks', []) if '_prev_data' in dir() and _prev_data else []
+            if _prev_dt:
+                print(f"  em 龙虎榜接口 3/3 都失败(最后一次:{_err_msg})")
+                print(f"  fallback 到 git HEAD dragonTigerStocks {len(_prev_dt)} 条 — 海外 IP 限流")
+                lhb_df = _pd.DataFrame([{
+                    '代码': s['code'], '名称': s['name'], '最近上榜日': TRADE_DATE_DASH,
+                    '龙虎榜净买额': s.get('netBuy', 0) * 1e8,
+                    '龙虎榜买入额': s.get('buyAmount', 0) * 1e8,
+                    '龙虎榜卖出额': s.get('sellAmount', 0) * 1e8,
+                    '买方机构次数': 0, '卖方机构次数': 0,
+                    '收盘价': s.get('closePrice', 0),
+                    '涨跌幅': s.get('changePercent', 0),
+                } for s in _prev_dt])
+                _lhbFallback = True
+            else:
+                print(f"  em 龙虎榜 3/3 失败 + 无 git HEAD fallback — 跳过龙虎榜,写空")
+                lhb_df = _pd.DataFrame()
+                _lhbFallback = True
 
 # v2.0.7ad:真接席位明细 — ak.stock_lhb_stock_detail_em(symbol, date, flag)
 def fetch_real_seats(code: str, date_str: str):

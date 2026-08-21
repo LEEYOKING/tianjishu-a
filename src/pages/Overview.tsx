@@ -697,8 +697,9 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
   return (
     // v1.9.4 反馈 #5:标题+副标题作为整体固定悬浮在主区顶部,#F7F9FC 底
     // v1.9.8:paddingTop 20 替代原 marginTop -20,避免 sticky 区域出现"上方 20px 镂空"
+    // v2.0.7fk:zIndex 100→1(蒙层 zIndex 99 > 1,抽屉打开时 PageHeader 被蒙层覆盖,不被穿透)
     <div style={{
-      position: 'sticky', top: 0, zIndex: 100,
+      position: 'sticky', top: 0, zIndex: 1,
       background: '#F7F9FC',
       paddingTop: 20,
       paddingBottom: 12,

@@ -150,12 +150,11 @@ export default function Layout({ data, children }: Props) {
       {isMobile ? (
         <>
           {/* v2.0.7fd:移动端 — 顶部 header + 左抽屉 */}
-          {/* v2.0.7fj:header 改 relative + zIndex 1 显式创建 stacking context(蒙层 zIndex 99 > 1 自然盖住) */}
-          {/* — v2.0.7fh 改 static 但 static 不接受 zIndex,inline style 写了也无效,user 反馈没修好 */}
-          {/* — 现在 relative + zIndex 1 显式声明,蒙层 fixed zIndex 99 实际盖住 header */}
+          {/* v2.0.7fk:header 改 sticky + top 0 + zIndex 1 — 黏在主区顶部不滚动,蒙层 99 仍能盖住 */}
           <header
             style={{
-              position: 'relative',
+              position: 'sticky',
+              top: 0,
               zIndex: 1,
               height: 56, flexShrink: 0,
               background: '#FFFFFF',
