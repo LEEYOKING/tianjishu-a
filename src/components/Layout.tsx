@@ -150,11 +150,12 @@ export default function Layout({ data, children }: Props) {
       {isMobile ? (
         <>
           {/* v2.0.7fd:移动端 — 顶部 header + 左抽屉 */}
-          {/* v2.0.7fk:header 改 sticky + top 0 + zIndex 1 — 黏在主区顶部不滚动,蒙层 99 仍能盖住 */}
+          {/* v2.0.7fl:user 反馈 header 黏在主区顶部没生效(sticky 在 flex column 容器内被滚动行为干扰)— 改 fixed 全屏固定 */}
+          {/* — main 加 paddingTop: 56 让内容从 header 下面开始,不被 header 盖住 */}
           <header
             style={{
-              position: 'sticky',
-              top: 0,
+              position: 'fixed',
+              top: 0, left: 0, right: 0,
               zIndex: 1,
               height: 56, flexShrink: 0,
               background: '#FFFFFF',
@@ -256,7 +257,7 @@ export default function Layout({ data, children }: Props) {
             )}
           </div>
 
-          <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+          <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', paddingTop: 56 }}>
             <div style={{ flex: 1, padding: '12px 12px 16px' }}>{children}</div>
             <footer style={{ padding: '12px 16px', fontSize: 11, color: '#86909C', textAlign: 'center' }}>
               数据来源:东方财富、腾讯行情等公开数据。报告由天机枢生成,仅供复盘参考,不构成投资建议。
