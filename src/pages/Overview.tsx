@@ -10,6 +10,7 @@ import type { HistoryPoint } from '../types';
 import { useLive } from '../App';
 import { ChangeDistributionCard } from '../components/ChangeDistributionCard';
 import { MarginHistoryCard } from '../components/MarginHistoryCard';
+import { useEchartsResize } from '../hooks/useEchartsResize';
 
 // 前 2 个曲线图:7/15/30 日(去掉 60/90)
 // 涨跌停家数:7/15 日(原限制)
@@ -149,6 +150,8 @@ export default function Overview({ data }: { data: ReportData }) {
     const t = setInterval(tick, 30_000);
     return () => clearInterval(t);
   }, []);
+  // v2.0.7fh:user #7 — 监听 window resize 触发所有 echarts resize(避免移动→PC 拉宽图表不变)
+  useEchartsResize();
   const [volRange, setVolRange] = useState(7);
   const [udRange, setUdRange] = useState(7);
   const [ldRange, setLdRange] = useState(7);

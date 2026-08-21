@@ -65,11 +65,26 @@ export default function Layout({ data, children }: Props) {
     <>
       {MENU.map((m) => {
         const active = location.pathname === m.key;
+        // v2.0.7fh:user 反馈 #6 — 切换 tab 自动滚到新页面顶部
+        // — 之前 React Router 切路由不重置 scroll,保留上页滚动位置
+        // — 用 useLocation pathname 监听路由变化,变化时 scrollTo(0, 0)
+        const handleClick = (e: React.MouseEvent) => {
+          // 先执行原始回调(关闭 drawer)
+          if (onItemClick) onItemClick();
+          // 滚到顶部 — requestAnimationFrame 避免同帧冲突
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+            // 也滚主内容容器(防止 overflow 在子元素上)
+            document.querySelectorAll('main, [role="main"]').forEach((el) => {
+              if (el instanceof HTMLElement) el.scrollTop = 0;
+            });
+          });
+        };
         return (
           <Link
             key={m.key}
             to={m.key}
-            onClick={onItemClick}
+            onClick={handleClick}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -135,10 +150,10 @@ export default function Layout({ data, children }: Props) {
       {isMobile ? (
         <>
           {/* v2.0.7fd:移动端 — 顶部 header + 左抽屉 */}
-          {/* v2.0.7fg:header zIndex 1(蒙层 99 / 抽屉 200 之下)— 抽屉打开时 header 被半透明蒙层盖住 */}
+          {/* v2.0.7fh:header 改 static + 不设 zIndex(创建自然文档流)— 蒙层 fixed inset 0 自然盖住 header(蒙层 zIndex 99 > 默认 0) */}
           <header
             style={{
-              position: 'sticky', top: 0, zIndex: 1,
+              position: 'static',
               height: 56, flexShrink: 0,
               background: '#FFFFFF',
               borderBottom: '1px solid #E5E7EB',
