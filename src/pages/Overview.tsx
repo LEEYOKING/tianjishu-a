@@ -709,6 +709,8 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
       paddingBottom: 12,
       marginBottom: 16,
     }}>
+      {/* v2.0.7fn:user 反馈 移动端两行文字顺序对调 — subtitle 提到 date/time 之上 */}
+      {subtitle && <div style={{ fontSize: 12, color: '#86909C', marginBottom: 6 }}>{subtitle}</div>}
       {/* v2.0.7fl:user 反馈 移动端顶部标题栏文字挤在一起 — 移动端 flex column(标题+tag 上,实时+日期下)— PC 端 flex row space-between */}
       <div style={{ display: 'flex', alignItems: _isMobile ? 'flex-start' : 'center', flexDirection: _isMobile ? 'column' : 'row', justifyContent: 'space-between', marginBottom: 4, gap: _isMobile ? 6 : 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
@@ -749,7 +751,6 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
           </span>
         </div>
       </div>
-      {subtitle && <div style={{ fontSize: 12, color: '#86909C' }}>{subtitle}</div>}
     </div>
   );
 }

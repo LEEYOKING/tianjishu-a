@@ -107,18 +107,20 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
   }
 
   return (
-    // v2.0.7ah:flex column + height: 521(固定,不是 minHeight)— 所有卡片等高
+    // v2.0.7ah:flex column + height: 521(固定,不是 minHeight)— PC 端所有卡片等高
+    // v2.0.7fn:user 反馈 移动端 L3 资金性质分布图例撞到底部翻页 — 移动端改 height: auto(去 maxHeight 限制)+ 紧凑 padding + L2 也 1 列
     <div
       style={{
         background: '#fff',
         border: '1px solid #E5E7EB',
         borderRadius: 14,
-        padding: '20px 24px',
+        padding: _isMobile ? '14px 16px' : '20px 24px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)',
         marginBottom: 0,
-        height: 521,  // 固定高(不是 minHeight)— 短的卡片内容少也会撑到 521
-        minHeight: 521,
-        maxHeight: 521,
+        // PC 端固定 521 等高;移动端自适应(不卡 521,避免内容溢出卡片后撞到下方 Pagination)
+        height: _isMobile ? 'auto' : 521,
+        minHeight: _isMobile ? 521 : 521,
+        maxHeight: _isMobile ? 'none' : 521,
         display: 'flex', flexDirection: 'column',
       }}
     >
@@ -163,14 +165,16 @@ export function SmartDragonTigerCard({ data }: { data: InterpretedData }) {
       </div>
 
       {/* L2: 买卖力量对比图 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 18, flex: 1 }}>
+      {/* v2.0.7fn:user 反馈 移动端 L2 也强制 1fr 1fr 挤 — 移动端改 1fr(单列),PC 端保留 1fr 1fr */}
+      <div style={{ display: 'grid', gridTemplateColumns: _isMobile ? '1fr' : '1fr 1fr', gap: _isMobile ? 12 : 20, marginBottom: _isMobile ? 12 : 18, flex: 1 }}>
         <SeatColumn seats={buys} side="buy" maxAmt={maxAmt} />
         <SeatColumn seats={sells} side="sell" maxAmt={maxAmt} />
       </div>
 
       {/* v2.0.7ag:L3 资金性质分布 — 移到卡片底部,距离卡片底 20px */}
       {/* v2.0.7fm:user 反馈 龙虎榜卡片内容溢出 — 移动端 grid 1 列(原 1fr 1fr 强制 2 列窄屏挤)— PC 端保持 1fr 1fr */}
-      <div style={{ display: 'grid', gridTemplateColumns: _isMobile ? '1fr' : '1fr 1fr', gap: _isMobile ? 10 : 16, marginTop: 'auto', paddingBottom: 20 }}>
+      {/* v2.0.7fn:user 反馈 移动端卡片内容仍超 521,撞到下方 Pagination — 紧凑化 gap,移动端 paddingBottom 减小 */}
+      <div style={{ display: 'grid', gridTemplateColumns: _isMobile ? '1fr' : '1fr 1fr', gap: _isMobile ? 8 : 16, marginTop: _isMobile ? 8 : 'auto', paddingBottom: _isMobile ? 8 : 20 }}>
         {/* 买入 */}
         {Object.keys(data.force_distribution).length > 0 && (
           <div>

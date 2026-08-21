@@ -258,7 +258,7 @@ export default function Layout({ data, children }: Props) {
             )}
           </div>
 
-          <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', paddingTop: 56 }}>
+          <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', paddingTop: isMobile ? 56 : 0 }}>
             <div style={{ flex: 1, padding: '12px 12px 16px' }}>{children}</div>
             <footer style={{ padding: '12px 16px', fontSize: 11, color: '#86909C', textAlign: 'center' }}>
               数据来源:东方财富、腾讯行情等公开数据。报告由天机枢生成,仅供复盘参考,不构成投资建议。

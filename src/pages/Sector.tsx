@@ -325,7 +325,8 @@ function DetailTableCard({ title, data, defaultSort = 'desc', showNetInflow = fa
     <Card title={title} right={
       <span style={{ fontSize: 11, color: '#86909C' }}>按 {sortLabel} 排序</span>
     }>
-      <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
+      {/* v2.0.7fn:user 反馈 PC 端表格"资金流向"列被 site header 盖住(红箭头)— 加 isolation: isolate 建立独立 stacking context,防止外部 site header zIndex 干扰;虽已确认 v2.0.7fm 不会影响 PC 端,但截图现象说明有外部 stacking 在穿透,加这层防御 */}
+      <div style={{ overflowX: 'auto', maxWidth: '100%', position: 'relative', zIndex: 0, isolation: 'isolate' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed', minWidth: showNetInflow ? 720 : 660 }}>
           <thead>
             <tr>
