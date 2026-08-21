@@ -485,15 +485,24 @@ if TODAY.weekday() < 5:  # 周一到周五才 append
 print(f"  历史 {len(history)} 个交易日(末 1 用今日 marketTurnover 准)")
 
 # 计算 turnoverDiff: 今日全市场 vs 上一交易日收盘(跟同花顺一致)
-# v2.0.7ba:用 history[-2] 算(末 1 = 今日,末 2 = 上一交易日收盘)
-# 8/13 跑:turnoverDiff = 25673(今日) - 21444(history[-2] 8/12 估算) = +4229
-# 8/14 跑:turnoverDiff = 8/14 累计 - 25673(8/13 收盘) = 8/14 增量
-# — 但 8/14 盘中 跑 marketTurnover 是盘中累计(可能 10000+ 亿),turnoverDiff = -15000 亿(错)
+# v2.0.7fi:用 _prev_history(从 git HEAD data.json 读)而不是 history 列表
+# — line 433 history = [] 初始化 + line 476-484 只 append 今日 1 条 — history 永远 len == 1
+# — 旧算法 history[-2] 永远 None → yesterday_vol = 0 → turnover_diff = total_turnover(等于 marketTurnover,错)
+# — 8/21 跑出 turnoverDiff = 18,789(等于 marketTurnover)即此 bug
+# — _prev_history 含 git HEAD 完整 history,但末点可能是今日(同一天 cron 跑多次,末点已被 append 今日)
+# — 例:8/21 早上 9:45 跑:_prev_history 末点 8/20 20,939(昨日)— turnoverDiff = 18,923 - 20,939 = -2,016 ✓
+# — 例:8/21 下午 15:35 跑(同一天第二次):_prev_history 末点 8/21 9,168(早盘已 append 今日)— turnoverDiff = 18,923 - 9,168 = +9,754(错)
+# — 修法:从 _prev_history 过滤掉今日,取最后一个非今日的末点(才是真"昨日")
+# 8/14 盘中 跑 marketTurnover 是盘中累计(可能 10000+ 亿),turnoverDiff = -15000 亿(错)
 # — 所以 useLiveData 盘中间 不覆盖 turnoverDiff(保持 fetch_real_data 算的)
 # — 盘后 15:00+ em marketTurnover 仍是 8/14 收盘最大值,turnoverDiff = 8/14 收盘 - 25673 — 准
-last_2 = history[-2] if history and len(history) >= 2 else None
-yesterday_vol = last_2['volume'] if last_2 else 0
+_today_str = TODAY.strftime('%Y-%m-%d')
+_prev_yesterday_list = [h for h in _prev_history if h.get('date') != _today_str]
+_prev_last = _prev_yesterday_list[-1] if _prev_yesterday_list else None
+yesterday_vol = _prev_last.get('volume', 0) if _prev_last else 0
 turnover_diff = round(total_turnover - yesterday_vol, 2)
+_yesterday_date = _prev_last.get('date', 'N/A') if _prev_last else 'N/A'
+print(f"  turnoverDiff 修复: 今日({TODAY.strftime('%Y-%m-%d')}) {total_turnover:.2f} - 昨日({_yesterday_date}) {yesterday_vol:.2f} = {turnover_diff:.2f}")
 
 # ========== 4. 涨停板 ==========
 print("\n[4/7] 涨停板...")
