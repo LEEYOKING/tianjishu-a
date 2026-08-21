@@ -102,6 +102,13 @@ const overviewStyle = `
   @media (max-width: 700px) {
     .overview-stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   }
+  /* v2.0.7fd:移动端 768px — 1 列紧凑(PC ≥ 769px 零影响) */
+  @media (max-width: 768px) {
+    .overview-stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+    .overview-indices-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+    .overview-charts-row, .overview-charts-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 10px !important; }
+    .overview-chart-card { min-height: 280px !important; }
+  }
 `;
 export function OverviewStyles() { return <style>{overviewStyle}</style>; }
 

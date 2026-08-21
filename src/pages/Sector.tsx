@@ -138,6 +138,11 @@ const responsiveStyle = `
   @media (max-width: 900px) {
     .sector-charts-grid, .sector-tables-grid { grid-template-columns: minmax(0, 1fr) !important; }
   }
+  /* v2.0.7fd:移动端 768px — 紧凑(PC ≥ 769px 零影响) */
+  @media (max-width: 768px) {
+    .sector-charts-grid, .sector-tables-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 10px !important; }
+    .sector-chart-card { min-height: 280px !important; }
+  }
 `;
 
 // ====== 横向条形图卡(左对齐 + 右侧数值 + 圆角) ======

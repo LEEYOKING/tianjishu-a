@@ -122,3 +122,27 @@ a:hover {
 }
 
 /* v2.0.0:启动页粒子动画(canvas 背景) */
+
+/* v2.0.7fd:移动端全局规则(≤ 768px 触发,PC 端零影响) */
+@media (max-width: 768px) {
+  /* 字体基础缩 1px(中文 14→13 紧凑) */
+  html, body { font-size: 13px; }
+  /* 禁止 iOS 弹性滚动(避免图表错位) */
+  html, body { overflow-x: hidden; }
+  /* AntD Modal / Popover 小屏全宽 */
+  .ant-modal { max-width: calc(100vw - 16px) !important; margin: 8px !important; }
+  .ant-modal-body { padding: 16px !important; }
+  .ant-popover-inner { max-width: calc(100vw - 32px) !important; }
+  /* AntD Drawer(抽屉)— 移动端右抽屉 80% 宽 */
+  .ant-drawer-content-wrapper { max-width: 80vw !important; }
+  /* AntD Table — 表格字号 12px,小屏更紧凑 */
+  .ant-table-tbody > tr > td { padding: 8px 10px !important; font-size: 12px; }
+  .ant-table-thead > tr > th { padding: 10px 10px !important; font-size: 12px; }
+  /* AntD 分页 — 小屏紧凑 */
+  .ant-pagination { font-size: 12px; }
+  /* AntD InputNumber — 紧凑 */
+  .ant-input-number { font-size: 12px !important; }
+  /* 全站 — 卡片 padding 紧凑(我们的自定义 Card) */
+  .overview-stats-row > div, .overview-indices-row > div { padding: 12px 14px !important; }
+}
+

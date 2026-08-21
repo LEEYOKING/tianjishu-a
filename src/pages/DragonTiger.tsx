@@ -95,6 +95,10 @@ export default function DragonTiger({ data }: { data: ReportData }) {
             grid-template-columns: 1fr !important;
           }
         }
+        /* v2.0.7fd:移动端 768px — 紧凑(PC ≥ 769px 零影响) */
+        @media (max-width: 768px) {
+          .dt-grid { gap: 10px !important; }
+        }
       `}</style>
       {sorted.length > pageSize && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>

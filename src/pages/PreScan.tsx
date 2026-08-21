@@ -4,6 +4,7 @@ import ReactECharts from 'echarts-for-react';
 import { COLOR_UP, COLOR_DOWN } from '../utils/format';
 import { PageHeader } from './Overview';
 import { useLive } from '../App';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 interface Asset {
   code: string;
@@ -21,6 +22,8 @@ interface PreScanData {
 
 export default function PreScan() {
   const [data, setData] = useState<PreScanData | null>(null);
+  // v2.0.7fd:6 列资产 grid 移动端变 2 列
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     fetch(import.meta.env.BASE_URL + 'prescan.json')
@@ -137,8 +140,8 @@ export default function PreScan() {
       {/* 全球资产卡片 — 复用 Overview 指数卡片样式(同卡片/同字号/同 6 列) */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
-        gap: 16,
+        gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(6, minmax(0, 1fr))',
+        gap: isMobile ? 10 : 16,
         marginBottom: 20,
         width: '100%',
       }}>

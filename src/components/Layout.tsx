@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { EmotionThermometer } from './EmotionThermometer';
+import { useIsMobile } from '../hooks/useIsMobile';
 import type { ReportData } from '../data/loader';
 
 interface Props {
@@ -32,6 +34,10 @@ export default function Layout({ data, children }: Props) {
   // — 改用 data.marketOverview.marketTemperature(fetch-data 写入的 8 维算法)
   // — 盘中不实时(每 10 分钟调 Function)— 改用 baseData,收盘 cron 跑时更新
   const location = useLocation();
+  // v2.0.7fd:响应式 — 768px 断点(单一来源 useIsMobile)
+  const isMobile = useIsMobile();
+  // 移动端抽屉开关
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const counts = {
     limitUp: data.limitUpStocks.length,
@@ -54,129 +60,239 @@ export default function Layout({ data, children }: Props) {
     { key: '/surgery', label: '全景手术台', icon: Icons.Globe, count: 0 },
   ];
 
-
-  return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#F7F9FC' }}>
-      {/* 左侧导航 — 不贴边,4 角圆角,边距 16px */}
-      <aside
-        style={{
-          width: 200,
-          background: '#FFFFFF',
-          display: 'flex',
-          flexDirection: 'column',
-          flexShrink: 0,
-          position: 'sticky',
-          top: 16,
-          height: 'calc(100vh - 32px)',
-          margin: '16px 0 16px 16px',
-          // 用户 #18 反馈:全站白色卡片圆角 14px
-          borderRadius: 14,
-          // 用户 #6 反馈:box-shadow 改 0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)
-          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04), 0 0 30px 5px rgba(0, 0, 0, 0.02)',
-          // 用户 #16 反馈:全站白色卡片加 1px solid #E5E7EB border
-          border: '1px solid #E5E7EB',
-          padding: '20px 0',
-        }}
-      >
-        {/* 顶部 brand: 水平居中
-            v2.0.7db:用 user 提供的 png 替换(4 根算筹 + 天机枢 + 每日复盘·数据全解析)
-            路径:public/brand-logo.png(400x325,user 提供)
-            显示:sidebar 168px 宽 + auto 高度,object-fit:contain 保比例 */}
-        <div style={{ padding: '20px 12px 24px', textAlign: 'center' }}>
-          <img
-            src="/brand-logo.png"
-            alt="天机枢 · 每日复盘 数据全解析"
-            style={{ width: 124, height: 'auto', display: 'block', margin: '0 auto', objectFit: 'contain' }}
-          />
-        </div>
-
-        {/* 用户 #5 反馈:10 个 Tab 整体下移 15px */}
-        <nav style={{ padding: '27px 0 12px', flex: 1, overflowY: 'auto' }}>
-          {MENU.map((m) => {
-            const active = location.pathname === m.key;
-            return (
-              <Link
-                key={m.key}
-                to={m.key}
+  // v2.0.7fd:抽 menu 渲染成函数 — PC sidebar + 移动端 drawer 复用
+  const renderMenu = (onItemClick?: () => void) => (
+    <>
+      {MENU.map((m) => {
+        const active = location.pathname === m.key;
+        return (
+          <Link
+            key={m.key}
+            to={m.key}
+            onClick={onItemClick}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: isMobile ? '14px 20px' : '11px 24px',
+              textDecoration: 'none',
+              // 用户 #14 反馈:未选中 Tab 文字颜色改 #4b5563
+              color: active ? '#fff' : '#4b5563',
+              fontSize: isMobile ? 15 : 14,
+              fontWeight: active ? 600 : 500,
+              background: active ? '#111827' : 'transparent',
+              margin: isMobile ? '0 8px 4px' : '0 12px',
+              borderRadius: active ? 6 : 0,
+              width: 'calc(100% - ' + (isMobile ? '16px' : '24px') + ')',
+              boxSizing: 'border-box',
+              transition: 'all .15s',
+            }}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ display: 'flex', alignItems: 'center', color: active ? '#fff' : '#4b5563' }}>
+                {m.icon}
+              </span>
+              {m.label}
+            </span>
+            {m.count > 0 && (
+              <span
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '11px 24px',
-                  textDecoration: 'none',
-                  // 用户 #14 反馈:未选中 Tab 文字颜色改 #4b5563
-                  color: active ? '#fff' : '#4b5563',
-                  fontSize: 14,
-                  fontWeight: active ? 600 : 500,
-                  background: active ? '#111827' : 'transparent',
-                  margin: '0 12px',
-                  borderRadius: active ? 6 : 0,
-                  width: 'calc(100% - 24px)',
-                  boxSizing: 'border-box',
-                  transition: 'all .15s',
+                  fontSize: 11,
+                  color: active ? '#fff' : '#86909C',
+                  background: active ? 'rgba(255,255,255,0.15)' : 'transparent',
+                  padding: '1px 6px',
+                  borderRadius: 8,
                 }}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  {/* 用户 #14 反馈:icon 颜色 #4b5563 */}
-                  <span style={{ display: 'flex', alignItems: 'center', color: active ? '#fff' : '#4b5563' }}>
-                    {m.icon}
-                  </span>
-                  {m.label}
-                </span>
-                {m.count > 0 && (
-                  <span
-                    style={{
-                      fontSize: 11,
-                      color: active ? '#fff' : '#86909C',
-                      background: active ? 'rgba(255,255,255,0.15)' : 'transparent',
-                      padding: '1px 6px',
-                      borderRadius: 8,
-                    }}
-                  >
-                    {m.count}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
+                {m.count}
+              </span>
+            )}
+          </Link>
+        );
+      })}
+    </>
+  );
 
-        {/* v2.0.7ea:情绪温度计 — 改用 baseData.marketOverview.marketTemperature(fetch-data 写入) */}
-        <div style={{ padding: '0 8px 12px' }}>
-          {data.marketOverview?.marketTemperature && (() => {
-            const temp = data.marketOverview.marketTemperature;
-            return (
-              <EmotionThermometer
-                temperature={temp.temperature}
-                status={temp.status}
-                statusDesc={temp.statusDesc}
-                details={temp.details}
-                dimension_scores={temp.dimension_scores}
-                limitUpCount={temp.details.limit_up}
-                upCount={temp.details.limit_up}
-                downCount={temp.details.limit_down}
+  // 情绪温度计(PC sidebar 内 + 移动 drawer 内共用)
+  const thermometer = data.marketOverview?.marketTemperature ? (() => {
+    const temp = data.marketOverview.marketTemperature;
+    return (
+      <EmotionThermometer
+        temperature={temp.temperature}
+        status={temp.status}
+        statusDesc={temp.statusDesc}
+        details={temp.details}
+        dimension_scores={temp.dimension_scores}
+        limitUpCount={temp.details.limit_up}
+        upCount={temp.details.limit_up}
+        downCount={temp.details.limit_down}
+      />
+    );
+  })() : null;
+
+  return (
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#F7F9FC', flexDirection: isMobile ? 'column' : 'row' }}>
+      {isMobile ? (
+        <>
+          {/* v2.0.7fd:移动端 — 顶部 header + 右抽屉 */}
+          <header
+            style={{
+              position: 'sticky', top: 0, zIndex: 50,
+              height: 56, flexShrink: 0,
+              background: '#FFFFFF',
+              borderBottom: '1px solid #E5E7EB',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '0 12px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+            }}
+          >
+            <img
+              src="/brand-logo.png"
+              alt="天机枢"
+              style={{ height: 32, width: 'auto', objectFit: 'contain' }}
+            />
+            <button
+              aria-label="打开菜单"
+              onClick={() => setDrawerOpen(true)}
+              style={{
+                background: 'transparent', border: 'none', padding: 8,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', color: '#111827', borderRadius: 6,
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </header>
+
+          {/* 抽屉 — 遮罩 */}
+          {drawerOpen && (
+            <div
+              onClick={() => setDrawerOpen(false)}
+              style={{
+                position: 'fixed', inset: 0,
+                background: 'rgba(0,0,0,0.45)',
+                zIndex: 99,
+              }}
+            />
+          )}
+
+          {/* 抽屉 — 右侧滑入(80% 宽) */}
+          <div
+            style={{
+              position: 'fixed', top: 0, right: 0, bottom: 0,
+              width: '80vw', maxWidth: 320,
+              background: '#FFFFFF',
+              zIndex: 100,
+              transform: drawerOpen ? 'translateX(0)' : 'translateX(100%)',
+              transition: 'transform .25s ease',
+              display: 'flex', flexDirection: 'column',
+              boxShadow: '-2px 0 12px rgba(0,0,0,0.08)',
+            }}
+          >
+            <div
+              style={{
+                height: 56, flexShrink: 0,
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '0 16px', borderBottom: '1px solid #E5E7EB',
+              }}
+            >
+              <span style={{ fontSize: 15, fontWeight: 600, color: '#111827' }}>导航</span>
+              <button
+                aria-label="关闭"
+                onClick={() => setDrawerOpen(false)}
+                style={{
+                  background: 'transparent', border: 'none', padding: 8,
+                  cursor: 'pointer', color: '#4b5563', borderRadius: 6,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                  <line x1="6" y1="18" x2="18" y2="6" />
+                </svg>
+              </button>
+            </div>
+            <nav style={{ flex: 1, overflowY: 'auto', padding: '8px 0 12px' }}>
+              {renderMenu(() => setDrawerOpen(false))}
+            </nav>
+            {thermometer && (
+              <div style={{ padding: '0 12px 16px', borderTop: '1px solid #E5E7EB', paddingTop: 12, transform: 'scale(0.92)', transformOrigin: 'top left' }}>
+                {thermometer}
+              </div>
+            )}
+          </div>
+
+          <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, padding: '12px 12px 16px' }}>{children}</div>
+            <footer style={{ padding: '12px 16px', fontSize: 11, color: '#86909C', textAlign: 'center' }}>
+              数据来源:东方财富、腾讯行情等公开数据。报告由天机枢生成,仅供复盘参考,不构成投资建议。
+            </footer>
+          </main>
+        </>
+      ) : (
+        <>
+          {/* PC 端 — 原 200px 侧栏(零变化) */}
+          <aside
+            style={{
+              width: 200,
+              background: '#FFFFFF',
+              display: 'flex',
+              flexDirection: 'column',
+              flexShrink: 0,
+              position: 'sticky',
+              top: 16,
+              height: 'calc(100vh - 32px)',
+              margin: '16px 0 16px 16px',
+              // 用户 #18 反馈:全站白色卡片圆角 14px
+              borderRadius: 14,
+              // 用户 #6 反馈:box-shadow 改 0 1px 3px rgba(0,0,0,0.04), 0 0 30px 5px rgba(0,0,0,0.02)
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04), 0 0 30px 5px rgba(0, 0, 0, 0.02)',
+              // 用户 #16 反馈:全站白色卡片加 1px solid #E5E7EB border
+              border: '1px solid #E5E7EB',
+              padding: '20px 0',
+            }}
+          >
+            <div style={{ padding: '20px 12px 24px', textAlign: 'center' }}>
+              <img
+                src="/brand-logo.png"
+                alt="天机枢 · 每日复盘 数据全解析"
+                style={{ width: 124, height: 'auto', display: 'block', margin: '0 auto', objectFit: 'contain' }}
               />
-            );
-          })()}
-        </div>
-      </aside>
+            </div>
 
-      <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
-        {/* v1.9.8:padding-top 0,PageHeader 自身 paddingTop 20 提供上方 20px 间距 */}
-        <div style={{ flex: 1, padding: '0 28px 28px' }}>{children}</div>
+            {/* 用户 #5 反馈:10 个 Tab 整体下移 15px */}
+            <nav style={{ padding: '27px 0 12px', flex: 1, overflowY: 'auto' }}>
+              {renderMenu()}
+            </nav>
 
-        <footer
-          style={{
-            padding: '14px 32px',
-            fontSize: 12,
-            color: '#86909C',
-            textAlign: 'center',
-            background: 'transparent',
-          }}
-        >
-          数据来源:东方财富、腾讯行情等公开数据。报告由天机枢生成,仅供复盘参考,不构成投资建议。
-        </footer>
-      </main>
+            {/* v2.0.7ea:情绪温度计 — 改用 baseData.marketOverview.marketTemperature(fetch-data 写入) */}
+            <div style={{ padding: '0 8px 12px' }}>
+              {thermometer}
+            </div>
+          </aside>
+
+          <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            {/* v1.9.8:padding-top 0,PageHeader 自身 paddingTop 20 提供上方 20px 间距 */}
+            <div style={{ flex: 1, padding: '0 28px 28px' }}>{children}</div>
+
+            <footer
+              style={{
+                padding: '14px 32px',
+                fontSize: 12,
+                color: '#86909C',
+                textAlign: 'center',
+                background: 'transparent',
+              }}
+            >
+              数据来源:东方财富、腾讯行情等公开数据。报告由天机枢生成,仅供复盘参考,不构成投资建议。
+            </footer>
+          </main>
+        </>
+      )}
     </div>
   );
 }
