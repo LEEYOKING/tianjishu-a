@@ -709,8 +709,6 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
       paddingBottom: 12,
       marginBottom: 16,
     }}>
-      {/* v2.0.7fn:user 反馈 移动端两行文字顺序对调 — subtitle 提到 date/time 之上 */}
-      {subtitle && <div style={{ fontSize: 12, color: '#86909C', marginBottom: 6 }}>{subtitle}</div>}
       {/* v2.0.7fl:user 反馈 移动端顶部标题栏文字挤在一起 — 移动端 flex column(标题+tag 上,实时+日期下)— PC 端 flex row space-between */}
       <div style={{ display: 'flex', alignItems: _isMobile ? 'flex-start' : 'center', flexDirection: _isMobile ? 'column' : 'row', justifyContent: 'space-between', marginBottom: 4, gap: _isMobile ? 6 : 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
@@ -725,6 +723,8 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
               {finalTag}
             </span>
           )}
+          {/* v2.0.7fn:user 反馈 移动端 副文本(subtitle)要在 标题 下方 — 移动端紧贴标题后,PC 端仍放在容器外底部 */}
+          {_isMobile && subtitle && <div style={{ fontSize: 12, color: '#86909C' }}>{subtitle}</div>}
         </div>
         <div style={{ fontSize: _isMobile ? 11 : 12, color: '#86909C', display: 'flex', alignItems: 'center', gap: _isMobile ? 6 : 12, flexWrap: 'wrap' }}>
           {/* v1.9.8:实时状态指示 — 蓝点 + "X 秒前更新" 让用户感知数据在刷新 */}
@@ -751,6 +751,8 @@ export function PageHeader({ title, tradeDateSlash, subtitle, liveTag, liveColor
           </span>
         </div>
       </div>
+      {/* v2.0.7fn:PC 端 subtitle 保留在容器外底部(原设计)— 移动端不放这里(已挪到标题行右侧) */}
+      {!_isMobile && subtitle && <div style={{ fontSize: 12, color: '#86909C' }}>{subtitle}</div>}
     </div>
   );
 }
