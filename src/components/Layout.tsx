@@ -68,7 +68,7 @@ export default function Layout({ data, children }: Props) {
         // v2.0.7fh:user 反馈 #6 — 切换 tab 自动滚到新页面顶部
         // — 之前 React Router 切路由不重置 scroll,保留上页滚动位置
         // — 用 useLocation pathname 监听路由变化,变化时 scrollTo(0, 0)
-        const handleClick = (e: React.MouseEvent) => {
+        const handleClick = () => {
           // 先执行原始回调(关闭 drawer)
           if (onItemClick) onItemClick();
           // 滚到顶部 — requestAnimationFrame 避免同帧冲突
