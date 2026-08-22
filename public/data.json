@@ -14042,7 +14042,7 @@
       "down_7_to_5": 115,
       "down_5_to_3": 272,
       "down_3_to_0": 2154,
-      "flat": 46,
+      "flat": 176,
       "up_0_to_3": 1966,
       "up_3_to_5": 229,
       "up_5_to_7": 104,
@@ -14054,9 +14054,9 @@
     "bjTurnover": 0.0,
     "upCount": 2505,
     "downCount": 2862,
-    "flatCount": 46,
-    "upPercent": 46.28,
-    "stockTotal": 5413,
+    "flatCount": 176,
+    "upPercent": 45.19,
+    "stockTotal": 5543,
     "limitUpCount": 54,
     "limitDownCount": 13,
     "brokenLimitCount": 18,
@@ -14962,7 +14962,7 @@
       "limitDown": 23,
       "up": 2505,
       "down": 2862,
-      "flat": 46
+      "flat": 176
     }
   ],
   "limitUpLadders": [
