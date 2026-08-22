@@ -122,13 +122,13 @@ export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot
     //      → sina/em 拉到部分数据(stale 或 0)→ setSnap → 覆盖 baseData 8/17 收盘真值(2.4 万亿)
     //      → user 23:53 盘后看到 2.2 万亿 / 4060 涨(在 2.4 万亿 / 4335 涨 之间变化)
     // 修法:非 isLiveMarket 时 return,React state 保持空 → 卡片走 baseData 8/17 收盘
-    // v2.0.7fo:0:00-9:30 也进入 useEffect(慢 5min)— 8/22 0:30 user 反馈 baseData 算错(cp===0 算平 375),
-    //         等 18:30 cron 自动跑之前,React 慢拉腾讯 8/21 收盘定格值用 live 覆盖 baseData
-    // — 8/22 0:47 user 报告 v2.0.7fo-fix 没生效:line 126 `if (!isLive) return;` 阻止 0:00-9:30 进入
-    // — 改为 `if (!isLive && !isPreMkt) return;` — 9:30-15:30 走快,0:00-9:30 走慢,15:30-24:00 + 周末 + 节假日 不跑
+    // v2.0.7fp:回滚 v2.0.7fo-fix 0:00-9:30 慢跑逻辑 — 8/22 9:45 user 报告网站白屏
+    // 根因:fastTick 拉 5500+ 只腾讯 30s+ + slowTick 拉 em 申万 30s+ 同步等待,JS 占用 100% CPU
+    //       → React UI 不响应,连启动页都没出现
+    // — 0:00-9:30 仍然 return 不跑,卡片走 baseData 8/21(已手动改 2505/2862/46 同花顺口径)
+    // — 8/22 18:30 cron 会用新算法(指数成交额)重写 8/21 末点 → 8/22 9:30 开盘后 useLiveData 正常拉盘中
     const isLive = isLiveMarket();
-    const _isPreMktEarly = isPreMarket();
-    if (!isLive && !_isPreMktEarly) return;
+    if (!isLive) return;
     // 10s 拉快:全市场 + ETF + 可转债 + 指数 + today(v2.0.7g:加 today 同步,避免曲线图落后)
     // v2.0.7cs:safe 加重试 — em/sina 拉失败时 800ms 后重试 1 次
     // — 之前拉失败直接 fallback,看起来"上周五收盘"(user 反馈)
@@ -195,13 +195,9 @@ export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot
 
     // 盘中 20s 拉快 + 60s 拉慢
     // v2.0.7dc:非盘中已在上面 return,这里只设盘中 interval
-    // v2.0.7fo:0:00-9:30 也跑(慢 5min)— 等 fetch-data 18:30 cron 写盘前兜底,React 拉腾讯 8/21 收盘定格
-    // — 之前 v2.0.7dc return → 0:00-9:30 完全不拉 → baseData 算法错(8/21 cp===0 算平 375 vs 实际 ~46)user 看到错值
-    // — 现在 0:00-9:30 慢 5min 拉,mergeLiveData 跨日/盘前分支用 live.today 覆盖 baseData(v2.0.7fo 改)
-    // — 拉不到(null)就保留 baseData(避免 0)— 跟 v2.0.7ci/v2.0.7cy 设计意图一致
-    const _isPreMkt = isPreMarket();
-    const fastIntv = setInterval(fastTick, _isPreMkt ? 300_000 : 20_000);  // 盘前 5min,盘中 20s
-    const slowIntv = setInterval(slowTick, _isPreMkt ? 600_000 : 60_000);  // 盘前 10min,盘中 60s
+    // v2.0.7fp:回滚 0:00-9:30 慢跑(白屏)— 走原 20s/60s 盘中间隔
+    const fastIntv = setInterval(fastTick, 20_000);
+    const slowIntv = setInterval(slowTick, 60_000);
     return () => {
       clearInterval(fastIntv);
       clearInterval(slowIntv);
@@ -300,28 +296,9 @@ export function mergeLiveData(data: ReportData, live: LiveSnapshot): ReportData 
     // — 9:30 后 em 实时(fast tick)覆盖
     // 注意:这里不清 0 涨跌停,保留 baseData(0:00-9:30 期间显示昨天收盘值)
     // — 因为 8:00 hook 之后到 9:35 cron 之前,涨跌停应该还是昨天收盘的
-    // v2.0.7fo:但 8/22 0:30 user 反馈 baseData 8/21 用旧算法 cp===0 算错(平 375 vs 实际 ~46)
-    // — useLiveData 0:00-9:30 跑(fetchTodaySnapshot 拉腾讯 qt.gtimg.cn 8/21 收盘定格,新算法 abs<0.005 算)
-    // — 拉到了就用 live.today 覆盖,跟盘中一样(v2.0.7cu 逻辑)— baseData 算法错的话用 live 兜底
-    // — 拉不到(live.today 为 null)就保留 baseData(避免 0)
-    if (live.today && (live.today.up > 0 || live.today.down > 0) && live.today.volume > 0) {
-      next.marketOverview.marketTurnover = live.today.volume;
-      next.marketOverview.upCount = live.today.up;
-      next.marketOverview.downCount = live.today.down;
-      if (live.today.flat !== undefined && live.today.flat >= 0) {
-        next.marketOverview.flatCount = live.today.flat;
-      }
-      if (live.today.limitUp !== undefined && live.today.limitUp > 0) {
-        next.marketOverview.limitUpCount = live.today.limitUp;
-      }
-      if (live.today.limitDown !== undefined && live.today.limitDown > 0) {
-        next.marketOverview.limitDownCount = live.today.limitDown;
-      }
-      const mktTotalToday = live.today.up + live.today.down;
-      if (mktTotalToday > 0) {
-        next.marketOverview.upPercent = Math.round(live.today.up * 10000 / mktTotalToday) / 100;
-      }
-    }
+    // v2.0.7fp:回滚 v2.0.7fo 加的 live.today 覆盖(useLiveData 0:00-9:30 不跑,这段代码死代码)
+    // — baseData 8/21 已手动改成 2505/2862/46(同花顺口径),user 立即看到对的值
+    // — 8/22 18:30 cron 跑时 fetch-data 用新算法(指数成交额)重写 8/21 末点
   } else if (isPreMarket()) {
     // v2.0.7cy:取消 preMarket 清 0 — 0:00-9:30 保留 baseData 上一交易日收盘值
     // — 之前 v2.0.7p/v2.0.7bd 清 0 → user 看到 30-60 分钟空白
