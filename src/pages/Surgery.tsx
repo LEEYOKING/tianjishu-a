@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Card, Tooltip, Modal, Popover } from 'antd';
-import ReactECharts from 'echarts-for-react';
+import { Card, Tooltip, Popover } from 'antd';  // v2.0.7fs:删 Modal(心电图弹窗删除)
 import { COLOR_UP, COLOR_DOWN, COLOR_TEXT, COLOR_PURPLE, COLOR_BLUE, COLOR_ORANGE } from '../utils/format';
 import type { ReportData } from '../data/loader';
 // v2.0.7fr:复用 Overview 的 PageHeader 组件(统一响应式布局 + zIndex 1 防蒙层穿透)
@@ -105,8 +104,10 @@ export default function Surgery(_props: { data?: ReportData }) {
 }
 
 function SurgeryInner({ data }: { data?: ReportData }) {
+  // v2.0.7fs:删 selectedCard state + Modal 弹窗("封板心电图")— user 反馈点击股票卡片不需要弹窗
+  // 之前用 selectedCard state 记录点击的卡片,Modal 显示 SealCardDetail 组件
+  // 现在直接删除:state/Modal/SealCardDetail 都不需要
   const surgery = data?.surgery;
-  const [selectedCard, setSelectedCard] = useState<SealCard | null>(null);
 
   // v2.0.7fc:debug — 临时显示 data 状态,排查"加载中"问题
   if (!surgery) {
@@ -214,7 +215,7 @@ function SurgeryInner({ data }: { data?: ReportData }) {
           </div>
         }
       >
-        <SealCardGrid sealCards={sealCards} onSelect={setSelectedCard} />
+        <SealCardGrid sealCards={sealCards} />
       </Card>
 
       {/* 亏钱效应传导链 */}
@@ -240,33 +241,21 @@ function SurgeryInner({ data }: { data?: ReportData }) {
           </div>
         )}
       </Card>
-
-      {/* 封板心电图弹窗 */}
-      <Modal
-        open={!!selectedCard}
-        onCancel={() => setSelectedCard(null)}
-        footer={null}
-        width={600}
-        title={selectedCard ? `${selectedCard.name} (${selectedCard.code}) 封板心电图` : ''}
-      >
-        {selectedCard && <SealCardDetail card={selectedCard} />}
-      </Modal>
     </div>
   );
 }
 
-function SealCardItem({ card, onClick }: { card: SealCard; onClick: () => void }) {
+function SealCardItem({ card }: { card: SealCard }) {
   const s = GRADE_STYLE[card.grade];
   return (
     <Tooltip title={`${card.name} (${card.code})\n封单 ${card.sealedAmount}亿 / 成交 ${card.turnover}亿\n首封 ${card.firstSealTime} ${card.isLateSeal ? '(尾盘偷鸡)' : ''}`}>
       <div
-        onClick={onClick}
         style={{
           background: s.bg,  // v2.0.7ay:rgba alpha 0.05(用户反馈 0.4 太重改 0.05)
           border: `1.5px solid ${s.border}`,
           borderRadius: 8,
           padding: '12px 14px',
-          cursor: 'pointer',
+          cursor: 'default',  // v2.0.7fs:删点击弹窗,改 default
           transition: 'transform .15s, box-shadow .15s',
           position: 'relative',
           minHeight: 110,
@@ -308,102 +297,6 @@ function SealCardItem({ card, onClick }: { card: SealCard; onClick: () => void }
   );
 }
 
-// ====== 封板心电图弹窗内容 ======
-function SealCardDetail({ card }: { card: SealCard }) {
-  const s = GRADE_STYLE[card.grade];
-  // 模拟分时曲线:从 09:30 开始,在首封时间点拉升到涨停价,之后维持(开板则下跌)
-  const firstMin = parseTimeMin(card.firstSealTime);
-  const openPrice = card.closePrice / 1.1;
-  const limitPrice = card.closePrice;
-  // 生成分钟序列
-  const points: { time: string; value: number; sealed: boolean }[] = [];
-  for (let m = -5; m <= 242; m++) {
-    const time = formatMin(m);
-    let value: number;
-    if (m < 0) {
-      value = openPrice * (0.998 + 0.002 * Math.random());
-    } else if (m < firstMin) {
-      // 涨停前:缓慢上升
-      const progress = m / firstMin;
-      value = openPrice + (limitPrice - openPrice) * progress * 0.85;
-    } else {
-      // 涨停后:围绕涨停价波动,开板次数影响
-      const bombEffect = card.bombedCount > 0 ? Math.sin(m * 0.05) * 0.02 : 0;
-      value = limitPrice * (1 - bombEffect - 0.001 * Math.random());
-    }
-    points.push({ time, value, sealed: m >= firstMin });
-  }
-  // const _limitLine = Array(points.length).fill(limitPrice);
-
-  const option = {
-    animation: true,
-    animationDuration: 1200,
-    animationEasing: 'cubicOut' as const,
-    grid: { top: 20, right: 30, left: 60, bottom: 30 },
-    tooltip: {
-      trigger: 'axis' as const,
-      axisPointer: { type: 'cross' as const },
-      backgroundColor: '#fff',
-      borderColor: '#E5E6EB',
-      borderWidth: 1,
-      textStyle: { color: COLOR_TEXT, fontSize: 12 },
-      formatter: (params: any) => {
-        const p = params[0];
-        return `<div style="font-weight:600;color:#111827;font-size:13px;margin-bottom:4px;">${p.name}</div><div style="color:#111827;font-size:13px;">价格: ${p.value.toFixed(2)}</div>`;
-      },
-    },
-    xAxis: {
-      type: 'category' as const,
-      data: points.map((p) => p.time),
-      axisLine: { show: false },
-      axisTick: { show: false },
-      axisLabel: { color: '#86909C', fontSize: 10, interval: Math.floor(points.length / 8) },
-    },
-    yAxis: {
-      type: 'value' as const,
-      scale: true,
-      axisLine: { show: false },
-      splitLine: { lineStyle: { color: '#F0F0F0', type: 'dashed' as const } },
-      axisLabel: { color: '#86909C', fontSize: 11, formatter: (v: number) => v.toFixed(2) },
-    },
-    series: [
-      {
-        name: '分时价',
-        type: 'line' as const,
-        data: points.map((p) => p.value),
-        smooth: true,
-        symbol: 'none' as const,
-        lineStyle: { color: s.letter, width: 2 },
-        areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: `${s.letter}30` }, { offset: 1, color: `${s.letter}05` }] } },
-        markLine: {
-          symbol: 'none',
-          data: [{ yAxis: limitPrice, label: { formatter: '涨停价', color: COLOR_UP, position: 'end' }, lineStyle: { color: COLOR_UP, type: 'dashed' as const } }],
-        },
-      },
-    ],
-  };
-
-  return (
-    <div>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 16, padding: '12px 16px', background: s.bg, borderRadius: 8 }}>
-        <span style={{ fontSize: 14, color: COLOR_TEXT }}>评级</span>
-        <span style={{ fontSize: 48, fontWeight: 900, color: s.letter, lineHeight: 1 }}>{card.grade}</span>
-        <div style={{ flex: 1, textAlign: 'right' }}>
-          <div style={{ fontSize: 12, color: '#86909C' }}>封成比</div>
-          <div style={{ fontSize: 24, fontWeight: 700, color: s.letter }}>{card.ratio.toFixed(2)}</div>
-        </div>
-      </div>
-      <ReactECharts option={option} style={{ height: 300 }} />
-      <div style={{ marginTop: 16, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, fontSize: 12 }}>
-        <div><span style={{ color: '#86909C' }}>首封:</span> <span style={{ fontWeight: 600, color: COLOR_TEXT }}>{card.firstSealTime}</span></div>
-        <div><span style={{ color: '#86909C' }}>开板:</span> <span style={{ fontWeight: 600, color: COLOR_TEXT }}>{card.bombedCount}次</span></div>
-        <div><span style={{ color: '#86909C' }}>封单:</span> <span style={{ fontWeight: 600, color: COLOR_TEXT }}>{card.sealedAmount.toFixed(2)}亿</span></div>
-        <div><span style={{ color: '#86909C' }}>成交:</span> <span style={{ fontWeight: 600, color: COLOR_TEXT }}>{card.turnover.toFixed(2)}亿</span></div>
-      </div>
-    </div>
-  );
-}
-
 function LoserChainTable({ chain }: { chain: LoserChainItem[] }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -421,23 +314,9 @@ function LoserChainTable({ chain }: { chain: LoserChainItem[] }) {
     </div>
   );
 }
-
-function parseTimeMin(t: string): number {
-  // "09:30:45" -> 分钟(从 09:25 集合竞价开始计)
-  if (!t || t.length < 5) return 60;
-  const [h, m, s] = t.split(':').map(Number);
-  return (h - 9) * 60 + m - 25 + (s ? s / 60 : 0);
-}
-
-function formatMin(m: number): string {
-  const totalMin = 9 * 60 + 25 + m;
-  const h = Math.floor(totalMin / 60);
-  const min = Math.floor(totalMin % 60);
-  return `${String(h).padStart(2, '0')}:${String(min).padStart(2, '0')}`;
-}
-
 // v2.0.7ch:SealCardGrid 组件 — ResizeObserver + 最多 8 列 + 卡片最小 200px
-function SealCardGrid({ sealCards, onSelect }: { sealCards: SealCard[]; onSelect: (c: SealCard) => void }) {
+// v2.0.7fs:删 onSelect prop(点击卡片不再弹"心电图"弹窗)
+function SealCardGrid({ sealCards }: { sealCards: SealCard[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [cols, setCols] = useState(8);
 
@@ -469,7 +348,7 @@ function SealCardGrid({ sealCards, onSelect }: { sealCards: SealCard[]; onSelect
       }}
     >
       {sealCards.map((card) => (
-        <SealCardItem key={card.code} card={card} onClick={() => onSelect(card)} />
+        <SealCardItem key={card.code} card={card} />
       ))}
     </div>
   );
