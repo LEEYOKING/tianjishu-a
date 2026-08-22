@@ -3,6 +3,10 @@ import { Card, Tooltip, Modal, Popover } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { COLOR_UP, COLOR_DOWN, COLOR_TEXT, COLOR_PURPLE, COLOR_BLUE, COLOR_ORANGE } from '../utils/format';
 import type { ReportData } from '../data/loader';
+// v2.0.7fr:复用 Overview 的 PageHeader 组件(统一响应式布局 + zIndex 1 防蒙层穿透)
+// — 之前 Surgery 自己手写 PageHeader,zIndex 100 > 蒙层 99 → 蒙层下方 PageHeader 仍可见
+// — 移动端没区分 flex column → 标题+tag+date/time 全挤一行
+import { PageHeader } from './Overview';
 
 interface SealCard {
   code: string;
@@ -145,43 +149,24 @@ function SurgeryInner({ data }: { data?: ReportData }) {
   // 不再用 live.fetchedAt(那是页面 fetch 时间,会跟着每次 live tick 变)
   // generatedTime 格式: HH:MM
   const generatedTime = (meta.generatedAt || '').split(' ')[1] || '';
+  // v2.0.7fr:把 meta.generatedAt (e.g. "2026-08-22 16:14:30") 解析成 UTC ms 给 PageHeader lastUpdatedAt
+  // — PageHeader 内部用 toShanghaiHM(lastUpdatedAt) 转成 HH:MM
+  const lastUpdatedAtMs = meta.generatedAt ? Date.parse(meta.generatedAt.replace(' ', 'T') + '+08:00') : undefined;
 
   return (
     <div>
-      {/* 页面头(标题+副标题作为整体) — 跟其他页一致:sticky 顶部悬浮 + paddingTop 20 全局外边距 + 背景 #F7F9FC */}
-      <div style={{
-        position: 'sticky', top: 0, zIndex: 100,
-        background: '#F7F9FC',
-        paddingTop: 20,
-        paddingBottom: 12,
-        marginBottom: 16,
-      }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, color: COLOR_TEXT, margin: 0 }}>全景手术台</h2>
-          {/* 用户 #4 反馈:标签文字色 #4b5563 */}
-          <span style={{
-            display: 'inline-flex', alignItems: 'center', gap: 4,
-            fontSize: 11, color: '#4b5563', background: '#F0F1F2',
-            padding: '3px 8px', borderRadius: 10,
-          }}>
-            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#4b5563' }} />
-            收盘复盘数据
-          </span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ fontSize: 12, color: '#86909C' }}>
-            报告日期 <span style={{ color: COLOR_TEXT, fontWeight: 500 }}>{displayDate}</span>
-            <span style={{ margin: '0 12px' }}>·</span>
-            生成时间 <span style={{ color: COLOR_TEXT, fontWeight: 500 }}>{displayDate} {generatedTime}</span>
-          </div>
-          {/* v2.0.7fj:user 反馈 — 删除全景手术台右上角"刷新"按钮(改用 useLiveData 自动刷新,人工刷新按钮多余) */}
-        </div>
-      </div>
-      <div style={{ fontSize: 12, color: '#86909C' }}>
-        盘后深度复盘 · 涨停封成比 / 亏钱传导 / 北向真假外资 · 更新于 {generatedTime}
-      </div>
-      </div>
+      {/* v2.0.7fr:复用 Overview 的 PageHeader 组件 — 修 2 个 bug:
+          1. zIndex 1 < 蒙层 99,蒙层打开时 PageHeader 被盖住(之前 Surgery 自己写 zIndex 100 > 蒙层 99)
+          2. 移动端 flex column(标题+tag 上,date/time 下),不再文字挤在一行 */}
+      <PageHeader
+        title="全景手术台"
+        tradeDateSlash={displayDate}
+        subtitle={`盘后深度复盘 · 涨停封成比 / 亏钱传导 / 北向真假外资 · 更新于 ${generatedTime}`}
+        liveTag="收盘复盘数据"
+        liveColor="#4b5563"
+        liveBg="#F0F1F2"
+        lastUpdatedAt={lastUpdatedAtMs}
+      />
 
       {systemWarning && (
         <div
