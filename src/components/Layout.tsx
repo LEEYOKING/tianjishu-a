@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { EmotionThermometer } from './EmotionThermometer';
 import { useIsMobile } from '../hooks/useIsMobile';
@@ -38,6 +38,31 @@ export default function Layout({ data, children }: Props) {
   const isMobile = useIsMobile();
   // 移动端抽屉开关
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // v2.0.7fr:抽屉打开时锁定 body 滚动(蒙层下方页面可上下滑穿透)— 关闭时恢复
+  // — 之前抽屉蒙层只是 zIndex 99 + 点击关闭,scroll/touch 事件穿透到 main,user 可以滑动蒙层下方页面
+  // — 修法:drawerOpen 变 true 时 body overflow:hidden + 记录原 overflow,关闭时恢复
+  // — 只在移动端生效(PC 端没有抽屉,isMobile=true 才有 drawerOpen 状态)
+  useEffect(() => {
+    if (!isMobile) return;
+    if (drawerOpen) {
+      const originalOverflow = document.body.style.overflow;
+      const originalPosition = document.body.style.position;
+      document.body.style.overflow = 'hidden';
+      // iOS Safari 上 overflow:hidden 不够,需要 position:fixed + top:负数 锁住
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      const scrollY = window.scrollY;
+      document.body.style.top = `-${scrollY}px`;
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.body.style.position = originalPosition;
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [drawerOpen, isMobile]);
 
   const counts = {
     limitUp: data.limitUpStocks.length,
@@ -89,7 +114,7 @@ export default function Layout({ data, children }: Props) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: isMobile ? '14px 20px' : '11px 24px',
+              padding: isMobile ? '14px 20px' : '9px 24px',  // v2.0.7fr:user 反馈 PC 端 11px → 9px(更紧凑)
               textDecoration: 'none',
               // 用户 #14 反馈:未选中 Tab 文字颜色改 #4b5563
               color: active ? '#fff' : '#4b5563',
@@ -298,12 +323,14 @@ export default function Layout({ data, children }: Props) {
             </div>
 
             {/* 用户 #5 反馈:10 个 Tab 整体下移 15px */}
-            <nav style={{ padding: '27px 0 12px', flex: 1, overflowY: 'auto' }}>
+            {/* v2.0.7fr:user 反馈 27px 0 12px → 24px 0 0px */}
+            <nav style={{ padding: '24px 0px 0px', flex: 1, overflowY: 'auto' }}>
               {renderMenu()}
             </nav>
 
             {/* v2.0.7ea:情绪温度计 — 改用 baseData.marketOverview.marketTemperature(fetch-data 写入) */}
-            <div style={{ padding: '0 8px 12px' }}>
+            {/* v2.0.7fr:user 反馈 0 8px 12px → 0 8px(去掉底部 padding)*/}
+            <div style={{ padding: '0px 8px' }}>
               {thermometer}
             </div>
           </aside>

@@ -97,7 +97,7 @@ export function EmotionThermometer({
       style={{
         position: 'relative',
         width: '100%',
-        padding: '12px 8px 8px',
+        padding: '0px 8px',  // v2.0.7fr:user 反馈 12px 8px 8px → 0px 8px(去掉上下 padding,温度计贴卡片边缘)
         borderRadius: 10,
         background: 'transparent',
       }}
