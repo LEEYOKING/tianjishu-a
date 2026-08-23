@@ -145,10 +145,11 @@ export default function Overview({ data }: { data: ReportData }) {
   // data 已经是 App.tsx 合并 live 后的 mergedData,直接用
   const { marketOverview: idx, history } = data;
 
-  // v1.9.9:每 30s 重新拉 data.json,让大盘总览 真正 "实时" 更新(数据静态 + 自动 30s 刷新)
+  // v2.0.7fv:L5 修 — 删 30s 重复拉 data.json — App.tsx 已经在 60s 拉,这里再 30s 拉完全没 setState 浪费带宽
+  // v2.0.7fv:L6 修 — liveAgoSec 不会自动 tick,加个 1s setState 让 "X 秒前更新" 实时
+  const [, setNow] = useState(0);
   useEffect(() => {
-    const tick = () => loadReportData(true).catch(() => null);
-    const t = setInterval(tick, 30_000);
+    const t = setInterval(() => setNow((n) => n + 1), 1000);
     return () => clearInterval(t);
   }, []);
   // v2.0.7fh:user #7 — 监听 window resize 触发所有 echarts resize(避免移动→PC 拉宽图表不变)

@@ -109,24 +109,11 @@ function SurgeryInner({ data }: { data?: ReportData }) {
   // 现在直接删除:state/Modal/SealCardDetail 都不需要
   const surgery = data?.surgery;
 
-  // v2.0.7fc:debug — 临时显示 data 状态,排查"加载中"问题
+  // v2.0.7fv:L1 修 — 删 v2.0.7fc debug 屏,生产环境显示 [Debug v2.0.7fc] 用户以为系统坏了
   if (!surgery) {
     return (
       <div style={{ padding: 24, color: '#86909C' }}>
-        <div style={{ marginBottom: 12, fontSize: 13, fontWeight: 600 }}>加载中...</div>
-        <div style={{ fontSize: 11, color: '#999', fontFamily: 'monospace', lineHeight: 1.6 }}>
-          [Debug v2.0.7fc]<br />
-          hasData: {String(!!data)}<br />
-          hasSurgery: {String(!!surgery)}<br />
-          surgeryType: {typeof surgery}<br />
-          data?.surgery: {String(data?.surgery === undefined ? 'undefined' : data?.surgery === null ? 'null' : typeof data?.surgery)}<br />
-          {data && (
-            <>
-              dataKeys: {Object.keys(data).slice(0, 8).join(',')}...<br />
-              data.surgery: {data.surgery ? `Object(${data.surgery.sealCards?.length || 0} sealCards)` : 'missing'}
-            </>
-          )}
-        </div>
+        <div style={{ fontSize: 13, fontWeight: 600 }}>加载中...</div>
       </div>
     );
   }
@@ -248,7 +235,12 @@ function SurgeryInner({ data }: { data?: ReportData }) {
 function SealCardItem({ card }: { card: SealCard }) {
   const s = GRADE_STYLE[card.grade];
   return (
-    <Tooltip title={`${card.name} (${card.code})\n封单 ${card.sealedAmount}亿 / 成交 ${card.turnover}亿\n首封 ${card.firstSealTime} ${card.isLateSeal ? '(尾盘偷鸡)' : ''}`}>
+    // v2.0.7fv:L8 修 — 移动端 Tooltip 触不发,加 trigger="click" + Popover 风格
+    // 同时保留 hover 触发(PC 端)— 用 antd Tooltip 的 trigger="['hover','click']"
+    <Tooltip
+      title={`${card.name} (${card.code})\n封单 ${card.sealedAmount}亿 / 成交 ${card.turnover}亿\n首封 ${card.firstSealTime} ${card.isLateSeal ? '(尾盘偷鸡)' : ''}`}
+      trigger={['hover', 'click']}
+    >
       <div
         style={{
           background: s.bg,  // v2.0.7ay:rgba alpha 0.05(用户反馈 0.4 太重改 0.05)

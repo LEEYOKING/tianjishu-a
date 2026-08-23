@@ -140,7 +140,13 @@ async function fetchSinaNodeByPageCustom(node: string, num: number, page: number
     const text = new TextDecoder('gbk').decode(buf);
     const decoded = text.replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
     if (!decoded.trim() || decoded.trim() === '[]') return [];
-    return JSON.parse(decoded) as SinaStock[];
+    const parsed = JSON.parse(decoded);
+    // v2.0.7fv:M5 修 — sina 在风控/异常时常返 {} / null / 单对象,确保返数组
+    if (!Array.isArray(parsed)) {
+      console.warn(`[live] fetchSinaNode ${node} p${page} 返非数组:`, typeof parsed);
+      return [];
+    }
+    return parsed as SinaStock[];
   } catch (e) {
     console.warn(`[live] fetchSinaNode ${node} p${page} 失败:`, e);
     return [];
@@ -259,6 +265,14 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
         allStocks.push({ cp, amt, name });
       }
   }
+  // v2.0.7fv:M6 修 — 部分批次静默残缺 — 如果 56 批里成功批 < 90%,返 null 让 sticky 保留 prev
+  // 56 批是经验值(5500 只 / 100/批 = 55 批),每批独立失败算 1 批失败
+  const totalBatches = Math.ceil(codes.length / BATCH_SIZE);
+  const successBatches = Math.floor(allStocks.length / 100);  // 粗估成功批
+  if (totalBatches > 0 && successBatches < totalBatches * 0.9) {
+    console.warn(`[fetchMarketSummary] 成功批 ${successBatches}/${totalBatches} (${Math.round(successBatches * 100 / totalBatches)}%) < 90%,返 null 保留 prev`);
+    return null;
+  }
   // 拉不到任何数据 → 返 null
   if (allStocks.length === 0) {
     return null;
@@ -278,9 +292,10 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
     else if (cp < -0.005) down++;
     else flat++;
     // v2.0.7ab:涨跌分布分桶 — v2.0.7fo:同步改 cp === 0 → abs < 0.005
+    // v2.0.7fv:分桶标签错修 — 之前 cp < -5 写 down_5_to_3 错(应该是 down_7_to_5)
     if (cp < -10) dist.down_ge_10++;
     else if (cp < -7) dist.down_10_to_7++;
-    else if (cp < -5) dist.down_5_to_3++;
+    else if (cp < -5) dist.down_7_to_5++;   // 修: 之前错写 down_5_to_3
     else if (cp < -3) dist.down_5_to_3++;
     else if (cp < 0) dist.down_3_to_0++;
     else if (Math.abs(cp) < 0.005) dist.flat++;
@@ -290,14 +305,13 @@ export async function fetchMarketSummary(stockCodes?: string[]): Promise<{
     else if (cp < 10) dist.up_7_to_10++;
     else dist.up_ge_10++;
     // v2.0.7ay:涨停:主板 9.97~11%(跟同花顺涨停算法 9.97% 阈值完全一致)
-    // — 8/13 13:05 sandbox sina 全市场 5542 只:9.97% 阈值算 56 == 同花顺 56
-    // — 之前 v2.0.7aw 9% 阈值算 70-83(盘中变化大),跟同花顺 56 差 14-27
-    // — 改 9.97% 阈值后盘中跳变:开盘 0 → 早盘 30 → 中盘 60 → 收盘 80
-    // — 双创 19.97~21%
+    // v2.0.7fv:加 ST 主板 5% 涨停 (4.97 ≤ cp < 5.5)
     if (cp >= 9.97 && cp < 11) lu++;
     else if (cp >= 19.97 && cp < 21) lu++;
+    else if (cp >= 4.97 && cp < 5.5) lu++;  // ST 主板 5%
     if (cp <= -9.97 && cp > -11) ld++;
     else if (cp <= -19.97 && cp > -21) ld++;
+    else if (cp <= -4.97 && cp > -5.5) ld++;  // ST 主板 -5%
     total += amt;
   }
   // v2.0.7ea:腾讯全市场 ~5,500 只,不再推算 × 11(直接用真实数字)
@@ -370,8 +384,11 @@ export async function fetchSinaIndustry(sinaLabel: string): Promise<{
   if (stocks.length === 0) return null;
   let totalAmount = 0, weightedSum = 0;
   for (const s of stocks) {
+    // v2.0.7fv:M4 修 — sina changepercent 偶尔是 "-" / "" / undefined,parseFloat 返 NaN
+    //   NaN * amt = NaN → weightedSum NaN → 整行业 NaN
     const cp = parseFloat(s.changepercent);
     const amt = s.amount || 0;
+    if (isNaN(cp) || isNaN(amt)) continue;  // 跳过脏数据
     totalAmount += amt;
     weightedSum += cp * amt;
   }
@@ -381,7 +398,7 @@ export async function fetchSinaIndustry(sinaLabel: string): Promise<{
     changePercent: Math.round(weightedPct * 100) / 100,
     totalTurnover: Math.round(totalAmount / 1e8 * 100) / 100,
     leaderName: leader.name,
-    leaderChangePercent: parseFloat(leader.changepercent),
+    leaderChangePercent: Math.round(parseFloat(leader.changepercent) * 100) / 100,  // 跟上面统一取整
     stockCount: stocks.length,
   };
 }

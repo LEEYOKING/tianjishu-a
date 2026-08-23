@@ -53,3 +53,8 @@ _shots*/
 # 系统文件
 Thumbs.db
 .DS_Store
+
+# v2.0.7fv 临时探针
+scripts/probe_*.py
+data/probe/
+scripts/screenshot_compare.py

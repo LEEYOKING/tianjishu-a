@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, createContext, useContext, lazy, Suspense } from 'react';
+import { useEffect, useState, useRef, useMemo, createContext, useContext, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Overview from './pages/Overview';
@@ -23,23 +23,28 @@ export const useLive = () => useContext(LiveContext);
 export default function App() {
   const [baseData, setBaseData] = useState<ReportData | null>(null);
   const [baseErr, setBaseErr] = useState<string | null>(null);
+  // v2.0.7fv:L3 修 — 用 ref 跟踪 baseData 最新值,避免 useEffect 闭包问题
+  // — 改前 setState in updater 违反 React 18 规则
+  // — 改成 ref + setBaseData 同步写 ref
+  const baseDataRef = useRef<ReportData | null>(null);
   // v2.0.7ee:传 baseData.meta.stockCodes 给 useLiveData — 拉真实 5,547 只 A 股腾讯 qt.gtimg.cn
   const live = useLiveData(true, baseData?.meta?.stockCodes);
 
   useEffect(() => {
     // v2.0.7o:fetch 失败时如果已有 baseData(后台标签页被节流),静默不显示错误页
+    // v2.0.7fv:L3 修 — 用 ref 读最新 baseData(避免 useEffect 闭包 stale)
     const fetchData = () =>
       loadReportData(true)
         .then((d) => {
+          baseDataRef.current = d;
           setBaseData(d);
           setBaseErr(null);
         })
         .catch((e) => {
           // 只在首次加载失败(baseData 还没设)时报错;后续失败静默(后台节流/网络抖动)
-          setBaseData((prev) => {
-            if (prev === null) setBaseErr(String(e?.message || e));
-            return prev;
-          });
+          if (baseDataRef.current === null) {
+            setBaseErr(String(e?.message || e));
+          }
         });
     fetchData();
     const reloadTimer = setInterval(fetchData, 60_000);

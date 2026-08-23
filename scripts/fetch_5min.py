@@ -1,9 +1,21 @@
-"""每 5 分钟跑一次,只拉 sina 累加 50 页 + 指数 + 涨跌停(走公开接口,无 akshare 限流)"""
+"""每 5 分钟跑一次,只拉 sina 累加 50 页 + 指数 + 涨跌停(走公开接口,无 akshare 限流)
+v2.0.7fv:
+- M9: 修 line 140 zdt/zdt 重复(删死代码,直接用 akshare)
+- M10: 写 dist/data.json 前先 makedirs
+- M11: 周末防御,周六周日直接 sys.exit(0)
+"""
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 import urllib.request, json, time
 import pandas as pd
 from datetime import datetime, timedelta
+
+# v2.0.7fv:M11 修 — 周末防御
+_now_east8 = datetime.utcnow() + timedelta(hours=8)
+if _now_east8.weekday() >= 5:  # 周六/周日
+    print(f"  ⏸ 周末({_now_east8.strftime('%A')}),跳过 fetch_5min")
+    sys.exit(0)
+
 
 EAST8 = 8 * 3600
 
@@ -134,12 +146,8 @@ except Exception as e:
 print('  涨跌停...')
 limit_up = 0
 limit_down = 0
-# 拉涨停跌停(走 1 + 1)
-try:
-    # 涨停(zhangting)
-    data = json.loads(http_get('https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?num=200&page=1&sort=changepercent&asc=0&node=hs_a&_s=zh'.replace('hs_a', 'lscjfb/zdt').replace('changepercent', 'changepercent')).decode('utf-8', errors='ignore'))
-except Exception:
-    pass
+# v2.0.7fv:M9 修 — 删原 line 140 死代码('hs_a'.replace('hs_a', 'lscjfb/zdt') 拼出 zdt/zdt 重复)
+# 改用 akshare 直接拉,跟 fetch_real_data.py 一致
 
 # 用 akshare 的 zt_pool(如果可用)
 try:
@@ -187,7 +195,11 @@ d['meta']['generatedAt'] = now_east8.strftime('%Y-%m-%d %H:%M:%S')
 d['meta']['tradeDate'] = now_east8.strftime('%Y%m%d')
 
 # 写回 public + dist
+# v2.0.7fv:M10 修 — 写前先 makedirs (dist/ 首次部署/清理后不存在会 FileNotFoundError)
 for p in ['/workspace/fupan/public/data.json', '/workspace/fupan/dist/data.json']:
+    parent = os.path.dirname(p)
+    if parent and not os.path.exists(parent):
+        os.makedirs(parent, exist_ok=True)
     with open(p, 'w', encoding='utf-8') as f:
         json.dump(d, f, ensure_ascii=False, indent=2)
 print(f'✓ 已更新 {len(spot_rows)} 只 + 6 指数 + ETF {etf_up}/{etf_down} + 可转债 {bond_up}/{bond_down} + 涨跌停 {limit_up}/{limit_down}')

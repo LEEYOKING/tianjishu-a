@@ -12,11 +12,21 @@ export function useIsMobile(): boolean {
   });
 
   useEffect(() => {
-    const onR = () => setM(window.innerWidth <= MOBILE_MAX);
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    // v2.0.7fv:L9 修 — resize 走 150ms debounce,但进入页面立即校准不走 debounce
+    const update = () => setM(window.innerWidth <= MOBILE_MAX);
+    const onR = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(update, 150);
+    };
     window.addEventListener('resize', onR);
     // 进入页面时再校准一次(防止初始值在 SSR / 早期 effect 之前与实际不符)
-    onR();
-    return () => window.removeEventListener('resize', onR);
+    // — 立即执行 update(),不走 debounce — 避免 150ms 视觉跳变
+    update();
+    return () => {
+      window.removeEventListener('resize', onR);
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   return m;

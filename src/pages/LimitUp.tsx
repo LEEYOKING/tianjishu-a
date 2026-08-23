@@ -15,6 +15,7 @@ export default function LimitUp({ data }: { data: ReportData }) {
 
   const filtered = useMemo(() => {
     if (!activeLevel) return data.limitUpStocks;
+    // 不改 — 生产原本就是这种写法(activeLevel="3板" 字符串 vs s.consecutiveDays=3 数字 → 模板字符串后比较)
     return data.limitUpStocks.filter((s) => `${s.consecutiveDays}板` === activeLevel);
   }, [activeLevel, data.limitUpStocks]);
 
@@ -134,7 +135,8 @@ export default function LimitUp({ data }: { data: ReportData }) {
             onChange={(p, s) => { setPage(p); setPageSize(s); }}
             showSizeChanger
             pageSizeOptions={['10', '20', '50', '100']}
-            showTotal={(t) => `第 ${page} / ${Math.ceil(t / pageSize)} 页 · 共 ${filtered.length} 条`}
+            // v2.0.7fv:L7 修 — showTotal 应该用 antd 传入的 t,不是 filtered.length
+            showTotal={(t) => `第 ${page} / ${Math.ceil(t / pageSize)} 页 · 共 ${t} 条`}
           />
         </div>
       )}

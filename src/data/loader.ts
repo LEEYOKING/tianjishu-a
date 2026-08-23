@@ -90,11 +90,14 @@ export function refreshReportData(): Promise<ReportData> {
   return loadReportData(true);
 }
 
-/** 判断是否在 A 股交易时段 */
+/** 判断是否在 A 股交易时段 — v2.0.7fv:海外 user 时区修,改用东八区
+ * — 之前用浏览器本地时间,海外 user 永远看不到盘中
+ * — 跟 useLiveData.ts 的 _isWeekendCN 一致,统一 UTC+8
+ */
 export function isLiveMarket(): boolean {
-  const now = new Date();
-  const day = now.getDay();
+  const now8 = new Date(Date.now() + 8 * 3600 * 1000);
+  const day = now8.getUTCDay();
   if (day === 0 || day === 6) return false;  // 周末
-  const mins = now.getHours() * 60 + now.getMinutes();
+  const mins = now8.getUTCHours() * 60 + now8.getUTCMinutes();
   return mins >= 9 * 60 + 30 && mins < 15 * 60;
 }

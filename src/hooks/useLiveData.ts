@@ -133,12 +133,15 @@ export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot
     // v2.0.7cs:safe 加重试 — em/sina 拉失败时 800ms 后重试 1 次
     // — 之前拉失败直接 fallback,看起来"上周五收盘"(user 反馈)
     // — 加重试后:网络抖动/限流 都能 recover,user 看到 8/17 实时
-    const safe = async <T,>(p: Promise<T>, fallback: T, retryMs = 800): Promise<T> => {
-      try { return await p; }
+    // v2.0.7fv:safe retry 死代码修 — 之前 `await p` 拿 reject 后再 `await p` 拿的是同一个 rejected Promise
+    //   修法:把 p 改成 thunk,每次调用发起新请求
+    const safe = async <T,>(thunk: () => Promise<T>, fallback: T, retryMs = 800): Promise<T> => {
+      const p1 = thunk();
+      try { return await p1; }
       catch (e) {
         console.warn('[useLiveData] sub-fetch fail, retrying in', retryMs, 'ms:', e);
         await new Promise((r) => setTimeout(r, retryMs));
-        try { return await p; }
+        try { return await thunk(); }
         catch (e2) {
           console.warn('[useLiveData] sub-fetch retry fail:', e2);
           return fallback;
@@ -149,15 +152,27 @@ export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot
       if (inflightRef.current) return;
       inflightRef.current = true;
       try {
-        // v2.0.7ea:删 4 个 CF Function — 改直连腾讯 qt.gtimg.cn(海外 IP 实测稳定 28s 5,363 只)
-        // — 保留 fetchLiveIndices(akshare sina 指数,稳定)
-        // — 保留 fetchTodaySnapshot(已改用腾讯)— 推 history 末点
-        // — ETF/可转债 — baseData 已经 fetch-data 写入,React 不再拉(盘中靠 em 申万板块覆盖 sectors)
-        const [mkt, idxResult, todayResult] = await Promise.all([
-          safe(fetchMarketSummary(codesRef.current), null),  // 改:fetchMarketStatsViaAPI → fetchMarketSummary(腾讯)
-          safe(fetchLiveIndices(), []),
-          safe(fetchTodaySnapshot(codesRef.current), null),
-        ]);
+        // v2.0.7fv:fetchTodaySnapshot 内部 (live.ts:337) 又调一次 fetchMarketSummary — 双重腾讯请求
+        // 修法:fastTick 只显式调一次 fetchMarketSummary,todayResult 从 mkt 派生
+        const mkt = await safe(() => fetchMarketSummary(codesRef.current), null);
+        const idxResult = await safe(() => fetchLiveIndices(), []);
+        // v2.0.7fv:todayResult 派生 — 避免 fetchTodaySnapshot 内部再调 fetchMarketSummary
+        let todayResult: any = null;
+        if (mkt && !(mkt.totalTurnover === 0 && mkt.upCount === 0 && mkt.downCount === 0)) {
+          const now8 = new Date(Date.now() + 8 * 3600 * 1000);
+          const y = now8.getUTCFullYear();
+          const mm = String(now8.getUTCMonth() + 1).padStart(2, '0');
+          const dd = String(now8.getUTCDate()).padStart(2, '0');
+          todayResult = {
+            date: `${y}-${mm}-${dd}`,
+            volume: mkt.totalTurnover,
+            up: mkt.upCount,
+            down: mkt.downCount,
+            flat: mkt.flatCount,
+            limitUp: mkt.limitUpCount,
+            limitDown: mkt.limitDownCount,
+          };
+        }
         setSnap((prev) => {
           const hasAny = mkt || (idxResult && idxResult.length > 0) || todayResult;
           return {
@@ -178,15 +193,26 @@ export function useLiveData(enabled = true, stockCodes?: string[]): LiveSnapshot
       }
     };
     // 60s 拉慢:行业(v2.0.7ax:em 申万 90 行业,跟 ths 90 细分类 一一对应,不是 sina 49 行业聚合)
+    // v2.0.7fv:slowTick 加 inflight 保护 + sticky — 失败返空 Map 时保留 prev
+    // v2.0.7fv:M3 修 — 主 hook 也拉 sinaIndustries (之前只有 useLiveDataOnce 拉,主 hook 永不变)
+    const slowInflightRef = { current: false };
     const slowTick = async () => {
+      if (slowInflightRef.current) return;
+      slowInflightRef.current = true;
       try {
-        const emIndResult = await safe(fetchEMIndustries(), new Map());
+        const [emIndResult, sinaIndResult] = await Promise.all([
+          safe(() => fetchEMIndustries(), new Map()),
+          safe(() => fetchSinaIndustries(SINA_INDUSTRY_LABELS), new Map()),
+        ]);
         setSnap((prev) => ({
           ...prev,
-          emIndustries: emIndResult,
+          emIndustries: (emIndResult && emIndResult.size > 0) ? emIndResult : prev.emIndustries,
+          sinaIndustries: (sinaIndResult && sinaIndResult.size > 0) ? sinaIndResult : prev.sinaIndustries,
         }));
       } catch (e) {
         console.warn('[useLiveData] slow tick error:', e);
+      } finally {
+        slowInflightRef.current = false;
       }
     };
 

@@ -98,7 +98,8 @@ export function MarginHistoryCard({ data }: Props) {
           axisLabel: { color: '#9ca3af', fontSize: 10, formatter: (v: number) => v.toFixed(0) },
         },
         {
-          type: 'value' as const, gridIndex: 0,
+          // v2.0.7fv:M14 修 — 第二个 yAxis (收盘价) 加 position: 'right', 避免跟融资余额左轴标签覆盖
+          type: 'value' as const, gridIndex: 0, position: 'right' as const,
           min: Math.floor(closeMin * 0.99), max: Math.ceil(closeMax * 1.01),
           axisLine: { show: false }, axisTick: { show: false },
           splitLine: { show: false },

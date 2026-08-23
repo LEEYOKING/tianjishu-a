@@ -15,7 +15,7 @@ TODAY = datetime.now()
 TRADE_DATE = TODAY.strftime('%Y%m%d')
 TRADE_DATE_DASH = TODAY.strftime('%Y-%m-%d')
 TRADE_DATE_SLASH = TODAY.strftime('%y/%m/%d')
-OUT = 'public/data.json'
+OUT = '/workspace/fupan/public/data.json'  # v2.0.7fv:M12 修 — 相对路径改绝对路径,避免 cron cwd 变化写错位置
 SINA_API = 'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData'
 TOTAL_PAGES = 55
 SAMPLE_PAGES = 5  # 5 页 = 500 只(全市场 5500)
@@ -47,7 +47,7 @@ def fetch_page(page):
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=10) as resp:
             return json.loads(resp.read().decode('utf-8', errors='ignore'))
-    except:
+    except Exception:  # v2.0.7fv:M12 修 — bare except 会吞 KeyboardInterrupt,改 Exception
         return []
 
 print("[1/2] 拉 sina 5 页...")
@@ -68,7 +68,11 @@ for s in all_stocks:
     elif cp < 0: down += 1
     else: flat += 1
     if 9.97 <= cp < 11 or 19.97 <= cp < 21: lu += 1
+    # v2.0.7fv:ST 主板 5% 涨停漏算修 — 4.97 ≤ cp < 5.5 也算涨停
+    elif 4.97 <= cp < 5.5: lu += 1
     if -11 < cp <= -9.97 or -21 < cp <= -19.97: ld += 1
+    # v2.0.7fv:ST 主板 -5% 跌停
+    elif -5.5 < cp <= -4.97: ld += 1
     total += amt
 
 SCALE = 1  # v2.0.7dz:取消 × 11 推算 — 5 页 sample 数字直接写
@@ -97,7 +101,7 @@ def fetch_em(fs, pz=500):
             with urllib.request.urlopen(req, timeout=10) as resp:
                 data = json.loads(resp.read())
                 return data.get('data', {}).get('diff', [])
-        except:
+        except Exception:  # v2.0.7fv:M12 修 — bare except 会吞 KeyboardInterrupt,改 Exception
             continue
     return []
 

@@ -268,7 +268,9 @@ else:
 # — baseData 涨停数 = 132(跟 useLiveData em 实时一致)— 不再用户困惑'76:5 → 132:22'跳变
 _change = spot_df['涨跌幅'].astype(float)
 _change_dist = {
-    'down_ge_10':    int((_change <= -9.97).sum()),  # v2.0.7do:-9.97 对齐 9.97%
+    # v2.0.7fv:9.97 双重计数修 — 之前 down_10_to_7 含 [-10, -7) 但 down_ge_10 含 [-9.97,...], 9.97~10 双重;
+    #           up_7_to_10 [7,10) + up_ge_10 [9.97,...] 双重; 改 hard split, 严格 [x, y)
+    'down_ge_10':    int((_change <= -10).sum()),     # 改: <=-9.97 → <=-10 硬分界
     'down_10_to_7':  int(((_change >= -10) & (_change < -7)).sum()),
     'down_7_to_5':   int(((_change >= -7)  & (_change < -5)).sum()),
     'down_5_to_3':   int(((_change >= -5)  & (_change < -3)).sum()),
@@ -278,7 +280,7 @@ _change_dist = {
     'up_3_to_5':     int(((_change >= 3)   & (_change < 5)).sum()),
     'up_5_to_7':     int(((_change >= 5)   & (_change < 7)).sum()),
     'up_7_to_10':    int(((_change >= 7)   & (_change < 10)).sum()),
-    'up_ge_10':      int((_change >= 9.97).sum()),  # v2.0.7do:9.97 对齐 9.99% 阈值
+    'up_ge_10':      int((_change >= 10).sum()),      # 改: >=9.97 → >=10 硬分界
 }
 print(f"  涨跌分布: 跌 {_change_dist['down_3_to_0']} 涨 {_change_dist['up_0_to_3']} 涨停 {_change_dist['up_ge_10']} 跌停 {_change_dist['down_ge_10']}")
 
@@ -494,8 +496,9 @@ if TODAY.weekday() < 5:  # 周一到周五才 append
         'up': up_count,
         'down': down_count,
         'flat': flat_count,
-        'limitUp': int(_change_dist['up_ge_10']),
-        'limitDown': int(_change_dist['down_ge_10']),
+        # v2.0.7fv:ST 主板 5% 涨停加进 limitUp
+        'limitUp': int(_change_dist['up_ge_10']) + int(((_change >= 4.97) & (_change < 5.5)).sum()),
+        'limitDown': int(_change_dist['down_ge_10']) + int(((_change <= -4.97) & (_change > -5.5)).sum()),
     })
 print(f"  历史 {len(history)} 个交易日(末 1 用今日 marketTurnover 准)")
 
@@ -522,10 +525,13 @@ print(f"  turnoverDiff 修复: 今日({TODAY.strftime('%Y-%m-%d')}) {total_turno
 # ========== 4. 涨停板 ==========
 print("\n[4/7] 涨停板...")
 zt_actual_date, zt_df = get_recent_zt_date(TRADE_DATE)
+# v2.0.7fv:zt_df=None 时 iterrows 崩 — 兜底空 df
+if zt_df is None:
+    zt_df = pd.DataFrame()
 if zt_actual_date != TRADE_DATE:
     print(f"  ⚠ 今日涨停板数据为空,使用最近交易日 {zt_actual_date} 的数据")
 limit_up_stocks = []
-limit_up_stocks = []
+# v2.0.7fv:删重复定义 limit_up_stocks = [] (line 527/528 各一遍)
 for _, row in zt_df.iterrows():
     code = safe_str(row['代码'])
     name = safe_str(row['名称'])
@@ -676,6 +682,9 @@ print(f"  融资融券历史(60 日): {'OK, ' + str(len(_margin_history)) + ' �
 # ========== 5. 跌停板 ==========
 print("\n[5/7] 跌停板...")
 dt_actual_date, dt_df = get_recent_dt_date(TRADE_DATE)
+# v2.0.7fv:dt_df=None 时 iterrows 崩 — 兜底空 df
+if dt_df is None:
+    dt_df = pd.DataFrame()
 limit_down_stocks = []
 for _, row in dt_df.iterrows():
     code = safe_str(row['代码'])
@@ -781,7 +790,14 @@ up_down_history = []
 for i in range(min(LIMIT_HISTORY_DAYS, len(hist_df))):
     row = hist_df.iloc[-(i+1)]
     date_str = str(row['date'])
-    pct = (safe_float(row['close']) - safe_float(row['open'])) / safe_float(row['open']) * 100
+    # v2.0.7fv:open=0 (停牌/退市/数据缺失) → 0/0 = nan → int(nan) ValueError 整批崩
+    # 修法:open 缺失或 0 时,当 pct=0,涨跌家数 = stock_total/2,留空安全
+    _open = safe_float(row['open'])
+    _close = safe_float(row['close'])
+    if _open == 0:
+        pct = 0.0
+    else:
+        pct = (_close - _open) / _open * 100
     # 估算
     up_e = stock_total * 0.5 + stock_total * 0.4 * math.tanh(pct * 1.5)
     down_e = stock_total - up_e - 200
@@ -1497,7 +1513,8 @@ from market_temperature import calculate_market_temperature
 _LHB_INTERP = DragonTigerInterpreter()
 
 # v2.0.7fj:em stock_lhb_stock_statistic_em 海外 IP 限流严(尤其 18:10 cron)— 包 try/except + fallback
-# v2.0.7fk:user 反馈 — 加 2 次 retry(失败后等 15min 再试),最多 3 次拉取,任一成功即停
+# v2.0.7fk:user 反馈 — 加 2 次 retry,最多 3 次拉取,任一成功即停
+# v2.0.7fv:15min × 2 阻塞 cron 修 — 改成 30s/30s,总阻塞 ≤ 60s
 # — 失败时用 _prev_data(已 line 446 读 git HEAD data.json)的 dragonTigerStocks 作为 fallback
 # — 标记 _lhbFallback = True 写入 data.json.meta,前端可显示"龙虎榜为上一次数据"提示
 import pandas as _pd
@@ -1514,13 +1531,18 @@ for _lhb_attempt in range(1, 4):  # 3 次:首次 + retry 2 次
     except Exception as _lhb_err:
         _err_msg = f"{type(_lhb_err).__name__}: {str(_lhb_err)[:80]}"
         if _lhb_attempt < 3:
-            _wait_sec = 15 * 60  # 15 分钟
+            _wait_sec = 30  # v2.0.7fv:30s 替代 15min,总阻塞 ≤ 60s
             print(f"  em 龙虎榜接口 attempt {_lhb_attempt}/3 失败({_err_msg})")
-            print(f"  等 15 分钟后 retry(总等待 {_wait_sec}s)...")
+            print(f"  等 {_wait_sec}s 后 retry...")
             _time.sleep(_wait_sec)
         else:
             # 3 次都失败 — 走 git HEAD fallback
-            _prev_dt = _prev_data.get('dragonTigerStocks', []) if '_prev_data' in dir() and _prev_data else []
+            # v2.0.7fv:_prev_data 未定义 NameError 修 — 用 try/except 兜住
+            _prev_dt = []
+            try:
+                _prev_dt = _prev_data.get('dragonTigerStocks', []) if _prev_data else []
+            except (NameError, AttributeError):
+                _prev_dt = []
             if _prev_dt:
                 print(f"  em 龙虎榜接口 3/3 都失败(最后一次:{_err_msg})")
                 print(f"  fallback 到 git HEAD dragonTigerStocks {len(_prev_dt)} 条 — 海外 IP 限流")

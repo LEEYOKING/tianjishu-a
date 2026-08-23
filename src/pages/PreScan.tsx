@@ -26,9 +26,16 @@ export default function PreScan() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
+    // v2.0.7fv:L2 修 — fetch 加 .catch + cancelled flag
+    let cancelled = false;
     fetch(import.meta.env.BASE_URL + 'prescan.json')
-      .then((r) => r.json())
-      .then(setData);
+      .then((r) => {
+        if (!r.ok) throw new Error(`prescan.json 拉取失败: ${r.status}`);
+        return r.json();
+      })
+      .then((j) => { if (!cancelled) setData(j); })
+      .catch((e) => { if (!cancelled) console.warn('[PreScan] 拉取失败:', e); });
+    return () => { cancelled = true; };
   }, []);
 
   const chartOption = useMemo(() => {

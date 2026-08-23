@@ -152,7 +152,11 @@ export default function AnomalyStock({ type, data }: Props) {
         </label>
         {/* v1.9.7:筛选按钮高亮 = UI 主题黑 #111827 */}
         <button
-          onClick={() => setApplied({ volMin: volMinInput, pctMin: pctMinInput, pctMax: pctMaxInput })}
+          // v2.0.7fv:L4 修 — 筛选后重置分页 page=1,避免停在空页
+          onClick={() => {
+            setApplied({ volMin: volMinInput, pctMin: pctMinInput, pctMax: pctMaxInput });
+            setPage(1);
+          }}
           style={{
             fontSize: 13, color: '#fff',
             background: hasPendingChange ? '#111827' : '#bfbfbf',
