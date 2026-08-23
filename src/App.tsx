@@ -93,14 +93,10 @@ export default function App() {
         flexDirection: 'column', gap: 20, overflow: 'hidden',
       }}>
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
-          <div style={{ fontSize: 17, color: '#4b5563', fontWeight: 500, letterSpacing: 1 }}>
-            正在进入你的天机枢
-          </div>
-          <div style={{ fontSize: 13, color: '#86909C' }}>
-            每日复盘 · 数据全解析
-          </div>
+          {/* v2.0.7fw:启动页两行文案 → 替换为 brand-logo(算筹 + 天机枢),保留下方"进入中..."动效 */}
+          <img src="/brand-logo.png" alt="天机枢" style={{ height: 110, width: 'auto' }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
-            <span style={{ fontSize: 13, color: '#1890ff', fontWeight: 500 }}>进入中</span>
+            <span style={{ fontSize: 13, color: '#1890ff', fontWeight: 500 }}>A股每日复盘，正在进入您的天机枢...</span>
             <span className="loading-dots">
               <span /><span /><span />
             </span>
