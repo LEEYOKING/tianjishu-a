@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from 'react';
 import { useIsMobile } from '../hooks/useIsMobile';
 import ReactECharts from 'echarts-for-react';
 import ColorText from '../components/ColorText';
-import { loadReportData } from '../data/loader';
 import {
   COLOR_UP, COLOR_DOWN, COLOR_FLAT, COLOR_TEXT,
 } from '../utils/format';

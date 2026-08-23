@@ -47,14 +47,8 @@ export function useEffectiveTradeDate(
   // 08:00 之后 + today != dataYMD — 走"今天"
   const shouldUseToday = isAfter8am && dataYMD !== todayYMD;
 
-  // v2.0.7fv:M7 修 — 解析 original.tradeDate (YYYYMMDD) 拿到对应 dash 格式,作为非 shouldUseToday 时的 fallback
-  const dataDate = new Date(
-    Date.UTC(
-      parseInt(dataYMD.slice(0, 4), 10),
-      parseInt(dataYMD.slice(4, 6), 10) - 1,
-      parseInt(dataYMD.slice(6, 8), 10)
-    )
-  );
+  // v2.0.7fv-fix:M7 修 — 解析 original.tradeDate (YYYYMMDD) 拿到对应 dash 格式,作为非 shouldUseToday 时的 fallback
+  // — 修 TS6133 'dataDate' 死代码 — 直接用 dataYMD.slice() 拼字符串,不需 Date 对象
   const dataDash = `${dataYMD.slice(0, 4)}-${dataYMD.slice(4, 6)}-${dataYMD.slice(6, 8)}`;
   return {
     tradeDate: shouldUseToday ? todayYMD : dataYMD,
