@@ -57,16 +57,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
-          # v2.0.7cz:fetch_real_data.py 跑后 public/data.json 有 uncommitted 改动
-          # 直接 git pull --rebase 失败 'You have unstaged changes'
-          # 修法:先 git stash 暂存 → pull rebase → stash pop 恢复
-          git stash push -m "fetch-data-yml-temp-stash" public/data.json public/prescan.json public/surgery.json || true
-          # 拉远端更新(如果远端有 commit 没 pull)
-          git pull --rebase origin main || (git rebase --abort && echo "pull rebase 失败,继续")
-          # 恢复 stash(fetch_real_data 写的 data.json)
-          git stash pop || (echo "stash pop 失败 — 可能远端 data.json 冲突" && git checkout --theirs public/data.json && git add public/data.json)
-          # 暂存 + pull + pop 完毕 — 重新 add
-          git add public/data.json public/prescan.json public/surgery.json
+          # v2.0.7fx:fetch_real_data.py 跑后 public/data.json 有 uncommitted 改动
+          # — 直接 git pull --rebase 失败 'You have unstaged changes'
+          # — 根因:v2.0.7ff 拆出 sectorKlines.json (untracked),stash push 只暂存 track 的,untracked 留下
+          # 修法:先 stash --include-untracked 暂存全部 → pull --ff-only (只快进,不要求 rebase) → stash pop 恢复
+          git stash push -u -m "fetch-data-yml-temp-stash" -- public/ || true
+          # 拉远端更新(只快进合并,避免 rebase 失败)
+          git pull --ff-only origin main || (echo "pull --ff-only 失败(可能远端有 non-FF commit),继续" && git stash pop || true)
+          # 恢复 stash(fetch_real_data 写的所有 public 改动)
+          git stash pop || (echo "stash pop 失败 — 可能远端 data.json 冲突" && git checkout --theirs public/data.json && git add -A public/)
+          # 暂存 + pull + pop 完毕 — 强制 add 全部 public 改动(含 sectorKlines.json untracked)
+          git add -A public/
           if git diff --cached --quiet; then
             echo "无新数据,跳过提交"
           else
