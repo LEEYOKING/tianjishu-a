@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-08-27 20:58:43",
-    "tradeDate": "20260827",
-    "tradeDateSlash": "26/08/27",
+    "generatedAt": "2026-08-28 00:32:42",
+    "tradeDate": "20260828",
+    "tradeDateSlash": "26/08/28",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
     "stockCodes": [
       "sh600000",
@@ -14008,11 +14008,11 @@
     "lhbFallback": false
   },
   "marketOverview": {
-    "tradeDate": "20260827",
-    "tradeDateSlash": "26/08/27",
-    "generatedAt": "2026-08-27 20:58",
+    "tradeDate": "20260828",
+    "tradeDateSlash": "26/08/28",
+    "generatedAt": "2026-08-28 00:32",
     "marketTurnover": 21259.27,
-    "turnoverDiff": 3172.04,
+    "turnoverDiff": 0.0,
     "marketTemperature": {
       "temperature": 83,
       "status": "极度沸点",
@@ -14023,10 +14023,10 @@
         "max_boards": 6,
         "broken_rate": "18%",
         "broken_count": 17,
-        "yest_perf": "+3.1%",
-        "yest_perf_value": 3.14,
-        "promote_rate": "21%",
-        "promote_rate_value": 0.20512820512820512,
+        "yest_perf": "+11.1%",
+        "yest_perf_value": 11.06,
+        "promote_rate": "13%",
+        "promote_rate_value": 0.13114754098360656,
         "limit_ratio": "25.7"
       },
       "dimension_scores": {
@@ -14115,7 +14115,7 @@
     "bondStockDown": 135,
     "bondStockFlat": 6,
     "mainCapitalFlow20d": {
-      "date": "2026-08-27",
+      "date": "2026-08-28",
       "total_net_inflow": 755.39,
       "industries": [
         {
@@ -14961,6 +14961,14 @@
       "volume": 21259.27,
       "limitUp": 201,
       "limitDown": 12,
+      "up": 3190,
+      "down": 1821
+    },
+    {
+      "date": "2026-08-28",
+      "volume": 21259.27,
+      "limitUp": 77,
+      "limitDown": 3,
       "up": 3190,
       "down": 1821
     }
