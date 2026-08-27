@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-28 00:32:42",
+    "generatedAt": "2026-08-28 01:20:53",
     "tradeDate": "20260828",
     "tradeDateSlash": "26/08/28",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
@@ -14010,7 +14010,7 @@
   "marketOverview": {
     "tradeDate": "20260828",
     "tradeDateSlash": "26/08/28",
-    "generatedAt": "2026-08-28 00:32",
+    "generatedAt": "2026-08-28 01:20",
     "marketTurnover": 21259.27,
     "turnoverDiff": 0.0,
     "marketTemperature": {
@@ -25071,9 +25071,9 @@
       "closePrice": 76.19,
       "changePercent": 9.55,
       "turnover": 0,
-      "netBuy": 0.34,
-      "buyAmount": 5.52,
-      "sellAmount": 5.18,
+      "netBuy": 0.25,
+      "buyAmount": 4.85,
+      "sellAmount": 4.6,
       "reason": "4家机构买卖, 成功率",
       "isMockSeats": false,
       "details": {
@@ -27737,10 +27737,10 @@
       "closePrice": 16.07,
       "changePercent": -9.97,
       "turnover": 0,
-      "netBuy": -0.38,
-      "buyAmount": 2.03,
-      "sellAmount": 2.41,
-      "reason": "7家机构买卖, 成功率",
+      "netBuy": -0.37,
+      "buyAmount": 0.76,
+      "sellAmount": 1.13,
+      "reason": "3家机构买卖, 成功率",
       "isMockSeats": false,
       "details": {
         "buys": [
@@ -27794,7 +27794,7 @@
         "stock_info": {
           "code": "003013",
           "name": "地铁设计",
-          "reason": "7家机构买卖, 成功率"
+          "reason": "3家机构买卖, 成功率"
         },
         "tags": [
           "北向买入"
@@ -29120,10 +29120,10 @@
       "closePrice": 86.25,
       "changePercent": 8.98,
       "turnover": 0,
-      "netBuy": -7.62,
-      "buyAmount": 83.21,
-      "sellAmount": 90.83,
-      "reason": "24家机构卖出, 成功率",
+      "netBuy": -7.57,
+      "buyAmount": 82.49,
+      "sellAmount": 90.06,
+      "reason": "23家机构卖出, 成功率",
       "isMockSeats": false,
       "details": {
         "buys": [
@@ -29191,7 +29191,7 @@
         "stock_info": {
           "code": "301520",
           "name": "万邦医药",
-          "reason": "24家机构卖出, 成功率"
+          "reason": "23家机构卖出, 成功率"
         },
         "tags": [
           "普通"
