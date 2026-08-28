@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-28 21:39:50",
+    "generatedAt": "2026-08-28 22:29:50",
     "tradeDate": "20260828",
     "tradeDateSlash": "26/08/28",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
@@ -14010,7 +14010,7 @@
   "marketOverview": {
     "tradeDate": "20260828",
     "tradeDateSlash": "26/08/28",
-    "generatedAt": "2026-08-28 21:39",
+    "generatedAt": "2026-08-28 22:29",
     "marketTurnover": 21017.15,
     "turnoverDiff": -242.12,
     "marketTemperature": {
@@ -30150,7 +30150,7 @@
   },
   "surgery": {
     "meta": {
-      "generatedAt": "2026-08-28 21:30:09",
+      "generatedAt": "2026-08-28 21:49:09",
       "tradeDate": "20260828",
       "tradeDateSlash": "26/08/28"
     },
