@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-08-28 22:38:20",
-    "tradeDate": "20260828",
-    "tradeDateSlash": "26/08/28"
+    "generatedAt": "2026-08-31 15:52:07",
+    "tradeDate": "20260831",
+    "tradeDateSlash": "26/08/31"
   },
   "sealCards": [
     {
@@ -1101,21 +1101,6 @@
       "isLateSeal": false
     },
     {
-      "code": "002631",
-      "name": "德尔未来",
-      "industry": "家居用品",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:30:00",
-      "bombedCount": 9,
-      "sealedAmount": 0.25,
-      "turnover": 9.64,
-      "changePercent": 10.02,
-      "closePrice": 10.1,
-      "ratio": 0.03,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
       "code": "002742",
       "name": "冀衡医药",
       "industry": "化学制药",
@@ -1126,6 +1111,21 @@
       "turnover": 13.45,
       "changePercent": 10.05,
       "closePrice": 6.24,
+      "ratio": 0.03,
+      "grade": "C",
+      "isLateSeal": false
+    },
+    {
+      "code": "002631",
+      "name": "德尔未来",
+      "industry": "家居用品",
+      "consecutiveDays": 1,
+      "firstSealTime": "09:30:00",
+      "bombedCount": 9,
+      "sealedAmount": 0.25,
+      "turnover": 9.64,
+      "changePercent": 10.02,
+      "closePrice": 10.1,
       "ratio": 0.03,
       "grade": "C",
       "isLateSeal": false
@@ -1239,7 +1239,7 @@
   "bigLoser": [],
   "loserChain": [],
   "loserIntersection": [],
-  "prevLimitUpCount": 77,
+  "prevLimitUpCount": 0,
   "systemWarning": false,
   "north": [
     {
@@ -1247,14 +1247,14 @@
       "netBuy": 0.0,
       "netInflow": 0.0,
       "index": "上证指数",
-      "indexChange": -0.11
+      "indexChange": 0.86
     },
     {
       "type": "深港通",
       "netBuy": 0.0,
       "netInflow": 0.0,
       "index": "深证成指",
-      "indexChange": -0.68
+      "indexChange": 0.44
     }
   ],
   "northTotal": 0.0
