@@ -1,28 +1,45 @@
 {
   "meta": {
+<<<<<<< Updated upstream
     "generatedAt": "2026-08-31 15:52:07",
+=======
+    "generatedAt": "2026-08-31 16:07:00",
+>>>>>>> Stashed changes
     "tradeDate": "20260831"
   },
   "assets": [
     {
       "code": "USDCNH",
       "name": "离岸人民币",
+<<<<<<< Updated upstream
       "price": 6.7204,
+=======
+      "price": 6.72,
+>>>>>>> Stashed changes
       "changePct": 0.0,
       "series": []
     },
     {
       "code": "GC",
       "name": "纽约黄金",
+<<<<<<< Updated upstream
       "price": 4494.27,
+=======
+      "price": 4495.74,
+>>>>>>> Stashed changes
       "changePct": -0.02,
       "series": []
     },
     {
       "code": "CL",
       "name": "WTI 原油",
+<<<<<<< Updated upstream
       "price": 85.45,
       "changePct": 2.88,
+=======
+      "price": 85.49,
+      "changePct": 2.92,
+>>>>>>> Stashed changes
       "series": []
     },
     {
