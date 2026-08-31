@@ -1,10 +1,6 @@
 {
   "meta": {
-<<<<<<< Updated upstream
-    "generatedAt": "2026-08-31 15:52:07",
-=======
-    "generatedAt": "2026-08-31 16:07:00",
->>>>>>> Stashed changes
+    "generatedAt": "2026-08-31 16:56:16",
     "tradeDate": "20260831",
     "tradeDateSlash": "26/08/31"
   },
@@ -1150,105 +1146,9 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002942",
-      "name": "新农股份",
-      "industry": "农化制品",
-      "consecutiveDays": 3,
-      "firstSealTime": "09:25:00",
-      "bombedCount": 3,
-      "sealedAmount": 0.13,
-      "turnover": 5.12,
-      "changePercent": 9.99,
-      "closePrice": 20.91,
-      "ratio": 0.03,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002742",
-      "name": "冀衡医药",
-      "industry": "化学制药",
-      "consecutiveDays": 4,
-      "firstSealTime": "09:30:00",
-      "bombedCount": 3,
-      "sealedAmount": 0.41,
-      "turnover": 13.45,
-      "changePercent": 10.05,
-      "closePrice": 6.24,
-      "ratio": 0.03,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002631",
-      "name": "德尔未来",
-      "industry": "家居用品",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:30:00",
-      "bombedCount": 9,
-      "sealedAmount": 0.25,
-      "turnover": 9.64,
-      "changePercent": 10.02,
-      "closePrice": 10.1,
-      "ratio": 0.03,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "600479",
-      "name": "千金药业",
-      "industry": "中药Ⅱ",
-      "consecutiveDays": 3,
-      "firstSealTime": "09:34:27",
-      "bombedCount": 10,
-      "sealedAmount": 0.47,
-      "turnover": 13.92,
-      "changePercent": 9.98,
-      "closePrice": 13.33,
-      "ratio": 0.03,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "605006",
-      "name": "山东玻纤",
-      "industry": "玻璃玻纤",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:01:56",
-      "bombedCount": 2,
-      "sealedAmount": 0.18,
-      "turnover": 6.34,
-      "changePercent": 9.98,
-      "closePrice": 15.54,
-      "ratio": 0.03,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "600227",
-      "name": "赤天化",
-      "industry": "农化制品",
-      "consecutiveDays": 1,
-      "firstSealTime": "14:15:07",
-      "bombedCount": 2,
-      "sealedAmount": 0.41,
-      "turnover": 16.01,
-      "changePercent": 10.1,
-      "closePrice": 4.58,
-      "ratio": 0.03,
-      "grade": "C",
-      "isLateSeal": true
-    },
-    {
-      "code": "603011",
-      "name": "合锻智能",
-      "industry": "专用设备",
-=======
       "code": "600722",
       "name": "金牛化工",
       "industry": "化学原料",
->>>>>>> Stashed changes
       "consecutiveDays": 2,
       "firstSealTime": "10:10:20",
       "bombedCount": 1,
