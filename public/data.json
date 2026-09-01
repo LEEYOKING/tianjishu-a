@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-09-01 20:42:15",
+    "generatedAt": "2026-09-01 23:01:30",
     "tradeDate": "20260901",
     "tradeDateSlash": "26/09/01",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
@@ -14010,7 +14010,7 @@
   "marketOverview": {
     "tradeDate": "20260901",
     "tradeDateSlash": "26/09/01",
-    "generatedAt": "2026-09-01 20:42",
+    "generatedAt": "2026-09-01 23:01",
     "marketTurnover": 20334.03,
     "turnoverDiff": -976.28,
     "marketTemperature": {
@@ -34005,7 +34005,7 @@
   },
   "surgery": {
     "meta": {
-      "generatedAt": "2026-09-01 18:18:16",
+      "generatedAt": "2026-09-01 20:50:46",
       "tradeDate": "20260901",
       "tradeDateSlash": "26/09/01"
     },
@@ -34451,7 +34451,7 @@
         "industry": "工业金属",
         "consecutiveDays": 1,
         "firstSealTime": "09:30:15",
-        "bombedCount": 3,
+        "bombedCount": 2,
         "sealedAmount": 0.56,
         "turnover": 2.33,
         "changePercent": 10.05,
