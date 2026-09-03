@@ -1,28 +1,28 @@
 {
   "meta": {
-    "generatedAt": "2026-09-03 14:41:17",
+    "generatedAt": "2026-09-03 14:54:08",
     "tradeDate": "20260903"
   },
   "assets": [
     {
       "code": "USDCNH",
       "name": "离岸人民币",
-      "price": 6.7166,
+      "price": 6.7174,
       "changePct": 0.0,
       "series": []
     },
     {
       "code": "GC",
       "name": "纽约黄金",
-      "price": 4472.41,
+      "price": 4471.23,
       "changePct": 0.03,
       "series": []
     },
     {
       "code": "CL",
       "name": "WTI 原油",
-      "price": 90.13,
-      "changePct": -1.08,
+      "price": 90.02,
+      "changePct": -1.21,
       "series": []
     },
     {
