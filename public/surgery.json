@@ -1,10 +1,6 @@
 {
   "meta": {
-<<<<<<< Updated upstream
-    "generatedAt": "2026-09-07 14:52:43",
-=======
-    "generatedAt": "2026-09-07 15:01:31",
->>>>>>> Stashed changes
+    "generatedAt": "2026-09-07 18:29:07",
     "tradeDate": "20260907",
     "tradeDateSlash": "26/09/07"
   },
@@ -16,19 +12,11 @@
       "consecutiveDays": 3,
       "firstSealTime": "09:25:02",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 4.76,
-      "turnover": 1.0,
-      "changePercent": 10.09,
-      "closePrice": 4.8,
-      "ratio": 4.74,
-=======
       "sealedAmount": 4.55,
       "turnover": 1.02,
       "changePercent": 10.09,
       "closePrice": 4.8,
       "ratio": 4.47,
->>>>>>> Stashed changes
       "grade": "S",
       "isLateSeal": false
     },
@@ -39,19 +27,11 @@
       "consecutiveDays": 2,
       "firstSealTime": "09:30:00",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 3.35,
-      "turnover": 0.88,
-      "changePercent": 10.03,
-      "closePrice": 15.8,
-      "ratio": 3.82,
-=======
       "sealedAmount": 3.28,
       "turnover": 0.88,
       "changePercent": 10.03,
       "closePrice": 15.8,
       "ratio": 3.72,
->>>>>>> Stashed changes
       "grade": "S",
       "isLateSeal": false
     },
@@ -62,21 +42,12 @@
       "consecutiveDays": 2,
       "firstSealTime": "09:25:00",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.79,
-      "turnover": 0.58,
-      "changePercent": 9.98,
-      "closePrice": 6.17,
-      "ratio": 3.1,
-      "grade": "S",
-=======
       "sealedAmount": 1.68,
       "turnover": 0.59,
       "changePercent": 9.98,
       "closePrice": 6.17,
       "ratio": 2.88,
       "grade": "A",
->>>>>>> Stashed changes
       "isLateSeal": false
     },
     {
@@ -86,19 +57,11 @@
       "consecutiveDays": 3,
       "firstSealTime": "09:30:01",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 3.98,
-      "turnover": 2.19,
-      "changePercent": 10.04,
-      "closePrice": 12.49,
-      "ratio": 1.81,
-=======
       "sealedAmount": 3.69,
       "turnover": 2.2,
       "changePercent": 10.04,
       "closePrice": 12.49,
       "ratio": 1.68,
->>>>>>> Stashed changes
       "grade": "A",
       "isLateSeal": false
     },
@@ -109,19 +72,11 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:25:00",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 2.18,
-      "turnover": 1.38,
-      "changePercent": 9.99,
-      "closePrice": 46.12,
-      "ratio": 1.58,
-=======
       "sealedAmount": 1.57,
       "turnover": 1.4,
       "changePercent": 9.99,
       "closePrice": 46.12,
       "ratio": 1.12,
->>>>>>> Stashed changes
       "grade": "A",
       "isLateSeal": false
     },
@@ -132,21 +87,12 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:43:57",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.45,
-      "turnover": 1.42,
-      "changePercent": 9.99,
-      "closePrice": 9.36,
-      "ratio": 1.02,
-      "grade": "A",
-=======
       "sealedAmount": 1.22,
       "turnover": 1.42,
       "changePercent": 9.99,
       "closePrice": 9.36,
       "ratio": 0.86,
       "grade": "B",
->>>>>>> Stashed changes
       "isLateSeal": false
     },
     {
@@ -156,34 +102,11 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:36:05",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.92,
-      "turnover": 1.13,
-      "changePercent": 10.0,
-      "closePrice": 17.38,
-      "ratio": 0.82,
-      "grade": "B",
-      "isLateSeal": false
-    },
-    {
-      "code": "600770",
-      "name": "综艺股份",
-      "industry": "综合Ⅱ",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:08:24",
-      "bombedCount": 0,
-      "sealedAmount": 1.74,
-      "turnover": 2.24,
-      "changePercent": 10.04,
-      "closePrice": 5.59,
-      "ratio": 0.78,
-=======
       "sealedAmount": 0.66,
       "turnover": 1.14,
       "changePercent": 10.0,
       "closePrice": 17.38,
       "ratio": 0.58,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
@@ -194,66 +117,15 @@
       "consecutiveDays": 1,
       "firstSealTime": "13:47:05",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.93,
-      "turnover": 1.42,
-      "changePercent": 9.95,
-      "closePrice": 6.63,
-      "ratio": 0.65,
-=======
       "sealedAmount": 0.8,
       "turnover": 1.44,
       "changePercent": 9.95,
       "closePrice": 6.63,
       "ratio": 0.56,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "600280",
-      "name": "中央商场",
-      "industry": "一般零售",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:44:40",
-      "bombedCount": 0,
-      "sealedAmount": 0.69,
-      "turnover": 1.32,
-      "changePercent": 9.94,
-      "closePrice": 3.43,
-      "ratio": 0.52,
-      "grade": "B",
-      "isLateSeal": false
-    },
-    {
-      "code": "001229",
-      "name": "魅视科技",
-      "industry": "计算机设",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:43:24",
-      "bombedCount": 0,
-      "sealedAmount": 0.91,
-      "turnover": 1.81,
-      "changePercent": 10.01,
-      "closePrice": 38.89,
-      "ratio": 0.5,
-      "grade": "B",
-      "isLateSeal": false
-    },
-    {
-      "code": "603355",
-      "name": "莱克电气",
-      "industry": "小家电",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:42:05",
-      "bombedCount": 1,
-      "sealedAmount": 0.85,
-      "turnover": 1.83,
-      "changePercent": 9.99,
-      "closePrice": 30.07,
-      "ratio": 0.47,
-=======
       "code": "600770",
       "name": "综艺股份",
       "industry": "综合Ⅱ",
@@ -265,7 +137,6 @@
       "changePercent": 10.04,
       "closePrice": 5.59,
       "ratio": 0.55,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
@@ -276,36 +147,15 @@
       "consecutiveDays": 6,
       "firstSealTime": "09:30:47",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.14,
-      "turnover": 2.5,
-      "changePercent": 10.03,
-      "closePrice": 17.11,
-      "ratio": 0.46,
-=======
       "sealedAmount": 1.12,
       "turnover": 2.51,
       "changePercent": 10.03,
       "closePrice": 17.11,
       "ratio": 0.45,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "600400",
-      "name": "红豆股份",
-      "industry": "服装家纺",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:42:45",
-      "bombedCount": 0,
-      "sealedAmount": 0.78,
-      "turnover": 1.89,
-      "changePercent": 10.14,
-      "closePrice": 3.15,
-      "ratio": 0.41,
-=======
       "code": "001229",
       "name": "魅视科技",
       "industry": "计算机设",
@@ -317,7 +167,6 @@
       "changePercent": 10.01,
       "closePrice": 38.89,
       "ratio": 0.43,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
@@ -328,25 +177,15 @@
       "consecutiveDays": 2,
       "firstSealTime": "09:33:06",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.04,
-      "turnover": 2.65,
-      "changePercent": 9.96,
-      "closePrice": 11.15,
-      "ratio": 0.39,
-=======
       "sealedAmount": 0.9,
       "turnover": 2.66,
       "changePercent": 9.96,
       "closePrice": 11.15,
       "ratio": 0.34,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-=======
       "code": "002963",
       "name": "豪尔赛",
       "industry": "装修装饰",
@@ -362,20 +201,12 @@
       "isLateSeal": false
     },
     {
->>>>>>> Stashed changes
       "code": "002564",
       "name": "天沃科技",
       "industry": "专用设备",
       "consecutiveDays": 2,
       "firstSealTime": "09:33:27",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.67,
-      "turnover": 1.81,
-      "changePercent": 9.94,
-      "closePrice": 5.42,
-      "ratio": 0.37,
-=======
       "sealedAmount": 0.57,
       "turnover": 1.82,
       "changePercent": 9.94,
@@ -396,7 +227,6 @@
       "changePercent": 9.94,
       "closePrice": 3.43,
       "ratio": 0.31,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
@@ -407,37 +237,15 @@
       "consecutiveDays": 1,
       "firstSealTime": "13:07:52",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.34,
-      "turnover": 0.9,
-      "changePercent": 10.01,
-      "closePrice": 20.89,
-      "ratio": 0.37,
-=======
       "sealedAmount": 0.28,
       "turnover": 0.9,
       "changePercent": 10.01,
       "closePrice": 20.89,
       "ratio": 0.31,
->>>>>>> Stashed changes
       "grade": "B",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603042",
-      "name": "华脉科技",
-      "industry": "通信设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:33:37",
-      "bombedCount": 0,
-      "sealedAmount": 0.59,
-      "turnover": 1.65,
-      "changePercent": 9.98,
-      "closePrice": 15.43,
-      "ratio": 0.36,
-      "grade": "B",
-=======
       "code": "603355",
       "name": "莱克电气",
       "industry": "小家电",
@@ -465,7 +273,6 @@
       "closePrice": 3.15,
       "ratio": 0.29,
       "grade": "C",
->>>>>>> Stashed changes
       "isLateSeal": false
     },
     {
@@ -475,51 +282,12 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:31:30",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 2.16,
-      "turnover": 6.42,
-      "changePercent": 10.02,
-      "closePrice": 17.89,
-      "ratio": 0.34,
-      "grade": "B",
-      "isLateSeal": false
-    },
-    {
-      "code": "002963",
-      "name": "豪尔赛",
-      "industry": "装修装饰",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:39:36",
-      "bombedCount": 1,
-      "sealedAmount": 0.93,
-      "turnover": 2.74,
-      "changePercent": 9.98,
-      "closePrice": 22.15,
-      "ratio": 0.34,
-      "grade": "B",
-      "isLateSeal": false
-    },
-    {
-      "code": "603311",
-      "name": "金海高科",
-      "industry": "家电零部",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:13:10",
-      "bombedCount": 0,
-      "sealedAmount": 0.45,
-      "turnover": 1.34,
-      "changePercent": 10.0,
-      "closePrice": 29.37,
-      "ratio": 0.34,
-      "grade": "B",
-=======
       "sealedAmount": 1.72,
       "turnover": 6.46,
       "changePercent": 10.02,
       "closePrice": 17.89,
       "ratio": 0.27,
       "grade": "C",
->>>>>>> Stashed changes
       "isLateSeal": false
     },
     {
@@ -529,51 +297,15 @@
       "consecutiveDays": 2,
       "firstSealTime": "09:30:09",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.05,
-      "turnover": 3.37,
-      "changePercent": 9.95,
-      "closePrice": 6.74,
-      "ratio": 0.31,
-      "grade": "B",
-      "isLateSeal": false
-    },
-    {
-      "code": "001296",
-      "name": "长江材料",
-      "industry": "非金属材",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:30:00",
-      "bombedCount": 0,
-      "sealedAmount": 0.35,
-      "turnover": 1.23,
-      "changePercent": 10.0,
-      "closePrice": 22.0,
-      "ratio": 0.28,
-=======
       "sealedAmount": 0.89,
       "turnover": 3.45,
       "changePercent": 9.95,
       "closePrice": 6.74,
       "ratio": 0.26,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "300112",
-      "name": "万讯自控",
-      "industry": "通用设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:40:30",
-      "bombedCount": 0,
-      "sealedAmount": 1.08,
-      "turnover": 3.88,
-      "changePercent": 20.02,
-      "closePrice": 10.55,
-      "ratio": 0.28,
-=======
       "code": "603311",
       "name": "金海高科",
       "industry": "家电零部",
@@ -585,23 +317,10 @@
       "changePercent": 10.0,
       "closePrice": 29.37,
       "ratio": 0.26,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002902",
-      "name": "铭普光磁",
-      "industry": "通信设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "11:08:57",
-      "bombedCount": 0,
-      "sealedAmount": 1.2,
-      "turnover": 4.58,
-      "changePercent": 10.0,
-      "closePrice": 27.18,
-=======
       "code": "603042",
       "name": "华脉科技",
       "industry": "通信设备",
@@ -612,25 +331,11 @@
       "turnover": 1.66,
       "changePercent": 9.98,
       "closePrice": 15.43,
->>>>>>> Stashed changes
       "ratio": 0.26,
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "000823",
-      "name": "超声电子",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:34:15",
-      "bombedCount": 3,
-      "sealedAmount": 2.07,
-      "turnover": 8.31,
-      "changePercent": 10.01,
-      "closePrice": 15.94,
-      "ratio": 0.25,
-=======
       "code": "001296",
       "name": "长江材料",
       "industry": "非金属材",
@@ -702,65 +407,25 @@
       "changePercent": 10.01,
       "closePrice": 15.94,
       "ratio": 0.2,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603286",
-      "name": "日盈电子",
-      "industry": "汽车零部",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:31:49",
-      "bombedCount": 0,
-      "sealedAmount": 0.78,
-      "turnover": 3.07,
-      "changePercent": 10.01,
-      "closePrice": 47.36,
-      "ratio": 0.25,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-=======
->>>>>>> Stashed changes
       "code": "002403",
       "name": "爱仕达",
       "industry": "小家电",
       "consecutiveDays": 3,
       "firstSealTime": "10:07:54",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.1,
-      "turnover": 4.72,
-      "changePercent": 10.02,
-      "closePrice": 12.41,
-      "ratio": 0.23,
-=======
       "sealedAmount": 0.94,
       "turnover": 4.74,
       "changePercent": 10.02,
       "closePrice": 12.41,
       "ratio": 0.2,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "605168",
-      "name": "三人行",
-      "industry": "广告营销",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:52:37",
-      "bombedCount": 1,
-      "sealedAmount": 1.14,
-      "turnover": 4.91,
-      "changePercent": 10.0,
-      "closePrice": 52.49,
-      "ratio": 0.23,
-=======
       "code": "002972",
       "name": "科安达",
       "industry": "轨交设备",
@@ -772,7 +437,6 @@
       "changePercent": 10.03,
       "closePrice": 13.93,
       "ratio": 0.19,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -783,79 +447,11 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:30:01",
       "bombedCount": 1,
-<<<<<<< Updated upstream
-      "sealedAmount": 7.6,
-      "turnover": 35.37,
-      "changePercent": 10.0,
-      "closePrice": 207.21,
-      "ratio": 0.21,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "603823",
-      "name": "百合花",
-      "industry": "化学制品",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:34:09",
-      "bombedCount": 1,
-      "sealedAmount": 1.62,
-      "turnover": 7.74,
-      "changePercent": 10.01,
-      "closePrice": 58.04,
-      "ratio": 0.21,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "603119",
-      "name": "浙江荣泰",
-      "industry": "汽车零部",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:45:24",
-      "bombedCount": 2,
-      "sealedAmount": 1.37,
-      "turnover": 6.39,
-      "changePercent": 10.01,
-      "closePrice": 51.65,
-      "ratio": 0.21,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "603926",
-      "name": "铁流股份",
-      "industry": "汽车零部",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:55:05",
-      "bombedCount": 1,
-      "sealedAmount": 0.41,
-      "turnover": 2.0,
-      "changePercent": 9.99,
-      "closePrice": 18.6,
-      "ratio": 0.2,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "605488",
-      "name": "福莱新材",
-      "industry": "塑料",
-      "consecutiveDays": 1,
-      "firstSealTime": "11:17:50",
-      "bombedCount": 1,
-      "sealedAmount": 0.69,
-      "turnover": 3.43,
-      "changePercent": 9.99,
-      "closePrice": 29.94,
-      "ratio": 0.2,
-=======
       "sealedAmount": 6.31,
       "turnover": 35.45,
       "changePercent": 10.0,
       "closePrice": 207.21,
       "ratio": 0.18,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -866,19 +462,11 @@
       "consecutiveDays": 2,
       "firstSealTime": "09:30:43",
       "bombedCount": 1,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.48,
-      "turnover": 2.55,
-      "changePercent": 9.98,
-      "closePrice": 16.64,
-      "ratio": 0.19,
-=======
       "sealedAmount": 0.46,
       "turnover": 2.55,
       "changePercent": 9.98,
       "closePrice": 16.64,
       "ratio": 0.18,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -889,19 +477,11 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:38:10",
       "bombedCount": 1,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.35,
-      "turnover": 1.84,
-      "changePercent": 10.03,
-      "closePrice": 8.01,
-      "ratio": 0.19,
-=======
       "sealedAmount": 0.34,
       "turnover": 1.85,
       "changePercent": 10.03,
       "closePrice": 8.01,
       "ratio": 0.18,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -912,36 +492,15 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:31:27",
       "bombedCount": 2,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.49,
-      "turnover": 8.05,
-      "changePercent": 10.04,
-      "closePrice": 13.92,
-      "ratio": 0.18,
-=======
       "sealedAmount": 1.4,
       "turnover": 8.09,
       "changePercent": 10.04,
       "closePrice": 13.92,
       "ratio": 0.17,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002972",
-      "name": "科安达",
-      "industry": "轨交设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "11:17:21",
-      "bombedCount": 4,
-      "sealedAmount": 0.35,
-      "turnover": 1.96,
-      "changePercent": 10.03,
-      "closePrice": 13.93,
-      "ratio": 0.18,
-=======
       "code": "603286",
       "name": "日盈电子",
       "industry": "汽车零部",
@@ -953,7 +512,6 @@
       "changePercent": 10.01,
       "closePrice": 47.36,
       "ratio": 0.17,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -964,19 +522,11 @@
       "consecutiveDays": 2,
       "firstSealTime": "09:32:09",
       "bombedCount": 2,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.95,
-      "turnover": 5.68,
-      "changePercent": 10.05,
-      "closePrice": 9.53,
-      "ratio": 0.17,
-=======
       "sealedAmount": 0.92,
       "turnover": 5.69,
       "changePercent": 10.05,
       "closePrice": 9.53,
       "ratio": 0.16,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -987,19 +537,11 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:34:07",
       "bombedCount": 1,
-<<<<<<< Updated upstream
-      "sealedAmount": 3.11,
-      "turnover": 18.28,
-      "changePercent": 10.0,
-      "closePrice": 13.53,
-      "ratio": 0.17,
-=======
       "sealedAmount": 2.79,
       "turnover": 18.34,
       "changePercent": 10.0,
       "closePrice": 13.53,
       "ratio": 0.15,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -1010,64 +552,15 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:54:48",
       "bombedCount": 7,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.48,
-      "turnover": 2.88,
-      "changePercent": 10.05,
-      "closePrice": 6.02,
-      "ratio": 0.17,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "603626",
-      "name": "科森科技",
-      "industry": "消费电子",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:32:13",
-      "bombedCount": 2,
-      "sealedAmount": 0.87,
-      "turnover": 5.94,
-      "changePercent": 9.98,
-      "closePrice": 19.72,
-=======
       "sealedAmount": 0.44,
       "turnover": 2.88,
       "changePercent": 10.05,
       "closePrice": 6.02,
->>>>>>> Stashed changes
       "ratio": 0.15,
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603628",
-      "name": "清源股份",
-      "industry": "光伏设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:32:19",
-      "bombedCount": 1,
-      "sealedAmount": 0.28,
-      "turnover": 1.93,
-      "changePercent": 10.04,
-      "closePrice": 10.85,
-      "ratio": 0.15,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "600330",
-      "name": "天通股份",
-      "industry": "电子化学",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:37:06",
-      "bombedCount": 2,
-      "sealedAmount": 3.12,
-      "turnover": 22.34,
-      "changePercent": 10.02,
-      "closePrice": 28.89,
-=======
       "code": "603119",
       "name": "浙江荣泰",
       "industry": "汽车零部",
@@ -1078,7 +571,6 @@
       "turnover": 6.41,
       "changePercent": 10.01,
       "closePrice": 51.65,
->>>>>>> Stashed changes
       "ratio": 0.14,
       "grade": "C",
       "isLateSeal": false
@@ -1090,13 +582,8 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:50:39",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.56,
-      "turnover": 4.07,
-=======
       "sealedAmount": 0.55,
       "turnover": 4.08,
->>>>>>> Stashed changes
       "changePercent": 10.03,
       "closePrice": 20.63,
       "ratio": 0.14,
@@ -1104,19 +591,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603608",
-      "name": "天创时尚",
-      "industry": "服装家纺",
-      "consecutiveDays": 1,
-      "firstSealTime": "11:19:15",
-      "bombedCount": 1,
-      "sealedAmount": 0.69,
-      "turnover": 4.84,
-      "changePercent": 10.02,
-      "closePrice": 23.05,
-      "ratio": 0.14,
-=======
       "code": "603926",
       "name": "铁流股份",
       "industry": "汽车零部",
@@ -1128,24 +602,10 @@
       "changePercent": 9.99,
       "closePrice": 18.6,
       "ratio": 0.13,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603009",
-      "name": "北特科技",
-      "industry": "汽车零部",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:09:37",
-      "bombedCount": 0,
-      "sealedAmount": 0.86,
-      "turnover": 6.8,
-      "changePercent": 10.0,
-      "closePrice": 48.84,
-      "ratio": 0.13,
-=======
       "code": "605168",
       "name": "三人行",
       "industry": "广告营销",
@@ -1157,7 +617,6 @@
       "changePercent": 10.0,
       "closePrice": 52.49,
       "ratio": 0.12,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -1168,19 +627,11 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:36:01",
       "bombedCount": 4,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.73,
-      "turnover": 6.2,
-      "changePercent": 20.0,
-      "closePrice": 50.52,
-      "ratio": 0.12,
-=======
       "sealedAmount": 0.71,
       "turnover": 6.21,
       "changePercent": 20.0,
       "closePrice": 50.52,
       "ratio": 0.11,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -1191,69 +642,15 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:38:48",
       "bombedCount": 1,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.76,
-      "turnover": 14.38,
-      "changePercent": 10.0,
-      "closePrice": 15.51,
-      "ratio": 0.12,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002172",
-      "name": "澳洋健康",
-      "industry": "医疗服务",
-      "consecutiveDays": 1,
-      "firstSealTime": "11:03:15",
-      "bombedCount": 0,
-      "sealedAmount": 0.63,
-      "turnover": 5.38,
-      "changePercent": 9.98,
-      "closePrice": 4.63,
-      "ratio": 0.12,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "600345",
-      "name": "长江通信",
-      "industry": "通信设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:25:19",
-      "bombedCount": 1,
-      "sealedAmount": 0.9,
-      "turnover": 7.51,
-      "changePercent": 10.0,
-      "closePrice": 51.25,
-      "ratio": 0.12,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "000978",
-      "name": "桂林旅游",
-      "industry": "旅游及景",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:52:33",
-      "bombedCount": 5,
-      "sealedAmount": 0.46,
-      "turnover": 4.21,
-      "changePercent": 9.97,
-      "closePrice": 7.28,
-=======
       "sealedAmount": 1.61,
       "turnover": 14.41,
       "changePercent": 10.0,
       "closePrice": 15.51,
->>>>>>> Stashed changes
       "ratio": 0.11,
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-=======
       "code": "603009",
       "name": "北特科技",
       "industry": "汽车零部",
@@ -1329,222 +726,21 @@
       "isLateSeal": false
     },
     {
->>>>>>> Stashed changes
       "code": "002708",
       "name": "光洋股份",
       "industry": "汽车零部",
       "consecutiveDays": 1,
       "firstSealTime": "09:53:30",
       "bombedCount": 1,
-<<<<<<< Updated upstream
-      "sealedAmount": 1.03,
-      "turnover": 9.29,
-      "changePercent": 10.02,
-      "closePrice": 16.8,
-      "ratio": 0.11,
-=======
       "sealedAmount": 0.85,
       "turnover": 9.32,
       "changePercent": 10.02,
       "closePrice": 16.8,
       "ratio": 0.09,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603936",
-      "name": "博敏电子",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "11:22:50",
-      "bombedCount": 1,
-      "sealedAmount": 0.96,
-      "turnover": 8.58,
-      "changePercent": 10.01,
-      "closePrice": 17.58,
-      "ratio": 0.11,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002980",
-      "name": "华盛昌",
-      "industry": "电网设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:17:18",
-      "bombedCount": 1,
-      "sealedAmount": 1.32,
-      "turnover": 12.84,
-      "changePercent": 10.0,
-      "closePrice": 118.1,
-      "ratio": 0.1,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "600857",
-      "name": "宁波中百",
-      "industry": "一般零售",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:34:53",
-      "bombedCount": 1,
-      "sealedAmount": 0.41,
-      "turnover": 4.1,
-      "changePercent": 10.01,
-      "closePrice": 22.86,
-      "ratio": 0.1,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "000428",
-      "name": "华天酒店",
-      "industry": "酒店餐饮",
-      "consecutiveDays": 2,
-      "firstSealTime": "09:46:27",
-      "bombedCount": 0,
-      "sealedAmount": 0.47,
-      "turnover": 5.17,
-      "changePercent": 10.02,
-      "closePrice": 5.16,
-      "ratio": 0.09,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002436",
-      "name": "兴森科技",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:53:24",
-      "bombedCount": 0,
-      "sealedAmount": 3.49,
-      "turnover": 39.32,
-      "changePercent": 10.0,
-      "closePrice": 36.75,
-      "ratio": 0.09,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "603395",
-      "name": "红四方",
-      "industry": "农化制品",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:02:29",
-      "bombedCount": 1,
-      "sealedAmount": 0.51,
-      "turnover": 5.46,
-      "changePercent": 10.01,
-      "closePrice": 29.77,
-      "ratio": 0.09,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002916",
-      "name": "深南电路",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:14:36",
-      "bombedCount": 3,
-      "sealedAmount": 2.98,
-      "turnover": 33.03,
-      "changePercent": 10.0,
-      "closePrice": 364.98,
-      "ratio": 0.09,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "301516",
-      "name": "中远通",
-      "industry": "其他电源",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:31:03",
-      "bombedCount": 0,
-      "sealedAmount": 0.46,
-      "turnover": 5.39,
-      "changePercent": 20.0,
-      "closePrice": 19.98,
-      "ratio": 0.09,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "000816",
-      "name": "智慧农业",
-      "industry": "汽车零部",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:58:24",
-      "bombedCount": 1,
-      "sealedAmount": 0.29,
-      "turnover": 3.62,
-      "changePercent": 10.17,
-      "closePrice": 3.25,
-      "ratio": 0.08,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "600103",
-      "name": "青山纸业",
-      "industry": "造纸",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:16:04",
-      "bombedCount": 4,
-      "sealedAmount": 1.54,
-      "turnover": 18.74,
-      "changePercent": 10.14,
-      "closePrice": 3.91,
-      "ratio": 0.08,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002909",
-      "name": "集泰股份",
-      "industry": "化学制品",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:33:21",
-      "bombedCount": 5,
-      "sealedAmount": 0.6,
-      "turnover": 8.1,
-      "changePercent": 9.99,
-      "closePrice": 7.93,
-      "ratio": 0.07,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "001267",
-      "name": "汇绿生态",
-      "industry": "通信设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:36:33",
-      "bombedCount": 1,
-      "sealedAmount": 1.02,
-      "turnover": 15.41,
-      "changePercent": 10.0,
-      "closePrice": 38.71,
-      "ratio": 0.07,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "002470",
-      "name": "金正大",
-      "industry": "农化制品",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:54:03",
-      "bombedCount": 1,
-      "sealedAmount": 0.53,
-      "turnover": 7.85,
-      "changePercent": 10.05,
-      "closePrice": 2.3,
-=======
       "code": "605488",
       "name": "福莱新材",
       "industry": "塑料",
@@ -1675,7 +871,6 @@
       "turnover": 4.1,
       "changePercent": 10.01,
       "closePrice": 22.86,
->>>>>>> Stashed changes
       "ratio": 0.07,
       "grade": "C",
       "isLateSeal": false
@@ -1687,13 +882,8 @@
       "consecutiveDays": 1,
       "firstSealTime": "09:44:33",
       "bombedCount": 4,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.53,
-      "turnover": 8.56,
-=======
       "sealedAmount": 0.55,
       "turnover": 8.57,
->>>>>>> Stashed changes
       "changePercent": 10.06,
       "closePrice": 7.0,
       "ratio": 0.06,
@@ -1701,18 +891,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "301550",
-      "name": "斯菱智驱",
-      "industry": "汽车零部",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:04:27",
-      "bombedCount": 1,
-      "sealedAmount": 0.89,
-      "turnover": 15.75,
-      "changePercent": 20.0,
-      "closePrice": 97.75,
-=======
       "code": "603395",
       "name": "红四方",
       "industry": "农化制品",
@@ -1768,7 +946,6 @@
       "turnover": 5.45,
       "changePercent": 9.98,
       "closePrice": 4.63,
->>>>>>> Stashed changes
       "ratio": 0.06,
       "grade": "C",
       "isLateSeal": false
@@ -1780,13 +957,8 @@
       "consecutiveDays": 1,
       "firstSealTime": "11:29:06",
       "bombedCount": 0,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.5,
-      "turnover": 8.04,
-=======
       "sealedAmount": 0.45,
       "turnover": 8.05,
->>>>>>> Stashed changes
       "changePercent": 10.0,
       "closePrice": 40.92,
       "ratio": 0.06,
@@ -1794,63 +966,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "601949",
-      "name": "中国出版",
-      "industry": "出版",
-      "consecutiveDays": 2,
-      "firstSealTime": "13:56:05",
-      "bombedCount": 0,
-      "sealedAmount": 0.51,
-      "turnover": 7.93,
-      "changePercent": 9.95,
-      "closePrice": 6.41,
-      "ratio": 0.06,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "001330",
-      "name": "博纳影业",
-      "industry": "影视院线",
-      "consecutiveDays": 1,
-      "firstSealTime": "14:03:24",
-      "bombedCount": 0,
-      "sealedAmount": 0.82,
-      "turnover": 13.48,
-      "changePercent": 10.05,
-      "closePrice": 6.35,
-      "ratio": 0.06,
-      "grade": "C",
-      "isLateSeal": true
-    },
-    {
-      "code": "001389",
-      "name": "广合科技",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "14:13:39",
-      "bombedCount": 0,
-      "sealedAmount": 0.88,
-      "turnover": 14.14,
-      "changePercent": 10.0,
-      "closePrice": 167.88,
-      "ratio": 0.06,
-      "grade": "C",
-      "isLateSeal": true
-    },
-    {
-      "code": "603228",
-      "name": "景旺电子",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:58:13",
-      "bombedCount": 6,
-      "sealedAmount": 2.73,
-      "turnover": 52.61,
-      "changePercent": 10.0,
-      "closePrice": 105.97,
-=======
       "code": "603124",
       "name": "江南新材",
       "industry": "金属新材",
@@ -1861,24 +976,11 @@
       "turnover": 12.67,
       "changePercent": 10.0,
       "closePrice": 131.13,
->>>>>>> Stashed changes
       "ratio": 0.05,
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603186",
-      "name": "华正新材",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:15:34",
-      "bombedCount": 4,
-      "sealedAmount": 2.01,
-      "turnover": 37.05,
-      "changePercent": 10.0,
-      "closePrice": 186.09,
-=======
       "code": "001267",
       "name": "汇绿生态",
       "industry": "通信设备",
@@ -1889,7 +991,6 @@
       "turnover": 15.45,
       "changePercent": 10.0,
       "closePrice": 38.71,
->>>>>>> Stashed changes
       "ratio": 0.05,
       "grade": "C",
       "isLateSeal": false
@@ -1900,14 +1001,9 @@
       "industry": "光学光电",
       "consecutiveDays": 1,
       "firstSealTime": "10:42:06",
-      "bombedCount": 5,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.16,
-      "turnover": 2.9,
-=======
+      "bombedCount": 7,
       "sealedAmount": 0.14,
       "turnover": 2.98,
->>>>>>> Stashed changes
       "changePercent": 10.0,
       "closePrice": 23.77,
       "ratio": 0.05,
@@ -1915,18 +1011,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "600785",
-      "name": "新华百货",
-      "industry": "一般零售",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:55:12",
-      "bombedCount": 6,
-      "sealedAmount": 0.43,
-      "turnover": 9.04,
-      "changePercent": 10.0,
-      "closePrice": 12.54,
-=======
       "code": "601949",
       "name": "中国出版",
       "industry": "出版",
@@ -1937,26 +1021,11 @@
       "turnover": 7.95,
       "changePercent": 9.95,
       "closePrice": 6.41,
->>>>>>> Stashed changes
       "ratio": 0.05,
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002975",
-      "name": "博杰股份",
-      "industry": "自动化设",
-      "consecutiveDays": 1,
-      "firstSealTime": "11:20:15",
-      "bombedCount": 1,
-      "sealedAmount": 0.8,
-      "turnover": 16.74,
-      "changePercent": 10.0,
-      "closePrice": 104.53,
-      "ratio": 0.05,
-      "grade": "C",
-=======
       "code": "001330",
       "name": "博纳影业",
       "industry": "影视院线",
@@ -2014,7 +1083,6 @@
       "closePrice": 2.3,
       "ratio": 0.04,
       "grade": "C",
->>>>>>> Stashed changes
       "isLateSeal": false
     },
     {
@@ -2024,13 +1092,6 @@
       "consecutiveDays": 1,
       "firstSealTime": "13:33:48",
       "bombedCount": 2,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.37,
-      "turnover": 7.98,
-      "changePercent": 10.01,
-      "closePrice": 68.05,
-      "ratio": 0.05,
-=======
       "sealedAmount": 0.3,
       "turnover": 8.02,
       "changePercent": 10.01,
@@ -2066,7 +1127,6 @@
       "changePercent": 10.0,
       "closePrice": 105.97,
       "ratio": 0.03,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
@@ -2077,84 +1137,23 @@
       "consecutiveDays": 1,
       "firstSealTime": "10:18:48",
       "bombedCount": 6,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.4,
-      "turnover": 9.75,
-      "changePercent": 10.05,
-      "closePrice": 11.94,
-      "ratio": 0.04,
-=======
       "sealedAmount": 0.33,
       "turnover": 9.76,
       "changePercent": 10.05,
       "closePrice": 11.94,
       "ratio": 0.03,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002281",
-      "name": "光迅科技",
-      "industry": "通信设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:18:39",
-      "bombedCount": 1,
-      "sealedAmount": 3.38,
-      "turnover": 76.45,
-      "changePercent": 10.0,
-      "closePrice": 184.47,
-      "ratio": 0.04,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "688813",
-      "name": "泰金新能",
-      "industry": "专用设备",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:42:17",
-      "bombedCount": 10,
-      "sealedAmount": 0.39,
-      "turnover": 10.08,
-      "changePercent": 20.0,
-      "closePrice": 122.77,
-      "ratio": 0.04,
-      "grade": "C",
-      "isLateSeal": false
-    },
-    {
-      "code": "600371",
-      "name": "万向德农",
-      "industry": "种植业",
-      "consecutiveDays": 1,
-      "firstSealTime": "14:37:54",
-      "bombedCount": 0,
-      "sealedAmount": 0.5,
-      "turnover": 12.15,
-      "changePercent": 10.0,
-      "closePrice": 15.07,
-      "ratio": 0.04,
-      "grade": "C",
-      "isLateSeal": true
-    },
-    {
-=======
->>>>>>> Stashed changes
       "code": "002515",
       "name": "金字火腿",
       "industry": "食品加工",
       "consecutiveDays": 1,
       "firstSealTime": "10:26:24",
       "bombedCount": 5,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.48,
-      "turnover": 13.83,
-=======
       "sealedAmount": 0.42,
       "turnover": 13.86,
->>>>>>> Stashed changes
       "changePercent": 9.97,
       "closePrice": 8.16,
       "ratio": 0.03,
@@ -2168,11 +1167,7 @@
       "consecutiveDays": 1,
       "firstSealTime": "10:37:15",
       "bombedCount": 2,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.11,
-=======
       "sealedAmount": 0.1,
->>>>>>> Stashed changes
       "turnover": 3.29,
       "changePercent": 29.97,
       "closePrice": 23.59,
@@ -2181,18 +1176,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002484",
-      "name": "江海股份",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:00:09",
-      "bombedCount": 3,
-      "sealedAmount": 1.13,
-      "turnover": 36.51,
-      "changePercent": 10.0,
-      "closePrice": 61.95,
-=======
       "code": "600785",
       "name": "新华百货",
       "industry": "一般零售",
@@ -2203,24 +1186,11 @@
       "turnover": 9.06,
       "changePercent": 10.0,
       "closePrice": 12.54,
->>>>>>> Stashed changes
       "ratio": 0.03,
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002815",
-      "name": "崇达技术",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:04:15",
-      "bombedCount": 2,
-      "sealedAmount": 0.34,
-      "turnover": 12.94,
-      "changePercent": 10.03,
-      "closePrice": 16.01,
-=======
       "code": "002975",
       "name": "博杰股份",
       "industry": "自动化设",
@@ -2246,7 +1216,6 @@
       "turnover": 76.91,
       "changePercent": 10.0,
       "closePrice": 184.47,
->>>>>>> Stashed changes
       "ratio": 0.03,
       "grade": "C",
       "isLateSeal": false
@@ -2258,13 +1227,8 @@
       "consecutiveDays": 1,
       "firstSealTime": "13:18:45",
       "bombedCount": 9,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.59,
-      "turnover": 19.98,
-=======
       "sealedAmount": 0.7,
       "turnover": 20.09,
->>>>>>> Stashed changes
       "changePercent": 10.0,
       "closePrice": 48.94,
       "ratio": 0.03,
@@ -2272,18 +1236,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "002463",
-      "name": "沪电股份",
-      "industry": "元件",
-      "consecutiveDays": 1,
-      "firstSealTime": "13:31:57",
-      "bombedCount": 7,
-      "sealedAmount": 3.26,
-      "turnover": 95.64,
-      "changePercent": 10.0,
-      "closePrice": 122.65,
-=======
       "code": "600345",
       "name": "长江通信",
       "industry": "通信设备",
@@ -2294,25 +1246,11 @@
       "turnover": 7.61,
       "changePercent": 10.0,
       "closePrice": 51.25,
->>>>>>> Stashed changes
       "ratio": 0.03,
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "000813",
-      "name": "德展健康",
-      "industry": "化学制药",
-      "consecutiveDays": 1,
-      "firstSealTime": "09:44:30",
-      "bombedCount": 3,
-      "sealedAmount": 0.2,
-      "turnover": 7.94,
-      "changePercent": 9.91,
-      "closePrice": 3.77,
-      "ratio": 0.02,
-=======
       "code": "688813",
       "name": "泰金新能",
       "industry": "专用设备",
@@ -2324,13 +1262,10 @@
       "changePercent": 20.0,
       "closePrice": 122.77,
       "ratio": 0.03,
->>>>>>> Stashed changes
       "grade": "C",
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-=======
       "code": "600371",
       "name": "万向德农",
       "industry": "种植业",
@@ -2346,20 +1281,14 @@
       "isLateSeal": true
     },
     {
->>>>>>> Stashed changes
       "code": "688001",
       "name": "华兴源创",
       "industry": "通用设备",
       "consecutiveDays": 1,
       "firstSealTime": "09:52:42",
       "bombedCount": 6,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.24,
-      "turnover": 10.9,
-=======
       "sealedAmount": 0.2,
       "turnover": 10.92,
->>>>>>> Stashed changes
       "changePercent": 20.0,
       "closePrice": 58.26,
       "ratio": 0.02,
@@ -2373,13 +1302,8 @@
       "consecutiveDays": 1,
       "firstSealTime": "10:54:11",
       "bombedCount": 13,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.28,
-      "turnover": 11.93,
-=======
       "sealedAmount": 0.19,
       "turnover": 11.95,
->>>>>>> Stashed changes
       "changePercent": 9.98,
       "closePrice": 6.72,
       "ratio": 0.02,
@@ -2387,8 +1311,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-=======
       "code": "603936",
       "name": "博敏电子",
       "industry": "元件",
@@ -2434,20 +1356,14 @@
       "isLateSeal": false
     },
     {
->>>>>>> Stashed changes
       "code": "002988",
       "name": "豪美新材",
       "industry": "工业金属",
       "consecutiveDays": 1,
       "firstSealTime": "13:29:45",
       "bombedCount": 3,
-<<<<<<< Updated upstream
-      "sealedAmount": 0.06,
-      "turnover": 4.28,
-=======
       "sealedAmount": 0.04,
       "turnover": 4.31,
->>>>>>> Stashed changes
       "changePercent": 10.02,
       "closePrice": 28.77,
       "ratio": 0.01,
@@ -2455,18 +1371,6 @@
       "isLateSeal": false
     },
     {
-<<<<<<< Updated upstream
-      "code": "603124",
-      "name": "江南新材",
-      "industry": "金属新材",
-      "consecutiveDays": 1,
-      "firstSealTime": "10:15:46",
-      "bombedCount": 5,
-      "sealedAmount": 0.05,
-      "turnover": 12.47,
-      "changePercent": 10.0,
-      "closePrice": 131.13,
-=======
       "code": "002815",
       "name": "崇达技术",
       "industry": "元件",
@@ -2477,7 +1381,6 @@
       "turnover": 13.34,
       "changePercent": 10.03,
       "closePrice": 16.01,
->>>>>>> Stashed changes
       "ratio": 0.0,
       "grade": "C",
       "isLateSeal": false
@@ -2488,15 +1391,9 @@
       "industry": "饲料",
       "consecutiveDays": 1,
       "firstSealTime": "13:25:15",
-<<<<<<< Updated upstream
-      "bombedCount": 18,
-      "sealedAmount": 0.0,
-      "turnover": 3.71,
-=======
-      "bombedCount": 19,
+      "bombedCount": 21,
       "sealedAmount": 0.01,
       "turnover": 3.76,
->>>>>>> Stashed changes
       "changePercent": 9.97,
       "closePrice": 13.12,
       "ratio": 0.0,
@@ -2515,22 +1412,14 @@
       "netBuy": 0.0,
       "netInflow": 0.0,
       "index": "上证指数",
-<<<<<<< Updated upstream
-      "indexChange": 0.08
-=======
       "indexChange": 0.07
->>>>>>> Stashed changes
     },
     {
       "type": "深港通",
       "netBuy": 0.0,
       "netInflow": 0.0,
       "index": "深证成指",
-<<<<<<< Updated upstream
-      "indexChange": 1.88
-=======
       "indexChange": 1.91
->>>>>>> Stashed changes
     }
   ],
   "northTotal": 0.0
