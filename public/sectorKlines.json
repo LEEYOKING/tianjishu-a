@@ -493,7 +493,11 @@
         "close": 58.04,
         "high": 58.04,
         "low": 53.38,
+<<<<<<< Updated upstream
         "amount": 135412.0
+=======
+        "amount": 136014.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -987,7 +991,11 @@
         "close": 11.55,
         "high": 11.68,
         "low": 10.42,
+<<<<<<< Updated upstream
         "amount": 448812.0
+=======
+        "amount": 470480.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -1478,10 +1486,17 @@
       {
         "date": "2026-09-07",
         "open": 88.78,
+<<<<<<< Updated upstream
         "close": 91.91,
         "high": 92.55,
         "low": 88.2,
         "amount": 504757.0
+=======
+        "close": 92.0,
+        "high": 92.55,
+        "low": 88.2,
+        "amount": 525302.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -1972,10 +1987,17 @@
       {
         "date": "2026-09-07",
         "open": 91.0,
+<<<<<<< Updated upstream
         "close": 104.6,
         "high": 106.68,
         "low": 89.5,
         "amount": 434538.0
+=======
+        "close": 104.36,
+        "high": 106.68,
+        "low": 89.5,
+        "amount": 458816.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -2466,10 +2488,17 @@
       {
         "date": "2026-09-07",
         "open": 1.62,
+<<<<<<< Updated upstream
         "close": 1.66,
         "high": 1.74,
         "low": 1.6,
         "amount": 1970898.0
+=======
+        "close": 1.67,
+        "high": 1.74,
+        "low": 1.6,
+        "amount": 2044036.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -2963,7 +2992,11 @@
         "close": 11.94,
         "high": 11.94,
         "low": 11.0,
+<<<<<<< Updated upstream
         "amount": 830157.0
+=======
+        "amount": 831759.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -3458,10 +3491,17 @@
       {
         "date": "2026-09-07",
         "open": 44.52,
+<<<<<<< Updated upstream
         "close": 46.62,
         "high": 47.18,
         "low": 44.52,
         "amount": 43707.0
+=======
+        "close": 46.66,
+        "high": 47.18,
+        "low": 44.52,
+        "amount": 44865.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -3955,7 +3995,11 @@
         "close": 3.91,
         "high": 3.91,
         "low": 3.49,
+<<<<<<< Updated upstream
         "amount": 4921614.0
+=======
+        "amount": 4927476.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -4446,10 +4490,17 @@
       {
         "date": "2026-09-07",
         "open": 3.36,
+<<<<<<< Updated upstream
         "close": 3.77,
         "high": 3.77,
         "low": 3.36,
         "amount": 2156075.0
+=======
+        "close": 3.75,
+        "high": 3.77,
+        "low": 3.36,
+        "amount": 2223760.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -4940,10 +4991,17 @@
       {
         "date": "2026-09-07",
         "open": 23.62,
+<<<<<<< Updated upstream
         "close": 24.38,
         "high": 24.72,
         "low": 21.62,
         "amount": 376484.0
+=======
+        "close": 24.41,
+        "high": 24.72,
+        "low": 21.62,
+        "amount": 385205.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -5434,10 +5492,17 @@
       {
         "date": "2026-09-07",
         "open": 15.61,
+<<<<<<< Updated upstream
         "close": 16.34,
         "high": 16.79,
         "low": 15.57,
         "amount": 137697.0
+=======
+        "close": 16.35,
+        "high": 16.79,
+        "low": 15.57,
+        "amount": 143895.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -5940,10 +6005,17 @@
       {
         "date": "2026-09-07",
         "open": 19.47,
+<<<<<<< Updated upstream
         "close": 19.49,
         "high": 19.55,
         "low": 19.27,
         "amount": 226964.0
+=======
+        "close": 19.4,
+        "high": 19.55,
+        "low": 19.27,
+        "amount": 233501.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -6434,10 +6506,17 @@
       {
         "date": "2026-09-07",
         "open": 15.45,
+<<<<<<< Updated upstream
         "close": 15.63,
         "high": 16.5,
         "low": 15.41,
         "amount": 439191.0
+=======
+        "close": 15.64,
+        "high": 16.5,
+        "low": 15.41,
+        "amount": 457638.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -6936,10 +7015,17 @@
       {
         "date": "2026-09-07",
         "open": 86.67,
+<<<<<<< Updated upstream
         "close": 99.37,
         "high": 101.15,
         "low": 86.0,
         "amount": 538125.0
+=======
+        "close": 99.48,
+        "high": 101.15,
+        "low": 86.0,
+        "amount": 553849.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -7433,7 +7519,11 @@
         "close": 58.26,
         "high": 58.26,
         "low": 49.52,
+<<<<<<< Updated upstream
         "amount": 19279241.0
+=======
+        "amount": 19315868.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -7924,10 +8014,17 @@
       {
         "date": "2026-09-07",
         "open": 64.55,
+<<<<<<< Updated upstream
         "close": 69.57,
         "high": 70.7,
         "low": 64.07,
         "amount": 71690.0
+=======
+        "close": 69.59,
+        "high": 70.7,
+        "low": 64.07,
+        "amount": 73617.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -8425,7 +8522,11 @@
         "close": 13.19,
         "high": 13.34,
         "low": 12.7,
+<<<<<<< Updated upstream
         "amount": 186548.0
+=======
+        "amount": 195706.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -8916,10 +9017,17 @@
       {
         "date": "2026-09-07",
         "open": 4.03,
+<<<<<<< Updated upstream
         "close": 4.09,
         "high": 4.09,
         "low": 3.95,
         "amount": 378241.0
+=======
+        "close": 4.06,
+        "high": 4.09,
+        "low": 3.95,
+        "amount": 411957.0
+>>>>>>> Stashed changes
       }
     ]
   },
@@ -9417,7 +9525,11 @@
         "close": 5.59,
         "high": 5.59,
         "low": 5.08,
+<<<<<<< Updated upstream
         "amount": 416813.0
+=======
+        "amount": 420103.0
+>>>>>>> Stashed changes
       }
     ]
   }
