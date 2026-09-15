@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-09-15 15:03:54",
+    "generatedAt": "2026-09-15 15:57:05",
     "tradeDate": "20260915",
     "tradeDateSlash": "26/09/15",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
@@ -14010,7 +14010,7 @@
   "marketOverview": {
     "tradeDate": "20260915",
     "tradeDateSlash": "26/09/15",
-    "generatedAt": "2026-09-15 15:03",
+    "generatedAt": "2026-09-15 15:57",
     "marketTurnover": 16127.17,
     "turnoverDiff": -164.58,
     "marketTemperature": {
@@ -14019,7 +14019,7 @@
       "statusDesc": "无明显主线,轮动快",
       "details": {
         "limit_up": 32,
-        "limit_down": 25,
+        "limit_down": 27,
         "max_boards": 5,
         "broken_rate": "43%",
         "broken_count": 24,
@@ -14027,7 +14027,7 @@
         "yest_perf_value": 0.67,
         "promote_rate": "7%",
         "promote_rate_value": 0.06818181818181818,
-        "limit_ratio": "1.3"
+        "limit_ratio": "1.2"
       },
       "dimension_scores": {
         "涨跌停对比": 0,
@@ -14059,7 +14059,7 @@
     "upPercent": 19.45,
     "stockTotal": 5420,
     "limitUpCount": 32,
-    "limitDownCount": 25,
+    "limitDownCount": 27,
     "brokenLimitCount": 24,
     "indices": [
       {
@@ -14960,7 +14960,7 @@
       "date": "2026-09-15",
       "volume": 16127.17,
       "limitUp": 32,
-      "limitDown": 25,
+      "limitDown": 27,
       "up": 1054,
       "down": 4102
     }
@@ -15040,7 +15040,7 @@
       "changePercent": 9.99,
       "turnover": 7.45,
       "turnoverRate": 13.08,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.06,
       "bombedCount": 38,
       "firstSealTime": "09:37:05"
     },
@@ -15068,7 +15068,7 @@
       "changePercent": 10.01,
       "turnover": 3.57,
       "turnoverRate": 9.16,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.31,
       "bombedCount": 0,
       "firstSealTime": "09:53:28"
     },
@@ -15082,7 +15082,7 @@
       "changePercent": 19.98,
       "turnover": 3.42,
       "turnoverRate": 15.7,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.36,
       "bombedCount": 2,
       "firstSealTime": "09:31:00"
     },
@@ -15278,7 +15278,7 @@
       "changePercent": 9.97,
       "turnover": 23.12,
       "turnoverRate": 11.19,
-      "sealedAmount": 0.06,
+      "sealedAmount": 0.53,
       "bombedCount": 1,
       "firstSealTime": "09:47:14"
     },
@@ -15292,7 +15292,7 @@
       "changePercent": 9.97,
       "turnover": 11.79,
       "turnoverRate": 10.24,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.11,
       "bombedCount": 11,
       "firstSealTime": "11:12:34"
     },
@@ -15306,7 +15306,7 @@
       "changePercent": 9.98,
       "turnover": 3.92,
       "turnoverRate": 8.08,
-      "sealedAmount": 0.09,
+      "sealedAmount": 0.56,
       "bombedCount": 1,
       "firstSealTime": "10:12:04"
     },
@@ -15320,7 +15320,7 @@
       "changePercent": 10.0,
       "turnover": 5.07,
       "turnoverRate": 4.22,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.57,
       "bombedCount": 9,
       "firstSealTime": "09:44:04"
     },
@@ -15334,7 +15334,7 @@
       "changePercent": 10.0,
       "turnover": 6.86,
       "turnoverRate": 37.34,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.29,
       "bombedCount": 5,
       "firstSealTime": "11:00:07"
     },
@@ -15348,7 +15348,7 @@
       "changePercent": 10.0,
       "turnover": 24.84,
       "turnoverRate": 6.35,
-      "sealedAmount": 0.24,
+      "sealedAmount": 2.92,
       "bombedCount": 1,
       "firstSealTime": "09:31:07"
     },
@@ -15362,7 +15362,7 @@
       "changePercent": 10.0,
       "turnover": 2.03,
       "turnoverRate": 2.95,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.79,
       "bombedCount": 0,
       "firstSealTime": "09:33:27"
     },
@@ -15376,7 +15376,7 @@
       "changePercent": 10.01,
       "turnover": 1.44,
       "turnoverRate": 11.17,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.2,
       "bombedCount": 2,
       "firstSealTime": "11:04:17"
     },
@@ -15390,7 +15390,7 @@
       "changePercent": 9.99,
       "turnover": 1.54,
       "turnoverRate": 4.73,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.24,
       "bombedCount": 2,
       "firstSealTime": "11:09:46"
     },
@@ -15404,7 +15404,7 @@
       "changePercent": 10.01,
       "turnover": 4.47,
       "turnoverRate": 6.46,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.31,
       "bombedCount": 1,
       "firstSealTime": "09:53:11"
     },
@@ -15418,7 +15418,7 @@
       "changePercent": 10.0,
       "turnover": 6.84,
       "turnoverRate": 13.91,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.08,
       "bombedCount": 5,
       "firstSealTime": "10:49:24"
     },
@@ -15432,7 +15432,7 @@
       "changePercent": 9.99,
       "turnover": 4.74,
       "turnoverRate": 3.51,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.08,
       "bombedCount": 1,
       "firstSealTime": "13:10:18"
     }
@@ -15630,7 +15630,7 @@
       "changePercent": 9.97,
       "turnover": 23.12,
       "turnoverRate": 11.19,
-      "sealedAmount": 0.06,
+      "sealedAmount": 0.53,
       "bombedCount": 1,
       "firstSealTime": "09:47:14"
     },
@@ -15644,7 +15644,7 @@
       "changePercent": 9.97,
       "turnover": 11.79,
       "turnoverRate": 10.24,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.11,
       "bombedCount": 11,
       "firstSealTime": "11:12:34"
     },
@@ -15658,7 +15658,7 @@
       "changePercent": 9.98,
       "turnover": 3.92,
       "turnoverRate": 8.08,
-      "sealedAmount": 0.09,
+      "sealedAmount": 0.56,
       "bombedCount": 1,
       "firstSealTime": "10:12:04"
     },
@@ -15672,7 +15672,7 @@
       "changePercent": 10.0,
       "turnover": 5.07,
       "turnoverRate": 4.22,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.57,
       "bombedCount": 9,
       "firstSealTime": "09:44:04"
     },
@@ -15686,7 +15686,7 @@
       "changePercent": 10.0,
       "turnover": 6.86,
       "turnoverRate": 37.34,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.29,
       "bombedCount": 5,
       "firstSealTime": "11:00:07"
     },
@@ -15700,7 +15700,7 @@
       "changePercent": 10.0,
       "turnover": 24.84,
       "turnoverRate": 6.35,
-      "sealedAmount": 0.24,
+      "sealedAmount": 2.92,
       "bombedCount": 1,
       "firstSealTime": "09:31:07"
     },
@@ -15714,7 +15714,7 @@
       "changePercent": 10.0,
       "turnover": 2.03,
       "turnoverRate": 2.95,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.79,
       "bombedCount": 0,
       "firstSealTime": "09:33:27"
     },
@@ -15728,7 +15728,7 @@
       "changePercent": 10.01,
       "turnover": 1.44,
       "turnoverRate": 11.17,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.2,
       "bombedCount": 2,
       "firstSealTime": "11:04:17"
     },
@@ -15742,7 +15742,7 @@
       "changePercent": 9.99,
       "turnover": 1.54,
       "turnoverRate": 4.73,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.24,
       "bombedCount": 2,
       "firstSealTime": "11:09:46"
     },
@@ -15756,7 +15756,7 @@
       "changePercent": 10.01,
       "turnover": 4.47,
       "turnoverRate": 6.46,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.31,
       "bombedCount": 1,
       "firstSealTime": "09:53:11"
     },
@@ -15770,7 +15770,7 @@
       "changePercent": 10.0,
       "turnover": 6.84,
       "turnoverRate": 13.91,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.08,
       "bombedCount": 5,
       "firstSealTime": "10:49:24"
     },
@@ -15784,7 +15784,7 @@
       "changePercent": 9.99,
       "turnover": 4.74,
       "turnoverRate": 3.51,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.08,
       "bombedCount": 1,
       "firstSealTime": "13:10:18"
     }
@@ -15800,7 +15800,7 @@
     },
     {
       "level": "1个跌停",
-      "count": 17
+      "count": 19
     }
   ],
   "limitDownStocks": [
@@ -15834,7 +15834,7 @@
       "changePercent": -10.03,
       "turnover": 8.44,
       "turnoverRate": 17.74,
-      "sealedAmount": 0.08,
+      "sealedAmount": 1.38,
       "consecutiveDownDays": 2
     },
     {
@@ -15845,7 +15845,7 @@
       "changePercent": -10.0,
       "turnover": 7.41,
       "turnoverRate": 10.67,
-      "sealedAmount": 0.06,
+      "sealedAmount": 0.7,
       "consecutiveDownDays": 2
     },
     {
@@ -15867,7 +15867,7 @@
       "changePercent": -9.94,
       "turnover": 2.25,
       "turnoverRate": 7.5,
-      "sealedAmount": 0.2,
+      "sealedAmount": 2.02,
       "consecutiveDownDays": 2
     },
     {
@@ -15878,7 +15878,7 @@
       "changePercent": -9.95,
       "turnover": 1.93,
       "turnoverRate": 6.53,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.97,
       "consecutiveDownDays": 2
     },
     {
@@ -15900,7 +15900,7 @@
       "changePercent": -10.02,
       "turnover": 63.44,
       "turnoverRate": 12.49,
-      "sealedAmount": 0.23,
+      "sealedAmount": 3.48,
       "consecutiveDownDays": 1
     },
     {
@@ -15911,7 +15911,7 @@
       "changePercent": -10.02,
       "turnover": 20.78,
       "turnoverRate": 24.24,
-      "sealedAmount": 0.27,
+      "sealedAmount": 4.47,
       "consecutiveDownDays": 1
     },
     {
@@ -15922,7 +15922,7 @@
       "changePercent": -10.01,
       "turnover": 8.76,
       "turnoverRate": 7.92,
-      "sealedAmount": 0.25,
+      "sealedAmount": 3.31,
       "consecutiveDownDays": 1
     },
     {
@@ -15955,7 +15955,7 @@
       "changePercent": -10.0,
       "turnover": 4.53,
       "turnoverRate": 7.67,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.05,
       "consecutiveDownDays": 1
     },
     {
@@ -15966,7 +15966,7 @@
       "changePercent": -10.02,
       "turnover": 4.08,
       "turnoverRate": 9.56,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.94,
       "consecutiveDownDays": 1
     },
     {
@@ -15988,7 +15988,7 @@
       "changePercent": -9.85,
       "turnover": 3.25,
       "turnoverRate": 9.55,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.15,
       "consecutiveDownDays": 1
     },
     {
@@ -16003,6 +16003,28 @@
       "consecutiveDownDays": 1
     },
     {
+      "code": "603983",
+      "name": "丸美生物",
+      "industry": "化妆品",
+      "closePrice": 28.31,
+      "changePercent": -9.98,
+      "turnover": 2.53,
+      "turnoverRate": 2.19,
+      "sealedAmount": 0.06,
+      "consecutiveDownDays": 1
+    },
+    {
+      "code": "603344",
+      "name": "星德胜",
+      "industry": "电机Ⅱ",
+      "closePrice": 22.79,
+      "changePercent": -9.99,
+      "turnover": 2.46,
+      "turnoverRate": 19.01,
+      "sealedAmount": 0.04,
+      "consecutiveDownDays": 1
+    },
+    {
       "code": "605188",
       "name": "国光连锁",
       "industry": "一般零售",
@@ -16010,7 +16032,7 @@
       "changePercent": -10.02,
       "turnover": 2.29,
       "turnoverRate": 3.67,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.22,
       "consecutiveDownDays": 1
     },
     {
@@ -16054,7 +16076,7 @@
       "changePercent": -9.92,
       "turnover": 1.86,
       "turnoverRate": 1.96,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.8,
       "consecutiveDownDays": 1
     },
     {
@@ -16065,7 +16087,7 @@
       "changePercent": -10.01,
       "turnover": 1.49,
       "turnoverRate": 3.42,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.39,
       "consecutiveDownDays": 1
     },
     {
@@ -16076,7 +16098,7 @@
       "changePercent": -9.99,
       "turnover": 1.06,
       "turnoverRate": 4.0,
-      "sealedAmount": 0.02,
+      "sealedAmount": 1.09,
       "consecutiveDownDays": 1
     }
   ],
