@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-09-21 15:12:36",
+    "generatedAt": "2026-09-21 15:30:53",
     "tradeDate": "20260921",
     "tradeDateSlash": "26/09/21",
     "dataSource": "akshare (新浪/腾讯/东方财富)",
@@ -14010,7 +14010,7 @@
   "marketOverview": {
     "tradeDate": "20260921",
     "tradeDateSlash": "26/09/21",
-    "generatedAt": "2026-09-21 15:12",
+    "generatedAt": "2026-09-21 15:30",
     "marketTurnover": 20315.13,
     "turnoverDiff": -455.87,
     "marketTemperature": {
@@ -15026,7 +15026,7 @@
       "changePercent": 10.01,
       "turnover": 5.57,
       "turnoverRate": 10.63,
-      "sealedAmount": 0.09,
+      "sealedAmount": 0.86,
       "bombedCount": 3,
       "firstSealTime": "09:25:02"
     },
@@ -15068,7 +15068,7 @@
       "changePercent": 9.99,
       "turnover": 27.56,
       "turnoverRate": 28.45,
-      "sealedAmount": 0.19,
+      "sealedAmount": 1.28,
       "bombedCount": 2,
       "firstSealTime": "10:24:45"
     },
@@ -15082,7 +15082,7 @@
       "changePercent": 9.89,
       "turnover": 9.38,
       "turnoverRate": 39.33,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.24,
       "bombedCount": 3,
       "firstSealTime": "09:31:00"
     },
@@ -15096,7 +15096,7 @@
       "changePercent": 10.01,
       "turnover": 4.18,
       "turnoverRate": 10.8,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.7,
       "bombedCount": 1,
       "firstSealTime": "09:25:01"
     },
@@ -15180,7 +15180,7 @@
       "changePercent": 10.34,
       "turnover": 8.47,
       "turnoverRate": 3.96,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.82,
       "bombedCount": 0,
       "firstSealTime": "11:18:05"
     },
@@ -15194,7 +15194,7 @@
       "changePercent": 10.02,
       "turnover": 10.94,
       "turnoverRate": 9.47,
-      "sealedAmount": 0.12,
+      "sealedAmount": 0.75,
       "bombedCount": 3,
       "firstSealTime": "09:36:54"
     },
@@ -15208,7 +15208,7 @@
       "changePercent": 10.01,
       "turnover": 2.96,
       "turnoverRate": 15.86,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.91,
       "bombedCount": 0,
       "firstSealTime": "09:30:03"
     },
@@ -15222,7 +15222,7 @@
       "changePercent": 9.99,
       "turnover": 11.79,
       "turnoverRate": 7.19,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.56,
       "bombedCount": 0,
       "firstSealTime": "11:18:48"
     },
@@ -15236,7 +15236,7 @@
       "changePercent": 10.0,
       "turnover": 6.43,
       "turnoverRate": 5.4,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.19,
       "bombedCount": 6,
       "firstSealTime": "09:30:21"
     },
@@ -15250,8 +15250,8 @@
       "changePercent": 9.97,
       "turnover": 3.23,
       "turnoverRate": 7.12,
-      "sealedAmount": 0.0,
-      "bombedCount": 5,
+      "sealedAmount": 0.07,
+      "bombedCount": 6,
       "firstSealTime": "09:36:56"
     },
     {
@@ -15264,7 +15264,7 @@
       "changePercent": 10.0,
       "turnover": 9.01,
       "turnoverRate": 13.71,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.19,
       "bombedCount": 10,
       "firstSealTime": "09:34:21"
     },
@@ -15278,7 +15278,7 @@
       "changePercent": 10.01,
       "turnover": 4.16,
       "turnoverRate": 8.69,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.51,
       "bombedCount": 2,
       "firstSealTime": "09:30:17"
     },
@@ -15866,7 +15866,7 @@
       "changePercent": 9.97,
       "turnover": 3.1,
       "turnoverRate": 8.72,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.27,
       "bombedCount": 4,
       "firstSealTime": "09:37:02"
     },
@@ -15880,7 +15880,7 @@
       "changePercent": 9.93,
       "turnover": 0.73,
       "turnoverRate": 2.9,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.73,
       "bombedCount": 0,
       "firstSealTime": "09:41:39"
     },
@@ -15894,7 +15894,7 @@
       "changePercent": 9.99,
       "turnover": 2.86,
       "turnoverRate": 2.08,
-      "sealedAmount": 0.04,
+      "sealedAmount": 1.86,
       "bombedCount": 1,
       "firstSealTime": "09:25:02"
     },
@@ -15908,7 +15908,7 @@
       "changePercent": 10.08,
       "turnover": 4.18,
       "turnoverRate": 5.85,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.31,
       "bombedCount": 5,
       "firstSealTime": "13:22:07"
     },
@@ -15922,7 +15922,7 @@
       "changePercent": 9.95,
       "turnover": 2.06,
       "turnoverRate": 5.49,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.1,
       "bombedCount": 0,
       "firstSealTime": "11:14:57"
     },
@@ -15936,7 +15936,7 @@
       "changePercent": 10.02,
       "turnover": 3.26,
       "turnoverRate": 4.11,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.23,
       "bombedCount": 0,
       "firstSealTime": "10:30:28"
     },
@@ -15950,7 +15950,7 @@
       "changePercent": 10.01,
       "turnover": 7.36,
       "turnoverRate": 12.06,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.19,
       "bombedCount": 27,
       "firstSealTime": "09:51:05"
     },
@@ -15964,7 +15964,7 @@
       "changePercent": 9.99,
       "turnover": 8.1,
       "turnoverRate": 18.59,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.55,
       "bombedCount": 2,
       "firstSealTime": "09:40:25"
     },
@@ -15978,7 +15978,7 @@
       "changePercent": 10.0,
       "turnover": 15.73,
       "turnoverRate": 7.7,
-      "sealedAmount": 0.3,
+      "sealedAmount": 3.65,
       "bombedCount": 1,
       "firstSealTime": "09:31:05"
     },
@@ -15992,7 +15992,7 @@
       "changePercent": 10.09,
       "turnover": 4.21,
       "turnoverRate": 13.59,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.06,
       "bombedCount": 8,
       "firstSealTime": "10:33:09"
     },
@@ -16006,7 +16006,7 @@
       "changePercent": 10.0,
       "turnover": 4.46,
       "turnoverRate": 8.3,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.64,
       "bombedCount": 0,
       "firstSealTime": "10:14:17"
     },
@@ -16020,7 +16020,7 @@
       "changePercent": 10.04,
       "turnover": 14.15,
       "turnoverRate": 29.02,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.82,
       "bombedCount": 0,
       "firstSealTime": "10:02:07"
     },
@@ -16034,7 +16034,7 @@
       "changePercent": 9.91,
       "turnover": 0.38,
       "turnoverRate": 0.7,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.99,
       "bombedCount": 0,
       "firstSealTime": "09:25:00"
     },
@@ -16048,7 +16048,7 @@
       "changePercent": 9.98,
       "turnover": 3.1,
       "turnoverRate": 8.87,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.51,
       "bombedCount": 0,
       "firstSealTime": "09:53:10"
     },
@@ -16062,7 +16062,7 @@
       "changePercent": 9.96,
       "turnover": 4.42,
       "turnoverRate": 5.19,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.2,
       "bombedCount": 3,
       "firstSealTime": "10:17:21"
     },
@@ -16076,7 +16076,7 @@
       "changePercent": 9.98,
       "turnover": 0.15,
       "turnoverRate": 0.24,
-      "sealedAmount": 1.08,
+      "sealedAmount": 24.89,
       "bombedCount": 0,
       "firstSealTime": "09:25:02"
     },
@@ -16090,7 +16090,7 @@
       "changePercent": 10.01,
       "turnover": 1.85,
       "turnoverRate": 3.68,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.17,
       "bombedCount": 0,
       "firstSealTime": "13:08:47"
     },
@@ -16104,7 +16104,7 @@
       "changePercent": 10.0,
       "turnover": 1.44,
       "turnoverRate": 2.2,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.07,
       "bombedCount": 1,
       "firstSealTime": "09:49:09"
     },
@@ -16118,7 +16118,7 @@
       "changePercent": 9.99,
       "turnover": 1.6,
       "turnoverRate": 6.28,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.04,
       "bombedCount": 0,
       "firstSealTime": "10:07:57"
     },
@@ -16132,7 +16132,7 @@
       "changePercent": 9.97,
       "turnover": 2.66,
       "turnoverRate": 5.78,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.27,
       "bombedCount": 5,
       "firstSealTime": "11:05:45"
     },
@@ -16146,7 +16146,7 @@
       "changePercent": 10.0,
       "turnover": 7.02,
       "turnoverRate": 18.16,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.79,
       "bombedCount": 2,
       "firstSealTime": "09:49:20"
     },
@@ -16160,7 +16160,7 @@
       "changePercent": 9.98,
       "turnover": 3.6,
       "turnoverRate": 3.06,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.4,
       "bombedCount": 0,
       "firstSealTime": "14:37:14"
     },
@@ -16174,7 +16174,7 @@
       "changePercent": 10.01,
       "turnover": 0.76,
       "turnoverRate": 2.48,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.04,
       "bombedCount": 0,
       "firstSealTime": "10:28:33"
     },
@@ -16188,7 +16188,7 @@
       "changePercent": 10.0,
       "turnover": 3.6,
       "turnoverRate": 7.48,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.16,
       "bombedCount": 0,
       "firstSealTime": "13:25:17"
     },
@@ -16202,7 +16202,7 @@
       "changePercent": 10.0,
       "turnover": 0.65,
       "turnoverRate": 1.96,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.25,
       "bombedCount": 0,
       "firstSealTime": "09:45:10"
     },
@@ -16216,7 +16216,7 @@
       "changePercent": 10.05,
       "turnover": 1.82,
       "turnoverRate": 5.97,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.07,
       "bombedCount": 6,
       "firstSealTime": "09:50:01"
     },
@@ -16230,7 +16230,7 @@
       "changePercent": 10.02,
       "turnover": 9.69,
       "turnoverRate": 8.94,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.08,
       "bombedCount": 5,
       "firstSealTime": "09:42:46"
     },
@@ -16244,7 +16244,7 @@
       "changePercent": 10.01,
       "turnover": 4.47,
       "turnoverRate": 25.37,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.41,
       "bombedCount": 2,
       "firstSealTime": "11:06:16"
     },
@@ -16258,7 +16258,7 @@
       "changePercent": 10.0,
       "turnover": 5.24,
       "turnoverRate": 5.67,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.31,
       "bombedCount": 1,
       "firstSealTime": "09:31:25"
     },
@@ -16272,7 +16272,7 @@
       "changePercent": 9.97,
       "turnover": 4.0,
       "turnoverRate": 9.62,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.08,
       "bombedCount": 3,
       "firstSealTime": "09:34:54"
     },
@@ -16286,7 +16286,7 @@
       "changePercent": 10.0,
       "turnover": 11.57,
       "turnoverRate": 3.97,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.59,
       "bombedCount": 2,
       "firstSealTime": "09:35:22"
     },
@@ -16300,7 +16300,7 @@
       "changePercent": 10.03,
       "turnover": 1.4,
       "turnoverRate": 3.81,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.45,
       "bombedCount": 0,
       "firstSealTime": "11:00:35"
     },
@@ -16314,7 +16314,7 @@
       "changePercent": 10.0,
       "turnover": 3.82,
       "turnoverRate": 9.7,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.23,
       "bombedCount": 7,
       "firstSealTime": "13:04:55"
     },
@@ -16328,7 +16328,7 @@
       "changePercent": 10.01,
       "turnover": 6.09,
       "turnoverRate": 3.55,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.5,
       "bombedCount": 0,
       "firstSealTime": "13:16:49"
     },
@@ -16342,7 +16342,7 @@
       "changePercent": 10.01,
       "turnover": 1.94,
       "turnoverRate": 4.94,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.18,
       "bombedCount": 0,
       "firstSealTime": "14:10:38"
     },
@@ -16356,7 +16356,7 @@
       "changePercent": 19.98,
       "turnover": 3.98,
       "turnoverRate": 11.48,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.12,
       "bombedCount": 7,
       "firstSealTime": "10:02:49"
     },
@@ -16370,7 +16370,7 @@
       "changePercent": 20.0,
       "turnover": 9.43,
       "turnoverRate": 6.57,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.02,
       "bombedCount": 15,
       "firstSealTime": "09:38:13"
     },
@@ -16384,7 +16384,7 @@
       "changePercent": 20.0,
       "turnover": 10.9,
       "turnoverRate": 13.97,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.14,
       "bombedCount": 14,
       "firstSealTime": "10:33:53"
     },
@@ -16398,7 +16398,7 @@
       "changePercent": 20.0,
       "turnover": 3.21,
       "turnoverRate": 4.3,
-      "sealedAmount": 0.1,
+      "sealedAmount": 0.6,
       "bombedCount": 1,
       "firstSealTime": "09:32:27"
     },
@@ -17016,7 +17016,7 @@
       "changePercent": 9.97,
       "turnover": 3.1,
       "turnoverRate": 8.72,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.27,
       "bombedCount": 4,
       "firstSealTime": "09:37:02"
     },
@@ -17030,7 +17030,7 @@
       "changePercent": 9.93,
       "turnover": 0.73,
       "turnoverRate": 2.9,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.73,
       "bombedCount": 0,
       "firstSealTime": "09:41:39"
     },
@@ -17044,7 +17044,7 @@
       "changePercent": 9.99,
       "turnover": 2.86,
       "turnoverRate": 2.08,
-      "sealedAmount": 0.04,
+      "sealedAmount": 1.86,
       "bombedCount": 1,
       "firstSealTime": "09:25:02"
     },
@@ -17058,7 +17058,7 @@
       "changePercent": 10.08,
       "turnover": 4.18,
       "turnoverRate": 5.85,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.31,
       "bombedCount": 5,
       "firstSealTime": "13:22:07"
     },
@@ -17072,7 +17072,7 @@
       "changePercent": 9.95,
       "turnover": 2.06,
       "turnoverRate": 5.49,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.1,
       "bombedCount": 0,
       "firstSealTime": "11:14:57"
     },
@@ -17086,7 +17086,7 @@
       "changePercent": 10.02,
       "turnover": 3.26,
       "turnoverRate": 4.11,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.23,
       "bombedCount": 0,
       "firstSealTime": "10:30:28"
     },
@@ -17100,7 +17100,7 @@
       "changePercent": 10.01,
       "turnover": 7.36,
       "turnoverRate": 12.06,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.19,
       "bombedCount": 27,
       "firstSealTime": "09:51:05"
     },
@@ -17114,7 +17114,7 @@
       "changePercent": 9.99,
       "turnover": 8.1,
       "turnoverRate": 18.59,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.55,
       "bombedCount": 2,
       "firstSealTime": "09:40:25"
     },
@@ -17128,7 +17128,7 @@
       "changePercent": 10.0,
       "turnover": 15.73,
       "turnoverRate": 7.7,
-      "sealedAmount": 0.3,
+      "sealedAmount": 3.65,
       "bombedCount": 1,
       "firstSealTime": "09:31:05"
     },
@@ -17142,7 +17142,7 @@
       "changePercent": 10.09,
       "turnover": 4.21,
       "turnoverRate": 13.59,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.06,
       "bombedCount": 8,
       "firstSealTime": "10:33:09"
     },
@@ -17156,7 +17156,7 @@
       "changePercent": 10.0,
       "turnover": 4.46,
       "turnoverRate": 8.3,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.64,
       "bombedCount": 0,
       "firstSealTime": "10:14:17"
     },
@@ -17170,7 +17170,7 @@
       "changePercent": 10.04,
       "turnover": 14.15,
       "turnoverRate": 29.02,
-      "sealedAmount": 0.05,
+      "sealedAmount": 0.82,
       "bombedCount": 0,
       "firstSealTime": "10:02:07"
     },
@@ -17184,7 +17184,7 @@
       "changePercent": 9.91,
       "turnover": 0.38,
       "turnoverRate": 0.7,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.99,
       "bombedCount": 0,
       "firstSealTime": "09:25:00"
     },
@@ -17198,7 +17198,7 @@
       "changePercent": 9.98,
       "turnover": 3.1,
       "turnoverRate": 8.87,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.51,
       "bombedCount": 0,
       "firstSealTime": "09:53:10"
     },
@@ -17212,7 +17212,7 @@
       "changePercent": 9.96,
       "turnover": 4.42,
       "turnoverRate": 5.19,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.2,
       "bombedCount": 3,
       "firstSealTime": "10:17:21"
     },
@@ -17226,7 +17226,7 @@
       "changePercent": 9.98,
       "turnover": 0.15,
       "turnoverRate": 0.24,
-      "sealedAmount": 1.08,
+      "sealedAmount": 24.89,
       "bombedCount": 0,
       "firstSealTime": "09:25:02"
     },
@@ -17240,7 +17240,7 @@
       "changePercent": 10.01,
       "turnover": 1.85,
       "turnoverRate": 3.68,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.17,
       "bombedCount": 0,
       "firstSealTime": "13:08:47"
     },
@@ -17254,7 +17254,7 @@
       "changePercent": 10.0,
       "turnover": 1.44,
       "turnoverRate": 2.2,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.07,
       "bombedCount": 1,
       "firstSealTime": "09:49:09"
     },
@@ -17268,7 +17268,7 @@
       "changePercent": 9.99,
       "turnover": 1.6,
       "turnoverRate": 6.28,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.04,
       "bombedCount": 0,
       "firstSealTime": "10:07:57"
     },
@@ -17282,7 +17282,7 @@
       "changePercent": 9.97,
       "turnover": 2.66,
       "turnoverRate": 5.78,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.27,
       "bombedCount": 5,
       "firstSealTime": "11:05:45"
     },
@@ -17296,7 +17296,7 @@
       "changePercent": 10.0,
       "turnover": 7.02,
       "turnoverRate": 18.16,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.79,
       "bombedCount": 2,
       "firstSealTime": "09:49:20"
     },
@@ -17310,7 +17310,7 @@
       "changePercent": 9.98,
       "turnover": 3.6,
       "turnoverRate": 3.06,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.4,
       "bombedCount": 0,
       "firstSealTime": "14:37:14"
     },
@@ -17324,7 +17324,7 @@
       "changePercent": 10.01,
       "turnover": 0.76,
       "turnoverRate": 2.48,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.04,
       "bombedCount": 0,
       "firstSealTime": "10:28:33"
     },
@@ -17338,7 +17338,7 @@
       "changePercent": 10.0,
       "turnover": 3.6,
       "turnoverRate": 7.48,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.16,
       "bombedCount": 0,
       "firstSealTime": "13:25:17"
     },
@@ -17352,7 +17352,7 @@
       "changePercent": 10.0,
       "turnover": 0.65,
       "turnoverRate": 1.96,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.25,
       "bombedCount": 0,
       "firstSealTime": "09:45:10"
     },
@@ -17366,7 +17366,7 @@
       "changePercent": 10.05,
       "turnover": 1.82,
       "turnoverRate": 5.97,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.07,
       "bombedCount": 6,
       "firstSealTime": "09:50:01"
     },
@@ -17380,7 +17380,7 @@
       "changePercent": 10.02,
       "turnover": 9.69,
       "turnoverRate": 8.94,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.08,
       "bombedCount": 5,
       "firstSealTime": "09:42:46"
     },
@@ -17394,7 +17394,7 @@
       "changePercent": 10.01,
       "turnover": 4.47,
       "turnoverRate": 25.37,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.41,
       "bombedCount": 2,
       "firstSealTime": "11:06:16"
     },
@@ -17408,7 +17408,7 @@
       "changePercent": 10.0,
       "turnover": 5.24,
       "turnoverRate": 5.67,
-      "sealedAmount": 0.03,
+      "sealedAmount": 0.31,
       "bombedCount": 1,
       "firstSealTime": "09:31:25"
     },
@@ -17422,7 +17422,7 @@
       "changePercent": 9.97,
       "turnover": 4.0,
       "turnoverRate": 9.62,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.08,
       "bombedCount": 3,
       "firstSealTime": "09:34:54"
     },
@@ -17436,7 +17436,7 @@
       "changePercent": 10.0,
       "turnover": 11.57,
       "turnoverRate": 3.97,
-      "sealedAmount": 0.04,
+      "sealedAmount": 0.59,
       "bombedCount": 2,
       "firstSealTime": "09:35:22"
     },
@@ -17450,7 +17450,7 @@
       "changePercent": 10.03,
       "turnover": 1.4,
       "turnoverRate": 3.81,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.45,
       "bombedCount": 0,
       "firstSealTime": "11:00:35"
     },
@@ -17464,7 +17464,7 @@
       "changePercent": 10.0,
       "turnover": 3.82,
       "turnoverRate": 9.7,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.23,
       "bombedCount": 7,
       "firstSealTime": "13:04:55"
     },
@@ -17478,7 +17478,7 @@
       "changePercent": 10.01,
       "turnover": 6.09,
       "turnoverRate": 3.55,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.5,
       "bombedCount": 0,
       "firstSealTime": "13:16:49"
     },
@@ -17492,7 +17492,7 @@
       "changePercent": 10.01,
       "turnover": 1.94,
       "turnoverRate": 4.94,
-      "sealedAmount": 0.0,
+      "sealedAmount": 0.18,
       "bombedCount": 0,
       "firstSealTime": "14:10:38"
     },
@@ -17506,7 +17506,7 @@
       "changePercent": 19.98,
       "turnover": 3.98,
       "turnoverRate": 11.48,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.12,
       "bombedCount": 7,
       "firstSealTime": "10:02:49"
     },
@@ -17520,7 +17520,7 @@
       "changePercent": 20.0,
       "turnover": 9.43,
       "turnoverRate": 6.57,
-      "sealedAmount": 0.01,
+      "sealedAmount": 0.02,
       "bombedCount": 15,
       "firstSealTime": "09:38:13"
     },
@@ -17534,7 +17534,7 @@
       "changePercent": 20.0,
       "turnover": 10.9,
       "turnoverRate": 13.97,
-      "sealedAmount": 0.02,
+      "sealedAmount": 0.14,
       "bombedCount": 14,
       "firstSealTime": "10:33:53"
     },
@@ -17548,7 +17548,7 @@
       "changePercent": 20.0,
       "turnover": 3.21,
       "turnoverRate": 4.3,
-      "sealedAmount": 0.1,
+      "sealedAmount": 0.6,
       "bombedCount": 1,
       "firstSealTime": "09:32:27"
     },
@@ -17596,7 +17596,7 @@
       "changePercent": -10.0,
       "turnover": 3.58,
       "turnoverRate": 1.69,
-      "sealedAmount": 0.0,
+      "sealedAmount": 1.21,
       "consecutiveDownDays": 1
     },
     {
