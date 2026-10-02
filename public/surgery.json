@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-10-02 19:57:36",
+    "generatedAt": "2026-10-02 22:04:26",
     "tradeDate": "20261002",
     "tradeDateSlash": "26/10/02"
   },
@@ -789,7 +789,7 @@
   "bigLoser": [],
   "loserChain": [],
   "loserIntersection": [],
-  "prevLimitUpCount": 0,
+  "prevLimitUpCount": 52,
   "systemWarning": false,
   "north": [
     {
