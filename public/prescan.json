@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-10-05 15:43:30",
+    "generatedAt": "2026-10-05 16:07:03",
     "tradeDate": "20261005"
   },
   "assets": [
@@ -14,15 +14,15 @@
     {
       "code": "GC",
       "name": "纽约黄金",
-      "price": 4187.27,
-      "changePct": 0.01,
+      "price": 4194.01,
+      "changePct": 0.02,
       "series": []
     },
     {
       "code": "CL",
       "name": "WTI 原油",
-      "price": 89.77,
-      "changePct": -1.64,
+      "price": 89.56,
+      "changePct": -1.9,
       "series": []
     },
     {
